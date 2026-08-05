@@ -1,0 +1,213 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://evidencegate.local/auditors/problem-evidence/schema/audit-finding.schema.json",
+  "title": "Problem Evidence Audit Result",
+  "description": "Output of the Problem Evidence Auditor: exactly one finding per requirement. Also the schema for files in expected/, whose review state is explicit. This schema owns STRUCTURE only.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "fixture",
+    "packetId",
+    "packetPurpose",
+    "reviewStatus",
+    "humanReviewed",
+    "syntheticEvidenceNotice",
+    "findings"
+  ],
+  "properties": {
+    "schemaVersion": { "type": "string", "const": "1.0.0" },
+    "fixture": {
+      "type": "string",
+      "description": "Filename of the packet these findings correspond to."
+    },
+    "packetId": { "type": "string" },
+    "packetPurpose": { "type": "string", "enum": ["fixture", "audit"] },
+    "reviewStatus": {
+      "type": "string",
+      "enum": ["provisional", "human-reviewed", "approved", "disputed"],
+      "description": "'provisional' means generated and not yet validated by a human; 'approved' means every benchmark finding has completed human policy review without unresolved finding-level disagreement. Approval does not empirically calibrate policy thresholds."
+    },
+    "humanReviewed": { "type": "boolean" },
+    "reviewedBy": { "type": ["string", "null"] },
+    "reviewedDate": { "type": ["string", "null"], "format": "date" },
+    "generatedBy": { "type": "string" },
+    "generatedDate": { "type": "string", "format": "date" },
+    "syntheticEvidenceNotice": {
+      "type": "string",
+      "description": "Mandatory banner whenever any evidence in the packet has origin 'synthetic'. States that no real-world validity is implied."
+    },
+    "findings": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "description": "Exactly one finding per requirement in checklist.json, in requirementId order, always emitted regardless of how empty the packet is.",
+      "items": { "$ref": "#/$defs/auditFinding" }
+    }
+  },
+  "$defs": {
+    "auditFinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "The core fields match the agreed AuditFinding interface. Additive Phase 0 extensions are: claimIds, subAssessments, offSegmentSignal, blockingReasons, policyGap, reviewNote.",
+      "required": [
+        "requirementId",
+        "requirement",
+        "status",
+        "evidenceIds",
+        "contradictoryEvidenceIds",
+        "missingEvidence",
+        "severity",
+        "rationale",
+        "impact",
+        "recommendation",
+        "verificationTest",
+        "requiresHumanDecision",
+        "claimIds",
+        "subAssessments"
+      ],
+      "properties": {
+        "requirementId": { "type": "string", "pattern": "^REQ-[0-9]+$" },
+        "requirement": { "type": "string" },
+        "status": {
+          "type": "string",
+          "enum": ["pass", "partial", "fail", "not-testable"]
+        },
+        "evidenceIds": {
+          "type": "array",
+          "description": "Records that SUPPORT the requirement. Every id must exist in the packet.",
+          "items": { "type": "string", "pattern": "^EV-[0-9]{3}$" }
+        },
+        "contradictoryEvidenceIds": {
+          "type": "array",
+          "description": "Records that CONFLICT with the claim. Never merged with evidenceIds and never netted off against them.",
+          "items": { "type": "string", "pattern": "^EV-[0-9]{3}$" }
+        },
+        "missingEvidence": {
+          "type": "array",
+          "description": "Named, obtainable artifacts that are absent. Must be concrete enough to go on a research plan. Absence recorded here is NEVER counted as contradiction.",
+          "items": { "type": "string" }
+        },
+        "severity": {
+          "type": ["string", "null"],
+          "enum": ["high", "medium", "low", "none", null],
+          "description": "Consequence of leaving THIS GAP unresolved. 'none' for passing findings."
+        },
+        "rationale": {
+          "type": "string",
+          "description": "Why this status, citing evidence ids or explicitly stating that evidence is absent."
+        },
+        "impact": {
+          "type": "string",
+          "description": "What proceeding without resolving this would mean for the team's decisions."
+        },
+        "recommendation": {
+          "type": "string",
+          "description": "A concrete, observable action."
+        },
+        "verificationTest": {
+          "type": "string",
+          "description": "The observation that would change this status, including what result would falsify the claim."
+        },
+        "requiresHumanDecision": {
+          "type": "boolean",
+          "description": "True for credible contradictions, policy gaps, or borderline interpretations. A deterministic definition failure alone does NOT set this."
+        },
+        "claimIds": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^CL-[0-9]{3}$" }
+        },
+        "blockingReasons": {
+          "type": "array",
+          "description": "Structured reasons evaluation cannot proceed. Deterministic reasons do not alone require human judgment.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "claim-requirement-mismatch",
+              "claim-out-of-scope",
+              "claim-not-falsifiable",
+              "insufficient-suitable-evidence",
+              "segment-attribution-unavailable"
+            ]
+          }
+        },
+        "subAssessments": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["definitionQuality", "evidenceAssessment", "contradictionAssessment"],
+          "description": "Preserved sub-verdicts. When the definition check gates the status to not-testable, the evidence assessment is still reported here so supplied evidence is never hidden.",
+          "properties": {
+            "definitionQuality": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["verdict", "rationale"],
+              "properties": {
+                "verdict": {
+                  "type": "string",
+                  "enum": ["specific-and-testable", "underspecified", "not-falsifiable", "not-applicable"]
+                },
+                "rationale": { "type": "string" },
+                "missingDefinitionElements": {
+                  "type": "array",
+                  "items": { "type": "string" }
+                }
+              }
+            },
+            "evidenceAssessment": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["verdict", "rationale"],
+              "properties": {
+                "verdict": {
+                  "type": "string",
+                  "enum": ["sufficient", "limited", "unsuitable", "absent"]
+                },
+                "rationale": { "type": "string" },
+                "independentDirectlyRelevantSources": { "type": "integer", "minimum": 0 },
+                "sourceIds": { "type": "array", "items": { "type": "string" } },
+                "gatedByDefinitionFailure": {
+                  "type": "boolean",
+                  "description": "True when this assessment is reported but did not determine the overall status."
+                }
+              }
+            },
+            "contradictionAssessment": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["verdict", "rationale"],
+              "properties": {
+                "verdict": {
+                  "type": "string",
+                  "enum": ["none-found", "credible-mixed", "direct-falsification", "superseded-self-report"]
+                },
+                "rationale": { "type": "string" },
+                "conflictType": {
+                  "type": ["string", "null"],
+                  "enum": [
+                    "measurement-vs-self-report",
+                    "cross-source-disagreement",
+                    "behavior-vs-stated-intent",
+                    "direct-negation",
+                    null
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "offSegmentSignal": {
+          "type": ["string", "null"],
+          "description": "Set when otherwise-good evidence falls outside the stated segment. Preserved as a note; never counted toward or against the segment-scoped claim."
+        },
+        "policyGap": {
+          "type": ["string", "null"],
+          "description": "Escape hatch: the packet presents a situation the current rubric does not cover. Feeds the SPEC.md open-policy register."
+        },
+        "reviewNote": {
+          "type": ["string", "null"],
+          "description": "Reserved for the human reviewer's disagreement or confirmation. Left null by generation."
+        }
+      }
+    }
+  }
+}

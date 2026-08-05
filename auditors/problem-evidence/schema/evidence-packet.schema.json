@@ -1,0 +1,350 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://evidencegate.local/auditors/problem-evidence/schema/evidence-packet.schema.json",
+  "title": "Problem Evidence Packet",
+  "description": "Input to the Problem Evidence Auditor. Raw observations (evidence), interpretations, and product claims are kept in separate top-level collections and MUST NOT be merged. This schema owns STRUCTURE only; requirement definitions live in checklist.json and policy semantics live in SPEC.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "packetId",
+    "packetPurpose",
+    "createdDate",
+    "product",
+    "claims",
+    "evidence"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "packetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9._-]+$",
+      "description": "Stable identifier for this packet."
+    },
+    "packetVersion": {
+      "type": "string",
+      "description": "Version of this packet's contents, incremented when evidence is added or corrected."
+    },
+    "packetPurpose": {
+      "type": "string",
+      "enum": ["fixture", "audit"],
+      "description": "'fixture' = benchmark packet used to exercise the auditor; synthetic evidence MAY contribute toward pass. 'audit' = real evaluation; synthetic evidence MUST NOT contribute toward pass. See SPEC.md Policy 2."
+    },
+    "createdDate": {
+      "type": "string",
+      "format": "date",
+      "description": "ISO-8601 calendar date (YYYY-MM-DD)."
+    },
+    "author": {
+      "type": "string",
+      "description": "Who assembled this packet."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Free-text context about the packet as a whole. Never treated as evidence."
+    },
+    "product": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "statedTargetSegment", "problemHypothesis"],
+      "properties": {
+        "name": { "type": "string" },
+        "statedTargetSegment": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["text"],
+          "properties": {
+            "text": {
+              "type": "string",
+              "description": "The segment exactly as the team states it. Recorded verbatim, including vagueness."
+            },
+            "attributes": {
+              "type": "object",
+              "additionalProperties": false,
+              "description": "Structured segment boundaries, where the team has committed to them. Absence of an attribute is a signal for the REQ-1 definition check, not a schema error.",
+              "properties": {
+                "geography": { "type": "string" },
+                "organizationSizeBound": { "type": "string" },
+                "businessModel": { "type": "string" },
+                "roleOfBuyer": { "type": "string" },
+                "serviceLine": { "type": "string" },
+                "exclusions": { "type": "array", "items": { "type": "string" } }
+              }
+            }
+          }
+        },
+        "problemHypothesis": {
+          "type": "string",
+          "description": "The problem the team believes exists. Context for the auditor; never itself evidence."
+        }
+      }
+    },
+    "claims": {
+      "type": "array",
+      "minItems": 1,
+      "description": "The propositions to be audited. Claims are supplied, never extracted by the auditor from prose.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["claimId", "requirementIds", "claimText", "claimScope"],
+        "properties": {
+          "claimId": { "type": "string", "pattern": "^CL-[0-9]{3}$" },
+          "requirementIds": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "pattern": "^REQ-[0-9]+$" }
+          },
+          "claimText": { "type": "string" },
+          "claimScope": {
+            "type": "string",
+            "enum": ["definition", "instance", "recurrence", "narrow-pattern", "prevalence", "segment-wide"],
+            "description": "Determines the evidence sufficiency rule applied. See SPEC.md 'Claim scope and sufficiency'."
+          },
+          "definedThreshold": {
+            "type": ["string", "null"],
+            "description": "The quantitative or qualitative bar the claim commits to. Required for a fail verdict: counterevidence must falsify the claim AT this threshold. Null means no threshold was stated."
+          },
+          "statedBy": { "type": "string" },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "description": "Raw records only. Each record holds what was observed or reported, NOT what it is thought to mean. May be empty; an empty array is a valid packet and produces not-testable findings.",
+      "items": { "$ref": "#/$defs/evidenceRecord" }
+    },
+    "interpretations": {
+      "type": "array",
+      "description": "Human readings of the evidence. Kept strictly separate from evidence. The auditor MAY report an interpretation but MUST NOT cite it as support for a status.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["interpretationId", "evidenceIds", "author", "statement"],
+        "properties": {
+          "interpretationId": { "type": "string", "pattern": "^INT-[0-9]{3}$" },
+          "evidenceIds": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^EV-[0-9]{3}$" }
+          },
+          "author": { "type": "string" },
+          "statement": { "type": "string" },
+          "inferenceType": {
+            "type": "string",
+            "enum": ["summary", "generalization", "causal-claim", "prediction", "speculation"],
+            "description": "'causal-claim', 'prediction' and 'speculation' are flagged by the auditor as unsupported-by-construction unless separately evidenced."
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "evidenceRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "One evidence record. The dimensions below are DESCRIPTIVE FACTS about how the record came to exist, deliberately kept as separate axes. There is no single linear evidence ranking; the auditor combines axes per requirement. See SPEC.md 'Evidence model'.",
+      "required": [
+        "evidenceId",
+        "evidenceCategory",
+        "proximity",
+        "origin",
+        "synthetic",
+        "source",
+        "collectedDate",
+        "content",
+        "scope",
+        "limitations"
+      ],
+      "properties": {
+        "evidenceId": { "type": "string", "pattern": "^EV-[0-9]{3}$" },
+        "evidenceCategory": {
+          "type": "string",
+          "enum": [
+            "instrumented-record",
+            "business-artifact",
+            "resource-commitment-record",
+            "direct-observation",
+            "anchored-self-report",
+            "generalized-self-report",
+            "stated-intent",
+            "secondary-source",
+            "internal-assertion"
+          ],
+          "description": "What kind of thing this record is. Category is not a grade."
+        },
+        "proximity": {
+          "type": "string",
+          "enum": [
+            "generated-by-the-behavior",
+            "observed-directly",
+            "recalled-specific",
+            "recalled-general",
+            "hypothetical",
+            "secondary",
+            "asserted"
+          ],
+          "description": "How far the record sits from the behavior it describes. Independent of category and of fit."
+        },
+        "origin": {
+          "type": "string",
+          "enum": ["field", "synthetic"],
+          "description": "'field' = collected from the real world. 'synthetic' = invented. Governs whether the record may contribute toward pass in an 'audit' packet."
+        },
+        "synthetic": {
+          "type": "boolean",
+          "description": "MUST equal (origin == 'synthetic'). Retained as an explicit, hard-to-miss boolean."
+        },
+        "collectedDate": { "type": "string", "format": "date" },
+        "collectionMethod": { "type": "string" },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["sourceType", "description", "independence"],
+          "properties": {
+            "sourceType": {
+              "type": "string",
+              "enum": [
+                "customer-participant",
+                "tool-export",
+                "internal-document",
+                "third-party-publication",
+                "team-member",
+                "prospect",
+                "other"
+              ]
+            },
+            "description": { "type": "string" },
+            "sourceId": {
+              "type": ["string", "null"],
+              "description": "Pseudonymous participant/organization id. Two records sharing a sourceId are NOT independent."
+            },
+            "independence": {
+              "type": "string",
+              "enum": ["independent", "related", "same-source", "team-internal", "unknown"],
+              "description": "'related' = reached via another participant (referral chain, same employer, same association)."
+            },
+            "relatedToSourceIds": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "relationshipToTeam": {
+              "type": "string",
+              "enum": ["none", "acquaintance", "advisor", "investor", "employee", "unknown"]
+            }
+          }
+        },
+        "content": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["mode", "observation"],
+          "description": "What was actually recorded. No interpretation, no conclusions, no adjectives supplied by the packet author.",
+          "properties": {
+            "mode": {
+              "type": "string",
+              "enum": ["verbatim", "measurement", "artifact-summary", "observation-note"]
+            },
+            "observation": {
+              "type": "string",
+              "description": "The record itself: quoted words, described artifact contents, or observation notes."
+            },
+            "measurements": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["label", "value", "unit"],
+                "properties": {
+                  "label": { "type": "string" },
+                  "value": { "type": ["number", "string"] },
+                  "unit": { "type": "string" },
+                  "n": { "type": "integer", "minimum": 1 },
+                  "basis": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "scope": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["subjectCount", "segmentFit"],
+          "description": "Coverage of the record: who and how long. Determines whether prevalence and segment-wide claims can be reached at all.",
+          "properties": {
+            "subjectCount": { "type": "integer", "minimum": 0 },
+            "segmentFit": {
+              "type": "string",
+              "enum": ["in-segment", "out-of-segment", "partial", "unknown"],
+              "description": "Assessed against product.statedTargetSegment. 'unknown' when the packet does not record enough to tell."
+            },
+            "segmentNotes": { "type": "string" },
+            "timeframeCovered": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "start": { "type": "string", "format": "date" },
+                "end": { "type": "string", "format": "date" },
+                "description": { "type": "string" }
+              }
+            },
+            "recruitment": {
+              "type": "string",
+              "enum": ["sampled", "referral", "self-selected", "convenience", "existing-relationship", "not-applicable", "unknown"]
+            }
+          }
+        },
+        "declaredRelevance": {
+          "type": "array",
+          "description": "Requirements the packet author believes this record speaks to. An author pointer only: the auditor derives its own requirement-fit and MUST NOT defer to this field.",
+          "items": { "type": "string", "pattern": "^REQ-[0-9]+$" }
+        },
+        "limitations": {
+          "type": "array",
+          "description": "Known defects of this record: recall bias, leading question, self-selection, single site, partial timeframe, missing provenance. Required; use an empty array only when genuinely none are known.",
+          "items": { "type": "string" }
+        },
+        "supersession": {
+          "type": "array",
+          "description": "Explicit, author-supplied replacement relationships. Source identity or chronology alone never implies supersession. Every condition is recorded so the auditor can verify it against SPEC.md OPEN-04.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "supersededEvidenceId",
+              "replacementStatement",
+              "sameSubject",
+              "sameMeasure",
+              "sameScope",
+              "sameApplicableTimeframe",
+              "provenanceComparison",
+              "directlyFalsifiesClaimIds"
+            ],
+            "properties": {
+              "supersededEvidenceId": { "type": "string", "pattern": "^EV-[0-9]{3}$" },
+              "replacementStatement": {
+                "type": "string",
+                "description": "How this record explicitly corrects, replaces, or invalidates the older record."
+              },
+              "sameSubject": { "type": "boolean" },
+              "sameMeasure": { "type": "boolean" },
+              "sameScope": { "type": "boolean" },
+              "sameApplicableTimeframe": { "type": "boolean" },
+              "provenanceComparison": {
+                "type": "string",
+                "enum": ["equal", "stronger"],
+                "description": "The newer record must have equal or stronger provenance."
+              },
+              "directlyFalsifiesClaimIds": {
+                "type": "array",
+                "minItems": 1,
+                "items": { "type": "string", "pattern": "^CL-[0-9]{3}$" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

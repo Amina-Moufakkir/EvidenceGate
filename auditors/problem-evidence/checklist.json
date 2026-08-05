@@ -1,0 +1,265 @@
+{
+  "checklistId": "problem-evidence-v1",
+  "schemaVersion": "1.0.0",
+  "auditor": "Problem Evidence Auditor",
+  "phase": "Phase 0 — contract only, not an operational agent",
+  "authorityNote": "This file owns REQUIREMENT DEFINITIONS and CONFIGURABLE THRESHOLDS. Structure is owned by schema/*.json. Policy semantics (status meanings, gating, contradiction handling, scope-of-authority) are owned by SPEC.md. Where this file and SPEC.md appear to disagree on meaning, SPEC.md wins and the disagreement is a defect to be fixed here.",
+
+  "configurableThresholds": {
+    "minimumIndependentDirectlyRelevantSources": {
+      "value": 2,
+      "appliesTo": ["narrow-pattern", "recurrence"],
+      "rationale": "A single source cannot be cross-checked against anything; two independent sources is the minimum arrangement in which corroboration is structurally possible. This is a documented reasoning rule, NOT a calibrated statistical threshold. It is provisional and configurable — see SPEC.md open-policy register, OPEN-03.",
+      "provisional": true
+    },
+    "instanceScopedClaimsRequireIndependentSources": {
+      "value": 1,
+      "appliesTo": ["instance"],
+      "rationale": "An instance-scoped claim asserts only that the behavior occurred. One credibly observed instance establishes occurrence and nothing more. Generalization is evaluated separately by REQ-3.",
+      "provisional": true
+    },
+    "prevalenceClaimsRequireScopeAndTimeframe": {
+      "value": true,
+      "appliesTo": ["prevalence", "segment-wide"],
+      "rationale": "Prevalence and segment-wide claims assert a distribution over a population. Two corroborating sources cannot establish a distribution regardless of their quality. Such claims require a documented sampling frame and a timeframe covering the claimed period; absent those, the ceiling is partial.",
+      "provisional": true
+    },
+    "explicitSupersessionIsDeterministic": {
+      "value": true,
+      "appliesTo": ["all"],
+      "rationale": "Supersession is deterministic only when the newer record explicitly declares that it corrects, replaces or invalidates the older record; both address the same subject, measure, scope and applicable timeframe; provenance is equal or stronger; and the newer record directly falsifies the claim at its defined threshold. Source identity and chronology never imply supersession. See SPEC.md OPEN-04.",
+      "provisional": false
+    },
+    "partialSegmentFitContribution": {
+      "value": "partial-only",
+      "appliesTo": ["all"],
+      "rationale": "Partial-fit evidence may contribute to partial, cannot independently produce pass, cannot independently falsify a full-segment claim, and caps the result at partial when all relevant evidence is partial-fit. Material interpretive dependence sets requiresHumanDecision. See SPEC.md OPEN-06.",
+      "provisional": false
+    },
+    "offSegmentRecordsAreNonContributing": {
+      "value": true,
+      "appliesTo": ["all"],
+      "rationale": "A record from outside the stated segment can neither support nor falsify a segment-scoped claim. It is preserved in offSegmentSignal. Applying this symmetrically prevents out-of-segment data being used to fail a claim it cannot address.",
+      "provisional": true
+    }
+  },
+
+  "requirements": [
+    {
+      "requirementId": "REQ-1",
+      "name": "Target-customer specificity",
+      "checkType": "definition-quality",
+      "question": "Is the target customer defined specifically enough that a given company could be sorted in or out of the segment without further discussion?",
+      "whyItMatters": "Every other requirement is scoped to a population. If the population is undefined, evidence cannot be attributed to it and the remaining four requirements lose their referent. This is a check on the team's claim, not on the world.",
+      "passConditions": [
+        "The segment statement commits to boundaries that make in/out sorting decidable — at minimum an organization-size bound, a geography or market, and the kind of business or service line.",
+        "The stated buyer or role performing the problem behavior is identified.",
+        "A reasonable person handed a specific company could apply the definition and reach the same answer as the team."
+      ],
+      "partialConditions": [
+        "Some boundaries are committed to and others are left open, such that most companies sort cleanly but a meaningful band is undecidable.",
+        "The definition is decidable but silently mixes two populations that would answer the problem question differently."
+      ],
+      "failConditions": [
+        "The packet supplies a record demonstrating that the definition as written cannot be applied consistently — for example two screening decisions made under the same definition that contradict each other."
+      ],
+      "notTestableConditions": [
+        "The segment is stated only in adjectives ('small', 'busy', 'growing') with no boundary a reader could apply.",
+        "The segment statement is absent from the packet.",
+        "The definition is self-sealing — no possible company could be shown to fall outside it."
+      ],
+      "acceptedEvidenceTypes": [
+        "The claim text itself, which is the object under evaluation for this requirement",
+        "Screening or recruitment records showing the definition being applied to real candidates",
+        "Scope metadata on evidence records showing which sources were sorted in or out and on what basis"
+      ],
+      "insufficientEvidenceTypes": [
+        "Enthusiasm about the segment",
+        "A list of example company names without the rule that generated the list",
+        "Market-size figures, which describe a population without defining membership"
+      ],
+      "defaultSeverity": "high",
+      "suggestedVerificationTests": [
+        "Hand the written definition and a list of twelve real companies — deliberately including borderline cases — to two people independently and compare their in/out decisions. Disagreement on any company identifies the undefined boundary.",
+        "Attempt to name a company that plausibly buys the product but falls outside the definition. Inability to name one indicates the definition is not falsifiable."
+      ]
+    },
+
+    {
+      "requirementId": "REQ-2",
+      "name": "Evidence of observed problem behavior",
+      "checkType": "evidence-strength",
+      "question": "Does the packet contain a record of the problem behavior actually occurring, as opposed to being described in general terms or predicted?",
+      "whyItMatters": "This requirement establishes that the behavior exists at all. It is instance-scoped by design: one credibly recorded instance is enough to establish occurrence. Whether the behavior recurs is REQ-3's job, and conflating the two lets a single vivid story stand in for a pattern.",
+      "passConditions": [
+        "At least one record at 'generated-by-the-behavior' or 'observed-directly' proximity captures the behavior occurring, from an in-segment source.",
+        "Alternatively, an anchored self-report tied to a specific, dated, identifiable occurrence, with enough detail that the account could be checked against an artifact.",
+        "The record's content matches the behavior as the claim defines it, not an adjacent activity."
+      ],
+      "partialConditions": [
+        "The only relevant records are generalized self-reports with no anchoring to a specific occurrence.",
+        "The behavior recorded is adjacent to but not the same as the claimed behavior — for example estimating a job rather than assembling a proposal document.",
+        "A credible record exists but a comparably credible record shows the behavior not occurring for another in-segment source."
+      ],
+      "failConditions": [
+        "An instrumented or artifact record covering the claimed behavior, for an in-segment source and the claimed period, shows the behavior did not occur or falls below the claim's defined threshold, and no comparably proximate record shows otherwise."
+      ],
+      "notTestableConditions": [
+        "No record addresses the behavior.",
+        "The only relevant records come from sources whose segment fit is out-of-segment or unknown, so the behavior cannot be attributed to the stated population.",
+        "The relevant records are stated intent, secondary sources, or internal assertions, none of which record an occurrence."
+      ],
+      "acceptedEvidenceTypes": [
+        "instrumented-record",
+        "business-artifact",
+        "direct-observation",
+        "anchored-self-report"
+      ],
+      "insufficientEvidenceTypes": [
+        "generalized-self-report",
+        "stated-intent",
+        "secondary-source",
+        "internal-assertion"
+      ],
+      "defaultSeverity": "high",
+      "suggestedVerificationTests": [
+        "Observe one in-segment owner performing the full walkthrough-to-proposal task in their own tools, recording start and end timestamps and the steps taken, without prompting or assisting.",
+        "Request document version history or a tool activity export for three recently completed proposals and compare active editing time against the owner's estimate."
+      ]
+    },
+
+    {
+      "requirementId": "REQ-3",
+      "name": "Evidence of problem frequency",
+      "checkType": "evidence-strength",
+      "question": "Does the packet establish how often the problem behavior recurs, over a timeframe long enough for the claimed rate to be visible?",
+      "whyItMatters": "A behavior that occurs but rarely recurs is a different problem from one that recurs weekly, and the two lead to different products. This requirement is where generalization is legitimately tested, and where the difference between a recurrence claim and a prevalence claim must be enforced.",
+      "passConditions": [
+        "For a recurrence claim: records at 'generated-by-the-behavior' proximity from at least the configured minimum of independent, in-segment sources, each covering a timeframe long enough for the claimed rate to be observed, showing recurrence consistent with the claim.",
+        "For a prevalence claim: additionally, a documented sampling frame describing how sources were selected from the stated segment, and coverage of the period the claim asserts."
+      ],
+      "partialConditions": [
+        "Recurrence is recorded for fewer independent sources than the configured minimum.",
+        "Records cover a timeframe too short for the claimed rate to be distinguishable from a burst.",
+        "A prevalence or segment-wide claim is supported only by corroborating individual records, with no sampling frame — corroboration cannot establish a distribution.",
+        "Recorded rates vary widely across in-segment sources with no explanation, and both the high and low observations are credible."
+      ],
+      "failConditions": [
+        "Instrumented or artifact records from independent in-segment sources, covering the claimed period, show a recurrence rate below the claim's defined threshold, and any records above the threshold are either directly falsified at the same scope or explicitly superseded under SPEC.md §9.2."
+      ],
+      "notTestableConditions": [
+        "No record addresses how often the behavior occurs.",
+        "Frequency appears only as an unanchored estimate with no period attached.",
+        "The claim states no threshold and no scope, so no observation could confirm or falsify it — in which case REQ-3's definition sub-check has failed and the status is gated."
+      ],
+      "acceptedEvidenceTypes": [
+        "instrumented-record",
+        "business-artifact",
+        "anchored-self-report"
+      ],
+      "insufficientEvidenceTypes": [
+        "generalized-self-report",
+        "stated-intent",
+        "secondary-source",
+        "internal-assertion"
+      ],
+      "defaultSeverity": "high",
+      "suggestedVerificationTests": [
+        "Collect calendar, CRM, or proposal-tool exports covering a continuous ninety-day period from at least three independent in-segment owners, and count dated proposal events rather than asking for a rate.",
+        "Where a rate is claimed segment-wide, define the sampling frame first — how owners were enumerated and selected — then check whether the observed rate holds in a sample drawn that way."
+      ]
+    },
+
+    {
+      "requirementId": "REQ-4",
+      "name": "Evidence of business cost or consequence",
+      "checkType": "evidence-strength",
+      "question": "Does the packet document a consequence the problem produced — a cost incurred, an opportunity forgone, or an outcome the business would otherwise have had?",
+      "whyItMatters": "A behavior can be tedious without costing anything, and teams routinely assume the cost rather than record it. This requirement is also where causal overreach is most likely, so the auditor must distinguish a documented consequence from an inferred one.",
+      "passConditions": [
+        "Records document a specific consequence tied to specific occurrences — a lost or ineligible bid with the buyer's own dated statement, a documented penalty, a recorded expenditure, or a measured output shortfall.",
+        "The link between behavior and consequence is present in the record itself, not supplied by the reader.",
+        "The configured minimum of independent, in-segment sources document consequences of the same kind."
+      ],
+      "partialConditions": [
+        "A consequence is documented for fewer independent sources than the configured minimum.",
+        "The consequence is recorded but its link to the problem behavior is asserted by the participant or the team rather than evidenced — for example a loss log with dates but no buyer-stated reason.",
+        "Magnitude is claimed but only occurrence is documented.",
+        "Consequences are documented for some in-segment sources while comparably credible records show no consequence for others."
+      ],
+      "failConditions": [
+        "Records covering the claimed consequence for in-segment sources show the consequence did not occur, or show the outcome was determined by a factor the claim excludes — for example buyers stating in writing that the decision turned on price while proposals arrived on time."
+      ],
+      "notTestableConditions": [
+        "No record addresses consequences.",
+        "The only consequence material is an interpretation, a causal claim, or a team estimate rather than a record.",
+        "Consequence records exist but cannot be tied to any occurrence of the problem behavior."
+      ],
+      "acceptedEvidenceTypes": [
+        "instrumented-record",
+        "business-artifact",
+        "resource-commitment-record",
+        "direct-observation",
+        "anchored-self-report"
+      ],
+      "insufficientEvidenceTypes": [
+        "generalized-self-report",
+        "stated-intent",
+        "secondary-source",
+        "internal-assertion"
+      ],
+      "defaultSeverity": "medium",
+      "suggestedVerificationTests": [
+        "For twelve months of bid history from three independent in-segment owners, collect the buyer's own written reason for each loss and count how many name lateness or proposal completeness, rather than asking owners why they think they lost.",
+        "Identify a case where a proposal was delivered late and obtain the buyer's dated correspondence establishing whether the bid was still considered."
+      ]
+    },
+
+    {
+      "requirementId": "REQ-5",
+      "name": "Evidence of meaningful customer commitment",
+      "checkType": "composite",
+      "question": "Have customers already spent a scarce resource — money, sustained effort, or staff time — on solving this existing problem, and is 'commitment' defined specifically enough to be checkable?",
+      "whyItMatters": "Prior expenditure on the existing problem is behavioral evidence that the problem is felt, independent of anything the team is building. It is deliberately scoped to the problem, not the proposed product: demand for the product is out of this auditor's scope, and stated willingness to pay is not a resource anyone has spent.",
+      "passConditions": [
+        "Records document a scarce resource already committed to the existing problem: payments to a person or tool for this task, staff time allocated to it, or a sustained workaround maintained over time.",
+        "The commitment is documented by an artifact or instrumented record rather than recalled in general terms.",
+        "The configured minimum of independent, in-segment sources show commitment of a comparable kind.",
+        "The claim defines what counts as commitment specifically enough that a given expenditure could be sorted in or out."
+      ],
+      "partialConditions": [
+        "Commitment is documented for fewer independent sources than the configured minimum.",
+        "Commitment is reported but not evidenced by an artifact — for example a recalled subscription with no receipt or record.",
+        "A commitment was made and then withdrawn, so the record supports past expenditure while conflicting with sustained commitment. Both readings are preserved.",
+        "The workaround documented addresses an adjacent task rather than the claimed problem."
+      ],
+      "failConditions": [
+        "Records show in-segment sources evaluated a paid or effortful means of addressing this problem and declined it, or abandoned it, with their own documented reason indicating the problem did not warrant the expenditure — and no comparably documented commitment exists."
+      ],
+      "notTestableConditions": [
+        "No record addresses prior expenditure or workaround behavior.",
+        "The only material is stated intent, hypothetical willingness to pay, or interest in the proposed product, none of which are expenditures on the existing problem.",
+        "The claim does not define what would count as commitment, so no expenditure could be sorted in or out."
+      ],
+      "acceptedEvidenceTypes": [
+        "resource-commitment-record",
+        "business-artifact",
+        "instrumented-record",
+        "direct-observation"
+      ],
+      "insufficientEvidenceTypes": [
+        "stated-intent",
+        "generalized-self-report",
+        "secondary-source",
+        "internal-assertion",
+        "any record concerning demand for the proposed product rather than expenditure on the existing problem"
+      ],
+      "defaultSeverity": "medium",
+      "suggestedVerificationTests": [
+        "Ask three independent in-segment owners for twelve months of expense records filtered to proposal, bidding, estimating, and administrative support, and identify line items attributable to this task.",
+        "Where an owner reports a workaround, request the artifact it produces — the template file, the contractor invoice, the assistant's timesheet — and check whether it has been maintained over the claimed period.",
+        "Where a paid tool was tried and dropped, obtain the subscription record and the owner's contemporaneous stated reason rather than a retrospective explanation."
+      ]
+    }
+  ]
+}

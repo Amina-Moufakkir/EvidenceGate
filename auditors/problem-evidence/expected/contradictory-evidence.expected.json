@@ -1,0 +1,224 @@
+{
+  "schemaVersion": "1.0.0",
+  "fixture": "contradictory-evidence.json",
+  "packetId": "ccpa-contradictory-001",
+  "packetPurpose": "fixture",
+  "reviewStatus": "approved",
+  "humanReviewed": true,
+  "reviewedBy": null,
+  "reviewedDate": null,
+  "generatedBy": "EvidenceGate Phase 0 design pass — proposed by the same process that authored the rubric and the fixture",
+  "generatedDate": "2026-08-05",
+  "syntheticEvidenceNotice": "Every evidence record in packet ccpa-contradictory-001 has origin 'synthetic'. The conflicts below are constructed to exercise the auditor's contradiction handling. The fail on REQ-3 is a fail about an invented packet and says nothing about real proposal volumes in commercial cleaning.",
+
+  "findings": [
+    {
+      "requirementId": "REQ-1",
+      "requirement": "Target-customer specificity",
+      "status": "pass",
+      "evidenceIds": ["EV-001"],
+      "contradictoryEvidenceIds": [],
+      "missingEvidence": [
+        "In/out decisions from a second rater applied to the same 10 screened companies, to test whether the boundaries are decidable by someone who did not write them."
+      ],
+      "severity": "none",
+      "rationale": "CL-001 commits to four checkable boundaries and three exclusions. EV-001 records the definition applied to 10 companies with a named boundary for each of the 6 exclusions and no undecidable rows, including P-14 sorted out on both headcount and proposal authorship. The definition's usefulness is visible elsewhere in this packet: it is what allows EV-015, the packet's most impressive-looking record, to be set aside as describing a different buyer rather than absorbed into the evidence for other requirements.",
+      "impact": "Because the segment is decidable, the conflicts in this packet can be read as genuine disagreement between in-segment sources rather than as an artifact of mixing populations.",
+      "recommendation": "Keep the screening sheet as the operative definition of record and record the rater and date per row.",
+      "verificationTest": "Give the definition and twelve real companies including four borderline cases to a person who did not write it. Any disagreement with the team's sorting identifies an underspecified boundary and drops this finding to partial.",
+      "requiresHumanDecision": false,
+      "claimIds": ["CL-001"],
+      "subAssessments": {
+        "definitionQuality": {
+          "verdict": "specific-and-testable",
+          "rationale": "Four boundaries and three exclusions, each applicable to a named company without further clarification.",
+          "missingDefinitionElements": []
+        },
+        "evidenceAssessment": {
+          "verdict": "sufficient",
+          "rationale": "EV-001 records the definition being applied consistently across 10 companies with reasons per exclusion.",
+          "independentDirectlyRelevantSources": 1,
+          "sourceIds": ["INTERNAL-SCREEN"],
+          "gatedByDefinitionFailure": false
+        },
+        "contradictionAssessment": {
+          "verdict": "none-found",
+          "rationale": "No record shows the definition producing inconsistent sorting decisions.",
+          "conflictType": null
+        }
+      },
+      "offSegmentSignal": null,
+      "policyGap": null,
+      "reviewNote": null
+    },
+
+    {
+      "requirementId": "REQ-2",
+      "requirement": "Evidence of observed problem behavior",
+      "status": "partial",
+      "evidenceIds": ["EV-002", "EV-004"],
+      "contradictoryEvidenceIds": ["EV-003"],
+      "missingEvidence": [
+        "Document version history for P-13, the one in-segment source with no measurement, whose own estimate of 'about an hour' (EV-014) is untested against a record.",
+        "A record of work performed outside the document — pricing calls, site measurement, drafting in another application — which both version-history measurements exclude by construction and which could account for part of the gap between P-11's estimate and P-11's measurement.",
+        "Any record explaining why P-11 edits prior proposals while P-12 starts most from blank, which is the most visible difference between the fast and slow measurements."
+      ],
+      "severity": "high",
+      "rationale": "CL-002 sets a threshold of more than 2 hours of active assembly per proposal. EV-004 measures P-12 above it across most proposals; EV-003 measures P-11 below it across every proposal in its period. EV-002 is P-11's recalled six-to-eight-hour estimate, including a specific dental proposal, and remains as weaker support because no explicit supersession relationship satisfies OPEN-04. EV-003 measures active document editing while EV-002 may include breaks or work outside the document, so source identity and chronology cannot displace the account. The packet therefore contains credible mixed evidence: strong cross-source disagreement plus an unresolved within-source measurement-versus-recall conflict. It remains partial with human review.",
+      "impact": "The instance-scoped claim is satisfied for P-12, so the behavior does occur at material cost for at least one owner. But the packet now shows the problem is not uniform across the segment as defined, which means a product justified on time saved would deliver very different value to P-11 and P-12. The segment may be hiding two populations, and the packet contains no evidence about what separates them.",
+      "recommendation": "Measure complete active assembly work for P-13 and further in-segment owners, including documented work outside the word processor, and record reuse-versus-blank behavior as a possible explanatory variable. Use the result to qualify the claim if a stable subset emerges; do not assume in advance that the segment definition is invalid.",
+      "verificationTest": "Measure complete active assembly time for additional in-segment owners with the same inclusion rules. Credible measurements on both sides of 120 minutes keep this finding partial. It moves toward pass only if support remains and the conflicting evidence is resolved or shown not to address the defined measure; it moves to fail only if supporting evidence disappears or sufficiently scoped evidence directly falsifies the claim.",
+      "requiresHumanDecision": true,
+      "claimIds": ["CL-002"],
+      "subAssessments": {
+        "definitionQuality": {
+          "verdict": "specific-and-testable",
+          "rationale": "The claim names the activity and commits to a measurable threshold, which is exactly why the conflict is legible: both records can be placed relative to it.",
+          "missingDefinitionElements": []
+        },
+        "evidenceAssessment": {
+          "verdict": "limited",
+          "rationale": "EV-004 provides instrumented support for P-12 and EV-002 provides weaker recalled support for P-11. EV-003 conflicts with P-11's recall and with a uniform reading of the claim. One in-segment source (P-13) has no measurement.",
+          "independentDirectlyRelevantSources": 2,
+          "sourceIds": ["P-11", "P-12"],
+          "gatedByDefinitionFailure": false
+        },
+        "contradictionAssessment": {
+          "verdict": "credible-mixed",
+          "rationale": "EV-003 falls below the threshold for P-11 while EV-004 supports it for P-12. EV-002 remains because no explicit qualifying supersession is declared and the records may not measure identical work. Both cross-source and within-source readings are preserved.",
+          "conflictType": "measurement-vs-self-report"
+        }
+      },
+      "offSegmentSignal": "EV-015 measures 271 minutes per proposal across 47 proposals — comfortably above the claim's threshold and the packet's largest sample. It is out of segment on headcount and on who produces proposals, so it can neither rescue the claim nor be counted against it. It is worth noting only because it is the record most likely to be reached for when the in-segment measurements disagree.",
+      "policyGap": null,
+      "reviewNote": null
+    },
+
+    {
+      "requirementId": "REQ-3",
+      "requirement": "Evidence of problem frequency",
+      "status": "partial",
+      "evidenceIds": ["EV-007"],
+      "contradictoryEvidenceIds": ["EV-005", "EV-006", "EV-008"],
+      "missingEvidence": [
+        "A record of proposals produced outside the exported tools, which is the only route by which the recorded counts could understate true volume — none was supplied by any source, and P-13 stated they use no other method.",
+        "A restated CL-003 with a threshold the evidence could plausibly meet, if the team intends to keep a frequency claim at all."
+      ],
+      "severity": "high",
+      "rationale": "CL-003 claims at least two proposals per week sustained over at least eight consecutive weeks. EV-005, EV-006 and EV-008 are three independent instrumented records below that threshold. EV-007 supports the claim only as P-11's generalized estimate of 'a couple a week, usually' with no period attached. EV-005 explicitly records a proposed supersession relationship to EV-007, but `sameApplicableTimeframe` is false because EV-007 states no timeframe; OPEN-04 therefore forbids displacement. Both records remain. The strong measured counterevidence and weaker unresolved support produce partial, not fail, with human review.",
+      "impact": "The measured records strongly undermine the claimed cadence, but the packet contains an unresolved same-source account pointing the other way. Treating chronology alone as correction would hide that provenance conflict.",
+      "recommendation": "Ask P-11 to identify the period meant by 'a couple a week' or explicitly correct that estimate, and obtain any proposal records outside the CRM. Only then determine whether EV-005 qualifies as an explicit replacement; keep the claim unchanged while resolving that record relationship.",
+      "verificationTest": "For P-11, obtain an explicit dated correction or a count covering the exact period the estimate was intended to describe. If a stronger record explicitly replaces the estimate and all OPEN-04 conditions hold, the three below-threshold exports support fail without human review. If the estimate refers to a different valid period and is evidenced, credible mixed results remain partial.",
+      "requiresHumanDecision": true,
+      "claimIds": ["CL-003"],
+      "subAssessments": {
+        "definitionQuality": {
+          "verdict": "specific-and-testable",
+          "rationale": "The claim states a rate, a sustaining period and a unit of analysis, which is why it can be falsified rather than merely doubted.",
+          "missingDefinitionElements": []
+        },
+        "evidenceAssessment": {
+          "verdict": "limited",
+          "rationale": "EV-007 provides generalized support but has no applicable timeframe. Three independent instrumented records fall below the threshold. Because the proposed supersession fails one required condition, the support remains in the assessment.",
+          "independentDirectlyRelevantSources": 1,
+          "sourceIds": ["P-11"],
+          "gatedByDefinitionFailure": false
+        },
+        "contradictionAssessment": {
+          "verdict": "credible-mixed",
+          "rationale": "EV-005, EV-006 and EV-008 directly measure below threshold, while EV-007 reports a rate at threshold. EV-005 cannot supersede EV-007 because the older estimate has no applicable timeframe, so the explicit relationship fails a required OPEN-04 condition.",
+          "conflictType": "measurement-vs-self-report"
+        }
+      },
+      "offSegmentSignal": "EV-015 records 47 proposals in 19 weeks at P-14, roughly 2.5 per week — the only rate in the packet above the claimed threshold. It comes from a 60-staff company with a full-time bid coordinator and cannot be used to rescue a claim about owner-produced proposals in 1–25 staff companies. Recorded because it is precisely the record that would be reached for to keep the claim alive.",
+      "policyGap": null,
+      "reviewNote": null
+    },
+
+    {
+      "requirementId": "REQ-4",
+      "requirement": "Evidence of business cost or consequence",
+      "status": "partial",
+      "evidenceIds": ["EV-009"],
+      "contradictoryEvidenceIds": ["EV-010", "EV-011"],
+      "missingEvidence": [
+        "Buyer correspondence for P-13's six lost bids — EV-011 carries the owner's recorded reasons, not the buyer's words, and two of the six record no reason at all.",
+        "Correspondence for won bids from all three owners, so that losses can be read against a denominator rather than in isolation.",
+        "Contract values for the four bids in EV-009, without which nothing can be said about the size of the consequence.",
+        "Any record of what distinguishes P-12's late submissions from P-11's and P-13's on-time ones, which is the question the conflict actually raises."
+      ],
+      "severity": "medium",
+      "rationale": "CL-004 requires lateness to be established by the buyer rather than inferred, and the packet contains buyer statements pointing both ways. EV-009 meets the claim's standard exactly: four dated emails from four separate buyer organizations, each stating in the buyer's own words that the award was made before the proposal arrived, matched to send timestamps between 2 and 9 days past the stated deadline — roughly one per quarter over twelve months, for P-12. EV-010 contradicts it for P-11 with the same kind of material: five buyer emails covering every recorded loss in twelve months, all naming price or scope, three explicitly noting timely delivery, and zero bids submitted after a buyer deadline. EV-011 records for P-13 that all 13 proposals with a recorded deadline were sent before it, by a median of 6 days, with no loss attributed to timing. So the consequence is documented as occurring for one in-segment owner and documented as not occurring for two others. That is credible mixed evidence, not falsification: EV-009's four buyer emails are not weakened by the fact that other owners submit on time, and the claim is not disproved at its defined scope — it is shown to hold for some owners and not others. Averaging these into a single verdict would erase both the real consequence P-12 experiences and the real absence of it for P-11 and P-13. Note that EV-011 is weaker than the other two on the claim's own standard: it carries the owner's entered reasons rather than buyer correspondence, which is why it is recorded as conflicting rather than as decisive.",
+      "impact": "The consequence is real for at least one owner and demonstrably absent for two, which points away from a segment-wide cost story and toward a subset problem. Selling on recovered lost bids would overstate the value for the majority of owners in this packet. INT-003's reading — that late proposals cost owners about a contract a quarter — generalizes from the single owner it happens to be true for.",
+      "recommendation": "Stop testing whether the consequence exists and start testing who it happens to. Collect twelve months of bid correspondence from four further in-segment owners and record, alongside each loss, whether the owner submits before or after buyer deadlines and how many facilities they bid per month. Then check whether late submission tracks with proposal volume — P-12 has both the highest volume in the packet and the only documented lateness.",
+      "verificationTest": "Across twelve months of bid history from six independent in-segment owners, count owners with at least one buyer-stated late loss per quarter. If most owners show none, the claim does not hold at segment scope and should be rescoped to whichever subset it describes; if most show one or more, this finding moves to pass. Either result changes the finding.",
+      "requiresHumanDecision": true,
+      "claimIds": ["CL-004"],
+      "subAssessments": {
+        "definitionQuality": {
+          "verdict": "specific-and-testable",
+          "rationale": "The claim names the consequence, the rate and the standard of proof, which is what makes the conflicting buyer statements comparable.",
+          "missingDefinitionElements": []
+        },
+        "evidenceAssessment": {
+          "verdict": "limited",
+          "rationale": "One in-segment source meets the claim's standard of proof with buyer correspondence. Two other in-segment sources document the absence of the consequence over comparable periods, one with buyer correspondence and one with owner-entered records only.",
+          "independentDirectlyRelevantSources": 1,
+          "sourceIds": ["P-12"],
+          "gatedByDefinitionFailure": false
+        },
+        "contradictionAssessment": {
+          "verdict": "credible-mixed",
+          "rationale": "EV-010 is buyer correspondence of the same kind and quality as EV-009 and covers every loss in the period, showing the consequence did not occur for that owner. EV-011 records zero late submissions across 13 deadlines for a third owner. The conflict is between owners, not within any single record, and it does not falsify a claim that some owners lose bids this way.",
+          "conflictType": "cross-source-disagreement"
+        }
+      },
+      "offSegmentSignal": null,
+      "policyGap": null,
+      "reviewNote": null
+    },
+
+    {
+      "requirementId": "REQ-5",
+      "requirement": "Evidence of meaningful customer commitment",
+      "status": "partial",
+      "evidenceIds": ["EV-012"],
+      "contradictoryEvidenceIds": ["EV-013", "EV-014"],
+      "missingEvidence": [
+        "Expense records from P-13 covering the same twelve months, to confirm that the declined vendor offer in EV-014 is not accompanied by expenditure elsewhere — the record shows no purchase in the supplied documents, which is narrower than no purchase.",
+        "Document version history for P-13, whose 'my template does the job in an hour' underpins their decision not to spend and is the one in-segment estimate in this packet never checked against a measurement.",
+        "Expense records from three further independent in-segment owners, which is what would settle whether sustained commitment is the exception or the rule here.",
+        "What P-12's retainer covers per month — the invoices record an amount, not a volume of work."
+      ],
+      "severity": "medium",
+      "rationale": "CL-005 asks for money or staff hours committed to the existing problem, sustained at least three consecutive months. EV-012 meets it plainly for P-12: eight consecutive monthly invoices at USD 250 with matching bank debits, an ongoing engagement, described as proposal drafting support. Two other in-segment sources conflict with it in different ways. EV-013 is a single record carrying both readings at once: P-11 did spend money on this problem — USD 198 across two charges for proposal software — and then cancelled after five weeks and four logins, with a contemporaneous written reason that the existing template was faster and that 'proposals aren't where my time goes'. That is a documented expenditure that falls short of the claim's three-month bar and an explicit statement that the problem did not warrant it. EV-014 shows P-13 evaluating a paid option in a documented thread and declining it on the reasoning that fourteen or fifteen bids a year cannot justify a monthly fee, with no purchase and no staff allocation appearing in twelve months of records. Under the fail conditions for this requirement, two in-segment sources declining or abandoning paid help with documented reasons would point to fail — but EV-012 is comparably documented commitment that is still running, so this is credible mixed evidence and the status is partial. The conflict is not noise to be resolved by counting: one owner pays every month, one paid and stopped, one considered and declined. Note that P-11's and P-13's stated reasons are their own words about their own decisions, which is the strongest form of stated reason available and still not an observed cause.",
+      "impact": "Prior commitment is not a segment-wide property here. It is present in one owner, withdrawn in a second and declined in a third, and the two who declined both gave the same reason: not enough proposal volume to justify a recurring cost. That reasoning connects directly to the REQ-3 finding, where measured volumes for P-11 and P-13 are 0.35 and 0.27 proposals per week. A pricing model assuming owners already spend monthly on this would be built on the one owner in this packet who does.",
+      "recommendation": "Collect twelve months of expense records filtered to proposal, bidding and admin support from three further independent in-segment owners, and for each record their measured proposal volume over the same period. Then check whether commitment tracks with volume rather than treating commitment as a segment-level property. Do not substitute a question about what owners would pay for the proposed product; that is a different claim and outside this auditor's scope.",
+      "verificationTest": "For six independent in-segment owners, look for documented expenditure or allocated staff hours on proposal production sustained at least three consecutive months, alongside a measured ninety-day proposal count for each. If sustained commitment appears in most owners, this finding moves to pass; if most show the P-11 or P-13 pattern of declining or abandoning, it moves to fail. If commitment appears only among owners above some measured volume, the segment definition is what needs revising.",
+      "requiresHumanDecision": true,
+      "claimIds": ["CL-005"],
+      "subAssessments": {
+        "definitionQuality": {
+          "verdict": "specific-and-testable",
+          "rationale": "The claim names the qualifying resource types, a minimum duration, and scopes itself to the existing problem rather than the proposed product, so each source's behaviour can be sorted against it.",
+          "missingDefinitionElements": []
+        },
+        "evidenceAssessment": {
+          "verdict": "limited",
+          "rationale": "One in-segment source shows artifact-backed sustained commitment above the three-month bar. Two other in-segment sources show withdrawn or declined commitment with documented contemporaneous reasons. Below the configured two-source minimum for the supporting side, with credible conflicting records on the other.",
+          "independentDirectlyRelevantSources": 1,
+          "sourceIds": ["P-12"],
+          "gatedByDefinitionFailure": false
+        },
+        "contradictionAssessment": {
+          "verdict": "credible-mixed",
+          "rationale": "EV-013 and EV-014 are artifact-backed records of expenditure being abandoned and declined, comparable in quality to EV-012. EV-013 additionally contains an internal conflict that must be preserved rather than resolved: money was spent on this problem, and it was withdrawn within five weeks.",
+          "conflictType": "behavior-vs-stated-intent"
+        }
+      },
+      "offSegmentSignal": "EV-015 records USD 4,100 per month sustained for 22 months on a dedicated bid coordinator at P-14. It is by far the largest documented commitment in the packet and it is out of segment on headcount and on who produces proposals, so it neither supports nor weakens CL-005. INT-004 reads it as proof that companies will pay real money for proposal help; that reading transfers a 60-staff company's spending onto a 1–25 staff segment the record says nothing about.",
+      "policyGap": null,
+      "reviewNote": null
+    }
+  ]
+}

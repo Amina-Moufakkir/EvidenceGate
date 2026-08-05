@@ -1,0 +1,707 @@
+{
+  "schemaVersion": "1.0.0",
+  "packetId": "ccpa-contradictory-001",
+  "packetVersion": "1.0.0",
+  "packetPurpose": "fixture",
+  "createdDate": "2026-05-28",
+  "author": "EvidenceGate Phase 0 — synthetic benchmark packet",
+  "notes": "SYNTHETIC BENCHMARK. This packet is well populated: the segment is defined, sources are screened, and most records are instrumented. What it contains is conflict. Four distinct conflict types are present: a source's own measured records contradicting that source's estimate (EV-003 vs EV-002, EV-005 vs EV-007); independent in-segment sources measuring opposite sides of a threshold (EV-003 vs EV-004); buyers giving reasons that contradict the team's consequence claim (EV-010, EV-011 vs EV-009); and behaviour contradicting a commitment claim (EV-013, EV-014 vs EV-012). None of these conflicts may be averaged away.",
+
+  "product": {
+    "name": "Commercial Cleaning Proposal Assistant",
+    "statedTargetSegment": {
+      "text": "United States commercial cleaning companies with 1–25 cleaning staff that sell recurring janitorial contracts, where the owner personally conducts facility walkthroughs and personally writes the proposal document.",
+      "attributes": {
+        "geography": "United States",
+        "organizationSizeBound": "1–25 cleaning staff (headcount performing cleaning work, excluding office staff)",
+        "businessModel": "Recurring janitorial contracts, bid or negotiated per facility",
+        "roleOfBuyer": "Owner or owner-operator, who both walks the facility and writes the proposal",
+        "serviceLine": "Commercial janitorial",
+        "exclusions": [
+          "Residential cleaning",
+          "Franchise locations where proposals are produced by the franchisor",
+          "Companies with a dedicated full-time sales or bid-writing role"
+        ]
+      }
+    },
+    "problemHypothesis": "Owners spend excessive time turning facility-walkthrough information into complete commercial-cleaning proposals."
+  },
+
+  "claims": [
+    {
+      "claimId": "CL-001",
+      "requirementIds": ["REQ-1"],
+      "claimText": "The target customer is a United States commercial cleaning company with 1–25 cleaning staff selling recurring janitorial contracts, in which the owner personally performs facility walkthroughs and personally produces the proposal document.",
+      "claimScope": "definition",
+      "definedThreshold": "A company is in segment only if all four boundaries hold: US-based, 1–25 cleaning staff, recurring janitorial contracts, owner personally produces the proposal.",
+      "statedBy": "Product team"
+    },
+    {
+      "claimId": "CL-002",
+      "requirementIds": ["REQ-2"],
+      "claimText": "Owners in the target segment manually assemble the proposal document from facility-walkthrough notes, and that assembly takes more than two hours of active work per proposal.",
+      "claimScope": "instance",
+      "definedThreshold": "More than 2 hours of active document-assembly work per proposal",
+      "statedBy": "Product team"
+    },
+    {
+      "claimId": "CL-003",
+      "requirementIds": ["REQ-3"],
+      "claimText": "For an individual owner in the target segment, proposal production recurs at a rate of at least two proposals per week, sustained across at least eight consecutive weeks.",
+      "claimScope": "recurrence",
+      "definedThreshold": "At least 2 proposals per week, sustained over at least 8 consecutive weeks, per owner",
+      "statedBy": "Product team"
+    },
+    {
+      "claimId": "CL-004",
+      "requirementIds": ["REQ-4"],
+      "claimText": "Owners in the target segment lose or are excluded from at least one bid per quarter because the proposal reached the buyer after the buyer's stated decision date.",
+      "claimScope": "narrow-pattern",
+      "definedThreshold": "At least 1 bid per quarter lost or rendered ineligible, with lateness established by the buyer rather than inferred",
+      "statedBy": "Product team"
+    },
+    {
+      "claimId": "CL-005",
+      "requirementIds": ["REQ-5"],
+      "claimText": "Owners in the target segment have already committed a scarce resource to producing proposals — paying an outside person or tool, allocating staff hours, or maintaining a purchased workaround — for at least three consecutive months.",
+      "claimScope": "narrow-pattern",
+      "definedThreshold": "Documented expenditure of money or allocated staff hours on proposal production, sustained at least 3 consecutive months",
+      "statedBy": "Product team"
+    }
+  ],
+
+  "evidence": [
+    {
+      "evidenceId": "EV-001",
+      "evidenceCategory": "business-artifact",
+      "proximity": "generated-by-the-behavior",
+      "origin": "synthetic",
+      "synthetic": true,
+      "collectedDate": "2026-02-09",
+      "collectionMethod": "Export of the recruitment screening sheet used before any interview was scheduled.",
+      "source": {
+        "sourceType": "internal-document",
+        "description": "Recruitment screening sheet recording the four segment boundaries and the in/out decision per company contacted.",
+        "sourceId": "INTERNAL-SCREEN",
+        "independence": "team-internal",
+        "relationshipToTeam": "employee"
+      },
+      "content": {
+        "mode": "artifact-summary",
+        "observation": "Sheet lists 10 companies contacted between 2026-01-26 and 2026-02-06, each row recording headcount, country, contract type and who produces the proposal. Three admitted (P-11, P-12, P-13). Six excluded with a boundary named per row: two residential-only, two above 25 cleaning staff, one franchise where the franchisor supplies proposals, one where an estimator writes proposals. One (P-14, 60 staff) recorded as 'out of segment — retained for contrast only'. No row records an undecidable case.",
+        "measurements": [
+          { "label": "Companies screened", "value": 10, "unit": "companies" },
+          { "label": "Admitted to segment", "value": 3, "unit": "companies" },
+          { "label": "Excluded with a named boundary", "value": 6, "unit": "companies" },
+          { "label": "Rows recording an undecidable case", "value": 0, "unit": "companies" }
+        ]
+      },
+      "scope": {
+        "subjectCount": 10,
+        "segmentFit": "in-segment",
+        "segmentNotes": "Record of the definition being applied, covering admitted and excluded companies.",
+        "timeframeCovered": { "start": "2026-01-26", "end": "2026-02-06" },
+        "recruitment": "not-applicable"
+      },
+      "declaredRelevance": ["REQ-1"],
+      "limitations": [
+        "One rater applied the definition; inter-rater consistency is untested.",
+        "Contacts came from a single state contractors' association list, which is not a sampling frame for the segment."
+      ]
+    },
+
+    {
+      "evidenceId": "EV-002",
+      "evidenceCategory": "anchored-self-report",
+      "proximity": "recalled-specific",
+      "origin": "synthetic",
+      "synthetic": true,
+      "collectedDate": "2026-02-17",
+      "collectionMethod": "Semi-structured interview, recorded verbatim.",
+      "source": {
+        "sourceType": "customer-participant",
+        "description": "Owner of Coastal Janitorial Services, 6 cleaning staff, Florida.",
+        "sourceId": "P-11",
+        "independence": "independent",
+        "relationshipToTeam": "none"
+      },
+      "content": {
+        "mode": "verbatim",
+        "observation": "\"Every proposal is six, seven, eight hours. The one I did for the dental group two weeks back, that was most of a Saturday — I'd say seven hours easy. It's the whole reason I dread quoting.\"",
+        "measurements": [
+          { "label": "Reported assembly duration per proposal", "value": "6–8", "unit": "hours", "basis": "Participant's own estimate, given before any records were requested" }
+        ]
+      },
+      "scope": {
+        "subjectCount": 1,
+        "segmentFit": "in-segment",
+        "segmentNotes": "6 cleaning staff, US, recurring janitorial, owner writes proposals.",
+        "timeframeCovered": { "description": "No period stated; framed as 'every proposal'" },
+        "recruitment": "sampled"
+      },
+      "declaredRelevance": ["REQ-2"],
+      "limitations": [
+        "Estimate rather than measurement.",
+        "The same participant's document records covering the same period were later obtained (EV-003) and do not agree with this account.",
+        "'Most of a Saturday' includes unmeasured breaks and other work."
+      ]
+    },
+
+    {
+      "evidenceId": "EV-003",
+      "evidenceCategory": "instrumented-record",
+      "proximity": "generated-by-the-behavior",
+      "origin": "synthetic",
+      "synthetic": true,
+      "collectedDate": "2026-05-06",
+      "collectionMethod": "Owner exported document version history and editing-session metadata for every proposal in the period, after agreeing to a records request made at the end of the interview.",
+      "source": {
+        "sourceType": "tool-export",
+        "description": "Word processor version history for Coastal Janitorial Services.",
+        "sourceId": "P-11",
+        "independence": "independent",
+        "relationshipToTeam": "none"
+      },
+      "content": {
+        "mode": "measurement",
+        "observation": "Version history covers all 9 proposal documents created between 2025-11-01 and 2026-04-30, including the dental group proposal referenced in EV-002 (created 2026-02-03). Active editing time computed from session stamps with gaps over 15 minutes excluded. The dental group document shows 52 minutes of active editing across three sessions on one afternoon. Every document in the period was built by opening a prior proposal and editing it; no document was started from blank.",
+        "measurements": [
+          { "label": "Proposals covered", "value": 9, "unit": "proposals", "n": 9 },
+          { "label": "Median active editing time per proposal", "value": 41, "unit": "minutes", "n": 9 },
+          { "label": "Longest proposal", "value": 96, "unit": "minutes", "n": 1 },
+          { "label": "Proposals exceeding 120 minutes active editing", "value": 0, "unit": "proposals", "n": 9 },
+          { "label": "Active editing time, dental group proposal", "value": 52, "unit": "minutes", "n": 1 }
+        ]
+      },
+      "scope": {
+        "subjectCount": 1,
+        "segmentFit": "in-segment",
+        "timeframeCovered": { "start": "2025-11-01", "end": "2026-04-30" },
+        "recruitment": "sampled"
+      },
+      "declaredRelevance": ["REQ-2"],
+      "limitations": [
+        "Active editing time excludes site measurement, pricing calls and thinking done away from the document, so it is a floor for total task effort.",
+        "If the owner drafted content elsewhere and pasted it in, that work would not appear here. No such intermediate documents were supplied or found.",
+        "One owner."
+      ]
+    },
+
+    {
+      "evidenceId": "EV-004",
+      "evidenceCategory": "instrumented-record",
+      "proximity": "generated-by-the-behavior",
+      "origin": "synthetic",
+      "synthetic": true,
+      "collectedDate": "2026-05-11",
+      "collectionMethod": "Owner exported document version history and editing-session metadata for every proposal in the period.",
+      "source": {
+        "sourceType": "tool-export",
+        "description": "Word processor version history for Kettle Creek Cleaning, 11 cleaning staff, Michigan.",
+        "sourceId": "P-12",
+        "independence": "independent",
+        "relationshipToTeam": "none"
+      },
+      "content": {
+        "mode": "measurement",
+        "observation": "Version history covers all 16 proposal documents created between 2026-02-01 and 2026-05-01. Active editing time computed on the same basis as EV-003. Documents show between 5 and 14 editing sessions each, typically spread across two or three evenings. Nine of the sixteen were started from a blank document.",
+        "measurements": [
+          { "label": "Proposals covered", "value": 16, "unit": "proposals", "n": 16 },
+          { "label": "Median active editing time per proposal", "value": 185, "unit": "minutes", "n": 16 },
+          { "label": "Shortest proposal", "value": 74, "unit": "minutes", "n": 1 },
+          { "label": "Longest proposal", "value": 402, "unit": "minutes", "n": 1 },
+          { "label": "Proposals exceeding 120 minutes active editing", "value": 13, "unit": "proposals", "n": 16 }
+        ]
+      },
+      "scope": {
+        "subjectCount": 1,
+        "segmentFit": "in-segment",
+        "segmentNotes": "11 cleaning staff, US, recurring janitorial, owner writes proposals.",
+        "timeframeCovered": { "start": "2026-02-01", "end": "2026-05-01" },
+        "recruitment": "sampled"
+      },
+      "declaredRelevance": ["REQ-2", "REQ-3"],
+      "limitations": [
+        "Same measurement caveats as EV-003: excludes work done outside the document.",
+        "One owner.",
+        "This owner starts most proposals from blank, where P-11 edits prior documents. The packet contains no evidence about why the two work differently."
+      ]
+    },
+
+    {
+      "evidenceId": "EV-005",
+      "evidenceCategory": "instrumented-record",
+      "proximity": "generated-by-the-behavior",
+      "origin": "synthetic",
+      "synthetic": true,
+      "collectedDate": "2026-05-06",
+      "collectionMethod": "Owner exported all CRM opportunity records and calendar entries for a continuous six-month period.",
+      "source": {
+        "sourceType": "tool-export",
+        "description": "CRM and calendar export for Coastal Janitorial Services.",
+        "sourceId": "P-11",
+        "independence": "independent",
+        "relationshipToTeam": "none"
+      },
+      "content": {
+        "mode": "measurement",
+        "observation": "Export covers 2025-11-01 to 2026-04-30, a continuous 26-week period. 12 calendar entries tagged as facility walkthroughs. 9 opportunity records reached 'proposal sent', matching the 9 documents in EV-003. Eleven of the 26 weeks contain no proposal event at all. The longest gap between consecutive proposals is 41 days.",
+        "measurements": [
+          { "label": "Period covered", "value": 26, "unit": "weeks" },
+          { "label": "Proposals sent", "value": 9, "unit": "proposals" },
+          { "label": "Mean proposals per week", "value": 0.35, "unit": "proposals per week", "basis": "9 proposals over 26 weeks" },
+          { "label": "Weeks with zero proposals", "value": 11, "unit": "weeks" },
+          { "label": "Longest gap between proposals", "value": 41, "unit": "days" }
+        ]
+      },
+      "scope": {
+        "subjectCount": 1,
+        "segmentFit": "in-segment",
+        "timeframeCovered": { "start": "2025-11-01", "end": "2026-04-30" },
+        "recruitment": "sampled"
+      },
+      "declaredRelevance": ["REQ-3"],
+      "limitations": [
+        "Counts proposals recorded in the CRM; work quoted verbally and never documented would not appear.",
+        "One owner.",
+        "Covers a winter and early-spring period; seasonality is not controlled for."
+      ],
+      "supersession": [
+        {
+          "supersededEvidenceId": "EV-007",
+          "replacementStatement": "EV-005 tests P-11's estimated proposal rate against a continuous CRM period, but cannot replace the estimate because EV-007 states no applicable timeframe.",
+          "sameSubject": true,
+          "sameMeasure": true,
+          "sameScope": true,
+          "sameApplicableTimeframe": false,
+          "provenanceComparison": "stronger",
+          "directlyFalsifiesClaimIds": ["CL-003"]
+        }
+      ]
+    },
+
+    {
+      "evidenceId": "EV-006",
+      "evidenceCategory": "instrumented-record",
+      "proximity": "generated-by-the-behavior",
+      "origin": "synthetic",
+      "synthetic": true,
+      "collectedDate": "2026-05-14",
+      "collectionMethod": "Owner exported the complete opportunity history from their proposal software for a full twelve months.",
+      "source": {
+        "sourceType": "tool-export",
+        "description": "Proposal software export for Vantage Maintenance Co, 19 cleaning staff, Oregon.",
+        "sourceId": "P-13",
+        "independence": "independent",
+        "relationshipToTeam": "none"
+      },
+      "content": {
+        "mode": "measurement",
+        "observation": "Export covers 2025-05-01 to 2026-04-30. 14 proposals created and sent across the twelve months, all attributed to the owner's user account. Proposal activity is clustered: 6 of the 14 fall in a five-week span in September and October 2025, and there are two separate gaps exceeding 60 days.",
+        "measurements": [
+          { "label": "Period covered", "value": 52, "unit": "weeks" },
+          { "label": "Proposals sent", "value": 14, "unit": "proposals" },
+          { "label": "Mean proposals per week", "value": 0.27, "unit": "proposals per week", "basis": "14 proposals over 52 weeks" },
+          { "label": "Highest single week", "value": 2, "unit": "proposals" },
+          { "label": "Gaps exceeding 60 days", "value": 2, "unit": "gaps" }
+        ]
+      },
+      "scope": {
+        "subjectCount": 1,
+        "segmentFit": "in-segment",
+        "segmentNotes": "19 cleaning staff, US, recurring janitorial, owner writes proposals.",
+        "timeframeCovered": { "start": "2025-05-01", "end": "2026-04-30" },
+        "recruitment": "sampled"
+      },
+      "declaredRelevance": ["REQ-3"],
+      "limitations": [
+        "One tool; proposals produced outside it would not appear. The owner stated they use no other method, but no separate check was made.",
+        "One owner.",
+        "Clustering suggests the rate is uneven, so a mean understates busy periods and overstates quiet ones."
+      ]
+    },
+
+    {
+      "evidenceId": "EV-007",
+      "evidenceCategory": "generalized-self-report",
+      "proximity": "recalled-general",
+      "origin": "synthetic",
+      "synthetic": true,
+      "collectedDate": "2026-02-17",
+      "collectionMethod": "Semi-structured interview, recorded verbatim.",
+      "source": {
+        "sourceType": "customer-participant",
+        "description": "Owner of Coastal Janitorial Services.",
+        "sourceId": "P-11",
+        "independence": "independent",
+        "relationshipToTeam": "none"
+      },
+      "content": {
+        "mode": "verbatim",
+        "observation": "Interviewer: \"How many proposals would you say you put out?\" Participant: \"A couple a week, usually. Some weeks more. It's constant.\"",
+        "measurements": [
+          { "label": "Reported proposals per week", "value": 2, "unit": "proposals per week", "basis": "Participant's estimate, no period specified" }
+        ]
+      },
+      "scope": {
+        "subjectCount": 1,
+        "segmentFit": "in-segment",
+        "timeframeCovered": { "description": "No period stated" },
+        "recruitment": "sampled"
+      },
+      "declaredRelevance": ["REQ-3"],
+      "limitations": [
+        "Estimate with no period attached.",
+        "The same participant's CRM export (EV-005) covers a continuous six-month period and records a materially different rate.",
+        "'It's constant' conflicts with the eleven zero-proposal weeks in that participant's own export."
+      ]
+    },
+
+    {
+      "evidenceId": "EV-008",
+      "evidenceCategory": "instrumented-record",
+      "proximity": "generated-by-the-behavior",
+      "origin": "synthetic",
+      "synthetic": true,
+      "collectedDate": "2026-05-11",
+      "collectionMethod": "Owner exported calendar entries and proposal send records for a continuous 13-week period.",
+      "source": {
+        "sourceType": "tool-export",
+        "description": "Calendar and proposal send export for Kettle Creek Cleaning.",
+        "sourceId": "P-12",
+        "independence": "independent",
+        "relationshipToTeam": "none"
+      },
+      "content": {
+        "mode": "measurement",
+        "observation": "Export covers 2026-02-01 to 2026-05-01, a continuous 13-week period. 16 proposals sent, matching the 16 documents in EV-004. Two weeks contain no proposal. The highest single week contains 3 proposals.",
+        "measurements": [
+          { "label": "Period covered", "value": 13, "unit": "weeks" },
+          { "label": "Proposals sent", "value": 16, "unit": "proposals" },
+          { "label": "Mean proposals per week", "value": 1.23, "unit": "proposals per week", "basis": "16 proposals over 13 weeks" },
+          { "label": "Highest single week", "value": 3, "unit": "proposals" },
+          { "label": "Weeks with zero proposals", "value": 2, "unit": "weeks" }
+        ]
+      },
+      "scope": {
+        "subjectCount": 1,
+        "segmentFit": "in-segment",
+        "timeframeCovered": { "start": "2026-02-01", "end": "2026-05-01" },
+        "recruitment": "sampled"
+      },
+      "declaredRelevance": ["REQ-3"],
+      "limitations": [
+        "One owner.",
+        "Thirteen weeks in late winter and spring; no comparison period was collected.",
+        "This is the highest rate recorded in the packet and it still sits below the claimed threshold."
+      ]
+    },
+
+    {
+      "evidenceId": "EV-009",
+      "evidenceCategory": "business-artifact",
+      "proximity": "generated-by-the-behavior",
+      "origin": "synthetic",
+      "synthetic": true,
+      "collectedDate": "2026-05-11",
+      "collectionMethod": "Owner forwarded buyer correspondence for all bids marked lost in the trailing twelve months, with matching send timestamps.",
+      "source": {
+        "sourceType": "customer-participant",
+        "description": "Buyer correspondence supplied by the owner of Kettle Creek Cleaning; the emails originate from four separate prospect organizations.",
+        "sourceId": "P-12",
+        "independence": "independent",
+        "relationshipToTeam": "none"
+      },
+      "content": {
+        "mode": "artifact-summary",
+        "observation": "Four dated buyer emails across twelve months. (1) 2025-07-08, property manager: \"We needed it by the 3rd — we've awarded already.\" (2) 2025-10-30, school district administrator: \"Submissions closed Monday. We can't accept a late package.\" (3) 2026-01-19, office manager: \"Sorry, we picked someone last week. If you'd got it to me before the 12th you'd have been in it.\" (4) 2026-04-02, facilities lead: \"The board met Tuesday. Nothing arrived from you before then.\" Send timestamps for all four proposals postdate the buyer-stated deadline by between 2 and 9 days.",
+        "measurements": [
+          { "label": "Bids where the buyer states in writing that the proposal arrived after the decision", "value": 4, "unit": "bids", "n": 4 },
+          { "label": "Period covered", "value": 12, "unit": "months" },
+          { "label": "Distinct buyer organizations", "value": 4, "unit": "organizations" },
+          { "label": "Days late, range", "value": "2–9", "unit": "days" }
+        ]
+      },
+      "scope": {
+        "subjectCount": 1,
+        "segmentFit": "in-segment",
+        "timeframeCovered": { "start": "2025-05-01", "end": "2026-04-30" },
+        "recruitment": "sampled"
+      },
+      "declaredRelevance": ["REQ-4"],
+      "limitations": [
+        "Lost bids only; correspondence for won bids was not supplied, so the base rate is unknown.",
+        "The owner selected which correspondence to forward.",
+        "Buyers' written reasons may be face-saving; what is recorded is what the buyer wrote."
+      ]
+    },
+
+    {
+      "evidenceId": "EV-010",
+      "evidenceCategory": "business-artifact",
+      "proximity": "generated-by-the-behavior",
+      "origin": "synthetic",
+      "synthetic": true,
+      "collectedDate": "2026-05-06",
+      "collectionMethod": "Owner forwarded buyer correspondence for all bids marked lost in the trailing twelve months, with matching send timestamps.",
+      "source": {
+        "sourceType": "customer-participant",
+        "description": "Buyer correspondence supplied by the owner of Coastal Janitorial Services; the emails originate from five separate prospect organizations.",
+        "sourceId": "P-11",
+        "independence": "independent",
+        "relationshipToTeam": "none"
+      },
+      "content": {
+        "mode": "artifact-summary",
+        "observation": "Five dated buyer emails covering every bid the owner recorded as lost in twelve months. Every one names price or scope as the deciding factor and three explicitly note timely delivery. (1) 2025-08-21: \"Your quote came through the same day, which we appreciated — we went with a bid about 15% under yours.\" (2) 2025-11-04: \"Price was the deciding factor.\" (3) 2026-01-15: \"You were the fastest to respond. The other vendor included day porter coverage we needed.\" (4) 2026-03-11: \"We went cheaper.\" (5) 2026-04-19: \"No complaints on turnaround, it came down to the monthly number.\" Send timestamps for all five proposals precede the buyer-stated deadline by between 3 and 11 days. No bid in the period was submitted late.",
+        "measurements": [
+          { "label": "Bids lost in period", "value": 5, "unit": "bids", "n": 5 },
+          { "label": "Bids where the buyer names price or scope as deciding", "value": 5, "unit": "bids", "n": 5 },
+          { "label": "Bids where the buyer states the proposal arrived late", "value": 0, "unit": "bids", "n": 5 },
+          { "label": "Bids submitted after the buyer-stated deadline", "value": 0, "unit": "bids", "n": 5 },
+          { "label": "Period covered", "value": 12, "unit": "months" }
+        ]
+      },
+      "scope": {
+        "subjectCount": 1,
+        "segmentFit": "in-segment",
+        "timeframeCovered": { "start": "2025-05-01", "end": "2026-04-30" },
+        "recruitment": "sampled"
+      },
+      "declaredRelevance": ["REQ-4"],
+      "limitations": [
+        "Buyers naming price may be declining to give a fuller reason; the record establishes what was written, not the buyer's full reasoning.",
+        "Covers this owner's twelve months only.",
+        "This owner also produces proposals faster than any other source in the packet (EV-003), which may explain the absence of lateness and is not itself evidenced."
+      ]
+    },
+
+    {
+      "evidenceId": "EV-011",
+      "evidenceCategory": "instrumented-record",
+      "proximity": "generated-by-the-behavior",
+      "origin": "synthetic",
+      "synthetic": true,
+      "collectedDate": "2026-05-14",
+      "collectionMethod": "Extracted from the proposal software export, comparing send timestamps against the deadline field recorded per opportunity.",
+      "source": {
+        "sourceType": "tool-export",
+        "description": "Deadline and send-timestamp fields from the Vantage Maintenance Co proposal software export.",
+        "sourceId": "P-13",
+        "independence": "independent",
+        "relationshipToTeam": "none"
+      },
+      "content": {
+        "mode": "measurement",
+        "observation": "Of the 14 proposals sent between 2025-05-01 and 2026-04-30, 13 record a buyer deadline. All 13 were sent before that deadline, by a median of 6 days. Six of the 14 bids are recorded as lost; the outcome field records a reason for four of them, none of which is timing (two 'price', one 'incumbent renewed', one 'scope'). The remaining two record no reason.",
+        "measurements": [
+          { "label": "Proposals with a recorded buyer deadline", "value": 13, "unit": "proposals", "n": 14 },
+          { "label": "Proposals sent after the deadline", "value": 0, "unit": "proposals", "n": 13 },
+          { "label": "Median days early", "value": 6, "unit": "days", "n": 13 },
+          { "label": "Bids lost", "value": 6, "unit": "bids", "n": 14 },
+          { "label": "Bids lost with timing recorded as the reason", "value": 0, "unit": "bids", "n": 6 },
+          { "label": "Period covered", "value": 12, "unit": "months" }
+        ]
+      },
+      "scope": {
+        "subjectCount": 1,
+        "segmentFit": "in-segment",
+        "timeframeCovered": { "start": "2025-05-01", "end": "2026-04-30" },
+        "recruitment": "sampled"
+      },
+      "declaredRelevance": ["REQ-4"],
+      "limitations": [
+        "Deadlines and loss reasons are as the owner entered them, not as the buyer stated them; no buyer correspondence was supplied for this source.",
+        "Two of six losses record no reason at all.",
+        "One owner."
+      ]
+    },
+
+    {
+      "evidenceId": "EV-012",
+      "evidenceCategory": "resource-commitment-record",
+      "proximity": "generated-by-the-behavior",
+      "origin": "synthetic",
+      "synthetic": true,
+      "collectedDate": "2026-05-11",
+      "collectionMethod": "Owner supplied contractor invoices and matching bank debits.",
+      "source": {
+        "sourceType": "customer-participant",
+        "description": "Invoices from a freelance proposal writer engaged by the owner of Kettle Creek Cleaning, with matching bank debits.",
+        "sourceId": "P-12",
+        "independence": "independent",
+        "relationshipToTeam": "none"
+      },
+      "content": {
+        "mode": "artifact-summary",
+        "observation": "Eight monthly invoices dated 2025-09-01 through 2026-04-01, each USD 250, line description 'Proposal drafting support — retainer'. Eight matching bank debits. The engagement is ongoing as of the collection date; the most recent invoice is unpaid but issued.",
+        "measurements": [
+          { "label": "Consecutive months paid", "value": 8, "unit": "months" },
+          { "label": "Monthly amount", "value": 250, "unit": "USD" },
+          { "label": "Total paid in period", "value": 2000, "unit": "USD" }
+        ]
+      },
+      "scope": {
+        "subjectCount": 1,
+        "segmentFit": "in-segment",
+        "timeframeCovered": { "start": "2025-09-01", "end": "2026-04-01" },
+        "recruitment": "sampled"
+      },
+      "declaredRelevance": ["REQ-5"],
+      "limitations": [
+        "One owner.",
+        "The invoices do not record how many proposals the retainer covered.",
+        "Sustained expenditure by the owner who also records the highest proposal volume in the packet; whether the two are connected is not evidenced."
+      ]
+    },
+
+    {
+      "evidenceId": "EV-013",
+      "evidenceCategory": "resource-commitment-record",
+      "proximity": "generated-by-the-behavior",
+      "origin": "synthetic",
+      "synthetic": true,
+      "collectedDate": "2026-05-06",
+      "collectionMethod": "Owner supplied the subscription billing history and the cancellation correspondence from their email archive.",
+      "source": {
+        "sourceType": "customer-participant",
+        "description": "Subscription and cancellation records supplied by the owner of Coastal Janitorial Services.",
+        "sourceId": "P-11",
+        "independence": "independent",
+        "relationshipToTeam": "none"
+      },
+      "content": {
+        "mode": "artifact-summary",
+        "observation": "Billing history shows a proposal software subscription at USD 99 per month, started 2025-09-02, with two charges (2025-09-02 and 2025-10-02), cancelled 2025-10-08 — five weeks of use. The cancellation email sent by the owner reads: \"Cancelling this one. Honestly the Word template I've been using for years is faster for me. Proposals aren't where my time goes — chasing supplies and covering shifts is.\" Login records supplied by the vendor show 4 sessions in the five-week period.",
+        "measurements": [
+          { "label": "Months subscribed", "value": 1.2, "unit": "months", "basis": "2025-09-02 to 2025-10-08" },
+          { "label": "Monthly amount", "value": 99, "unit": "USD" },
+          { "label": "Total paid", "value": 198, "unit": "USD" },
+          { "label": "Logins during subscription", "value": 4, "unit": "sessions" }
+        ]
+      },
+      "scope": {
+        "subjectCount": 1,
+        "segmentFit": "in-segment",
+        "timeframeCovered": { "start": "2025-09-02", "end": "2025-10-08" },
+        "recruitment": "sampled"
+      },
+      "declaredRelevance": ["REQ-5"],
+      "limitations": [
+        "The cancellation reason is the owner's own contemporaneous statement, which is stronger than a retrospective explanation but is still a stated reason rather than an observed cause.",
+        "The specific tool may have been a poor fit, which would not generalize to the category.",
+        "Two readings coexist in this single record: money was spent on the problem, and the spending was withdrawn within five weeks."
+      ]
+    },
+
+    {
+      "evidenceId": "EV-014",
+      "evidenceCategory": "business-artifact",
+      "proximity": "generated-by-the-behavior",
+      "origin": "synthetic",
+      "synthetic": true,
+      "collectedDate": "2026-05-14",
+      "collectionMethod": "Owner forwarded correspondence from their email archive after being asked whether they had ever evaluated paid help for proposals.",
+      "source": {
+        "sourceType": "customer-participant",
+        "description": "Email correspondence supplied by the owner of Vantage Maintenance Co.",
+        "sourceId": "P-13",
+        "independence": "independent",
+        "relationshipToTeam": "none"
+      },
+      "content": {
+        "mode": "artifact-summary",
+        "observation": "Email thread dated 2025-08-19 with a proposal software vendor. The owner's reply reads: \"Thanks for the demo. I'm going to pass. For fourteen or fifteen bids a year I can't justify a monthly fee — my template does the job in an hour and the part that actually takes time is pricing the job, which your tool doesn't touch.\" No subsequent purchase appears in the twelve months of records supplied. No payroll allocation to bid work appears in the period.",
+        "measurements": [
+          { "label": "Documented evaluations of a paid option", "value": 1, "unit": "evaluations" },
+          { "label": "Documented purchases", "value": 0, "unit": "purchases" },
+          { "label": "Months with allocated staff hours for proposal work", "value": 0, "unit": "months" }
+        ]
+      },
+      "scope": {
+        "subjectCount": 1,
+        "segmentFit": "in-segment",
+        "timeframeCovered": { "start": "2025-05-01", "end": "2026-04-30" },
+        "recruitment": "sampled"
+      },
+      "declaredRelevance": ["REQ-5"],
+      "limitations": [
+        "The owner's stated reason is a stated reason, not an observed cause of the decision.",
+        "Absence of a purchase in the supplied records does not prove no expenditure occurred outside them.",
+        "The owner's 'an hour' figure is an estimate; unlike P-11 and P-12, no document version history was obtained for this source."
+      ]
+    },
+
+    {
+      "evidenceId": "EV-015",
+      "evidenceCategory": "instrumented-record",
+      "proximity": "generated-by-the-behavior",
+      "origin": "synthetic",
+      "synthetic": true,
+      "collectedDate": "2026-05-20",
+      "collectionMethod": "Company supplied a bid-desk time-tracking export and the coordinator's payroll cost.",
+      "source": {
+        "sourceType": "customer-participant",
+        "description": "Summit Facility Partners, 60 cleaning staff, with one full-time bid coordinator. Recorded as out of segment during screening and retained for contrast.",
+        "sourceId": "P-14",
+        "independence": "independent",
+        "relationshipToTeam": "none"
+      },
+      "content": {
+        "mode": "measurement",
+        "observation": "Export covers 2026-01-05 to 2026-05-15 and records 47 proposals produced by one full-time bid coordinator, mean logged time 271 minutes per proposal. Payroll shows the coordinator role costing USD 4,100 per month, continuously for 22 months. The owner appears in none of the proposal records.",
+        "measurements": [
+          { "label": "Proposals covered", "value": 47, "unit": "proposals", "n": 47 },
+          { "label": "Mean logged time per proposal", "value": 271, "unit": "minutes", "n": 47 },
+          { "label": "Monthly cost of dedicated role", "value": 4100, "unit": "USD" },
+          { "label": "Consecutive months the role has existed", "value": 22, "unit": "months" },
+          { "label": "Cleaning staff headcount", "value": 60, "unit": "staff" }
+        ]
+      },
+      "scope": {
+        "subjectCount": 1,
+        "segmentFit": "out-of-segment",
+        "segmentNotes": "60 cleaning staff, exceeding the 1–25 boundary, and a dedicated bid-writing role, which the segment definition explicitly excludes. Fails two of four boundaries.",
+        "timeframeCovered": { "start": "2026-01-05", "end": "2026-05-15" },
+        "recruitment": "convenience"
+      },
+      "declaredRelevance": ["REQ-2", "REQ-3", "REQ-5"],
+      "limitations": [
+        "Out of segment on headcount and on who produces proposals. A salaried coordinator's logged hours are a different phenomenon from an owner working after hours.",
+        "Self-logged time entries by an employee whose time is tracked internally.",
+        "This is the strongest-looking record in the packet on every axis except the one that matters: it is not the stated customer."
+      ]
+    }
+  ],
+
+  "interpretations": [
+    {
+      "interpretationId": "INT-001",
+      "evidenceIds": ["EV-002", "EV-007"],
+      "author": "Product team",
+      "statement": "Owners are producing several proposals a week and each one costs them the better part of a day.",
+      "inferenceType": "generalization"
+    },
+    {
+      "interpretationId": "INT-002",
+      "evidenceIds": ["EV-003", "EV-013"],
+      "author": "Researcher",
+      "statement": "P-11 is fast because they reuse prior documents, which is why they saw no value in the software.",
+      "inferenceType": "causal-claim"
+    },
+    {
+      "interpretationId": "INT-003",
+      "evidenceIds": ["EV-009"],
+      "author": "Product team",
+      "statement": "Late proposals are costing owners roughly one contract a quarter.",
+      "inferenceType": "generalization"
+    },
+    {
+      "interpretationId": "INT-004",
+      "evidenceIds": ["EV-015"],
+      "author": "Product team",
+      "statement": "Companies clearly will pay real money for proposal help — Summit spends USD 4,100 a month on it.",
+      "inferenceType": "generalization"
+    }
+  ]
+}

@@ -1,0 +1,305 @@
+{
+  "schemaVersion": "1.0.0",
+  "packetId": "ccpa-missing-001",
+  "packetVersion": "1.0.0",
+  "packetPurpose": "fixture",
+  "createdDate": "2026-02-02",
+  "author": "EvidenceGate Phase 0 — synthetic benchmark packet",
+  "notes": "SYNTHETIC BENCHMARK. This packet is not empty — it contains material a team might genuinely believe is evidence. The point is that none of it is suitable: an internal assumption, two secondary sources, a leading survey about the proposed product, one unanchored self-report from a source of unknown segment, and one genuinely strong record from a company that is clearly out of segment. Every requirement should resolve to not-testable, but for five different reasons, and none of the reasons is contradiction.",
+
+  "product": {
+    "name": "Commercial Cleaning Proposal Assistant",
+    "statedTargetSegment": {
+      "text": "Small cleaning businesses that struggle with proposals.",
+      "attributes": {}
+    },
+    "problemHypothesis": "Owners spend excessive time turning facility-walkthrough information into complete commercial-cleaning proposals."
+  },
+
+  "claims": [
+    {
+      "claimId": "CL-001",
+      "requirementIds": ["REQ-1"],
+      "claimText": "Our customer is small cleaning businesses that struggle with proposals and want to grow.",
+      "claimScope": "definition",
+      "definedThreshold": null,
+      "statedBy": "Product team",
+      "notes": "No size bound, geography, service line, or buyer role is committed to. 'Struggle with proposals' is also a membership condition, which makes the definition circular with the problem being tested."
+    },
+    {
+      "claimId": "CL-002",
+      "requirementIds": ["REQ-2"],
+      "claimText": "Owners spend way too long turning walkthrough information into proposals.",
+      "claimScope": "instance",
+      "definedThreshold": null,
+      "statedBy": "Product team",
+      "notes": "'Way too long' names no duration, so no observation could fall on either side of it."
+    },
+    {
+      "claimId": "CL-003",
+      "requirementIds": ["REQ-3"],
+      "claimText": "An owner in this segment produces at least two proposals per week, sustained across at least eight consecutive weeks.",
+      "claimScope": "recurrence",
+      "definedThreshold": "At least 2 proposals per week, sustained over at least 8 consecutive weeks, per owner",
+      "statedBy": "Product team"
+    },
+    {
+      "claimId": "CL-004",
+      "requirementIds": ["REQ-4"],
+      "claimText": "Owners lose at least one bid per quarter because the proposal was delivered after the buyer's decision date.",
+      "claimScope": "narrow-pattern",
+      "definedThreshold": "At least 1 bid per quarter lost or rendered ineligible, with lateness established by the buyer",
+      "statedBy": "Product team"
+    },
+    {
+      "claimId": "CL-005",
+      "requirementIds": ["REQ-5"],
+      "claimText": "Owners are willing to pay a monthly subscription for a tool that writes their proposals for them.",
+      "claimScope": "narrow-pattern",
+      "definedThreshold": "Stated willingness to pay a recurring monthly fee for the proposed product",
+      "statedBy": "Product team",
+      "notes": "This claim is about demand for the proposed product, not about resources already committed to the existing problem."
+    }
+  ],
+
+  "evidence": [
+    {
+      "evidenceId": "EV-001",
+      "evidenceCategory": "internal-assertion",
+      "proximity": "asserted",
+      "origin": "synthetic",
+      "synthetic": true,
+      "collectedDate": "2025-12-08",
+      "collectionMethod": "Extracted from the team's internal product brief.",
+      "source": {
+        "sourceType": "team-member",
+        "description": "Internal product brief written by the founding team.",
+        "sourceId": "INTERNAL-BRIEF",
+        "independence": "team-internal",
+        "relationshipToTeam": "employee"
+      },
+      "content": {
+        "mode": "artifact-summary",
+        "observation": "Brief states: 'Cleaning company owners typically spend five or more hours producing each commercial proposal, and most of that is retyping information they already collected during the walkthrough. This is the single biggest time sink in their week.' No source, calculation, or participant is cited anywhere in the brief.",
+        "measurements": []
+      },
+      "scope": {
+        "subjectCount": 0,
+        "segmentFit": "unknown",
+        "segmentNotes": "Describes no specific company.",
+        "timeframeCovered": { "description": "None stated" },
+        "recruitment": "not-applicable"
+      },
+      "declaredRelevance": ["REQ-2", "REQ-3"],
+      "limitations": [
+        "This is the team's own assumption written down. Writing a belief in a document does not convert it into an observation.",
+        "No source is cited and none could be traced.",
+        "The figure of five hours has no stated basis."
+      ]
+    },
+
+    {
+      "evidenceId": "EV-002",
+      "evidenceCategory": "secondary-source",
+      "proximity": "secondary",
+      "origin": "synthetic",
+      "synthetic": true,
+      "collectedDate": "2025-12-11",
+      "collectionMethod": "Saved from a web search for cleaning industry bidding.",
+      "source": {
+        "sourceType": "third-party-publication",
+        "description": "Blog post on a janitorial industry news site, 'Five Reasons Contractors Lose Bids'.",
+        "sourceId": "PUB-01",
+        "independence": "unknown",
+        "relationshipToTeam": "none"
+      },
+      "content": {
+        "mode": "artifact-summary",
+        "observation": "Article asserts that 'slow, inconsistent proposals are among the leading causes of lost contracts in the janitorial sector'. It cites no study, no dataset and no interviews. The author byline is the site's editorial staff. The article does not state what size of contractor it refers to.",
+        "measurements": []
+      },
+      "scope": {
+        "subjectCount": 0,
+        "segmentFit": "unknown",
+        "segmentNotes": "The article does not define which contractors it describes; it may concern national contractors.",
+        "timeframeCovered": { "description": "None stated" },
+        "recruitment": "not-applicable"
+      },
+      "declaredRelevance": ["REQ-4"],
+      "limitations": [
+        "No methodology, no sample, no data. An assertion in an article is not an observation of any company.",
+        "Segment is unspecified, so nothing in it can be attributed to the stated target.",
+        "The publication carries advertising from proposal software vendors."
+      ]
+    },
+
+    {
+      "evidenceId": "EV-003",
+      "evidenceCategory": "stated-intent",
+      "proximity": "hypothetical",
+      "origin": "synthetic",
+      "synthetic": true,
+      "collectedDate": "2026-01-14",
+      "collectionMethod": "Single-question poll posted by the team in a public cleaning-business Facebook group with roughly 9,000 members.",
+      "source": {
+        "sourceType": "customer-participant",
+        "description": "22 self-selected respondents to a public group poll. No respondent details were collected.",
+        "sourceId": "POLL-01",
+        "independence": "unknown",
+        "relationshipToTeam": "none"
+      },
+      "content": {
+        "mode": "verbatim",
+        "observation": "Poll question as posted: \"Would you use a tool that writes your commercial cleaning proposals for you, so you never have to spend your evenings on paperwork again?\" Options: 'Yes, definitely' (18), 'Maybe' (3), 'No' (1). Six comments, of which the longest reads \"Sign me up, sounds amazing.\" No respondent stated a price, a company size, or a service line.",
+        "measurements": [
+          { "label": "Respondents", "value": 22, "unit": "respondents", "n": 22 },
+          { "label": "Answered 'Yes, definitely'", "value": 18, "unit": "respondents" },
+          { "label": "Respondents whose company size is known", "value": 0, "unit": "respondents" }
+        ]
+      },
+      "scope": {
+        "subjectCount": 22,
+        "segmentFit": "unknown",
+        "segmentNotes": "The group admits residential cleaners, franchisees and suppliers. No respondent was screened against any segment boundary.",
+        "timeframeCovered": { "description": "Single point in time" },
+        "recruitment": "self-selected"
+      },
+      "declaredRelevance": ["REQ-5"],
+      "limitations": [
+        "The question supplies its own answer and offers a benefit in the question text; agreement is the expected response.",
+        "Concerns a hypothetical future product, not anything the respondents have done.",
+        "Self-selected respondents from a mixed-population group; no segment screening.",
+        "No price was named, so nothing here concerns an amount."
+      ]
+    },
+
+    {
+      "evidenceId": "EV-004",
+      "evidenceCategory": "generalized-self-report",
+      "proximity": "recalled-general",
+      "origin": "synthetic",
+      "synthetic": true,
+      "collectedDate": "2026-01-21",
+      "collectionMethod": "Ten-minute phone call arranged through a mutual acquaintance; no notes were taken on company details.",
+      "source": {
+        "sourceType": "customer-participant",
+        "description": "Owner of a cleaning company. Headcount, service line, geography and who writes the proposals were not recorded.",
+        "sourceId": "P-21",
+        "independence": "unknown",
+        "relationshipToTeam": "acquaintance"
+      },
+      "content": {
+        "mode": "verbatim",
+        "observation": "\"Proposals take a while, yeah. It's annoying. You do them when you can.\" Asked how long, the participant said \"depends, some are quick.\" Asked how many they do, the participant said \"it varies a lot.\"",
+        "measurements": []
+      },
+      "scope": {
+        "subjectCount": 1,
+        "segmentFit": "unknown",
+        "segmentNotes": "No screening was performed and no company attributes were recorded. It is not known whether this company falls inside any segment definition.",
+        "timeframeCovered": { "description": "None stated" },
+        "recruitment": "convenience"
+      },
+      "declaredRelevance": ["REQ-2", "REQ-3"],
+      "limitations": [
+        "No specific occasion, duration, count or period is attached to any statement.",
+        "The participant explicitly declined to give a duration or a rate.",
+        "Segment membership unknown, so the account cannot be attributed to any defined population.",
+        "Reached through a personal acquaintance of the team."
+      ]
+    },
+
+    {
+      "evidenceId": "EV-005",
+      "evidenceCategory": "instrumented-record",
+      "proximity": "generated-by-the-behavior",
+      "origin": "synthetic",
+      "synthetic": true,
+      "collectedDate": "2026-01-27",
+      "collectionMethod": "Company supplied a bid-desk time-tracking export covering a full quarter.",
+      "source": {
+        "sourceType": "customer-participant",
+        "description": "Regional facilities services company, 140 employees, with a three-person proposal team. Reached through an investor introduction.",
+        "sourceId": "P-22",
+        "independence": "independent",
+        "relationshipToTeam": "investor"
+      },
+      "content": {
+        "mode": "measurement",
+        "observation": "Export covers 2025-10-01 to 2025-12-31 and records 61 proposals produced by three proposal specialists, with per-proposal logged time. Mean logged time per proposal is 238 minutes; median 226 minutes. The owner of the company does not appear in the export. 44 of the 61 proposals are for facilities above 50,000 sq ft.",
+        "measurements": [
+          { "label": "Proposals covered", "value": 61, "unit": "proposals", "n": 61 },
+          { "label": "Mean logged time per proposal", "value": 238, "unit": "minutes", "n": 61 },
+          { "label": "Employees", "value": 140, "unit": "employees" },
+          { "label": "Period covered", "value": 92, "unit": "days" }
+        ]
+      },
+      "scope": {
+        "subjectCount": 1,
+        "segmentFit": "out-of-segment",
+        "segmentNotes": "140 employees with a dedicated three-person proposal team. Whatever segment definition the team eventually commits to, a company of this size where the owner does not write proposals is not the stated target of a tool for owner-written proposals.",
+        "timeframeCovered": { "start": "2025-10-01", "end": "2025-12-31" },
+        "recruitment": "existing-relationship"
+      },
+      "declaredRelevance": ["REQ-2", "REQ-3"],
+      "limitations": [
+        "Out of segment. A salaried specialist producing proposals as their job is a different activity from an owner doing it after hours.",
+        "Facility sizes are far larger than a small contractor typically bids.",
+        "Introduced by an investor, which affects neither the data quality nor the segment mismatch, but is recorded."
+      ]
+    },
+
+    {
+      "evidenceId": "EV-006",
+      "evidenceCategory": "secondary-source",
+      "proximity": "secondary",
+      "origin": "synthetic",
+      "synthetic": true,
+      "collectedDate": "2026-01-29",
+      "collectionMethod": "Screenshot of a competitor's marketing page.",
+      "source": {
+        "sourceType": "third-party-publication",
+        "description": "Landing page for a competing proposal software product.",
+        "sourceId": "PUB-02",
+        "independence": "unknown",
+        "relationshipToTeam": "none"
+      },
+      "content": {
+        "mode": "artifact-summary",
+        "observation": "Page headline reads 'Cleaning contractors waste 10+ hours a week on paperwork.' A footnote reads 'Based on internal customer research, 2024.' The research is not published and the page does not state how many customers were surveyed or what counts as paperwork.",
+        "measurements": [
+          { "label": "Claimed hours per week", "value": "10+", "unit": "hours per week", "basis": "Vendor marketing claim, unpublished basis" }
+        ]
+      },
+      "scope": {
+        "subjectCount": 0,
+        "segmentFit": "unknown",
+        "timeframeCovered": { "description": "Attributed to 2024, no period given" },
+        "recruitment": "not-applicable"
+      },
+      "declaredRelevance": ["REQ-2"],
+      "limitations": [
+        "A vendor's marketing claim about its own market, with unpublished methodology.",
+        "'Paperwork' is broader than proposal production and is not defined.",
+        "No segment, sample size or measurement method is stated."
+      ]
+    }
+  ],
+
+  "interpretations": [
+    {
+      "interpretationId": "INT-001",
+      "evidenceIds": ["EV-003"],
+      "author": "Product team",
+      "statement": "82% of small cleaning business owners want this product.",
+      "inferenceType": "generalization"
+    },
+    {
+      "interpretationId": "INT-002",
+      "evidenceIds": ["EV-001", "EV-006"],
+      "author": "Product team",
+      "statement": "Owners are losing roughly a day a week to proposal paperwork, which is why they cannot grow.",
+      "inferenceType": "causal-claim"
+    }
+  ]
+}

@@ -1,0 +1,223 @@
+{
+  "schemaVersion": "1.0.0",
+  "fixture": "strong-evidence.json",
+  "packetId": "ccpa-strong-001",
+  "packetPurpose": "fixture",
+  "reviewStatus": "approved",
+  "humanReviewed": true,
+  "reviewedBy": null,
+  "reviewedDate": null,
+  "generatedBy": "EvidenceGate Phase 0 design pass — proposed by the same process that authored the rubric and the fixture",
+  "generatedDate": "2026-08-05",
+  "syntheticEvidenceNotice": "Every evidence record in packet ccpa-strong-001 has origin 'synthetic'. These findings demonstrate how the auditor reasons; they establish nothing about small commercial cleaning companies, the proposal problem, or the viability of the Commercial Cleaning Proposal Assistant. A pass here means the packet's logic holds, not that the claim is true in the world.",
+
+  "findings": [
+    {
+      "requirementId": "REQ-1",
+      "requirement": "Target-customer specificity",
+      "status": "pass",
+      "evidenceIds": ["EV-001"],
+      "contradictoryEvidenceIds": [],
+      "missingEvidence": [
+        "In/out decisions from a second rater who did not write the definition, applied to the same 12 screened companies, to test whether the boundaries are decidable by someone else."
+      ],
+      "severity": "none",
+      "rationale": "CL-001 commits to four boundaries that can each be checked against a company: US-based, 1–25 cleaning staff, recurring janitorial contracts, and the owner personally producing the proposal. It also names three exclusions. EV-001 records the definition actually being applied to 12 companies, with a boundary named for each of the 7 exclusions and no row marked undecidable, including a company (P-05) sorted out explicitly on headcount and proposal authorship. A definition under which 7 of 12 companies were excluded for stated reasons is falsifiable rather than self-sealing.",
+      "impact": "Because the population is decidable, the remaining four requirements have a referent and evidence can be attributed to the segment or excluded from it.",
+      "recommendation": "Keep the screening sheet as the operative definition of record, and add the rater's name and date to each row so future disagreements can be traced to a decision rather than a memory.",
+      "verificationTest": "Give the written definition and a list of twelve real companies including four deliberately borderline cases to a person who did not write it. If their in/out decisions differ from the team's on any company, the boundary that produced the disagreement is underspecified and this finding drops to partial.",
+      "requiresHumanDecision": false,
+      "claimIds": ["CL-001"],
+      "subAssessments": {
+        "definitionQuality": {
+          "verdict": "specific-and-testable",
+          "rationale": "Four boundaries plus three exclusions, each stated in terms a reader could apply to a named company without asking the team a follow-up question.",
+          "missingDefinitionElements": []
+        },
+        "evidenceAssessment": {
+          "verdict": "sufficient",
+          "rationale": "EV-001 is a record of the definition being applied in practice, which is the relevant evidence for a definition check. Sufficiency here is not a matter of source count: one record of consistent application across 12 companies addresses the question.",
+          "independentDirectlyRelevantSources": 1,
+          "sourceIds": ["INTERNAL-SCREEN"],
+          "gatedByDefinitionFailure": false
+        },
+        "contradictionAssessment": {
+          "verdict": "none-found",
+          "rationale": "No record shows the definition producing inconsistent sorting decisions.",
+          "conflictType": null
+        }
+      },
+      "offSegmentSignal": null,
+      "policyGap": null,
+      "reviewNote": null
+    },
+
+    {
+      "requirementId": "REQ-2",
+      "requirement": "Evidence of observed problem behavior",
+      "status": "pass",
+      "evidenceIds": ["EV-002", "EV-003", "EV-004", "EV-005"],
+      "contradictoryEvidenceIds": [],
+      "missingEvidence": [
+        "An artifact check on P-04's Riverside account — the document version history for that specific proposal — so the recalled 260 minutes can be compared against a record.",
+        "Any record of the work performed outside the document (site measurement, pricing calls), which the version-history measurements exclude by construction."
+      ],
+      "severity": "none",
+      "rationale": "CL-002 is instance-scoped and defines a threshold of more than 2 hours of active assembly work. EV-003 is a direct observation of one complete cycle: 165 minutes of assembly across five recorded steps, above threshold. EV-002 independently measures 9 proposals for a different in-segment owner with a median of 192 minutes active editing and 8 of 9 above 120 minutes. EV-004 supplies the walkthrough notes alongside the finished proposals for a third owner, showing the manual transcription the claim describes — abbreviations on a pad reappearing as full sentences in a scope table. EV-005 is an anchored account of a specific dated proposal, but its source was reached through P-02 and is not independent of that referral chain. An instance-scoped claim needs one credible occurrence; the independent measured and observed records already exceed that requirement. EV-014 was excluded from support: the interviewer's question supplied the conclusion, so the agreement it produced cannot be read as an independent report.",
+      "impact": "The behavior the product would replace is established as occurring and as taking material time in at least these cases. This does not establish that it is typical, which is REQ-3's question, nor that it is costly, which is REQ-4's.",
+      "recommendation": "Request document version history for P-04's Riverside proposal to close the one recalled-only account, and instrument one full cycle end to end — including walkthrough, pricing lookups and calls — so the portion of effort that happens outside the document is measured rather than assumed away.",
+      "verificationTest": "Recheck the provenance and measurement boundaries of EV-002 and EV-003, the existing qualifying above-threshold instances. This instance-scoped finding remains pass while at least one such instance remains credible, in-segment and unsuperseded. A separate instance at or below 120 minutes does not contradict the existence of the qualifying instance; the status changes only if every qualifying above-threshold instance is invalidated, shown out of segment, or explicitly superseded under OPEN-04.",
+      "requiresHumanDecision": false,
+      "claimIds": ["CL-002"],
+      "subAssessments": {
+        "definitionQuality": {
+          "verdict": "specific-and-testable",
+          "rationale": "The claim names the activity and commits to a numeric threshold with a stated unit of measurement, so a record could fall on either side of it.",
+          "missingDefinitionElements": []
+        },
+        "evidenceAssessment": {
+          "verdict": "sufficient",
+          "rationale": "Two records at generated-by-the-behavior proximity, one at observed-directly, one anchored self-report, from four in-segment sources. Instance scope requires one; the claim's threshold is exceeded in every measured case.",
+          "independentDirectlyRelevantSources": 3,
+          "sourceIds": ["P-01", "P-02", "P-03"],
+          "gatedByDefinitionFailure": false
+        },
+        "contradictionAssessment": {
+          "verdict": "none-found",
+          "rationale": "No in-segment record measures assembly at or below the claim's threshold.",
+          "conflictType": null
+        }
+      },
+      "offSegmentSignal": "EV-013 measures 241 minutes per proposal across 38 proposals at a 60-staff company with dedicated bid coordinators. It is out of segment on headcount and on who produces the proposal, so it neither supports nor weakens CL-002. It is recorded because it suggests the activity is expensive at larger companies too, which is a different question about a different buyer.",
+      "policyGap": null,
+      "reviewNote": null
+    },
+
+    {
+      "requirementId": "REQ-3",
+      "requirement": "Evidence of problem frequency",
+      "status": "partial",
+      "evidenceIds": [],
+      "contradictoryEvidenceIds": ["EV-006"],
+      "missingEvidence": [
+        "The 14 dated events from EV-007 assigned to the exact predefined calendar-week buckets, without which its 13-day maximum gap cannot determine whether any defined week was empty.",
+        "A second independent in-segment calendar-week export covering a predefined eight-week window, needed to meet the configured recurrence-source minimum in either direction.",
+        "Any record of proposals produced outside EV-006's exported tools that could fill its recorded zero-proposal week."
+      ],
+      "severity": "high",
+      "rationale": "CL-003 requires at least one proposal in every predefined calendar week across eight consecutive weeks; a period-wide mean above one is not enough. EV-006 directly records one zero-proposal week in its exact eight-week window and is counterevidence. EV-007 reports 14 events over 90 days and a longest gap of 13 days, but supplies neither the event dates nor predefined week counts. A 13-day interval can straddle calendar-week boundaries without leaving a defined week empty, so EV-007 is unsuitable for this threshold rather than direct falsification. With one valid counterevidence source, no qualifying support, and the configured two-source recurrence minimum unmet, the result is partial rather than fail.",
+      "impact": "The packet contains one direct failure of the asserted weekly cadence and one export that cannot be bucketed against it. The uninterrupted recurrence pattern is not established, but the available counterevidence is not sufficiently scoped across the configured source minimum for fail.",
+      "recommendation": "Keep CL-003 unchanged unless the team intends a different meaning. Collect proposal-event exports in fixed calendar-week buckets and evaluate the minimum count in each week, rather than using a period-wide mean.",
+      "verificationTest": "For each of two independent in-segment owners, define an eight-consecutive-calendar-week window before inspecting the events and count sent proposals separately in every week. The claim is supported only if each of all eight weeks contains at least one proposal for each owner; any zero-proposal week directly falsifies the cadence for that owner.",
+      "requiresHumanDecision": true,
+      "claimIds": ["CL-003"],
+      "subAssessments": {
+        "definitionQuality": {
+          "verdict": "specific-and-testable",
+          "rationale": "Rate, sustaining period and unit of analysis (the individual owner) are all stated, and the claim explicitly declines to assert a segment-wide rate.",
+          "missingDefinitionElements": []
+        },
+        "evidenceAssessment": {
+          "verdict": "unsuitable",
+          "rationale": "No record establishes the minimum weekly cadence. EV-006 directly falls below it; EV-007 cannot be classified because exact event dates or predefined week buckets are absent.",
+          "independentDirectlyRelevantSources": 0,
+          "sourceIds": [],
+          "gatedByDefinitionFailure": false
+        },
+        "contradictionAssessment": {
+          "verdict": "direct-falsification",
+          "rationale": "EV-006 directly falsifies the cadence for P-01. EV-007 is neither support nor contradiction at the weekly threshold because its summary cannot be assigned to the defined calendar-week buckets. The counterevidence covers fewer independent sources than the configured recurrence minimum.",
+          "conflictType": "direct-negation"
+        }
+      },
+      "offSegmentSignal": null,
+      "policyGap": null,
+      "reviewNote": null
+    },
+
+    {
+      "requirementId": "REQ-4",
+      "requirement": "Evidence of business cost or consequence",
+      "status": "partial",
+      "evidenceIds": ["EV-008", "EV-009"],
+      "contradictoryEvidenceIds": [],
+      "missingEvidence": [
+        "Buyer correspondence for P-03's four late bids, establishing from the buyer's side whether lateness was why those bids were lost — the spreadsheet records dates only.",
+        "Buyer-established lateness from at least one further independent in-segment owner, which is what would meet the configured two-source minimum for this narrow-pattern claim.",
+        "The base rate: correspondence for bids that were won, so that losses can be read against a denominator rather than in isolation.",
+        "Contract values for the affected bids, without which no statement about the size of the cost can be made."
+      ],
+      "severity": "medium",
+      "rationale": "CL-004 requires the consequence to be established by the buyer rather than inferred. EV-008 does that with three dated buyer emails matched to late send timestamps, but it aggregates two owner-authored proposals that meet every segment criterion and one administrator-authored proposal that fails the owner-authorship boundary. That explicit mixed membership makes the record partial-fit under OPEN-06; it may contribute to partial but cannot independently produce pass or falsify the full segment claim. EV-009 is fully in-segment but carries no buyer reason and establishes only co-occurrence. The result remains partial and the material partial-fit judgment requires human review.",
+      "impact": "The team can say a specific consequence has been documented for one owner. It cannot yet say this is a pattern across the segment, and it cannot say anything about magnitude. A product justified on recovered revenue would be resting on an amount no record in this packet contains.",
+      "recommendation": "Ask P-03 for the buyer correspondence behind the four late rows in their bid log, and run the same request with one further independent in-segment owner: for every bid marked lost in the trailing twelve months, obtain the buyer's own written reason rather than the owner's account of it.",
+      "verificationTest": "For twelve months of bid history from three independent in-segment owners, count the losses where the buyer names lateness or incompleteness in writing. If buyer-stated lateness appears for two or more owners at a rate of at least one per quarter, this finding moves to pass. If buyers overwhelmingly name price or scope while proposals arrived on time, the finding moves toward fail.",
+      "requiresHumanDecision": true,
+      "claimIds": ["CL-004"],
+      "subAssessments": {
+        "definitionQuality": {
+          "verdict": "specific-and-testable",
+          "rationale": "The claim names the consequence, the rate, and — importantly — the standard of proof, requiring lateness to be established by the buyer rather than inferred.",
+          "missingDefinitionElements": []
+        },
+        "evidenceAssessment": {
+          "verdict": "limited",
+          "rationale": "EV-008 meets the buyer-statement standard but mixes two owner-authored occurrences with one administrator-authored occurrence and is therefore partial-fit. EV-009 is full-fit but documents co-occurrence without a buyer statement. No wholly full-fit source establishes the claimed consequence.",
+          "independentDirectlyRelevantSources": 0,
+          "sourceIds": [],
+          "gatedByDefinitionFailure": false
+        },
+        "contradictionAssessment": {
+          "verdict": "none-found",
+          "rationale": "No record in this packet shows a buyer stating that a late proposal was still considered, or that lateness did not affect an outcome. The gap here is absence of coverage, which is not contradiction.",
+          "conflictType": null
+        }
+      },
+      "offSegmentSignal": null,
+      "policyGap": null,
+      "reviewNote": null
+    },
+
+    {
+      "requirementId": "REQ-5",
+      "requirement": "Evidence of meaningful customer commitment",
+      "status": "pass",
+      "evidenceIds": ["EV-010", "EV-011", "EV-012"],
+      "contradictoryEvidenceIds": [],
+      "missingEvidence": [
+        "A breakdown of P-03's task code BID hours separating proposal assembly from pricing research, since the code covers both.",
+        "Expense records from a third independent in-segment owner, to show whether this expenditure is common or particular to these two.",
+        "Any record of what P-01 and P-03 considered and rejected before choosing these arrangements, which would indicate what the expenditure was weighed against."
+      ],
+      "severity": "none",
+      "rationale": "CL-005 is scoped to resources already committed to the existing problem and defines the bar as documented money or allocated staff hours sustained at least three consecutive months. EV-010 is six consecutive monthly invoices at USD 340 with matching bank debits and an engagement letter naming proposal document assembly, for P-01. EV-011 is 14 months of payroll with a written task allocation naming bid documents and 8 hours per week logged under a dedicated task code, for P-03. Both are artifacts rather than recollections, both are independent in-segment sources, and both exceed the three-month bar, meeting the configured two-source minimum. EV-012 records a USD 199 template purchase still in use eight months later for P-04, which supports the claim but comes from a source reached through P-02 and so is not independent of it; it is cited as corroboration, not counted toward the minimum. Nothing about willingness to pay for the proposed product was considered — EV-012 concerns a workaround already bought for the existing problem, and no record in this packet concerns demand for the Commercial Cleaning Proposal Assistant.",
+      "impact": "Owners in these cases were already spending money and staff hours on this task before anyone offered them a product, which is behavioral evidence that the problem is felt. It does not indicate what they would pay for this product — that question is outside this auditor's scope, and INT-003's prediction that they would spend at least USD 340 is unsupported by anything in the packet.",
+      "recommendation": "Collect twelve months of expense records filtered to proposal, bidding and administrative support from a third independent in-segment owner, and ask P-03 to split the BID task code so the proposal-assembly share is separable from pricing work.",
+      "verificationTest": "Request proposal-related expense and allocation records from three additional independent in-segment owners. Existing support is weakened only by documented counterevidence such as evaluating and declining a qualifying expenditure because the problem did not warrant it, abandoning a qualifying commitment for that reason, or an equivalent artifact-backed decision — an absence of recorded spending alone remains missing evidence. Do not substitute willingness to pay for the proposed product.",
+      "requiresHumanDecision": false,
+      "claimIds": ["CL-005"],
+      "subAssessments": {
+        "definitionQuality": {
+          "verdict": "specific-and-testable",
+          "rationale": "The claim names the resource types that count, the minimum duration, and scopes itself to the existing problem rather than the proposed product, so a given expenditure could be sorted in or out.",
+          "missingDefinitionElements": []
+        },
+        "evidenceAssessment": {
+          "verdict": "sufficient",
+          "rationale": "Two independent in-segment sources with artifact-backed, sustained commitment exceeding the stated duration, plus one non-independent corroborating record. Meets the configured minimum for a narrow-pattern claim.",
+          "independentDirectlyRelevantSources": 2,
+          "sourceIds": ["P-01", "P-03"],
+          "gatedByDefinitionFailure": false
+        },
+        "contradictionAssessment": {
+          "verdict": "none-found",
+          "rationale": "No record shows an in-segment owner declining or abandoning expenditure on this task.",
+          "conflictType": null
+        }
+      },
+      "offSegmentSignal": null,
+      "policyGap": null,
+      "reviewNote": null
+    }
+  ]
+}

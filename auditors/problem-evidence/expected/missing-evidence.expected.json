@@ -1,0 +1,233 @@
+{
+  "schemaVersion": "1.0.0",
+  "fixture": "missing-evidence.json",
+  "packetId": "ccpa-missing-001",
+  "packetPurpose": "fixture",
+  "reviewStatus": "approved",
+  "humanReviewed": true,
+  "reviewedBy": null,
+  "reviewedDate": null,
+  "generatedBy": "EvidenceGate Phase 0 design pass — proposed by the same process that authored the rubric and the fixture",
+  "generatedDate": "2026-08-05",
+  "syntheticEvidenceNotice": "Every evidence record in packet ccpa-missing-001 has origin 'synthetic'. These findings demonstrate how the auditor reasons about unsuitable evidence; they establish nothing about small commercial cleaning companies or the proposal problem.",
+
+  "findings": [
+    {
+      "requirementId": "REQ-1",
+      "requirement": "Target-customer specificity",
+      "status": "not-testable",
+      "evidenceIds": [],
+      "contradictoryEvidenceIds": [],
+      "missingEvidence": [
+        "A written segment definition committing to an organization-size bound, a geography, a service line, and who in the company produces the proposal.",
+        "A screening record showing the definition applied to named companies, with the boundary that decided each exclusion."
+      ],
+      "severity": "high",
+      "rationale": "CL-001 states the customer as 'small cleaning businesses that struggle with proposals and want to grow'. No boundary in that sentence can be applied to a company: 'small' names no headcount or revenue, no geography or service line is given, residential and commercial are not distinguished, and no buyer role is identified. The definition is also circular with the thing being tested — 'struggle with proposals' is stated as a membership condition, so any company that does not struggle is defined out of the segment and no evidence could ever show the segment does not have the problem. No record in the packet applies the definition to anyone: EV-003's 22 respondents were unscreened, EV-004's company attributes were never recorded, and EV-001 is the team's own assumption. The claim is not falsifiable as written, so the requirement cannot be evaluated.",
+      "impact": "Every other requirement in this packet is scoped to a population that does not yet exist as a definition. Evidence cannot be attributed to the segment or excluded from it, which is why four of the five findings in this audit turn on attribution rather than on the strength of any particular record.",
+      "recommendation": "Write the definition as a set of boundaries a stranger could apply — headcount range, country, contract type, and who writes the proposal — then apply it to the last twenty companies the team has spoken to and record which boundary excluded each one. Remove 'struggles with proposals' from the definition; that is the hypothesis, not a membership criterion.",
+      "verificationTest": "Hand the rewritten definition and a list of twelve real companies, including four borderline cases, to two people independently. Agreement on every company indicates the definition is decidable; any disagreement identifies the boundary still missing.",
+      "requiresHumanDecision": false,
+      "claimIds": ["CL-001"],
+      "subAssessments": {
+        "definitionQuality": {
+          "verdict": "not-falsifiable",
+          "rationale": "The membership condition includes the problem being tested, so no company could be shown to be in the segment and free of the problem. Independently, no applicable boundary is stated.",
+          "missingDefinitionElements": [
+            "Organization-size bound",
+            "Geography or market",
+            "Service line (commercial vs residential)",
+            "Role of the person producing the proposal",
+            "Exclusions"
+          ]
+        },
+        "evidenceAssessment": {
+          "verdict": "absent",
+          "rationale": "No screening or recruitment record exists. No evidence record in the packet carries a segment determination other than 'unknown' or 'out-of-segment'.",
+          "independentDirectlyRelevantSources": 0,
+          "sourceIds": [],
+          "gatedByDefinitionFailure": false
+        },
+        "contradictionAssessment": {
+          "verdict": "none-found",
+          "rationale": "Nothing in the packet conflicts with the definition; there is nothing specific enough to conflict with.",
+          "conflictType": null
+        }
+      },
+      "offSegmentSignal": null,
+      "policyGap": null,
+      "reviewNote": null
+    },
+
+    {
+      "requirementId": "REQ-2",
+      "requirement": "Evidence of observed problem behavior",
+      "status": "not-testable",
+      "evidenceIds": [],
+      "contradictoryEvidenceIds": [],
+      "missingEvidence": [
+        "A stated duration in CL-002 in place of 'way too long', so that a measurement could fall on either side of it.",
+        "One directly observed or instrumented record of an in-segment owner assembling a proposal — document version history, a screen recording, or a timed observation session.",
+        "Company attributes for P-21 (headcount, service line, geography, who writes the proposals), without which that account cannot be attributed to any population."
+      ],
+      "severity": "high",
+      "rationale": "The status is gated by a definition failure. CL-002 claims owners spend 'way too long', which names no duration; no observation could confirm or falsify it, so the evidence cannot be weighed against it. The evidence assessment is preserved below rather than discarded, and it is independently weak: the packet contains no record of the behavior occurring for any in-segment source. EV-001 is the team's own written assumption, EV-006 is a vendor's marketing claim with unpublished methodology about undefined 'paperwork', and EV-004 is a generalized account from a source whose company attributes were never recorded and who explicitly declined to give a duration. None of these is a record of an occurrence. Missing evidence is the whole of the finding here — nothing in this packet contradicts the claim.",
+      "impact": "The team currently has no record that the behavior it intends to automate happens the way it believes, for anyone it can identify as a customer. Building against EV-001's five-hour figure would mean building against a number the team wrote down itself.",
+      "recommendation": "Rewrite CL-002 with a duration the team is willing to be wrong about, then sit with one owner who meets the rewritten segment definition and record the full walkthrough-to-proposal cycle with timestamps, without prompting or assisting.",
+      "verificationTest": "Obtain document version history for the last five proposals from two owners who pass the rewritten screening. Compare measured active assembly time against the stated threshold: measurements above it support the claim, measurements at or below it falsify it. Either outcome moves this finding off not-testable.",
+      "requiresHumanDecision": false,
+      "claimIds": ["CL-002"],
+      "subAssessments": {
+        "definitionQuality": {
+          "verdict": "not-falsifiable",
+          "rationale": "'Way too long' names no quantity and no comparison, so no observed duration could be inconsistent with it.",
+          "missingDefinitionElements": ["A duration threshold", "A definition of what counts as active assembly work"]
+        },
+        "evidenceAssessment": {
+          "verdict": "unsuitable",
+          "rationale": "The relevant records are an internal assertion (EV-001), a vendor marketing claim (EV-006), and an unanchored self-report from an unscreened source (EV-004). None records an occurrence of the behavior, and none can be attributed to the stated segment. Reported here rather than discarded, in line with the definition-gate policy.",
+          "independentDirectlyRelevantSources": 0,
+          "sourceIds": [],
+          "gatedByDefinitionFailure": true
+        },
+        "contradictionAssessment": {
+          "verdict": "none-found",
+          "rationale": "No record conflicts with the claim. The packet's problem is absence of suitable evidence, which is not counterevidence.",
+          "conflictType": null
+        }
+      },
+      "offSegmentSignal": "EV-005 is a well-constructed instrumented record: 61 proposals, mean 238 minutes, a full quarter, per-proposal logged time. It comes from a 140-employee company with a three-person proposal team where the owner produces no proposals. It neither supports nor weakens the claim about owner-produced proposals. It is recorded because it is the strongest record in the packet and the team is likely to reach for it; the signal it carries is about a different buyer with a different problem shape.",
+      "policyGap": null,
+      "reviewNote": null
+    },
+
+    {
+      "requirementId": "REQ-3",
+      "requirement": "Evidence of problem frequency",
+      "status": "not-testable",
+      "evidenceIds": [],
+      "contradictoryEvidenceIds": [],
+      "missingEvidence": [
+        "A continuous proposal count over at least eight consecutive weeks for any owner — calendar entries, CRM opportunity records, or proposal-tool exports with dates.",
+        "Any dated record of a proposal being produced by an identified in-segment owner."
+      ],
+      "severity": "high",
+      "rationale": "CL-003 is well formed: it names a rate of at least two proposals per week and a sustaining period of eight consecutive weeks, both checkable. The packet contains nothing to check them against. No record counts proposals over any period for any in-segment source. EV-004 was asked directly and answered 'it varies a lot', which records a refusal to estimate rather than an estimate. EV-001 asserts a time cost, not a frequency. EV-005 counts 61 proposals over a quarter but for an out-of-segment company with a dedicated proposal team, so it cannot speak to owner frequency in the stated segment. This is a clean absence: the requirement is testable in principle and there is simply nothing to test it with.",
+      "impact": "Frequency is what separates a weekly grind from an occasional annoyance, and the two justify different products at different prices. The team currently has no basis for either reading.",
+      "recommendation": "Ask two owners who pass the rewritten screening for a calendar or CRM export covering a continuous ninety-day period, and count dated proposal events. Do not ask owners how many proposals they do; the one time this packet asked, the answer was 'it varies'.",
+      "verificationTest": "Count dated proposal-sent events in continuous ninety-day exports from two independent in-segment owners. A rate at or above two per week sustained through the period supports CL-003; a rate below it falsifies the claim as written, which would be a useful result rather than a failure.",
+      "requiresHumanDecision": false,
+      "claimIds": ["CL-003"],
+      "subAssessments": {
+        "definitionQuality": {
+          "verdict": "specific-and-testable",
+          "rationale": "Rate, sustaining period and unit of analysis are all stated. The claim is not the problem here.",
+          "missingDefinitionElements": []
+        },
+        "evidenceAssessment": {
+          "verdict": "absent",
+          "rationale": "No record in the packet counts proposals over a period for an in-segment source. The one out-of-segment record that does (EV-005) cannot be attributed to the stated population.",
+          "independentDirectlyRelevantSources": 0,
+          "sourceIds": [],
+          "gatedByDefinitionFailure": false
+        },
+        "contradictionAssessment": {
+          "verdict": "none-found",
+          "rationale": "Nothing conflicts with the rate claim. Nothing addresses it at all.",
+          "conflictType": null
+        }
+      },
+      "offSegmentSignal": null,
+      "policyGap": null,
+      "reviewNote": null
+    },
+
+    {
+      "requirementId": "REQ-4",
+      "requirement": "Evidence of business cost or consequence",
+      "status": "not-testable",
+      "evidenceIds": [],
+      "contradictoryEvidenceIds": [],
+      "missingEvidence": [
+        "Buyer correspondence for bids recorded as lost, stating in the buyer's own words whether the proposal arrived after the decision.",
+        "A bid log from any in-segment owner recording proposal send dates against buyer deadlines and outcomes.",
+        "Contract values for affected bids, without which no statement about the size of any cost is possible."
+      ],
+      "severity": "medium",
+      "rationale": "CL-004 is well formed and sets a demanding standard of proof: lateness established by the buyer rather than inferred. The packet contains no record of any bid, any deadline, any outcome, or any buyer. The only material offered is EV-002, a blog post asserting that slow proposals are 'among the leading causes of lost contracts', with no study, no dataset, no interviews and no statement of which contractors it describes; and EV-006, a competing vendor's marketing page. A published assertion is not an observation of a company. INT-002 states owners are losing a day a week and therefore cannot grow — a causal claim built on the team's own assumption and a marketing headline, with no record of any consequence anywhere in the packet.",
+      "impact": "Consequence is the requirement most often assumed rather than recorded, and it is the one that justifies what a customer would pay. Nothing here supports any statement about cost, and a business case built on these two secondary sources would be built on other people's marketing.",
+      "recommendation": "For one owner who passes the rewritten screening, take twelve months of bid history and request the buyer's written reason for every loss. Read what buyers actually wrote before deciding what the consequence is.",
+      "verificationTest": "Across twelve months of bid history from two independent in-segment owners, count losses where the buyer names lateness or an incomplete proposal in writing. Any such correspondence moves this finding off not-testable; buyers consistently naming price while proposals arrived on time would move it toward fail.",
+      "requiresHumanDecision": false,
+      "claimIds": ["CL-004"],
+      "subAssessments": {
+        "definitionQuality": {
+          "verdict": "specific-and-testable",
+          "rationale": "The claim names the consequence, the rate and the standard of proof.",
+          "missingDefinitionElements": []
+        },
+        "evidenceAssessment": {
+          "verdict": "unsuitable",
+          "rationale": "Two secondary sources with no methodology, no sample and no stated segment. Neither records an event at any company.",
+          "independentDirectlyRelevantSources": 0,
+          "sourceIds": [],
+          "gatedByDefinitionFailure": false
+        },
+        "contradictionAssessment": {
+          "verdict": "none-found",
+          "rationale": "No record conflicts with the consequence claim. There is no record of any bid outcome in either direction.",
+          "conflictType": null
+        }
+      },
+      "offSegmentSignal": null,
+      "policyGap": null,
+      "reviewNote": null
+    },
+
+    {
+      "requirementId": "REQ-5",
+      "requirement": "Evidence of meaningful customer commitment",
+      "status": "not-testable",
+      "evidenceIds": [],
+      "contradictoryEvidenceIds": [],
+      "missingEvidence": [
+        "A claim about resources already committed to the existing problem, in place of CL-005's claim about willingness to pay for the proposed product.",
+        "Expense records, contractor invoices, subscription histories or payroll allocations from in-segment owners, filtered to proposal and bid work.",
+        "Evidence of a maintained workaround — a purchased template, a hired assistant, a tool in current use — with the artifact it produces."
+      ],
+      "severity": "medium",
+      "rationale": "CL-005 claims owners are willing to pay a monthly subscription for a tool that writes their proposals. That is a claim about demand for the proposed product, which this auditor does not evaluate, and it is not the claim REQ-5 tests. REQ-5 asks what scarce resource has already been spent on the existing problem. The packet contains no record of any expenditure, staff allocation or maintained workaround by anyone. The only material offered is EV-003, a public group poll in which 18 of 22 unscreened, self-selected respondents answered 'Yes, definitely' to a question that supplied its own benefit ('so you never have to spend your evenings on paperwork again'). Nobody in that poll spent anything, no price was named, and no respondent's company size is known. INT-001 converts those 22 responses into '82% of small cleaning business owners', a generalization from a self-selected sample of unknown composition to a segment that has not been defined.",
+      "impact": "Stated enthusiasm about a described product is the cheapest signal available and the one most likely to be mistaken for validation. The team has no evidence that anyone has ever spent anything on this problem, which is the question that would indicate whether the problem is felt independently of the pitch.",
+      "recommendation": "Replace CL-005 with a claim about resources already committed to the existing problem. Define which expenditures, staff allocations or maintained workarounds count and the minimum duration or amount before evaluating REQ-5 again.",
+      "verificationTest": "For three in-segment owners, look for a documented expenditure of money or allocated staff hours on proposal production sustained at least three consecutive months. Finding it in two or more supports the requirement; finding that owners have consistently evaluated and declined paid help would falsify it — and either result is more informative than any number of poll responses.",
+      "requiresHumanDecision": false,
+      "claimIds": ["CL-005"],
+      "blockingReasons": ["claim-requirement-mismatch", "claim-out-of-scope"],
+      "subAssessments": {
+        "definitionQuality": {
+          "verdict": "not-applicable",
+          "rationale": "The claim supplied does not address the requirement. CL-005 concerns demand for the proposed product; REQ-5 concerns resources already committed to the existing problem. The definition check cannot be run on a claim about a different subject.",
+          "missingDefinitionElements": [
+            "A statement of what would count as commitment to the existing problem",
+            "A minimum duration or amount"
+          ]
+        },
+        "evidenceAssessment": {
+          "verdict": "absent",
+          "rationale": "No record of expenditure, staff allocation or maintained workaround by any source. EV-003 is stated intent about the proposed product and is excluded on both grounds.",
+          "independentDirectlyRelevantSources": 0,
+          "sourceIds": [],
+          "gatedByDefinitionFailure": false
+        },
+        "contradictionAssessment": {
+          "verdict": "none-found",
+          "rationale": "Nothing in the packet conflicts with a commitment claim, because no commitment claim was made and no expenditure was recorded.",
+          "conflictType": null
+        }
+      },
+      "offSegmentSignal": null,
+      "policyGap": null,
+      "reviewNote": null
+    }
+  ]
+}
