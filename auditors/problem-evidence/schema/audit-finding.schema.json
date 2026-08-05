@@ -15,6 +15,20 @@
     "syntheticEvidenceNotice",
     "findings"
   ],
+  "oneOf": [
+    {
+      "properties": {
+        "reviewStatus": { "const": "provisional" },
+        "humanReviewed": { "const": false }
+      }
+    },
+    {
+      "properties": {
+        "reviewStatus": { "const": "approved" },
+        "humanReviewed": { "const": true }
+      }
+    }
+  ],
   "properties": {
     "schemaVersion": { "type": "string", "const": "1.0.0" },
     "fixture": {
