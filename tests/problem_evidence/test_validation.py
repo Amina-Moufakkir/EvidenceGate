@@ -20,11 +20,7 @@ def _document() -> tuple[dict, dict, list[str], dict]:
     expected = load_json(AUDITOR_ROOT / "expected" / "missing-evidence.expected.json")
     transport = {
         "findings": [
-            {
-                field: copy.deepcopy(finding[field])
-                for field in MODEL_OWNED_FINDING_FIELDS
-                if field in finding
-            }
+            _transport_finding(finding)
             for finding in expected["findings"]
         ]
     }
@@ -36,6 +32,18 @@ def _document() -> tuple[dict, dict, list[str], dict]:
         clock=FixedClock("2026-08-05"),
     )
     return document, packet, contract.requirement_ids, contract.audit_finding_schema
+
+
+def _transport_finding(finding: dict) -> dict:
+    transport_finding = {}
+    for field in MODEL_OWNED_FINDING_FIELDS:
+        if field in finding:
+            transport_finding[field] = copy.deepcopy(finding[field])
+        elif field == "blockingReasons":
+            transport_finding[field] = []
+        else:
+            raise AssertionError(f"missing required transport field {field}")
+    return transport_finding
 
 
 def _messages(issues):

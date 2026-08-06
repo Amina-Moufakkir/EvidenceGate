@@ -23,14 +23,22 @@ def _write_json(path: Path, payload: dict) -> None:
 def _transport_from_expected(expected: dict) -> dict:
     return {
         "findings": [
-            {
-                field: copy.deepcopy(finding[field])
-                for field in MODEL_OWNED_FINDING_FIELDS
-                if field in finding
-            }
+            _transport_finding(finding)
             for finding in expected["findings"]
         ]
     }
+
+
+def _transport_finding(finding: dict) -> dict:
+    transport_finding = {}
+    for field in MODEL_OWNED_FINDING_FIELDS:
+        if field in finding:
+            transport_finding[field] = copy.deepcopy(finding[field])
+        elif field == "blockingReasons":
+            transport_finding[field] = []
+        else:
+            raise AssertionError(f"missing required transport field {field}")
+    return transport_finding
 
 
 def _generated_document(fixture: str) -> dict:
@@ -254,4 +262,27 @@ def test_eval_cli_missing_model_provenance_returns_nonzero(tmp_path) -> None:
     )
 
     assert exit_code == 2
+    assert not output_path.exists()
+
+
+def test_audit_cli_live_configuration_error_is_concise(monkeypatch, tmp_path, capsys) -> None:
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
+    output_path = tmp_path / "audit.json"
+
+    exit_code = main(
+        [
+            "audit",
+            "--packet",
+            str(AUDITOR_ROOT / "fixtures" / "strong-evidence.json"),
+            "--output",
+            str(output_path),
+            "--model",
+            "fake-live-model",
+        ]
+    )
+
+    captured = capsys.readouterr()
+    assert exit_code == 1
+    assert "OPENAI_API_KEY is required" in captured.err
+    assert "Traceback" not in captured.err
     assert not output_path.exists()

@@ -5,7 +5,7 @@
   "humanReviewed": true,
   "reviewedBy": "Amina Moufakkir",
   "reviewedDate": "2026-08-05",
-  "scope": "Draft Phase 1 evaluation policy for recommendation and verification behavior on the three approved synthetic Problem Evidence Auditor benchmark fixtures. This artifact is intentionally not approved; comparator enforcement must wait for human review.",
+  "scope": "Approved Phase 1 evaluation policy for recommendation and verification behavior on the three approved synthetic Problem Evidence Auditor benchmark fixtures. Comparator enforcement is permitted only while this artifact remains schema-valid and human-approved.",
   "fixtures": [
     {
       "fixture": "contradictory-evidence.json",

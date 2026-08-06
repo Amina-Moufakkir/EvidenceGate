@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import os
 from dataclasses import dataclass
 from typing import Any, Literal
@@ -75,8 +76,9 @@ class FakeModelAdapter(ModelAdapter):
 
 
 class OpenAIResponsesAdapter(ModelAdapter):
-    def __init__(self, api_key_env: str = "OPENAI_API_KEY"):
+    def __init__(self, api_key_env: str = "OPENAI_API_KEY", client: Any | None = None):
         self.api_key_env = api_key_env
+        self.client = client
 
     def generate_audit_json(
         self,
@@ -86,15 +88,18 @@ class OpenAIResponsesAdapter(ModelAdapter):
         model: str,
     ) -> ModelSuccess | ModelFailure:
         api_key = os.environ.get(self.api_key_env)
-        if not api_key:
+        if not api_key and self.client is None:
             raise ModelConfigurationError(f"{self.api_key_env} is required for live model calls")
 
-        try:
-            from openai import OpenAI
-        except ImportError as exc:
-            raise ModelConfigurationError("openai package is required for live model calls") from exc
+        client = self.client
+        if client is None:
+            try:
+                from openai import OpenAI
+            except ImportError as exc:
+                raise ModelConfigurationError("openai package is required for live model calls") from exc
 
-        client = OpenAI(api_key=api_key)
+            client = OpenAI(api_key=api_key)
+
         try:
             response = client.responses.create(
                 model=model,
@@ -109,17 +114,36 @@ class OpenAIResponsesAdapter(ModelAdapter):
                 },
             )
         except Exception as exc:
-            raise ModelApiError(str(exc)) from exc
+            return ModelFailure(
+                reason="api_error",
+                requested_model=model,
+                message=f"OpenAI API error: {exc}",
+            )
 
         response_id = getattr(response, "id", None)
         returned_model = getattr(response, "model", None) or model
         status = getattr(response, "status", None)
+
+        refusal = _find_refusal(response)
+        if refusal is not None:
+            return ModelFailure(
+                reason="refusal",
+                requested_model=model,
+                returned_model=returned_model,
+                response_id=response_id,
+                message=refusal,
+            )
+
         incomplete_details = getattr(response, "incomplete_details", None)
         if incomplete_details is not None:
             reason = getattr(incomplete_details, "reason", "incomplete")
-            failure_reason: CompletionStatus = (
-                "truncated" if reason == "max_output_tokens" else "incomplete"
-            )
+            failure_reason: CompletionStatus
+            if reason == "max_output_tokens":
+                failure_reason = "truncated"
+            elif reason == "content_filter":
+                failure_reason = "content_filtered"
+            else:
+                failure_reason = "incomplete"
             return ModelFailure(
                 reason=failure_reason,
                 requested_model=model,
@@ -129,50 +153,71 @@ class OpenAIResponsesAdapter(ModelAdapter):
             )
         if status not in (None, "completed"):
             return ModelFailure(
-                reason="incomplete",
+                reason="content_filtered" if status == "content_filtered" else "incomplete",
                 requested_model=model,
                 returned_model=returned_model,
                 response_id=response_id,
                 message=f"response status was {status}",
             )
 
-        output = getattr(response, "output", None) or []
-        for item in output:
-            for content in getattr(item, "content", []) or []:
-                content_type = getattr(content, "type", None)
-                if content_type == "refusal":
-                    return ModelFailure(
-                        reason="refusal",
-                        requested_model=model,
-                        returned_model=returned_model,
-                        response_id=response_id,
-                        message=getattr(content, "refusal", "model refusal"),
-                    )
-                if content_type == "output_text":
-                    parsed = getattr(content, "parsed", None)
-                    if parsed is not None:
-                        return ModelSuccess(
-                            transport_content=parsed,
-                            requested_model=model,
-                            returned_model=returned_model,
-                            response_id=response_id,
-                            completion_status="completed",
-                        )
-
-        parsed = getattr(response, "output_parsed", None)
-        if parsed is not None:
-            return ModelSuccess(
-                transport_content=parsed,
+        text = _extract_output_text(response)
+        if not text:
+            return ModelFailure(
+                reason="incomplete",
                 requested_model=model,
                 returned_model=returned_model,
                 response_id=response_id,
-                completion_status="completed",
+                message="response did not contain output_text",
             )
 
-        return ModelFailure(
-            reason="incomplete",
+        try:
+            decoded = json.loads(text)
+        except json.JSONDecodeError as exc:
+            return ModelFailure(
+                reason="incomplete",
+                requested_model=model,
+                returned_model=returned_model,
+                response_id=response_id,
+                message=f"response output_text was not valid JSON: {exc.msg}",
+            )
+
+        if not isinstance(decoded, dict):
+            return ModelFailure(
+                reason="incomplete",
+                requested_model=model,
+                returned_model=returned_model,
+                response_id=response_id,
+                message="response output_text JSON must decode to an object",
+            )
+
+        return ModelSuccess(
+            transport_content=decoded,
             requested_model=model,
             returned_model=returned_model,
             response_id=response_id,
-            message="response did not contain parsed structured output",
+            completion_status="completed",
         )
+
+
+def _iter_response_content(response: Any):
+    for item in getattr(response, "output", None) or []:
+        for content in getattr(item, "content", None) or []:
+            yield content
+
+
+def _find_refusal(response: Any) -> str | None:
+    for content in _iter_response_content(response):
+        if getattr(content, "type", None) == "refusal":
+            return getattr(content, "refusal", None) or getattr(content, "text", None) or "model refusal"
+    return None
+
+
+def _extract_output_text(response: Any) -> str:
+    texts = [
+        getattr(content, "text", "")
+        for content in _iter_response_content(response)
+        if getattr(content, "type", None) == "output_text"
+    ]
+    if texts:
+        return "".join(texts)
+    return getattr(response, "output_text", "") or ""

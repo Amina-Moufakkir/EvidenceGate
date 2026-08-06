@@ -36,20 +36,34 @@ RUNTIME_DOCUMENT_FIELDS = {
 RUNTIME_FINDING_FIELDS = {"reviewNote"}
 
 
+def _require_every_object_property(schema: Any) -> None:
+    if not isinstance(schema, dict):
+        return
+
+    if schema.get("type") == "object":
+        properties = schema.get("properties", {})
+        schema["required"] = list(properties)
+        schema["additionalProperties"] = False
+        for property_schema in properties.values():
+            _require_every_object_property(property_schema)
+
+    if schema.get("type") == "array":
+        _require_every_object_property(schema.get("items"))
+
+    for combiner in ("anyOf", "oneOf", "allOf"):
+        for option in schema.get(combiner, []):
+            _require_every_object_property(option)
+
+
 def build_transport_schema(audit_finding_schema: dict[str, Any]) -> dict[str, Any]:
     finding_schema = deepcopy(audit_finding_schema["$defs"]["auditFinding"])
-    finding_schema["required"] = [
-        field
-        for field in finding_schema["required"]
-        if field in MODEL_OWNED_FINDING_FIELDS
-    ]
     finding_schema["properties"] = {
         field: schema
         for field, schema in finding_schema["properties"].items()
         if field in MODEL_OWNED_FINDING_FIELDS
     }
 
-    return {
+    transport_schema = {
         "type": "object",
         "additionalProperties": False,
         "required": ["findings"],
@@ -62,6 +76,31 @@ def build_transport_schema(audit_finding_schema: dict[str, Any]) -> dict[str, An
             }
         },
     }
+    _require_every_object_property(transport_schema)
+    return transport_schema
+
+
+def assert_strict_structured_outputs_compatible(schema: dict[str, Any]) -> None:
+    def walk(node: Any, path: str) -> None:
+        if not isinstance(node, dict):
+            return
+        if node.get("type") == "object":
+            properties = node.get("properties")
+            if not isinstance(properties, dict):
+                raise AssertionError(f"{path}: object schema must define properties")
+            if node.get("additionalProperties") is not False:
+                raise AssertionError(f"{path}: object schema must set additionalProperties false")
+            if set(node.get("required") or []) != set(properties):
+                raise AssertionError(f"{path}: every object property must be required")
+            for name, child in properties.items():
+                walk(child, f"{path}/properties/{name}")
+        if node.get("type") == "array":
+            walk(node.get("items"), f"{path}/items")
+        for combiner in ("anyOf", "oneOf", "allOf"):
+            for index, option in enumerate(node.get(combiner, [])):
+                walk(option, f"{path}/{combiner}/{index}")
+
+    walk(schema, "#")
 
 
 def assert_transport_mapping_covers_canonical(audit_finding_schema: dict[str, Any]) -> None:

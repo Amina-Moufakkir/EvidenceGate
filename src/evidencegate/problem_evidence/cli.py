@@ -13,7 +13,7 @@ from .audit import AuditGenerationFailure, run_audit
 from .clock import Clock
 from .compare import EvaluationPolicyNotApproved, compare_benchmark_document
 from .load_contract import load_json, load_problem_evidence_contract, sha256_file
-from .model_adapter import OpenAIResponsesAdapter
+from .model_adapter import ModelAdapterError, OpenAIResponsesAdapter
 from .paths import EVAL_POLICY_PATH, EVAL_POLICY_SCHEMA_PATH
 from .prompt import PROMPT_VERSION
 from .transport_schema import build_transport_schema
@@ -332,7 +332,7 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     try:
         return args.func(args)
-    except (ValidationFailure, AuditGenerationFailure) as exc:
+    except (ValidationFailure, AuditGenerationFailure, ModelAdapterError) as exc:
         print(str(exc), file=sys.stderr)
         return 1
 

@@ -31,6 +31,8 @@ def assemble_audit_document(
 ) -> dict[str, Any]:
     findings = deepcopy(transport_content["findings"])
     for finding in findings:
+        if finding.get("blockingReasons") == []:
+            del finding["blockingReasons"]
         finding["reviewNote"] = None
 
     return {

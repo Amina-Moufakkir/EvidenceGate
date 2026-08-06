@@ -11,6 +11,7 @@ from evidencegate.problem_evidence.paths import AUDITOR_ROOT
 from evidencegate.problem_evidence.transport_schema import (
     MODEL_OWNED_FINDING_FIELDS,
     RUNTIME_DOCUMENT_FIELDS,
+    assert_strict_structured_outputs_compatible,
     assert_transport_mapping_covers_canonical,
     build_transport_schema,
 )
@@ -25,13 +26,15 @@ def _transport_from_expected(name: str) -> dict:
     expected = load_json(AUDITOR_ROOT / "expected" / name)
     findings = []
     for finding in expected["findings"]:
-        findings.append(
-            {
-                field: copy.deepcopy(finding[field])
-                for field in MODEL_OWNED_FINDING_FIELDS
-                if field in finding
-            }
-        )
+        transport_finding = {}
+        for field in MODEL_OWNED_FINDING_FIELDS:
+            if field in finding:
+                transport_finding[field] = copy.deepcopy(finding[field])
+            elif field == "blockingReasons":
+                transport_finding[field] = []
+            else:
+                raise AssertionError(f"missing required transport field {field}")
+        findings.append(transport_finding)
     return {"findings": findings}
 
 
@@ -41,7 +44,12 @@ def test_transport_schema_maps_every_canonical_field() -> None:
     transport_schema = build_transport_schema(contract.audit_finding_schema)
 
     assert set(transport_schema["properties"]) == {"findings"}
+    assert_strict_structured_outputs_compatible(transport_schema)
     finding_properties = transport_schema["properties"]["findings"]["items"]["properties"]
+    assert set(transport_schema["required"]) == {"findings"}
+    assert set(transport_schema["properties"]["findings"]["items"]["required"]) == set(
+        finding_properties
+    )
     assert "reviewNote" not in finding_properties
     for field in RUNTIME_DOCUMENT_FIELDS:
         assert field not in transport_schema["properties"]
