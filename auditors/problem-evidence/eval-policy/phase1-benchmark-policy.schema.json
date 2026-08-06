@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://evidencegate.local/auditors/problem-evidence/eval-policy/phase1-benchmark-policy.schema.json",
+  "title": "Phase 1 Benchmark Evaluation Policy",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "policyId",
+    "schemaVersion",
+    "reviewStatus",
+    "humanReviewed",
+    "reviewedBy",
+    "reviewedDate",
+    "scope",
+    "fixtures"
+  ],
+  "properties": {
+    "policyId": { "type": "string", "const": "problem-evidence-phase1-benchmark-policy" },
+    "schemaVersion": { "type": "string", "const": "1.0.0" },
+    "reviewStatus": { "type": "string", "enum": ["human-review-required", "approved"] },
+    "humanReviewed": { "type": "boolean" },
+    "reviewedBy": { "type": ["string", "null"] },
+    "reviewedDate": { "type": ["string", "null"], "format": "date" },
+    "scope": { "type": "string" },
+    "fixtures": {
+      "type": "array",
+      "minItems": 3,
+      "items": { "$ref": "#/$defs/fixturePolicy" }
+    }
+  },
+  "oneOf": [
+    {
+      "properties": {
+        "reviewStatus": { "const": "human-review-required" },
+        "humanReviewed": { "const": false },
+        "reviewedBy": { "type": "null" },
+        "reviewedDate": { "type": "null" }
+      }
+    },
+    {
+      "properties": {
+        "reviewStatus": { "const": "approved" },
+        "humanReviewed": { "const": true },
+        "reviewedBy": { "type": "string", "minLength": 1 },
+        "reviewedDate": { "type": "string", "format": "date" }
+      }
+    }
+  ],
+  "$defs": {
+    "fixturePolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fixture", "requirements"],
+      "properties": {
+        "fixture": { "type": "string" },
+        "requirements": {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 5,
+          "items": { "$ref": "#/$defs/requirementPolicy" }
+        }
+      }
+    },
+    "requirementPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requirementId",
+        "expectedRecommendationActionType",
+        "requiredVerificationBehavior",
+        "prohibitedSubstitutions"
+      ],
+      "properties": {
+        "requirementId": { "type": "string", "pattern": "^REQ-[1-5]$" },
+        "expectedRecommendationActionType": { "type": "string" },
+        "requiredVerificationBehavior": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string" }
+        },
+        "prohibitedSubstitutions": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "notesForReviewer": { "type": "string" }
+      }
+    }
+  }
+}

@@ -1,0 +1,248 @@
+{
+  "policyId": "problem-evidence-phase1-benchmark-policy",
+  "schemaVersion": "1.0.0",
+  "reviewStatus": "approved",
+  "humanReviewed": true,
+  "reviewedBy": "Amina Moufakkir",
+  "reviewedDate": "2026-08-05",
+  "scope": "Draft Phase 1 evaluation policy for recommendation and verification behavior on the three approved synthetic Problem Evidence Auditor benchmark fixtures. This artifact is intentionally not approved; comparator enforcement must wait for human review.",
+  "fixtures": [
+    {
+      "fixture": "contradictory-evidence.json",
+      "requirements": [
+        {
+          "requirementId": "REQ-1",
+          "expectedRecommendationActionType": "preserve-operative-segment-definition-and-add-traceable-rater-metadata",
+          "requiredVerificationBehavior": [
+            "Use independent application of the written segment definition to real or borderline companies to surface undecidable boundaries.",
+            "Treat disagreement in sorting as evidence that the segment definition needs refinement."
+          ],
+          "prohibitedSubstitutions": [
+            "Do not recommend market sizing, product demand testing, or more general interviews as a substitute for definition application.",
+            "Do not treat the existing screening sheet as empirical proof of market validity."
+          ],
+          "notesForReviewer": "The approved finding passes REQ-1 but still asks for traceability and independent sorting."
+        },
+        {
+          "requirementId": "REQ-2",
+          "expectedRecommendationActionType": "measure-complete-assembly-time-and-investigate-segment-subset-explanation",
+          "requiredVerificationBehavior": [
+            "Preserve REQ-2 as instance-scoped: one credible qualifying occurrence can establish that the behavior exists.",
+            "Resolve mixed duration evidence by measuring complete active assembly work for more in-segment owners.",
+            "Check whether reuse-versus-blank proposal behavior explains the P-11/P-12 split without assuming the segment definition is invalid."
+          ],
+          "prohibitedSubstitutions": [
+            "Do not require recurrence or segment-wide prevalence to pass the instance-scoped REQ-2 question.",
+            "Do not treat EV-003 as automatically superseding EV-002 by source identity or chronology.",
+            "Do not use out-of-segment EV-015 as support or contradiction."
+          ],
+          "notesForReviewer": "This rule protects REQ-2 instance scope and OPEN-04."
+        },
+        {
+          "requirementId": "REQ-3",
+          "expectedRecommendationActionType": "resolve-period-free-self-report-before-applying-explicit-supersession",
+          "requiredVerificationBehavior": [
+            "Ask P-11 to identify the period meant by the generalized rate estimate or explicitly correct it.",
+            "Apply OPEN-04 only if every explicit supersession condition is satisfied, including same applicable timeframe.",
+            "Keep unresolved measured-versus-self-report conflict visible."
+          ],
+          "prohibitedSubstitutions": [
+            "Do not infer supersession from newer instrumented data alone.",
+            "Do not discard EV-007 solely because EV-005 is newer or more instrumented.",
+            "Do not average rates across conflicting records."
+          ],
+          "notesForReviewer": "This is the main contradictory fixture OPEN-04 check."
+        },
+        {
+          "requirementId": "REQ-4",
+          "expectedRecommendationActionType": "identify-which-subset-experiences-buyer-stated-late-losses",
+          "requiredVerificationBehavior": [
+            "Collect buyer correspondence over twelve months from additional in-segment owners.",
+            "Record whether each loss involved late submission and owner proposal volume.",
+            "Use the result to determine whether late-loss consequence tracks with a subset rather than the full segment."
+          ],
+          "prohibitedSubstitutions": [
+            "Do not infer causation from owner loss logs without buyer-stated reasons.",
+            "Do not average P-12 late-loss evidence with P-11/P-13 absence into a single numeric score.",
+            "Do not convert credible mixed evidence into fail when one owner has buyer-stated late losses."
+          ],
+          "notesForReviewer": "The expected behavior preserves cross-source conflict rather than erasing either side."
+        },
+        {
+          "requirementId": "REQ-5",
+          "expectedRecommendationActionType": "test-commitment-alongside-measured-proposal-volume",
+          "requiredVerificationBehavior": [
+            "Collect expense or staff-allocation records from further independent in-segment owners.",
+            "Collect measured proposal volume over the same period.",
+            "Check whether sustained commitment tracks with volume rather than treating commitment as a segment-wide property."
+          ],
+          "prohibitedSubstitutions": [
+            "Do not substitute willingness to pay for the proposed product.",
+            "Do not use demand for a proposed product as evidence of existing-problem commitment.",
+            "Do not ignore withdrawn or declined commitment records."
+          ],
+          "notesForReviewer": "This protects REQ-5's existing-problem commitment boundary."
+        }
+      ]
+    },
+    {
+      "fixture": "missing-evidence.json",
+      "requirements": [
+        {
+          "requirementId": "REQ-1",
+          "expectedRecommendationActionType": "rewrite-segment-definition-as-decidable-boundaries",
+          "requiredVerificationBehavior": [
+            "Define headcount, geography, contract type or service line, and proposal-author role.",
+            "Apply the definition to actual companies and record which boundary excludes each one.",
+            "Remove the problem itself from the membership definition."
+          ],
+          "prohibitedSubstitutions": [
+            "Do not ask for more evidence against a self-sealing segment definition before rewriting it.",
+            "Do not treat adjectives like small or struggling as decidable boundaries."
+          ],
+          "notesForReviewer": "REQ-1 is gated by a non-falsifiable definition."
+        },
+        {
+          "requirementId": "REQ-2",
+          "expectedRecommendationActionType": "rewrite-duration-threshold-then-observe-one-complete-cycle",
+          "requiredVerificationBehavior": [
+            "Require a duration threshold the team can be wrong about.",
+            "Observe or measure one in-segment owner completing the walkthrough-to-proposal cycle with timestamps.",
+            "Avoid prompting or assisting during the observation."
+          ],
+          "prohibitedSubstitutions": [
+            "Do not treat vague claims like way too long as testable.",
+            "Do not use internal assertions, vendor claims, or unanchored self-report as records of occurrence.",
+            "Do not treat missing occurrence evidence as contradiction."
+          ],
+          "notesForReviewer": "The model should preserve the definition gate and still report unsuitable evidence."
+        },
+        {
+          "requirementId": "REQ-3",
+          "expectedRecommendationActionType": "collect-dated-proposal-events-over-continuous-period",
+          "requiredVerificationBehavior": [
+            "Collect continuous ninety-day calendar, CRM, or proposal-event exports from two independent in-segment owners who pass rewritten screening.",
+            "Count dated proposal-sent events in the applicable weekly buckets rather than asking owners for a generalized rate.",
+            "At least two proposals per week through the applicable period supports the recurrence claim; falling below that threshold in a complete qualifying export falsifies it."
+          ],
+          "prohibitedSubstitutions": [
+            "Do not ask owners how often it happens as a substitute for dated event records.",
+            "Do not use out-of-segment frequency data to support or contradict the stated segment.",
+            "Do not treat missing or incomplete records as counterevidence; absence remains missing evidence.",
+            "Do not ignore zero or insufficient events in a complete qualifying export, because those can falsify the recurrence claim."
+          ],
+          "notesForReviewer": "The missing fixture has no usable in-segment frequency evidence."
+        },
+        {
+          "requirementId": "REQ-4",
+          "expectedRecommendationActionType": "collect-buyer-stated-loss-reasons-from-bid-history",
+          "requiredVerificationBehavior": [
+            "Use twelve months of bid-history evidence from two independent in-segment owners who pass rewritten screening.",
+            "Request the buyer's written loss reason for each loss.",
+            "Buyer-stated lateness or incompleteness supports the consequence; buyer-stated price reasons paired with on-time proposals move the finding toward fail."
+          ],
+          "prohibitedSubstitutions": [
+            "Do not infer consequence from secondary-source claims or team estimates.",
+            "Do not infer buyer causation from dates alone.",
+            "Do not treat no consequence records as counterevidence."
+          ],
+          "notesForReviewer": "REQ-4 requires documented consequence, not inferred business cost."
+        },
+        {
+          "requirementId": "REQ-5",
+          "expectedRecommendationActionType": "replace-out-of-scope-product-demand-claim-with-existing-problem-commitment-claim",
+          "requiredVerificationBehavior": [
+            "Replace CL-005 with a claim about resources already committed to the existing problem.",
+            "For three in-segment owners, define and collect documented qualifying money or staff-hour commitment sustained for at least three months.",
+            "Qualifying commitment from two or more owners supports the claim; consistently declined paid help falsifies it."
+          ],
+          "prohibitedSubstitutions": [
+            "Do not evaluate willingness to pay for the proposed product.",
+            "Do not treat stated intent or product interest as existing-problem commitment.",
+            "Do not set policyGap for deterministic claim/requirement mismatch."
+          ],
+          "notesForReviewer": "This is the primary OPEN-07 benchmark check."
+        }
+      ]
+    },
+    {
+      "fixture": "strong-evidence.json",
+      "requirements": [
+        {
+          "requirementId": "REQ-1",
+          "expectedRecommendationActionType": "preserve-operative-segment-definition-and-add-independent-rater-check",
+          "requiredVerificationBehavior": [
+            "Have an independent second rater who did not write the definition apply it to twelve real companies, including four borderline cases.",
+            "Treat any material classification disagreement with team sorting as evidence of an underspecified boundary that changes the result from pass to partial."
+          ],
+          "prohibitedSubstitutions": [
+            "Do not recommend product demand validation as REQ-1 verification.",
+            "Do not treat pass as proof that the segment is market-valid."
+          ],
+          "notesForReviewer": "The approved finding passes while preserving residual limitation."
+        },
+        {
+          "requirementId": "REQ-2",
+          "expectedRecommendationActionType": "verify-existing-qualifying-instances-and-instrument-complete-cycle",
+          "requiredVerificationBehavior": [
+            "Recheck provenance and measurement boundaries of existing above-threshold instances.",
+            "Instrument one full cycle including work outside the document.",
+            "Preserve the instance-scoped rule that pass remains only while at least one qualifying above-threshold occurrence is credible, in-segment, and unsuperseded.",
+            "Preserve OPEN-04: chronology, instrumentation quality, or source identity alone must not establish supersession; every applicable supersession condition must be satisfied."
+          ],
+          "prohibitedSubstitutions": [
+            "Do not require recurrence or prevalence for REQ-2 pass.",
+            "Do not treat a separate at-or-below-threshold instance as contradicting existence of another qualifying instance.",
+            "Do not count leading-question evidence as independent support."
+          ],
+          "notesForReviewer": "This protects REQ-2 instance scope in the strong fixture."
+        },
+        {
+          "requirementId": "REQ-3",
+          "expectedRecommendationActionType": "collect-fixed-calendar-week-buckets",
+          "requiredVerificationBehavior": [
+            "Define eight consecutive calendar-week windows before inspecting events.",
+            "Count sent proposals separately in every week.",
+            "Treat any zero-proposal week as direct falsification for that owner."
+          ],
+          "prohibitedSubstitutions": [
+            "Do not use period-wide mean proposals per week as sufficient for a weekly-cadence claim.",
+            "Do not classify event summaries without exact dates or predefined week buckets as direct support.",
+            "Do not convert one counterevidence source below the recurrence minimum into fail."
+          ],
+          "notesForReviewer": "This is the main predefined calendar-week bucket check."
+        },
+        {
+          "requirementId": "REQ-4",
+          "expectedRecommendationActionType": "collect-buyer-correspondence-for-late-losses-from-additional-in-segment-owner",
+          "requiredVerificationBehavior": [
+            "Use a twelve-month measurement period across three independent in-segment owners.",
+            "Request buyer-written lateness or incompleteness reasons behind late rows in the bid log.",
+            "Evidence from at least two owners occurring at least quarterly moves the finding to pass."
+          ],
+          "prohibitedSubstitutions": [
+            "Do not infer consequence from co-occurrence alone.",
+            "Do not allow partial-fit evidence to independently pass a full-segment claim.",
+            "Do not ignore OPEN-06 material partial fit requiring human decision."
+          ],
+          "notesForReviewer": "This is the strong fixture OPEN-06 partial segment fit check."
+        },
+        {
+          "requirementId": "REQ-5",
+          "expectedRecommendationActionType": "collect-additional-existing-problem-expense-and-staff-allocation-records",
+          "requiredVerificationBehavior": [
+            "Collect proposal-related expense or staff-allocation records from three additional independent in-segment owners.",
+            "Separate proposal assembly from adjacent pricing or administrative work where needed.",
+            "Documented declined or abandoned qualifying commitment weakens support; mere absence of qualifying records remains missing evidence and does not itself falsify the claim."
+          ],
+          "prohibitedSubstitutions": [
+            "Do not treat proposed-product demand as REQ-5 evidence.",
+            "Do not use stated intent as resource commitment.",
+            "Do not treat pass as evidence of product willingness to pay."
+          ],
+          "notesForReviewer": "The approved finding passes based on existing-problem commitment only."
+        }
+      ]
+    }
+  ]
+}
