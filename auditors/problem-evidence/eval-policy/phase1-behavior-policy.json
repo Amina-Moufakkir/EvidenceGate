@@ -1,0 +1,273 @@
+{
+  "policyId": "problem-evidence-phase1-behavior-policy",
+  "schemaVersion": "2.0.0-draft",
+  "reviewStatus": "human-review-required",
+  "humanReviewed": false,
+  "reviewedBy": null,
+  "reviewedDate": null,
+  "externalAuthorityRequired": true,
+  "externalAuthorityManifest": null,
+  "sourcePolicyId": "problem-evidence-phase1-benchmark-policy",
+  "sourcePolicySchemaVersion": "1.0.0",
+  "automationBoundary": {
+    "notYetAutomatedStatementCount": 87,
+    "humanOnlyStatementCount": 0,
+    "semanticReviewRequired": true,
+    "runtimeEnforcementPermitted": false,
+    "operatorSetStatus": "provisional-not-approved-sufficient",
+    "notes": "Draft Gate 1 artifact only. All 87 approved source behavior statements are classified not-yet-automated until owner review classifies automation eligibility. not-yet-automated is a temporary Gate 1 draft classification and asserts nothing about permanent automatability. humanOnly is reserved for statements later judged permanently ineligible for deterministic automation, and is therefore 0 here; that reclassification was an explicit owner decision taken after frozen v15 and changes the Gate 1 draft classification only, without modifying or reinterpreting frozen v15. runtimeEnforcementPermitted remains false until a separately reviewed schema revision permits enforcement."
+  },
+  "prohibitedSubstitutionCatalog": [
+    "absenceAsFailure",
+    "adjacentActivity",
+    "adjectiveSegmentBoundary",
+    "authorSelfReview",
+    "chronologyOnlySupersession",
+    "commitmentVolumeDifferentPeriod",
+    "dateCooccurrenceOnly",
+    "genericInterviews",
+    "ignoreWithdrawnDeclinedAbandoned",
+    "incompleteAsCounterevidence",
+    "instrumentationOnlySupersession",
+    "marketSizing",
+    "missingAsCounterevidence",
+    "monthBucketSubstitution",
+    "nonBuyerReason",
+    "outOfSegmentSupport",
+    "ownerSelfReportRate",
+    "ownerSpeculation",
+    "partialFitAsCounterevidence",
+    "partialFitFullSegmentPass",
+    "partialSupersession",
+    "periodWideAverage",
+    "priceOnlyConsequence",
+    "productDemandValidation",
+    "productInterest",
+    "proposedProductDemand",
+    "recurrenceRequirementForInstance",
+    "sourceIdentityOnlySupersession",
+    "statedIntent",
+    "thresholdSubstitution",
+    "undatedSummary",
+    "willingnessToPay",
+    "withdrawnAsSupport",
+    "wrongClaimReplacement"
+  ],
+  "semanticCriteriaCatalog": [
+    {
+      "criterionId": "absence.counterevidence.boundary",
+      "description": "Human review that missing, incomplete, absent, and complete below-threshold records are treated distinctly.",
+      "primarySchema": "auditors/problem-evidence/schema/audit-finding.schema.json",
+      "jsonPointer": "/$defs/auditFinding/properties/missingEvidence",
+      "prohibitedSubstitutionIds": [
+        "missingAsCounterevidence",
+        "incompleteAsCounterevidence",
+        "absenceAsFailure"
+      ]
+    },
+    {
+      "criterionId": "buyer.loss.causation",
+      "description": "Human review that buyer-written loss reasons are tied to late or incomplete proposal records rather than owner speculation or date co-occurrence.",
+      "primarySchema": "auditors/problem-evidence/schema/audit-finding.schema.json",
+      "jsonPointer": "/$defs/auditFinding/properties/evidenceIds",
+      "prohibitedSubstitutionIds": [
+        "dateCooccurrenceOnly",
+        "priceOnlyConsequence",
+        "ownerSpeculation",
+        "nonBuyerReason"
+      ]
+    },
+    {
+      "criterionId": "claim.replacement.open07",
+      "description": "Human review of OPEN-07 claim mismatch and replacement boundaries, including canonical blockingReasons, policyGap, and human-decision state.",
+      "primarySchema": "auditors/problem-evidence/schema/audit-finding.schema.json",
+      "jsonPointer": "/$defs/auditFinding/properties/blockingReasons",
+      "prohibitedSubstitutionIds": [
+        "productInterest",
+        "willingnessToPay",
+        "proposedProductDemand",
+        "wrongClaimReplacement"
+      ]
+    },
+    {
+      "criterionId": "commitment.resource.records",
+      "description": "Human review of documented money or staff-hour commitment records, owner counts, support counts, sustained period, and same-period comparison where applicable.",
+      "primarySchema": "auditors/problem-evidence/schema/audit-finding.schema.json",
+      "jsonPointer": "/$defs/auditFinding/properties/evidenceIds",
+      "prohibitedSubstitutionIds": [
+        "productInterest",
+        "willingnessToPay",
+        "proposedProductDemand",
+        "statedIntent",
+        "commitmentVolumeDifferentPeriod"
+      ]
+    },
+    {
+      "criterionId": "commitment.withdrawn.declined",
+      "description": "Human review that withdrawn, declined, and abandoned commitment records remain included in analysis without becoming support by themselves.",
+      "primarySchema": "auditors/problem-evidence/schema/audit-finding.schema.json",
+      "jsonPointer": "/$defs/auditFinding/properties/nonContributingEvidence",
+      "prohibitedSubstitutionIds": [
+        "ignoreWithdrawnDeclinedAbandoned",
+        "withdrawnAsSupport"
+      ]
+    },
+    {
+      "criterionId": "instance.behavior.threshold",
+      "description": "Human review of instance-scoped observed behavior, source provenance, measurement boundary, and requirement threshold.",
+      "primarySchema": "auditors/problem-evidence/schema/audit-finding.schema.json",
+      "jsonPointer": "/$defs/auditFinding/properties/evidenceIds",
+      "prohibitedSubstitutionIds": [
+        "recurrenceRequirementForInstance",
+        "adjacentActivity",
+        "thresholdSubstitution"
+      ]
+    },
+    {
+      "criterionId": "partial.segment.fit",
+      "description": "Human review of OPEN-06 partial-fit evidence: excluded from independent pass/falsification while material interpretation is escalated.",
+      "primarySchema": "auditors/problem-evidence/schema/audit-finding.schema.json",
+      "jsonPointer": "/$defs/auditFinding/properties/requiresHumanDecision",
+      "prohibitedSubstitutionIds": [
+        "partialFitFullSegmentPass",
+        "outOfSegmentSupport",
+        "partialFitAsCounterevidence"
+      ]
+    },
+    {
+      "criterionId": "proposal.weekly.buckets",
+      "description": "Human review of dated proposal events, predefined applicable calendar-week buckets, per-bucket counting, and support/falsification thresholds.",
+      "primarySchema": "auditors/problem-evidence/schema/audit-finding.schema.json",
+      "jsonPointer": "/$defs/auditFinding/properties/verificationTest",
+      "prohibitedSubstitutionIds": [
+        "periodWideAverage",
+        "undatedSummary",
+        "ownerSelfReportRate",
+        "monthBucketSubstitution"
+      ]
+    },
+    {
+      "criterionId": "segment.definition.boundary",
+      "description": "Human review of whether the output applies a decidable segment definition to actual or borderline companies without substituting market size or adjectives.",
+      "primarySchema": "auditors/problem-evidence/schema/audit-finding.schema.json",
+      "jsonPointer": "/$defs/auditFinding/properties/subAssessments/properties/definitionQuality",
+      "prohibitedSubstitutionIds": [
+        "marketSizing",
+        "productDemandValidation",
+        "genericInterviews",
+        "adjectiveSegmentBoundary",
+        "authorSelfReview"
+      ]
+    },
+    {
+      "criterionId": "supersession.open04",
+      "description": "Human review that OPEN-04 supersession is used only for explicit correction, replacement, or invalidation satisfying subject, measure, scope, timeframe, provenance, and threshold falsification.",
+      "primarySchema": "auditors/problem-evidence/schema/audit-finding.schema.json",
+      "jsonPointer": "/$defs/auditFinding/properties/nonContributingEvidence",
+      "prohibitedSubstitutionIds": [
+        "chronologyOnlySupersession",
+        "sourceIdentityOnlySupersession",
+        "instrumentationOnlySupersession",
+        "partialSupersession"
+      ]
+    }
+  ],
+  "operatorAdequacyMatrix": [
+    {
+      "operator": "stepExists",
+      "approvalStatus": "provisional-not-approved-sufficient",
+      "representativePositiveExample": "A future rule could require one bound step with operation=measureEvents, target=proposalEvents, and a complete source qualification.",
+      "representativeMutationNegativeExample": "Changing that same bound step to operation=defineSegment should fail the rule.",
+      "adequacyNote": "Representative examples document intended review questions only; they do not activate rules and do not prove the operator set is sufficient."
+    },
+    {
+      "operator": "relationshipExists",
+      "approvalStatus": "provisional-not-approved-sufficient",
+      "representativePositiveExample": "A future rule could require a relationship between bound old/new evidence steps with same subject, measure, scope, period, and provenance ordering.",
+      "representativeMutationNegativeExample": "Swapping endpoints or changing the period on one endpoint should fail the rule.",
+      "adequacyNote": "Representative examples document intended review questions only; they do not activate rules and do not prove the operator set is sufficient."
+    },
+    {
+      "operator": "evidenceTreatmentExists",
+      "approvalStatus": "provisional-not-approved-sufficient",
+      "representativePositiveExample": "A future rule could require missingRecords to be treated as absence for the applicable recurrence-measurement step.",
+      "representativeMutationNegativeExample": "Changing missingRecords to counterevidence for that same step should fail the rule.",
+      "adequacyNote": "Representative examples document intended review questions only; they do not activate rules and do not prove the operator set is sufficient."
+    },
+    {
+      "operator": "noStepMatches",
+      "approvalStatus": "provisional-not-approved-sufficient",
+      "representativePositiveExample": "A future rule could forbid support decisions based on productInterest or willingnessToPay source categories.",
+      "representativeMutationNegativeExample": "Adding productInterest as a support source on a real commitment step should fail the rule.",
+      "adequacyNote": "Representative examples document intended review questions only; they do not activate rules and do not prove the operator set is sufficient."
+    },
+    {
+      "operator": "noEvidenceTreatmentMatches",
+      "approvalStatus": "provisional-not-approved-sufficient",
+      "representativePositiveExample": "A future rule could forbid partialSegmentFit evidence from independently passing or falsifying a full-segment claim.",
+      "representativeMutationNegativeExample": "Adding a counterevidence treatment for partialSegmentFit on the relevant step should fail the rule.",
+      "adequacyNote": "Representative examples document intended review questions only; they do not activate rules and do not prove the operator set is sufficient."
+    }
+  ],
+  "behaviorRules": [],
+  "authorityCanonicalization": {
+    "authorityMode": "external-detached-manifest-required",
+    "diagnosticAlgorithm": "json.dumps-sort-keys-compact-sha256",
+    "diagnosticEncoding": "utf-8",
+    "diagnosticSerialization": "digest = sha256(json.dumps(selectedStructure, sort_keys=True, separators=(',', ':'), ensure_ascii=True).encode('utf-8')).hexdigest(), lowercase hexadecimal",
+    "diagnosticHashesAreNotAuthority": "Every digest in diagnosticHashes is a reproducible integrity aid computed with json.dumps-sort-keys-compact-sha256. None of them is an approval authority hash, and none of them is RFC 8785 canonicalized. RFC 8785 applies only to the future detached manifest named in futureAuthorityAlgorithm and is not enforced anywhere in this gate.",
+    "futureAuthorityAlgorithm": "RFC8785-json-canonicalization-sha256-required-not-yet-enforced",
+    "externalManifestRequirement": "Future approval authority requires a detached signed payload that is stored outside this artifact and binds: complete policy artifact hashes, schema hashes, source commit/tree, reviewer identity, decision timestamp, signer/key identity, trust source, signature algorithm, and signature bytes. The manifest signs the policy, schema, and source hashes; this artifact never contains, references, or hashes that manifest, so no circular hashing is possible. Fields inside this artifact, including reviewStatus, humanReviewed, reviewedBy, and reviewedDate, cannot authenticate approval and are pinned to unapproved values by schema.",
+    "manifestExclusion": "externalAuthorityManifest is permanently null in Gate 1 drafts and is listed in omittedJsonPointers for every diagnostic hash recipe defined over this artifact, so a manifest can never be inlined into a hashed payload. The future detached authority artifact is out of scope for this gate.",
+    "diagnosticHashes": [
+      {
+        "hashId": "source-narrative-mapping",
+        "description": "SHA-256 over the ordered narrative projection of the tracked, owner-approved source benchmark policy. Binds these drafts to the exact source statements they classify.",
+        "sourcePaths": [
+          "auditors/problem-evidence/eval-policy/phase1-benchmark-policy.json"
+        ],
+        "selectedStructure": "JSON array. One object per (fixture, requirement) pair with exactly these five keys: fixture (string, from /fixtures/*/fixture), requirementId, expectedRecommendationActionType, requiredVerificationBehavior (array of strings), prohibitedSubstitutions (array of strings). No other key from the source document is included.",
+        "orderingRule": "Array entries ascending by (fixture, requirementId) using Unicode code-point comparison. requiredVerificationBehavior and prohibitedSubstitutions retain source-document order. Object keys are emitted sorted by json.dumps(sort_keys=True). JSON Pointer per RFC 6901; the token '*' denotes every array index at that position.",
+        "omittedJsonPointers": [
+          "/policyId",
+          "/schemaVersion",
+          "/reviewStatus",
+          "/humanReviewed",
+          "/reviewedBy",
+          "/reviewedDate",
+          "/scope",
+          "/fixtures/*/requirements/*/notesForReviewer"
+        ],
+        "canonicalization": "json.dumps-sort-keys-compact-sha256",
+        "encoding": "utf-8",
+        "serialization": "digest = sha256(json.dumps(selectedStructure, sort_keys=True, separators=(',', ':'), ensure_ascii=True).encode('utf-8')).hexdigest(), lowercase hexadecimal",
+        "digest": "a5556c00344c61e2985d7e26158fae2f8941a54d038579f97259df5ed4b98da3"
+      },
+      {
+        "hashId": "behavior-rule-mapping",
+        "description": "SHA-256 over the rule-to-criteria-to-coverage mapping input. Empty behaviorRules, the semantic criteria catalog, and the coverage mappings are bound together so that activating any rule, editing any criterion, or editing any coverage statement changes the digest.",
+        "sourcePaths": [
+          "auditors/problem-evidence/eval-policy/phase1-behavior-policy.json",
+          "auditors/problem-evidence/eval-policy/phase1-behavior-coverage.json"
+        ],
+        "selectedStructure": "JSON object with exactly three keys: behaviorRules (from auditors/problem-evidence/eval-policy/phase1-behavior-policy.json /behaviorRules), semanticCriteriaCatalog (from auditors/problem-evidence/eval-policy/phase1-behavior-policy.json /semanticCriteriaCatalog), and coverageMappings (from auditors/problem-evidence/eval-policy/phase1-behavior-coverage.json /mappings).",
+        "orderingRule": "Object keys are emitted sorted by json.dumps(sort_keys=True). All three selected arrays retain their artifact order. JSON Pointer per RFC 6901; the token '*' denotes every array index at that position.",
+        "omittedJsonPointers": [
+          "/authorityCanonicalization",
+          "/externalAuthorityManifest",
+          "/reviewStatus",
+          "/humanReviewed",
+          "/reviewedBy",
+          "/reviewedDate",
+          "/automationBoundary",
+          "/prohibitedSubstitutionCatalog",
+          "/operatorAdequacyMatrix"
+        ],
+        "canonicalization": "json.dumps-sort-keys-compact-sha256",
+        "encoding": "utf-8",
+        "serialization": "digest = sha256(json.dumps(selectedStructure, sort_keys=True, separators=(',', ':'), ensure_ascii=True).encode('utf-8')).hexdigest(), lowercase hexadecimal",
+        "digest": "4129aafc47ec30e066f3705b0607d9df1f9a671f40dbfb974aed195b4079f80f"
+      }
+    ]
+  }
+}

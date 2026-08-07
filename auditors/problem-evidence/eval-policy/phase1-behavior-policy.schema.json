@@ -1,0 +1,361 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://evidencegate.local/auditors/problem-evidence/eval-policy/phase1-behavior-policy.schema.json",
+  "title": "Phase 1 Draft Behavior Policy",
+  "description": "Gate 1 draft. Structurally unapprovable: reviewStatus, humanReviewed, reviewedBy, reviewedDate, externalAuthorityRequired, and externalAuthorityManifest are pinned to unapproved values and no branch permits reviewStatus 'approved'.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "policyId": {
+      "const": "problem-evidence-phase1-behavior-policy"
+    },
+    "schemaVersion": {
+      "const": "2.0.0-draft"
+    },
+    "reviewStatus": {
+      "const": "human-review-required"
+    },
+    "humanReviewed": {
+      "const": false
+    },
+    "reviewedBy": {
+      "type": "null"
+    },
+    "reviewedDate": {
+      "type": "null"
+    },
+    "externalAuthorityRequired": {
+      "const": true
+    },
+    "externalAuthorityManifest": {
+      "type": "null"
+    },
+    "sourcePolicyId": {
+      "const": "problem-evidence-phase1-benchmark-policy"
+    },
+    "sourcePolicySchemaVersion": {
+      "const": "1.0.0"
+    },
+    "automationBoundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "notYetAutomatedStatementCount": {
+          "const": 87
+        },
+        "humanOnlyStatementCount": {
+          "const": 0
+        },
+        "semanticReviewRequired": {
+          "const": true
+        },
+        "runtimeEnforcementPermitted": {
+          "const": false
+        },
+        "operatorSetStatus": {
+          "const": "provisional-not-approved-sufficient"
+        },
+        "notes": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "notYetAutomatedStatementCount",
+        "humanOnlyStatementCount",
+        "semanticReviewRequired",
+        "runtimeEnforcementPermitted",
+        "operatorSetStatus",
+        "notes"
+      ]
+    },
+    "prohibitedSubstitutionCatalog": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "semanticCriteriaCatalog": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "criterionId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "primarySchema": {
+            "type": "string",
+            "minLength": 1
+          },
+          "jsonPointer": {
+            "type": "string",
+            "pattern": "^/"
+          },
+          "prohibitedSubstitutionIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "criterionId",
+          "description",
+          "primarySchema",
+          "jsonPointer",
+          "prohibitedSubstitutionIds"
+        ]
+      }
+    },
+    "operatorAdequacyMatrix": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "operator": {
+            "enum": [
+              "stepExists",
+              "relationshipExists",
+              "evidenceTreatmentExists",
+              "noStepMatches",
+              "noEvidenceTreatmentMatches"
+            ]
+          },
+          "approvalStatus": {
+            "const": "provisional-not-approved-sufficient"
+          },
+          "representativePositiveExample": {
+            "type": "string",
+            "minLength": 1
+          },
+          "representativeMutationNegativeExample": {
+            "type": "string",
+            "minLength": 1
+          },
+          "adequacyNote": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "operator",
+          "approvalStatus",
+          "representativePositiveExample",
+          "representativeMutationNegativeExample",
+          "adequacyNote"
+        ]
+      }
+    },
+    "behaviorRules": {
+      "type": "array",
+      "maxItems": 0,
+      "items": false
+    },
+    "authorityCanonicalization": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "authorityMode": {
+          "const": "external-detached-manifest-required"
+        },
+        "diagnosticAlgorithm": {
+          "const": "json.dumps-sort-keys-compact-sha256"
+        },
+        "diagnosticEncoding": {
+          "const": "utf-8"
+        },
+        "diagnosticSerialization": {
+          "const": "digest = sha256(json.dumps(selectedStructure, sort_keys=True, separators=(',', ':'), ensure_ascii=True).encode('utf-8')).hexdigest(), lowercase hexadecimal"
+        },
+        "diagnosticHashesAreNotAuthority": {
+          "const": "Every digest in diagnosticHashes is a reproducible integrity aid computed with json.dumps-sort-keys-compact-sha256. None of them is an approval authority hash, and none of them is RFC 8785 canonicalized. RFC 8785 applies only to the future detached manifest named in futureAuthorityAlgorithm and is not enforced anywhere in this gate."
+        },
+        "futureAuthorityAlgorithm": {
+          "const": "RFC8785-json-canonicalization-sha256-required-not-yet-enforced"
+        },
+        "externalManifestRequirement": {
+          "const": "Future approval authority requires a detached signed payload that is stored outside this artifact and binds: complete policy artifact hashes, schema hashes, source commit/tree, reviewer identity, decision timestamp, signer/key identity, trust source, signature algorithm, and signature bytes. The manifest signs the policy, schema, and source hashes; this artifact never contains, references, or hashes that manifest, so no circular hashing is possible. Fields inside this artifact, including reviewStatus, humanReviewed, reviewedBy, and reviewedDate, cannot authenticate approval and are pinned to unapproved values by schema."
+        },
+        "manifestExclusion": {
+          "const": "externalAuthorityManifest is permanently null in Gate 1 drafts and is listed in omittedJsonPointers for every diagnostic hash recipe defined over this artifact, so a manifest can never be inlined into a hashed payload. The future detached authority artifact is out of scope for this gate."
+        },
+        "diagnosticHashes": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "prefixItems": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "hashId": {
+                  "const": "source-narrative-mapping"
+                },
+                "description": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "sourcePaths": {
+                  "const": [
+                    "auditors/problem-evidence/eval-policy/phase1-benchmark-policy.json"
+                  ]
+                },
+                "selectedStructure": {
+                  "const": "JSON array. One object per (fixture, requirement) pair with exactly these five keys: fixture (string, from /fixtures/*/fixture), requirementId, expectedRecommendationActionType, requiredVerificationBehavior (array of strings), prohibitedSubstitutions (array of strings). No other key from the source document is included."
+                },
+                "orderingRule": {
+                  "const": "Array entries ascending by (fixture, requirementId) using Unicode code-point comparison. requiredVerificationBehavior and prohibitedSubstitutions retain source-document order. Object keys are emitted sorted by json.dumps(sort_keys=True). JSON Pointer per RFC 6901; the token '*' denotes every array index at that position."
+                },
+                "omittedJsonPointers": {
+                  "const": [
+                    "/policyId",
+                    "/schemaVersion",
+                    "/reviewStatus",
+                    "/humanReviewed",
+                    "/reviewedBy",
+                    "/reviewedDate",
+                    "/scope",
+                    "/fixtures/*/requirements/*/notesForReviewer"
+                  ]
+                },
+                "canonicalization": {
+                  "const": "json.dumps-sort-keys-compact-sha256"
+                },
+                "encoding": {
+                  "const": "utf-8"
+                },
+                "serialization": {
+                  "const": "digest = sha256(json.dumps(selectedStructure, sort_keys=True, separators=(',', ':'), ensure_ascii=True).encode('utf-8')).hexdigest(), lowercase hexadecimal"
+                },
+                "digest": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              },
+              "required": [
+                "hashId",
+                "description",
+                "sourcePaths",
+                "selectedStructure",
+                "orderingRule",
+                "omittedJsonPointers",
+                "canonicalization",
+                "encoding",
+                "serialization",
+                "digest"
+              ]
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "hashId": {
+                  "const": "behavior-rule-mapping"
+                },
+                "description": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "sourcePaths": {
+                  "const": [
+                    "auditors/problem-evidence/eval-policy/phase1-behavior-policy.json",
+                    "auditors/problem-evidence/eval-policy/phase1-behavior-coverage.json"
+                  ]
+                },
+                "selectedStructure": {
+                  "const": "JSON object with exactly three keys: behaviorRules (from auditors/problem-evidence/eval-policy/phase1-behavior-policy.json /behaviorRules), semanticCriteriaCatalog (from auditors/problem-evidence/eval-policy/phase1-behavior-policy.json /semanticCriteriaCatalog), and coverageMappings (from auditors/problem-evidence/eval-policy/phase1-behavior-coverage.json /mappings)."
+                },
+                "orderingRule": {
+                  "const": "Object keys are emitted sorted by json.dumps(sort_keys=True). All three selected arrays retain their artifact order. JSON Pointer per RFC 6901; the token '*' denotes every array index at that position."
+                },
+                "omittedJsonPointers": {
+                  "const": [
+                    "/authorityCanonicalization",
+                    "/externalAuthorityManifest",
+                    "/reviewStatus",
+                    "/humanReviewed",
+                    "/reviewedBy",
+                    "/reviewedDate",
+                    "/automationBoundary",
+                    "/prohibitedSubstitutionCatalog",
+                    "/operatorAdequacyMatrix"
+                  ]
+                },
+                "canonicalization": {
+                  "const": "json.dumps-sort-keys-compact-sha256"
+                },
+                "encoding": {
+                  "const": "utf-8"
+                },
+                "serialization": {
+                  "const": "digest = sha256(json.dumps(selectedStructure, sort_keys=True, separators=(',', ':'), ensure_ascii=True).encode('utf-8')).hexdigest(), lowercase hexadecimal"
+                },
+                "digest": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              },
+              "required": [
+                "hashId",
+                "description",
+                "sourcePaths",
+                "selectedStructure",
+                "orderingRule",
+                "omittedJsonPointers",
+                "canonicalization",
+                "encoding",
+                "serialization",
+                "digest"
+              ]
+            }
+          ],
+          "items": false
+        }
+      },
+      "required": [
+        "authorityMode",
+        "diagnosticAlgorithm",
+        "diagnosticEncoding",
+        "diagnosticSerialization",
+        "diagnosticHashesAreNotAuthority",
+        "futureAuthorityAlgorithm",
+        "externalManifestRequirement",
+        "manifestExclusion",
+        "diagnosticHashes"
+      ]
+    }
+  },
+  "required": [
+    "policyId",
+    "schemaVersion",
+    "reviewStatus",
+    "humanReviewed",
+    "reviewedBy",
+    "reviewedDate",
+    "externalAuthorityRequired",
+    "externalAuthorityManifest",
+    "sourcePolicyId",
+    "sourcePolicySchemaVersion",
+    "automationBoundary",
+    "prohibitedSubstitutionCatalog",
+    "semanticCriteriaCatalog",
+    "operatorAdequacyMatrix",
+    "behaviorRules",
+    "authorityCanonicalization"
+  ]
+}

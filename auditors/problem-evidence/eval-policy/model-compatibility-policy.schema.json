@@ -1,0 +1,271 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://evidencegate.local/auditors/problem-evidence/eval-policy/model-compatibility-policy.schema.json",
+  "title": "Phase 1 Model Compatibility Policy",
+  "description": "Gate 1 draft. Structurally unapprovable and permanently acceptance-blocked. The five inference settings explicitly required by frozen v15 are pinned as constants; parallelToolCalls and the reasoning configuration are later owner-approved Gate 1 constraints.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "policyId": {
+      "const": "problem-evidence-phase1-model-compatibility-policy"
+    },
+    "schemaVersion": {
+      "const": "1.0.0-draft"
+    },
+    "reviewStatus": {
+      "const": "human-review-required"
+    },
+    "humanReviewed": {
+      "const": false
+    },
+    "reviewedBy": {
+      "type": "null"
+    },
+    "reviewedDate": {
+      "type": "null"
+    },
+    "externalAuthorityRequired": {
+      "const": true
+    },
+    "externalAuthorityManifest": {
+      "type": "null"
+    },
+    "acceptanceBlocked": {
+      "const": true
+    },
+    "inferenceSettings": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sdkMaxRetries": {
+          "const": 0
+        },
+        "parallelToolCalls": {
+          "const": false
+        },
+        "maxOutputTokens": {
+          "const": 8000
+        },
+        "store": {
+          "const": false
+        },
+        "temperature": {
+          "const": 0
+        },
+        "topP": {
+          "const": 1
+        },
+        "reasoning": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "effort": {
+              "const": "medium"
+            },
+            "summary": {
+              "const": "none"
+            }
+          },
+          "required": [
+            "effort",
+            "summary"
+          ]
+        },
+        "notes": {
+          "type": "string",
+          "minLength": 1
+        },
+        "modelReasoningCompatibility": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "status": {
+              "const": "unresolved-offline"
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "status",
+            "reason"
+          ]
+        }
+      },
+      "required": [
+        "sdkMaxRetries",
+        "parallelToolCalls",
+        "maxOutputTokens",
+        "store",
+        "temperature",
+        "topP",
+        "reasoning",
+        "notes",
+        "modelReasoningCompatibility"
+      ]
+    },
+    "compatibilityRules": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "requestedModel": {
+            "const": "gpt-5.6-sol"
+          },
+          "matchType": {
+            "const": "exact"
+          },
+          "allowedReturnedModels": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 1,
+            "prefixItems": [
+              {
+                "const": "gpt-5.6-sol"
+              }
+            ],
+            "items": false
+          },
+          "approvedSnapshots": {
+            "type": "array",
+            "maxItems": 0,
+            "items": false
+          },
+          "notes": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "requestedModel",
+          "matchType",
+          "allowedReturnedModels",
+          "approvedSnapshots",
+          "notes"
+        ]
+      }
+    },
+    "authorityCanonicalization": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "authorityMode": {
+          "const": "external-detached-manifest-required"
+        },
+        "diagnosticAlgorithm": {
+          "const": "json.dumps-sort-keys-compact-sha256"
+        },
+        "diagnosticEncoding": {
+          "const": "utf-8"
+        },
+        "diagnosticSerialization": {
+          "const": "digest = sha256(json.dumps(selectedStructure, sort_keys=True, separators=(',', ':'), ensure_ascii=True).encode('utf-8')).hexdigest(), lowercase hexadecimal"
+        },
+        "diagnosticHashesAreNotAuthority": {
+          "const": "Every digest in diagnosticHashes is a reproducible integrity aid computed with json.dumps-sort-keys-compact-sha256. None of them is an approval authority hash, and none of them is RFC 8785 canonicalized. RFC 8785 applies only to the future detached manifest named in futureAuthorityAlgorithm and is not enforced anywhere in this gate."
+        },
+        "futureAuthorityAlgorithm": {
+          "const": "RFC8785-json-canonicalization-sha256-required-not-yet-enforced"
+        },
+        "externalManifestRequirement": {
+          "const": "Future approval authority requires a detached signed payload that is stored outside this artifact and binds: complete policy artifact hashes, schema hashes, source commit/tree, reviewer identity, decision timestamp, signer/key identity, trust source, signature algorithm, and signature bytes. The manifest signs the policy, schema, and source hashes; this artifact never contains, references, or hashes that manifest, so no circular hashing is possible. Fields inside this artifact, including reviewStatus, humanReviewed, reviewedBy, and reviewedDate, cannot authenticate approval and are pinned to unapproved values by schema."
+        },
+        "manifestExclusion": {
+          "const": "externalAuthorityManifest is permanently null in Gate 1 drafts and is listed in omittedJsonPointers for every diagnostic hash recipe defined over this artifact, so a manifest can never be inlined into a hashed payload. The future detached authority artifact is out of scope for this gate."
+        },
+        "diagnosticHashes": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 1,
+          "prefixItems": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "hashId": {
+                  "const": "model-compatibility-policy"
+                },
+                "description": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "sourcePaths": {
+                  "const": [
+                    "auditors/problem-evidence/eval-policy/model-compatibility-policy.json"
+                  ]
+                },
+                "selectedStructure": {
+                  "const": "The complete artifact with the omittedJsonPointers locations removed. All remaining content, including inferenceSettings, compatibilityRules, and the non-digest authorityCanonicalization fields, is included verbatim."
+                },
+                "orderingRule": {
+                  "const": "Object keys are emitted sorted recursively by json.dumps(sort_keys=True). compatibilityRules and allowedReturnedModels retain artifact order. JSON Pointer per RFC 6901; the token '*' denotes every array index at that position."
+                },
+                "omittedJsonPointers": {
+                  "const": [
+                    "/authorityCanonicalization/diagnosticHashes",
+                    "/externalAuthorityManifest"
+                  ]
+                },
+                "canonicalization": {
+                  "const": "json.dumps-sort-keys-compact-sha256"
+                },
+                "encoding": {
+                  "const": "utf-8"
+                },
+                "serialization": {
+                  "const": "digest = sha256(json.dumps(selectedStructure, sort_keys=True, separators=(',', ':'), ensure_ascii=True).encode('utf-8')).hexdigest(), lowercase hexadecimal"
+                },
+                "digest": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              },
+              "required": [
+                "hashId",
+                "description",
+                "sourcePaths",
+                "selectedStructure",
+                "orderingRule",
+                "omittedJsonPointers",
+                "canonicalization",
+                "encoding",
+                "serialization",
+                "digest"
+              ]
+            }
+          ],
+          "items": false
+        }
+      },
+      "required": [
+        "authorityMode",
+        "diagnosticAlgorithm",
+        "diagnosticEncoding",
+        "diagnosticSerialization",
+        "diagnosticHashesAreNotAuthority",
+        "futureAuthorityAlgorithm",
+        "externalManifestRequirement",
+        "manifestExclusion",
+        "diagnosticHashes"
+      ]
+    }
+  },
+  "required": [
+    "policyId",
+    "schemaVersion",
+    "reviewStatus",
+    "humanReviewed",
+    "reviewedBy",
+    "reviewedDate",
+    "externalAuthorityRequired",
+    "externalAuthorityManifest",
+    "acceptanceBlocked",
+    "inferenceSettings",
+    "compatibilityRules",
+    "authorityCanonicalization"
+  ]
+}
