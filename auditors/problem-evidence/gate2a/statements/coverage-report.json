@@ -1,6 +1,6 @@
 {
   "packageId": "gate2a-p-coverage-report",
-  "contractVersion": "0.13.0-draft",
+  "contractVersion": "0.14.0-draft",
   "scope": "pilot-subset",
   "fullSetAtomicRuleTotal": "unknown",
   "extrapolationPermitted": false,
@@ -8,7 +8,8 @@
     "selected": 7,
     "recordsCreated": 7,
     "fullyDecomposed": 7,
-    "partiallyDecomposed": 0
+    "partiallyDecomposed": 0,
+    "statementsRemaining": 80
   },
   "statementClassification": {
     "deterministic": 1,

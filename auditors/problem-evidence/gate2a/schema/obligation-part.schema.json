@@ -10,10 +10,14 @@
       "const": "gate2a-p-obligation-parts"
     },
     "contractVersion": {
-      "const": "0.13.0-draft"
+      "const": "0.14.0-draft"
     },
     "scope": {
-      "const": "pilot-subset"
+      "enum": [
+        "pilot-subset",
+        "expansion-in-progress",
+        "full-set-87"
+      ]
     },
     "derivationBasisNote": {
       "type": "string",

@@ -10,7 +10,7 @@
       "const": "gate2a-p-source-statement-records"
     },
     "contractVersion": {
-      "const": "0.13.0-draft"
+      "const": "0.14.0-draft"
     },
     "sourcePolicyPath": {
       "const": "auditors/problem-evidence/eval-policy/phase1-benchmark-policy.json"
@@ -22,7 +22,11 @@
       "const": "json.dumps-sort-keys-compact-sha256"
     },
     "scope": {
-      "const": "pilot-subset"
+      "enum": [
+        "pilot-subset",
+        "expansion-in-progress",
+        "full-set-87"
+      ]
     },
     "records": {
       "type": "array",

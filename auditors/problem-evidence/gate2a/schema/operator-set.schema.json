@@ -9,7 +9,7 @@
       "const": "gate2a-p-operator-set"
     },
     "contractVersion": {
-      "const": "0.13.0-draft"
+      "const": "0.14.0-draft"
     },
     "operators": {
       "type": "array",

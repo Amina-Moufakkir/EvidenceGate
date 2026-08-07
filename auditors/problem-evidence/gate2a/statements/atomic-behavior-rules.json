@@ -1,6 +1,6 @@
 {
   "packageId": "gate2a-p-atomic-behavior-rules",
-  "contractVersion": "0.13.0-draft",
+  "contractVersion": "0.14.0-draft",
   "scope": "pilot-subset",
   "note": "Illustrative pilot rules. Not production behaviorRules. No evaluator is implemented.",
   "resultClassNote": "Only source_obligation rules may emit normative outcomes. Proxy rules report proxy_condition_met / proxy_condition_not_met; precondition rules report precondition_available / precondition_unavailable. Neither is obligation compliance, a product finding, or source-derived coverage.",

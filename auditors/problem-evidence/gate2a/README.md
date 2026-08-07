@@ -280,8 +280,16 @@ evidence absence can never be routed to it — absence yields `indeterminate`.
 
 ## Deferred, and not done here
 
-`blockingReasons` always-present remains the approved **target** contract. No schema version was
-selected, no schema changed, no fixture migrated, no benchmark or hash regenerated, no producer or
-consumer modified. The repository has no schema-versioning or compatibility policy; one must be
-defined before a version can be chosen. This belongs to the separate pre-Gate 2B remediation, which
-is not authorized.
+`blockingReasons` always-present remains the approved **target** contract. A-2 did not implement
+that separate remediation: no `blockingReasons` requirement or instance value changed, no related
+benchmark or hash was regenerated, and no producer or consumer was modified for it.
+
+## Versioning policy
+
+Draft contract versioning policy: until the contract
+reaches 1.0, `contractVersion` uses `0.MINOR.PATCH-draft`. Increment MINOR for any substantive
+change to the accepted contract, including adding or removing required properties or changing an
+allowed-value set. Increment PATCH only for a correction that leaves the set of accepted instances
+unchanged. Repository paths, prose, digests, and authority-state bindings alone do not change
+`contractVersion`. `ruleVersion` is independent and changes only when the atomic-rule data contract
+or rule semantics change.

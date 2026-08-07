@@ -9,6 +9,7 @@ No live model call, no network access, no external mutation.
 """
 from __future__ import annotations
 
+import copy
 import hashlib
 import json
 from collections import Counter
@@ -47,6 +48,74 @@ RESULT_CLASS = {"source_obligation": "normative", "evaluation_proxy": "proxy",
                 "evaluation_precondition": "precondition"}
 MANIFEST_DIRS = ("schema", "contracts", "statements")
 MANIFEST_DOCS = ("PROVENANCE-QUESTIONS.md", "README.md")
+
+FROZEN_STATEMENT_TOTAL = 87
+PILOT_N = 7
+SCOPE_BEARING = (
+    "statements/source-statement-records.json",
+    "statements/obligation-parts.json",
+    "statements/atomic-behavior-rules.json",
+    "statements/coverage-report.json",
+)
+
+
+def expected_scope_for(n: int) -> str:
+    """Total over the legal range of N, so the mapping is biconditional by construction."""
+    if n == PILOT_N:
+        return "pilot-subset"
+    if n == FROZEN_STATEMENT_TOTAL:
+        return "full-set-87"
+    return "expansion-in-progress"
+
+
+def scope_and_count_violations(package: dict) -> list[str]:
+    """Pure deterministic validator. Returns stable violation codes, never raises.
+
+    `package` maps each SCOPE_BEARING relative path to its in-memory payload. Both positive and
+    negative tests call this, so the derivation of N lives in exactly one place.
+    """
+    codes: list[str] = []
+    records = package["statements/source-statement-records.json"]["records"]
+    ids = [r["sourceStatementId"] for r in records]
+    unique = set(ids)
+    n = len(unique)
+
+    if len(ids) != len(unique):
+        codes.append("DUPLICATE_SOURCE_STATEMENT_ID")
+    if not (PILOT_N <= n <= FROZEN_STATEMENT_TOTAL):
+        codes.append("N_OUT_OF_RANGE")
+
+    totals = package["statements/coverage-report.json"]["statementTotals"]
+    if totals["selected"] != n:
+        codes.append("SELECTED_NOT_DERIVED_N")
+    if totals["recordsCreated"] != n:
+        codes.append("RECORDS_CREATED_NOT_DERIVED_N")
+    if totals["statementsRemaining"] != FROZEN_STATEMENT_TOTAL - n:
+        codes.append("REMAINING_NOT_DERIVED_N")
+    if totals["recordsCreated"] + totals["statementsRemaining"] != FROZEN_STATEMENT_TOTAL:
+        codes.append("COUNTS_DO_NOT_SUM_TO_87")
+
+    scopes = {rel: package[rel]["scope"] for rel in SCOPE_BEARING}
+    if len(set(scopes.values())) != 1:
+        codes.append("SCOPE_DISAGREEMENT")
+    else:
+        actual = next(iter(scopes.values()))
+        if actual != expected_scope_for(n):
+            codes.append("SCOPE_DOES_NOT_MATCH_N")
+
+    known = {r["sourceStatementId"] for r in records}
+    if any(p["sourceStatementId"] not in known
+           for p in package["statements/obligation-parts.json"]["parts"]):
+        codes.append("ORPHAN_OBLIGATION_PART_STATEMENT")
+    trace = package.get("statements/traceability-map.json")
+    if trace and any(e["sourceStatementId"] not in known for e in trace["edges"]):
+        codes.append("ORPHAN_TRACEABILITY_STATEMENT")
+    return codes
+
+
+def load_package() -> dict:
+    rels = SCOPE_BEARING + ("statements/traceability-map.json",)
+    return {rel: load(rel) for rel in rels}
 
 
 def load(rel: str) -> dict:
@@ -136,9 +205,152 @@ def test_source_statements_match_the_frozen_policy_verbatim(records: list[dict])
         assert record["statementDigest"] == expected
 
 
-def test_gate_2a_f_was_not_started(records: list[dict]) -> None:
-    assert len(records) == 7
-    assert load("statements/source-statement-records.json")["scope"] == "pilot-subset"
+def test_committed_package_satisfies_every_scope_and_count_invariant() -> None:
+    """Replaces test_gate_2a_f_was_not_started: derived, so it stays valid before and after F-1."""
+    assert scope_and_count_violations(load_package()) == []
+
+
+def test_no_duplicate_source_statement_records(records: list[dict]) -> None:
+    ids = [r["sourceStatementId"] for r in records]
+    assert len(ids) == len(set(ids)) == len(records)
+
+
+def test_declared_counts_match_derived_n(records: list[dict]) -> None:
+    n = len({r["sourceStatementId"] for r in records})
+    totals = load("statements/coverage-report.json")["statementTotals"]
+    assert totals["selected"] == n
+    assert totals["recordsCreated"] == n
+    assert totals["statementsRemaining"] == FROZEN_STATEMENT_TOTAL - n
+
+
+def test_represented_plus_remaining_is_eighty_seven() -> None:
+    totals = load("statements/coverage-report.json")["statementTotals"]
+    assert totals["recordsCreated"] + totals["statementsRemaining"] == FROZEN_STATEMENT_TOTAL
+
+
+def test_scope_value_matches_derived_statement_count(records: list[dict]) -> None:
+    n = len({r["sourceStatementId"] for r in records})
+    assert load("statements/coverage-report.json")["scope"] == expected_scope_for(n)
+
+
+def test_all_scope_bearing_instances_agree() -> None:
+    assert len({load(rel)["scope"] for rel in SCOPE_BEARING}) == 1
+
+
+def test_every_referenced_statement_exists(parts, records) -> None:
+    known = {r["sourceStatementId"] for r in records}
+    assert {p["sourceStatementId"] for p in parts} <= known
+    assert {e["sourceStatementId"] for e in load("statements/traceability-map.json")["edges"]} <= known
+
+
+def test_scope_enum_is_closed() -> None:
+    allowed = {"pilot-subset", "expansion-in-progress", "full-set-87"}
+    for rel, schema_rel in (
+        ("statements/source-statement-records.json", "schema/source-statement-record.schema.json"),
+        ("statements/obligation-parts.json", "schema/obligation-part.schema.json"),
+        ("statements/atomic-behavior-rules.json", "schema/atomic-behavior-rule.schema.json"),
+        ("statements/coverage-report.json", "schema/coverage-report.schema.json"),
+    ):
+        assert set(load(schema_rel)["properties"]["scope"]["enum"]) == allowed
+        assert load(rel)["scope"] in allowed
+
+
+def _with_n(package: dict, n: int) -> dict:
+    """Grow or shrink the record population to exactly n unique IDs."""
+    pkg = copy.deepcopy(package)
+    records = pkg["statements/source-statement-records.json"]["records"]
+    template = records[0]
+    while len(records) < n:
+        clone = copy.deepcopy(template)
+        clone["sourceStatementId"] = f"SS-{900 + len(records):03d}"
+        records.append(clone)
+    del records[n:]
+    known = {r["sourceStatementId"] for r in records}
+    pkg["statements/obligation-parts.json"]["parts"] = [
+        p for p in pkg["statements/obligation-parts.json"]["parts"]
+        if p["sourceStatementId"] in known]
+    pkg["statements/traceability-map.json"]["edges"] = [
+        e for e in pkg["statements/traceability-map.json"]["edges"]
+        if e["sourceStatementId"] in known]
+    totals = pkg["statements/coverage-report.json"]["statementTotals"]
+    totals["selected"] = totals["recordsCreated"] = n
+    totals["statementsRemaining"] = FROZEN_STATEMENT_TOTAL - n
+    return pkg
+
+
+def _with_scope(package: dict, scope: str, only: str | None = None) -> dict:
+    pkg = copy.deepcopy(package)
+    for rel in SCOPE_BEARING:
+        if only is None or rel == only:
+            pkg[rel]["scope"] = scope
+    return pkg
+
+
+def _duplicate_id(package: dict) -> dict:
+    pkg = copy.deepcopy(package)
+    records = pkg["statements/source-statement-records.json"]["records"]
+    clone = copy.deepcopy(records[1])
+    clone["sourceStatementId"] = records[0]["sourceStatementId"]
+    clone["statementText"] = clone["statementText"] + " (differing content)"
+    records.append(clone)
+    return pkg
+
+
+def _totals(package: dict, **kw) -> dict:
+    pkg = copy.deepcopy(package)
+    pkg["statements/coverage-report.json"]["statementTotals"].update(kw)
+    return pkg
+
+
+def _orphan(package: dict, where: str) -> dict:
+    pkg = copy.deepcopy(package)
+    if where == "part":
+        pkg["statements/obligation-parts.json"]["parts"][0]["sourceStatementId"] = "SS-999"
+    else:
+        pkg["statements/traceability-map.json"]["edges"][0]["sourceStatementId"] = "SS-999"
+    return pkg
+
+
+NEGATIVE_CASES = [
+    ("duplicate-id",            _duplicate_id,                                    "DUPLICATE_SOURCE_STATEMENT_ID"),
+    ("n7-expansion",            lambda p: _with_scope(p, "expansion-in-progress"), "SCOPE_DOES_NOT_MATCH_N"),
+    ("n7-full",                 lambda p: _with_scope(p, "full-set-87"),           "SCOPE_DOES_NOT_MATCH_N"),
+    ("n8-pilot",                lambda p: _with_n(p, 8),                           "SCOPE_DOES_NOT_MATCH_N"),
+    ("n13-pilot",               lambda p: _with_n(p, 13),                          "SCOPE_DOES_NOT_MATCH_N"),
+    ("n86-pilot",               lambda p: _with_n(p, 86),                          "SCOPE_DOES_NOT_MATCH_N"),
+    ("n8-full",                 lambda p: _with_scope(_with_n(p, 8), "full-set-87"),  "SCOPE_DOES_NOT_MATCH_N"),
+    ("n13-full",                lambda p: _with_scope(_with_n(p, 13), "full-set-87"), "SCOPE_DOES_NOT_MATCH_N"),
+    ("n86-full",                lambda p: _with_scope(_with_n(p, 86), "full-set-87"), "SCOPE_DOES_NOT_MATCH_N"),
+    ("n87-pilot",               lambda p: _with_n(p, 87),                          "SCOPE_DOES_NOT_MATCH_N"),
+    ("n87-expansion",           lambda p: _with_scope(_with_n(p, 87), "expansion-in-progress"), "SCOPE_DOES_NOT_MATCH_N"),
+    ("drift-records",           lambda p: _with_scope(p, "full-set-87", SCOPE_BEARING[0]), "SCOPE_DISAGREEMENT"),
+    ("drift-parts",             lambda p: _with_scope(p, "full-set-87", SCOPE_BEARING[1]), "SCOPE_DISAGREEMENT"),
+    ("drift-rules",             lambda p: _with_scope(p, "full-set-87", SCOPE_BEARING[2]), "SCOPE_DISAGREEMENT"),
+    ("drift-coverage",          lambda p: _with_scope(p, "full-set-87", SCOPE_BEARING[3]), "SCOPE_DISAGREEMENT"),
+    ("stale-selected",          lambda p: _totals(p, selected=6),                  "SELECTED_NOT_DERIVED_N"),
+    ("stale-recordsCreated",    lambda p: _totals(p, recordsCreated=6),            "RECORDS_CREATED_NOT_DERIVED_N"),
+    ("stale-remaining",         lambda p: _totals(p, statementsRemaining=79),      "REMAINING_NOT_DERIVED_N"),
+    ("sum-87-but-wrong-n",      lambda p: _totals(p, recordsCreated=8, statementsRemaining=79), "RECORDS_CREATED_NOT_DERIVED_N"),
+    ("sum-not-87",             lambda p: _totals(p, statementsRemaining=70),      "COUNTS_DO_NOT_SUM_TO_87"),
+    ("orphan-part",             lambda p: _orphan(p, "part"),                     "ORPHAN_OBLIGATION_PART_STATEMENT"),
+    ("orphan-traceability",     lambda p: _orphan(p, "edge"),                     "ORPHAN_TRACEABILITY_STATEMENT"),
+]
+
+
+@pytest.mark.parametrize("label,mutate,expected_code",
+                         NEGATIVE_CASES, ids=[c[0] for c in NEGATIVE_CASES])
+def test_falsified_payloads_are_rejected(label, mutate, expected_code) -> None:
+    """Each case must be rejected for ITS invariant, so an unrelated defect cannot pass it."""
+    assert scope_and_count_violations(load_package()) == [], "baseline must be clean"
+    assert expected_code in scope_and_count_violations(mutate(load_package())), label
+
+
+def test_unknown_fourth_scope_value_is_rejected_by_schema() -> None:
+    from jsonschema import Draft202012Validator
+    payload = copy.deepcopy(load("statements/coverage-report.json"))
+    payload["scope"] = "some-other-scope"
+    errors = list(Draft202012Validator(load("schema/coverage-report.schema.json")).iter_errors(payload))
+    assert any("scope" in list(e.path) for e in errors)
 
 
 # --------------------------------------------------------------------- structural integrity
@@ -477,7 +689,8 @@ def test_pilot_totals_reconcile(parts, rules, records) -> None:
     decomposition = Counter(r["decompositionStatus"] for r in records)
 
     st, ob, ru = report["statementTotals"], report["obligationTotals"], report["ruleTotals"]
-    assert st["selected"] == st["recordsCreated"] == len(records) == 7
+    derived_n = len({r["sourceStatementId"] for r in records})
+    assert st["selected"] == st["recordsCreated"] == len(records) == derived_n
     assert st["fullyDecomposed"] == decomposition["fully_decomposed"]
     assert st["partiallyDecomposed"] == decomposition["partially_decomposed"]
     assert st["fullyDecomposed"] + st["partiallyDecomposed"] == 7

@@ -1,6 +1,6 @@
 {
   "packageId": "gate2a-p-traceability-map",
-  "contractVersion": "0.13.0-draft",
+  "contractVersion": "0.14.0-draft",
   "traceabilityKey": "sourceStatementId",
   "semanticCriteriaIdsAuthoritative": false,
   "sourceDerivedCoverageNote": "Only edges whose derivationBasis is source_obligation count as source-derived coverage. Preconditions and proxies never do.",

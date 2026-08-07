@@ -1,6 +1,6 @@
 {
   "packageId": "gate2a-p-outcome-taxonomy",
-  "contractVersion": "0.13.0-draft",
+  "contractVersion": "0.14.0-draft",
   "resultClassByDerivation": {
     "source_obligation": "normative",
     "evaluation_proxy": "proxy",

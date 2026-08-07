@@ -11,7 +11,7 @@
       "minLength": 1
     },
     "contractVersion": {
-      "const": "0.13.0-draft"
+      "const": "0.14.0-draft"
     },
     "recordKind": {
       "const": "classification-authority"

@@ -10,10 +10,14 @@
       "const": "gate2a-p-coverage-report"
     },
     "contractVersion": {
-      "const": "0.13.0-draft"
+      "const": "0.14.0-draft"
     },
     "scope": {
-      "const": "pilot-subset"
+      "enum": [
+        "pilot-subset",
+        "expansion-in-progress",
+        "full-set-87"
+      ]
     },
     "fullSetAtomicRuleTotal": {
       "const": "unknown"
@@ -27,11 +31,13 @@
       "properties": {
         "selected": {
           "type": "integer",
-          "minimum": 0
+          "minimum": 7,
+          "maximum": 87
         },
         "recordsCreated": {
           "type": "integer",
-          "minimum": 0
+          "minimum": 7,
+          "maximum": 87
         },
         "fullyDecomposed": {
           "type": "integer",
@@ -40,11 +46,17 @@
         "partiallyDecomposed": {
           "type": "integer",
           "minimum": 0
+        },
+        "statementsRemaining": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 80
         }
       },
       "required": [
         "selected",
         "recordsCreated",
+        "statementsRemaining",
         "fullyDecomposed",
         "partiallyDecomposed"
       ]
