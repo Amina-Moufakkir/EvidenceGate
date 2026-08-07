@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://evidencegate.local/auditors/problem-evidence/gate2a-p/schema/source-statement-record.schema.json",
+  "$id": "https://evidencegate.local/auditors/problem-evidence/gate2a/schema/source-statement-record.schema.json",
   "title": "Gate 2A-P Source Statement Record",
   "description": "Immutable identity record for one frozen v15 boundary statement. Contains no approval or lifecycle field: review state lives in a separate digest-bound record.",
   "type": "object",

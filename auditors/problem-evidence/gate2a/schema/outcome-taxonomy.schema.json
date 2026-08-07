@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://evidencegate.local/auditors/problem-evidence/gate2a-p/schema/outcome-taxonomy.schema.json",
+  "$id": "https://evidencegate.local/auditors/problem-evidence/gate2a/schema/outcome-taxonomy.schema.json",
   "title": "Gate 2A-P Outcome Taxonomy",
   "description": "Three disjoint result vocabularies. Only source_obligation rules may emit normative outcomes. Proxy and precondition results are never obligation compliance.",
   "type": "object",

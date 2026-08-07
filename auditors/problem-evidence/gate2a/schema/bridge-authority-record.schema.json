@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://evidencegate.local/auditors/problem-evidence/gate2a-p/schema/bridge-authority-record.schema.json",
+  "$id": "https://evidencegate.local/auditors/problem-evidence/gate2a/schema/bridge-authority-record.schema.json",
   "title": "Gate 2A-P Bridge Authority Record",
   "description": "External, digest-bound record of whether proxy results may be converted into normative outcomes. Never embedded in a rule artifact.",
   "type": "object",

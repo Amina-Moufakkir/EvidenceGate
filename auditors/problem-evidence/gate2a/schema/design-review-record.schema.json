@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://evidencegate.local/auditors/problem-evidence/gate2a-p/schema/design-review-record.schema.json",
+  "$id": "https://evidencegate.local/auditors/problem-evidence/gate2a/schema/design-review-record.schema.json",
   "title": "Gate 2A-P Design Review Record",
   "description": "External review record. References an artifact and its canonical digest; never embedded in the artifact it reviews. Not authenticated identity, not detached authority.",
   "type": "object",

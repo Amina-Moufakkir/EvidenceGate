@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://evidencegate.local/auditors/problem-evidence/gate2a-p/schema/traceability-map.schema.json",
+  "$id": "https://evidencegate.local/auditors/problem-evidence/gate2a/schema/traceability-map.schema.json",
   "title": "Gate 2A-P Traceability Map",
   "description": "Statement -> obligation part -> rule. semanticCriteriaIds from Gate 1 are descriptive metadata and are not a traceability key here.",
   "type": "object",

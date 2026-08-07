@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://evidencegate.local/auditors/problem-evidence/gate2a-p/schema/obligation-part.schema.json",
+  "$id": "https://evidencegate.local/auditors/problem-evidence/gate2a/schema/obligation-part.schema.json",
   "title": "Gate 2A-P Obligation Part Inventory",
   "description": "One normative obligation per record, produced before any atomic rule. derivationBasis separates what the frozen source requires, what the evaluator needs as input, and what the repository merely makes observable.",
   "type": "object",

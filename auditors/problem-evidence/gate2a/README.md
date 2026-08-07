@@ -11,11 +11,11 @@ seven-statement pilot. **Gate 2A-P completion is not Gate 2A completion.** Gate 
 ## Layout
 
 ```
-gate2a-p/
+gate2a/
   manifest.json  explicit package manifest and package digest
   schema/        contract schemas (Draft 2020-12)
   contracts/     outcome taxonomy, operator set, lifecycle dimensions
-  pilot/         the seven-statement pilot
+  statements/    the seven-statement pilot
   records/       external design-review record (example, pending)
 ```
 
@@ -136,7 +136,7 @@ today because no evaluator is implemented and no finding has been generated.
 
 **Deferred remediation DR-1.** Gate 1 `phase1-behavior-coverage.json` expresses the review policy per
 *source statement*, while findings are produced per *rule*. That mismatch is documented in
-`pilot/coverage-report.json` and deferred to pre-Gate 2B remediation. **No Gate 1 artifact was
+`statements/coverage-report.json` and deferred to pre-Gate 2B remediation. **No Gate 1 artifact was
 modified in this pass.**
 
 ## Evaluator maturity — stated separately, never merged
@@ -245,14 +245,15 @@ lives in `records/`, referencing `manifest.json` and its package digest. The rev
 excluded from that digest, so updating a review never mutates the reviewed content; any substantive
 change produces a new digest and requires a new review record.
 
-`manifest.json` lists all **21** included files with per-file digests and documents each exclusion.
-Included: **11** `schema/`, **3** `contracts/`, **5** `pilot/`, and **2** Markdown documents. Excluded
-and documented: `manifest.json` itself (self-reference), `records/design-review-record.example.json`
-and `records/bridge-authority-record.example.json` (authority state must sit outside reviewed
-content), and `tests/gate2a_p/` (outside the package).
+`manifest.json` lists all **22** included files with per-file digests and documents each exclusion.
+Included: **12** `schema/`, **3** `contracts/`, **5** `statements/`, and **2** Markdown documents. Excluded
+and documented: `manifest.json` itself (self-reference), `records/design-review-record.example.json`,
+`records/bridge-authority-record.example.json`, and
+`records/classification-authority-record.example.json` (authority state must sit outside reviewed
+content), and `tests/gate2a/` (outside the package).
 
-Package file inventory: **21 digest members + 2 excluded records + 1 excluded manifest = 24 files
-under `gate2a-p/`**, plus **1 test module** outside it — **25 untracked files** in total.
+Package file inventory: **22 digest members + 3 excluded records + 1 excluded manifest = 26 files
+under `gate2a/`**, plus **1 test module** outside it — **27 files in the reviewed Gate 2A scope**.
 
 ## Lifecycle dimensions
 

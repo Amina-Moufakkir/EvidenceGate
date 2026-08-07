@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://evidencegate.local/auditors/problem-evidence/gate2a-p/schema/coverage-report.schema.json",
+  "$id": "https://evidencegate.local/auditors/problem-evidence/gate2a/schema/coverage-report.schema.json",
   "title": "Gate 2A-P Coverage Report",
   "description": "Three-level accounting. Evaluator design, implementation and execution are reported separately, and intended evidence-packet association is never reported as fixture coverage.",
   "type": "object",

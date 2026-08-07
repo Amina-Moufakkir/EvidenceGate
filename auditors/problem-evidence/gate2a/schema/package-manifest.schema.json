@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://evidencegate.local/auditors/problem-evidence/gate2a-p/schema/package-manifest.schema.json",
+  "$id": "https://evidencegate.local/auditors/problem-evidence/gate2a/schema/package-manifest.schema.json",
   "title": "Gate 2A-P Package Manifest",
   "type": "object",
   "additionalProperties": false,

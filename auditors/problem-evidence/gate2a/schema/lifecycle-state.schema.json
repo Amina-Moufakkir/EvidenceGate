@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://evidencegate.local/auditors/problem-evidence/gate2a-p/schema/lifecycle-state.schema.json",
+  "$id": "https://evidencegate.local/auditors/problem-evidence/gate2a/schema/lifecycle-state.schema.json",
   "title": "Gate 2A-P Lifecycle Dimensions",
   "description": "Independent dimensions. Formal acceptance is deliberately absent as a repository state.",
   "type": "object",

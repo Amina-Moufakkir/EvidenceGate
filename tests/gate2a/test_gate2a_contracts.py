@@ -18,15 +18,15 @@ import pytest
 from jsonschema import Draft202012Validator, FormatChecker
 
 ROOT = Path(__file__).resolve().parents[2]
-GATE = ROOT / "auditors/problem-evidence/gate2a-p"
+GATE = ROOT / "auditors/problem-evidence/gate2a"
 POLICY = ROOT / "auditors/problem-evidence/eval-policy/phase1-benchmark-policy.json"
 
 PAIRS = [
-    ("pilot/source-statement-records.json", "schema/source-statement-record.schema.json"),
-    ("pilot/obligation-parts.json", "schema/obligation-part.schema.json"),
-    ("pilot/atomic-behavior-rules.json", "schema/atomic-behavior-rule.schema.json"),
-    ("pilot/traceability-map.json", "schema/traceability-map.schema.json"),
-    ("pilot/coverage-report.json", "schema/coverage-report.schema.json"),
+    ("statements/source-statement-records.json", "schema/source-statement-record.schema.json"),
+    ("statements/obligation-parts.json", "schema/obligation-part.schema.json"),
+    ("statements/atomic-behavior-rules.json", "schema/atomic-behavior-rule.schema.json"),
+    ("statements/traceability-map.json", "schema/traceability-map.schema.json"),
+    ("statements/coverage-report.json", "schema/coverage-report.schema.json"),
     ("contracts/outcome-taxonomy.json", "schema/outcome-taxonomy.schema.json"),
     ("contracts/operator-set.json", "schema/operator-set.schema.json"),
     ("contracts/lifecycle-state.json", "schema/lifecycle-state.schema.json"),
@@ -45,7 +45,7 @@ ALLOWED_RESULTS = {
 }
 RESULT_CLASS = {"source_obligation": "normative", "evaluation_proxy": "proxy",
                 "evaluation_precondition": "precondition"}
-MANIFEST_DIRS = ("schema", "contracts", "pilot")
+MANIFEST_DIRS = ("schema", "contracts", "statements")
 MANIFEST_DOCS = ("PROVENANCE-QUESTIONS.md", "README.md")
 
 
@@ -55,17 +55,17 @@ def load(rel: str) -> dict:
 
 @pytest.fixture(scope="module")
 def parts() -> list[dict]:
-    return load("pilot/obligation-parts.json")["parts"]
+    return load("statements/obligation-parts.json")["parts"]
 
 
 @pytest.fixture(scope="module")
 def rules() -> list[dict]:
-    return load("pilot/atomic-behavior-rules.json")["rules"]
+    return load("statements/atomic-behavior-rules.json")["rules"]
 
 
 @pytest.fixture(scope="module")
 def records() -> list[dict]:
-    return load("pilot/source-statement-records.json")["records"]
+    return load("statements/source-statement-records.json")["records"]
 
 
 # --------------------------------------------------------------------- schema conformance
@@ -138,7 +138,7 @@ def test_source_statements_match_the_frozen_policy_verbatim(records: list[dict])
 
 def test_gate_2a_f_was_not_started(records: list[dict]) -> None:
     assert len(records) == 7
-    assert load("pilot/source-statement-records.json")["scope"] == "pilot-subset"
+    assert load("statements/source-statement-records.json")["scope"] == "pilot-subset"
 
 
 # --------------------------------------------------------------------- structural integrity
@@ -158,7 +158,7 @@ def test_every_reference_resolves(parts, rules, records) -> None:
     for rule in rules:
         assert rule["primaryObligationPart"] in part_ids
         assert set(rule["supportingObligationParts"]) <= part_ids
-    for edge in load("pilot/traceability-map.json")["edges"]:
+    for edge in load("statements/traceability-map.json")["edges"]:
         assert edge["sourceStatementId"] in statement_ids
         assert edge["obligationPartId"] in part_ids
 
@@ -217,7 +217,7 @@ def test_human_review_obligations_are_documented_and_not_unresolved(parts) -> No
 
 def test_decomposition_and_coverage_are_governed_independently(parts, records) -> None:
     """A statement may be fully decomposed and still carry unresolved obligations."""
-    block = load("pilot/coverage-report.json")["statementDecompositionVsCoverage"]
+    block = load("statements/coverage-report.json")["statementDecompositionVsCoverage"]
     fully = sum(1 for r in records if r["decompositionStatus"] == "fully_decomposed")
     with_unresolved = sum(
         1 for r in records
@@ -448,7 +448,7 @@ def test_no_rule_claims_any_rule_fixture(rules) -> None:
 
 
 def test_fixture_evidence_is_reported_as_intended_association_only(rules) -> None:
-    fixture = load("pilot/coverage-report.json")["fixtureEvidence"]
+    fixture = load("statements/coverage-report.json")["fixtureEvidence"]
     associated = sum(1 for r in rules if r["intendedEvidencePacketAssociation"])
     assert fixture["actualRuleFixtures"] == 0
     assert fixture["rulesWithIntendedEvidencePacketAssociation"] == associated
@@ -456,7 +456,7 @@ def test_fixture_evidence_is_reported_as_intended_association_only(rules) -> Non
 
 
 def test_evaluator_maturity_separates_design_from_implementation(rules) -> None:
-    maturity = load("pilot/coverage-report.json")["evaluatorMaturity"]
+    maturity = load("statements/coverage-report.json")["evaluatorMaturity"]
     assert maturity["mechanismDefined"] == len(rules)
     assert maturity["evaluatorImplemented"] == 0
     assert maturity["behaviourExecutedInTests"] == 0
@@ -469,7 +469,7 @@ def test_evaluator_maturity_separates_design_from_implementation(rules) -> None:
 
 
 def test_pilot_totals_reconcile(parts, rules, records) -> None:
-    report = load("pilot/coverage-report.json")
+    report = load("statements/coverage-report.json")
     states = Counter(p["coverageState"] for p in parts)
     derivations = Counter(p["derivationBasis"] for p in parts)
     rule_derivations = Counter(r["derivationBasis"] for r in rules)
@@ -522,7 +522,7 @@ def test_pilot_totals_reconcile(parts, rules, records) -> None:
 
 
 def test_no_full_set_rule_count_is_extrapolated() -> None:
-    report = load("pilot/coverage-report.json")
+    report = load("statements/coverage-report.json")
     assert report["fullSetAtomicRuleTotal"] == "unknown"
     assert report["extrapolationPermitted"] is False
     assert "130" not in json.dumps(report)
@@ -530,7 +530,7 @@ def test_no_full_set_rule_count_is_extrapolated() -> None:
 
 def test_the_three_review_axes_stay_separate(parts, rules) -> None:
     """Human-required source obligations, governed rule definitions, and finding-capable rules differ."""
-    axes = load("pilot/coverage-report.json")["axisSeparation"]
+    axes = load("statements/coverage-report.json")["axisSeparation"]
     human_obligations = sum(1 for p in parts
                             if p["coverageState"] == "human-review-obligation"
                             and p["derivationBasis"] == "source_obligation")
@@ -691,7 +691,7 @@ def test_no_source_obligation_carries_a_human_disposition(parts) -> None:
     well contain a source obligation that genuinely requires human judgment; this test must not be
     generalised to the full 87 during Gate 2A-F without re-deriving it.
     """
-    breakdown = load("pilot/coverage-report.json")["humanRequiredBreakdown"]
+    breakdown = load("statements/coverage-report.json")["humanRequiredBreakdown"]
     human = [p for p in parts if p["coverageState"] == "human-review-obligation"]
     assert breakdown["asSourceObligations"] == 0
     assert breakdown["asEvaluationPreconditions"] == len(human)
@@ -711,7 +711,7 @@ def test_op_006_g_is_a_precondition_not_a_source_obligation(parts) -> None:
 
 
 def test_human_required_breakdown_separates_source_from_precondition(parts) -> None:
-    breakdown = load("pilot/coverage-report.json")["humanRequiredBreakdown"]
+    breakdown = load("statements/coverage-report.json")["humanRequiredBreakdown"]
     human = [p for p in parts if p["coverageState"] == "human-review-obligation"]
     source = sum(1 for p in human if p["derivationBasis"] == "source_obligation")
     precondition = sum(1 for p in human if p["derivationBasis"] == "evaluation_precondition")
@@ -775,13 +775,13 @@ def test_only_ss_026_declares_an_evidence_contract(parts) -> None:
 
 
 def test_finding_policy_records_zero_implementation_and_zero_findings() -> None:
-    accounting = load("pilot/coverage-report.json")["findingPolicyAccounting"]
+    accounting = load("statements/coverage-report.json")["findingPolicyAccounting"]
     assert accounting["currentlyImplementedEvaluators"] == 0
     assert accounting["actualGeneratedFindings"] == 0
 
 
 def test_gate_1_policy_mismatch_is_documented_and_not_modified() -> None:
-    deferred = load("pilot/coverage-report.json")["deferredRemediation"]
+    deferred = load("statements/coverage-report.json")["deferredRemediation"]
     entry = next(d for d in deferred if d["id"] == "DR-1")
     assert entry["modifiedInThisPass"] is False
     assert "phase1-behavior-coverage.json" in entry["affectedArtifact"]
@@ -885,14 +885,14 @@ def test_manifest_membership_is_explicit_and_complete() -> None:
     expected = set()
     for subdirectory in MANIFEST_DIRS:
         for path in (GATE / subdirectory).glob("*.json"):
-            expected.add(f"auditors/problem-evidence/gate2a-p/{subdirectory}/{path.name}")
+            expected.add(f"auditors/problem-evidence/gate2a/{subdirectory}/{path.name}")
     for document in MANIFEST_DOCS:
-        expected.add(f"auditors/problem-evidence/gate2a-p/{document}")
+        expected.add(f"auditors/problem-evidence/gate2a/{document}")
     assert listed == expected, sorted(listed ^ expected)
-    assert "auditors/problem-evidence/gate2a-p/PROVENANCE-QUESTIONS.md" in listed
-    assert "auditors/problem-evidence/gate2a-p/README.md" in listed
+    assert "auditors/problem-evidence/gate2a/PROVENANCE-QUESTIONS.md" in listed
+    assert "auditors/problem-evidence/gate2a/README.md" in listed
     excluded = {e["path"] for e in manifest["exclusions"]}
-    assert "auditors/problem-evidence/gate2a-p/manifest.json" in excluded
+    assert "auditors/problem-evidence/gate2a/manifest.json" in excluded
     assert any("design-review-record" in path for path in excluded)
     assert any("bridge-authority-record" in path for path in excluded)
     assert all(e["reason"] for e in manifest["exclusions"])
@@ -904,10 +904,10 @@ def test_package_digest_recomputes_and_matches_the_review_record() -> None:
     files: dict[str, str] = {}
     for subdirectory in MANIFEST_DIRS:
         for path in sorted((GATE / subdirectory).glob("*.json")):
-            rel = f"auditors/problem-evidence/gate2a-p/{subdirectory}/{path.name}"
+            rel = f"auditors/problem-evidence/gate2a/{subdirectory}/{path.name}"
             files[rel] = hashlib.sha256(path.read_bytes()).hexdigest()
     for document in sorted(MANIFEST_DOCS):
-        rel = f"auditors/problem-evidence/gate2a-p/{document}"
+        rel = f"auditors/problem-evidence/gate2a/{document}"
         files[rel] = hashlib.sha256((GATE / document).read_bytes()).hexdigest()
 
     assert files == manifest["includedFiles"], "per-file digests must be current"
@@ -939,7 +939,7 @@ def test_semantic_invariants_are_declared_human_review_not_deterministic() -> No
 
 
 def test_gate_1_artifacts_are_not_referenced_as_authoritative_traceability() -> None:
-    trace = load("pilot/traceability-map.json")
+    trace = load("statements/traceability-map.json")
     assert trace["traceabilityKey"] == "sourceStatementId"
     assert trace["semanticCriteriaIdsAuthoritative"] is False
-    assert "semanticCriteriaIds" not in json.dumps(load("pilot/atomic-behavior-rules.json"))
+    assert "semanticCriteriaIds" not in json.dumps(load("statements/atomic-behavior-rules.json"))

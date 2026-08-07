@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://evidencegate.local/auditors/problem-evidence/gate2a-p/schema/atomic-behavior-rule.schema.json",
+  "$id": "https://evidencegate.local/auditors/problem-evidence/gate2a/schema/atomic-behavior-rule.schema.json",
   "title": "Gate 2A-P Atomic Behavior Rule",
   "description": "Each rule maps to exactly one primary obligation part. Result vocabulary is fixed by derivationBasis. No mutable authority state is stored here.",
   "type": "object",

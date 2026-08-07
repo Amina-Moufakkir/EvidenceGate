@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://evidencegate.local/auditors/problem-evidence/gate2a-p/schema/classification-authority-record.schema.json",
+  "$id": "https://evidencegate.local/auditors/problem-evidence/gate2a/schema/classification-authority-record.schema.json",
   "title": "Gate 2A-P Classification Authority Record",
   "description": "External, digest-bound record of whether an approved classification authority exists. Never embedded in an obligation part.",
   "type": "object",

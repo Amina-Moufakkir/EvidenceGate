@@ -1,0 +1,57 @@
+{
+  "packageId": "gate2a-p-package-manifest",
+  "contractVersion": "0.13.0-draft",
+  "digestAlgorithm": "json.dumps-sort-keys-compact-sha256",
+  "fileDigestRule": "sha256 over raw file bytes",
+  "packageDigestRule": "sha256 over json.dumps(files, sort_keys=True, separators=(',',':')) encoded utf-8",
+  "orderingRule": "keys sorted lexicographically by repo-relative POSIX path",
+  "pathNormalization": "repository-relative POSIX paths",
+  "includedFiles": {
+    "auditors/problem-evidence/gate2a/schema/atomic-behavior-rule.schema.json": "f6b06beed2471331eb3160f556f82a60a9b3c1738d134194227da3116c69c431",
+    "auditors/problem-evidence/gate2a/schema/bridge-authority-record.schema.json": "73eefa0b20d25f33b6966a791e10783ad273733dcf86e5c30784085ca849298b",
+    "auditors/problem-evidence/gate2a/schema/classification-authority-record.schema.json": "9738aaee16697f257abc9db687a7d7bd660034589b99333f1ac874f87d94f0a1",
+    "auditors/problem-evidence/gate2a/schema/coverage-report.schema.json": "583cabb06dd28f81e3d90c4e76665d6715663698a54493be0d99c168aaa969bd",
+    "auditors/problem-evidence/gate2a/schema/design-review-record.schema.json": "41e02da0518721147e506a6117a10a189b2177e86de1e0a1d15b407e0aa76d4a",
+    "auditors/problem-evidence/gate2a/schema/lifecycle-state.schema.json": "5c14fdd92609a14f5cea7173d11efb57919a8ecfbcfdda370dd90a581189015e",
+    "auditors/problem-evidence/gate2a/schema/obligation-part.schema.json": "5a4bf4c6ba5e1301fb10d30f2498440e3bbe09edeb4ce1ce4d7bf08a9935d2d4",
+    "auditors/problem-evidence/gate2a/schema/operator-set.schema.json": "ba45c25ed7de82c9ff4bea9001ed2154d886e6c30758d0d3e5676f013c3cd8a8",
+    "auditors/problem-evidence/gate2a/schema/outcome-taxonomy.schema.json": "ab95d588254f55993f104194025924d20c07c870e441e27d89ddcd2be9a2904b",
+    "auditors/problem-evidence/gate2a/schema/package-manifest.schema.json": "6154c7bf253947d1ce9dfcf6e9a540c2c443b6cbaaf5839b567b5790f00c71d4",
+    "auditors/problem-evidence/gate2a/schema/source-statement-record.schema.json": "3e9ce44be62ff266ba2d3fb9321221a54a0dc394c3d26b4884b38c78b5aa4958",
+    "auditors/problem-evidence/gate2a/schema/traceability-map.schema.json": "fb652d6924e34ed3dbf39507be7e61ed7cffdfbd54ffde2a4c1e34634400bdc3",
+    "auditors/problem-evidence/gate2a/contracts/lifecycle-state.json": "6029e118e72cbb7fccba6cc712225b2d6103184ed146fac6fde4f2fa2d1a63f0",
+    "auditors/problem-evidence/gate2a/contracts/operator-set.json": "e8c162ea51aacf02f9cd6161c32234e50ec35966a865b084e87516fc6c1996e3",
+    "auditors/problem-evidence/gate2a/contracts/outcome-taxonomy.json": "f9e8faf894a4339f853c816abb373b91ea904bf59de3581103c82dbca3afeace",
+    "auditors/problem-evidence/gate2a/statements/atomic-behavior-rules.json": "78cc97ef3a969227fe41d8d0726078f6e90e223b85e1dec33ced28a9a1065c3d",
+    "auditors/problem-evidence/gate2a/statements/coverage-report.json": "46244f6dd94285ae3ee13e47320c65bfcbaaef9f1aac255ce9e104bfa002ba69",
+    "auditors/problem-evidence/gate2a/statements/obligation-parts.json": "02f53f3c057e1eb36c16b42f193e6ee1ebe3578a9cc856ab1933961e71283478",
+    "auditors/problem-evidence/gate2a/statements/source-statement-records.json": "db86a1ca441429eb0b9200c747b9c16860936a9685d465bda1aa17eb78efbe7f",
+    "auditors/problem-evidence/gate2a/statements/traceability-map.json": "09d79e43e632ae8f63ee50b7012eb0bf4a382b29e5db9028e60f77a8f7cc4ad1",
+    "auditors/problem-evidence/gate2a/PROVENANCE-QUESTIONS.md": "90930dac33e2b0955487effde63df0c197e3be621ca4a99d7d49ee0d130809d8",
+    "auditors/problem-evidence/gate2a/README.md": "c5054885431855f665e13e50719819e03e861d8decc1e4572ae6e88310254ce4"
+  },
+  "exclusions": [
+    {
+      "path": "auditors/problem-evidence/gate2a/manifest.json",
+      "reason": "A manifest cannot include its own digest without circular self-reference."
+    },
+    {
+      "path": "auditors/problem-evidence/gate2a/records/design-review-record.example.json",
+      "reason": "Review state must live outside the reviewed content so a review can be updated without mutating what it reviewed."
+    },
+    {
+      "path": "auditors/problem-evidence/gate2a/records/bridge-authority-record.example.json",
+      "reason": "Bridge-authority state must live outside the reviewed content for the same reason; embedding it would make an authority grant mutate the artifact it governs."
+    },
+    {
+      "path": "tests/gate2a/test_gate2a_contracts.py",
+      "reason": "Validation code is outside the design package and is reviewed as code, not as contract."
+    },
+    {
+      "path": "auditors/problem-evidence/gate2a/records/classification-authority-record.example.json",
+      "reason": "Classification-authority state must live outside the reviewed content, like the other authority records."
+    }
+  ],
+  "documentationInclusionNote": "README.md and PROVENANCE-QUESTIONS.md are included in the digest. PROVENANCE-QUESTIONS.md records the F-6 provenance analysis and the justification for OP-070-c; README.md states package-level contract claims. Both are substantive and must not be editable without invalidating the review.",
+  "packageDigest": "8f2dff8d2a564b3bf654d212d69610275e0a3677661bc6e528f3280a3e18a924"
+}
