@@ -145,6 +145,54 @@ def test_structural_comparison_detects_policy_critical_field_mismatch() -> None:
     assert any("/findings/4/evidenceIds" == issue.path for issue in report.issues)
 
 
+def test_non_contributing_evidence_mismatch_is_detected() -> None:
+    expected = _expected("missing-evidence.json")
+    actual = copy.deepcopy(expected)
+    _finding(actual, "REQ-2")["nonContributingEvidence"] = []
+
+    report = _compare(actual, expected)
+
+    assert not report.passed
+    assert any(
+        issue.path == "/findings/1/nonContributingEvidence"
+        for issue in report.issues
+    )
+
+
+def test_owner_approved_semantic_audit_corrections_are_canonical() -> None:
+    contradictory = _expected("contradictory-evidence.json")
+    missing = _expected("missing-evidence.json")
+    strong = _expected("strong-evidence.json")
+
+    contradictory_req2 = _finding(contradictory, "REQ-2")
+    assert contradictory_req2["status"] == "pass"
+    assert contradictory_req2["contradictoryEvidenceIds"] == []
+    assert [
+        item["evidenceId"] for item in contradictory_req2["nonContributingEvidence"]
+    ] == ["EV-003"]
+
+    contradictory_req3 = _finding(contradictory, "REQ-3")
+    assert contradictory_req3["status"] == "fail"
+    assert contradictory_req3["evidenceIds"] == []
+    assert [
+        item["evidenceId"] for item in contradictory_req3["nonContributingEvidence"]
+    ] == ["EV-007"]
+
+    contradictory_req5 = _finding(contradictory, "REQ-5")
+    assert contradictory_req5["subAssessments"]["contradictionAssessment"][
+        "conflictType"
+    ] == "cross-source-disagreement"
+
+    missing_req2 = _finding(missing, "REQ-2")
+    assert {
+        item["evidenceId"] for item in missing_req2["nonContributingEvidence"]
+    } == {"EV-001", "EV-004", "EV-006"}
+
+    strong_req3 = _finding(strong, "REQ-3")
+    assert strong_req3["status"] == "partial"
+    assert strong_req3["requiresHumanDecision"] is False
+
+
 def test_structured_sub_assessment_mismatch_is_detected_without_rationale_matching() -> None:
     expected = _expected("strong-evidence.json")
     actual = copy.deepcopy(expected)

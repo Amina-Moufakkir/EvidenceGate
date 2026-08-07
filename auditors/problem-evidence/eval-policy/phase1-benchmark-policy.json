@@ -4,8 +4,8 @@
   "reviewStatus": "approved",
   "humanReviewed": true,
   "reviewedBy": "Amina Moufakkir",
-  "reviewedDate": "2026-08-05",
-  "scope": "Approved Phase 1 evaluation policy for recommendation and verification behavior on the three approved synthetic Problem Evidence Auditor benchmark fixtures. Comparator enforcement is permitted only while this artifact remains schema-valid and human-approved.",
+  "reviewedDate": "2026-08-06",
+  "scope": "Owner-reviewed Phase 1 evaluation policy for recommendation and verification behavior on the three approved synthetic Problem Evidence Auditor benchmark fixtures, revised after the v15 human semantic audit. Comparator enforcement is permitted only while this artifact remains schema-valid and human-approved. This approval is not external compatibility authority, automated reliability, or Phase 1 acceptance.",
   "fixtures": [
     {
       "fixture": "contradictory-evidence.json",
@@ -25,11 +25,11 @@
         },
         {
           "requirementId": "REQ-2",
-          "expectedRecommendationActionType": "measure-complete-assembly-time-and-investigate-segment-subset-explanation",
+          "expectedRecommendationActionType": "validate-qualifying-instance-and-optionally-investigate-variation",
           "requiredVerificationBehavior": [
             "Preserve REQ-2 as instance-scoped: one credible qualifying occurrence can establish that the behavior exists.",
-            "Resolve mixed duration evidence by measuring complete active assembly work for more in-segment owners.",
-            "Check whether reuse-versus-blank proposal behavior explains the P-11/P-12 split without assuming the segment definition is invalid."
+            "First validate EV-004's provenance, complete active-assembly measurement boundaries, segment fit, threshold, and supersession status; if it remains credible, it establishes instance-scoped existence.",
+            "Treat measurement of further in-segment owners and reuse-versus-blank behavior as optional research into variation or recurrence; any association must not change REQ-2's status, imply causation, or invalidate the segment without separate evidence."
           ],
           "prohibitedSubstitutions": [
             "Do not require recurrence or segment-wide prevalence to pass the instance-scoped REQ-2 question.",
@@ -70,11 +70,11 @@
         },
         {
           "requirementId": "REQ-5",
-          "expectedRecommendationActionType": "test-commitment-alongside-measured-proposal-volume",
+          "expectedRecommendationActionType": "test-existing-problem-commitment-with-optional-volume-context",
           "requiredVerificationBehavior": [
             "Collect expense or staff-allocation records from further independent in-segment owners.",
-            "Collect measured proposal volume over the same period.",
-            "Check whether sustained commitment tracks with volume rather than treating commitment as a segment-wide property."
+            "Treat measured proposal volume as optional contextual research, not required REQ-5 verification; if collected, align it to the commitment period and classify it as non-contributing to status.",
+            "Use any observed commitment-volume association only to motivate a narrower later hypothesis; do not use it to prove commitment, imply causation, create a segment-wide conclusion, or change the finding without qualifying commitment evidence."
           ],
           "prohibitedSubstitutions": [
             "Do not substitute willingness to pay for the proposed product.",
@@ -123,7 +123,7 @@
           "requiredVerificationBehavior": [
             "Collect continuous ninety-day calendar, CRM, or proposal-event exports from two independent in-segment owners who pass rewritten screening.",
             "Count dated proposal-sent events in the applicable weekly buckets rather than asking owners for a generalized rate.",
-            "At least two proposals per week through the applicable period supports the recurrence claim; falling below that threshold in a complete qualifying export falsifies it."
+            "Define the applicable evaluation period before counting. For one source, support requires at least two sent proposals in every week of an applicable eight-consecutive-week window; source-level counterevidence requires a complete export covering the claimed period with no qualifying eight-week window. Finding-level fail requires the configured independent-source minimum and no credible same-scope above-threshold support within this packet; period-free estimates remain visible but are neither support nor contradiction."
           ],
           "prohibitedSubstitutions": [
             "Do not ask owners how often it happens as a substitute for dated event records.",
@@ -154,7 +154,7 @@
           "requiredVerificationBehavior": [
             "Replace CL-005 with a claim about resources already committed to the existing problem.",
             "For three in-segment owners, define and collect documented qualifying money or staff-hour commitment sustained for at least three months.",
-            "Qualifying commitment from two or more owners supports the claim; consistently declined paid help falsifies it."
+            "Pass requires the configured minimum of independent in-segment sources documenting qualifying money or staff-hour commitment to the existing problem. Counterevidence requires documented evaluation followed by decline or abandonment because the problem did not justify expenditure; non-purchase, missing records, unrelated budget constraints, and rejection of the proposed product do not qualify. Fail requires the configured counterevidence-source minimum and no comparably credible qualifying commitment within this packet; credible evidence on both sides yields partial."
           ],
           "prohibitedSubstitutions": [
             "Do not evaluate willingness to pay for the proposed product.",
@@ -203,7 +203,7 @@
           "requiredVerificationBehavior": [
             "Define eight consecutive calendar-week windows before inspecting events.",
             "Count sent proposals separately in every week.",
-            "Treat any zero-proposal week as direct falsification for that owner."
+            "Apply the claim's weekly threshold only inside a predefined applicable eight-consecutive-week window, or require a complete claimed period with no qualifying eight-week window; a zero-proposal week outside an otherwise qualifying window does not falsify the owner-level claim, and finding-level fail still requires the configured independent-source minimum with no credible same-scope support within this packet."
           ],
           "prohibitedSubstitutions": [
             "Do not use period-wide mean proposals per week as sufficient for a weekly-cadence claim.",

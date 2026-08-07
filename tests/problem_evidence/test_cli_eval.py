@@ -109,7 +109,7 @@ def test_eval_cli_writes_complete_passing_report(tmp_path) -> None:
     assert report["requestedModel"] == "fake-requested"
     assert report["returnedModel"] == "fake-returned"
     assert report["responseId"] == "fake-response"
-    assert report["promptVersion"] == "problem-evidence-phase1-v0"
+    assert report["promptVersion"] == "problem-evidence-phase1-v1"
     assert report["promptHash"] == "fake-prompt-hash"
     assert report["runId"] == FIXED_RUN_ID
     assert report["timestamp"] == FIXED_TIMESTAMP

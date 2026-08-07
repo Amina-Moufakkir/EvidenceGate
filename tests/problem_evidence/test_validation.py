@@ -108,3 +108,44 @@ def test_validation_rejects_missing_synthetic_notice_and_review_note() -> None:
 
     assert any("synthetic evidence notice" in message for message in messages)
     assert any("runtime reviewNote must be null" in message for message in messages)
+
+
+def test_validation_rejects_non_contributing_unknown_overlap_and_duplicates() -> None:
+    document, packet, requirement_ids, schema = _document()
+    document["findings"][0]["nonContributingEvidence"] = [
+        {
+            "evidenceId": "EV-001",
+            "qualification": "unsuitable",
+            "relationshipStatus": "not-applicable",
+            "reasonCodes": ["internal-assertion"],
+            "rationale": "The record is the team's own assertion.",
+        },
+        {
+            "evidenceId": "EV-001",
+            "qualification": "unsuitable",
+            "relationshipStatus": "not-applicable",
+            "reasonCodes": ["internal-assertion"],
+            "rationale": "A duplicate disposition for the same record.",
+        },
+        {
+            "evidenceId": "EV-999",
+            "qualification": "unsuitable",
+            "relationshipStatus": "not-applicable",
+            "reasonCodes": ["requirement-fit-none"],
+            "rationale": "This id is not in the packet.",
+        },
+    ]
+    document["findings"][0]["evidenceIds"] = ["EV-001"]
+
+    messages = _messages(
+        validate_audit_document(
+            document=document,
+            packet=packet,
+            audit_schema=schema,
+            requirement_ids=requirement_ids,
+        )
+    )
+
+    assert any("unknown evidence ids" in message for message in messages)
+    assert any("must be disjoint" in message for message in messages)
+    assert any("at most once" in message for message in messages)

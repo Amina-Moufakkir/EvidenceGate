@@ -21,5 +21,6 @@ def test_prompt_contains_phase1_boundaries_and_excludes_expected_results() -> No
     assert "OPEN-06" in prompt
     assert "OPEN-07" in prompt
     assert "Do not use world knowledge" in prompt
+    assert "nonContributingEvidence" in prompt
     assert "Runtime-owned metadata is not part of your output" in prompt
     assert "strong-evidence.expected.json" not in prompt

@@ -9,6 +9,7 @@ MODEL_OWNED_FINDING_FIELDS = [
     "status",
     "evidenceIds",
     "contradictoryEvidenceIds",
+    "nonContributingEvidence",
     "missingEvidence",
     "severity",
     "rationale",

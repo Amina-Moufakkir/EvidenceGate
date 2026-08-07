@@ -123,7 +123,14 @@ def validate_audit_document(
 
         support = set(finding.get("evidenceIds", []))
         contradictory = set(finding.get("contradictoryEvidenceIds", []))
-        unknown_evidence = sorted((support | contradictory) - evidence_ids)
+        non_contributing_entries = finding.get("nonContributingEvidence", [])
+        non_contributing_ids = [
+            entry.get("evidenceId")
+            for entry in non_contributing_entries
+            if isinstance(entry, dict) and entry.get("evidenceId") is not None
+        ]
+        non_contributing = set(non_contributing_ids)
+        unknown_evidence = sorted((support | contradictory | non_contributing) - evidence_ids)
         if unknown_evidence:
             issues.append(
                 ValidationIssue(
@@ -132,7 +139,9 @@ def validate_audit_document(
                 )
             )
 
-        interpretation_references = sorted((support | contradictory) & interpretation_ids)
+        interpretation_references = sorted(
+            (support | contradictory | non_contributing) & interpretation_ids
+        )
         if interpretation_references:
             issues.append(
                 ValidationIssue(
@@ -147,6 +156,32 @@ def validate_audit_document(
                 ValidationIssue(
                     f"evidenceIds and contradictoryEvidenceIds must be disjoint: {overlap}",
                     path,
+                )
+            )
+
+        non_contributing_overlap = sorted(
+            (support & non_contributing) | (contradictory & non_contributing)
+        )
+        if non_contributing_overlap:
+            issues.append(
+                ValidationIssue(
+                    "nonContributingEvidence must be disjoint from support and contradiction "
+                    f"lists: {non_contributing_overlap}",
+                    path,
+                )
+            )
+
+        duplicate_non_contributing = sorted(
+            evidence_id
+            for evidence_id in non_contributing
+            if non_contributing_ids.count(evidence_id) > 1
+        )
+        if duplicate_non_contributing:
+            issues.append(
+                ValidationIssue(
+                    "nonContributingEvidence must contain each evidenceId at most once: "
+                    f"{duplicate_non_contributing}",
+                    f"{path}/nonContributingEvidence",
                 )
             )
 

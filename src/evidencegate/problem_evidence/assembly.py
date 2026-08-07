@@ -36,7 +36,7 @@ def assemble_audit_document(
         finding["reviewNote"] = None
 
     return {
-        "schemaVersion": "1.0.0",
+        "schemaVersion": "2.0.0",
         "fixture": packet_path.name,
         "packetId": packet["packetId"],
         "packetPurpose": packet["packetPurpose"],

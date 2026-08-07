@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "2.0.0",
   "fixture": "strong-evidence.json",
   "packetId": "ccpa-strong-001",
   "packetPurpose": "fixture",
@@ -18,6 +18,7 @@
       "status": "pass",
       "evidenceIds": ["EV-001"],
       "contradictoryEvidenceIds": [],
+      "nonContributingEvidence": [],
       "missingEvidence": [
         "In/out decisions from a second rater who did not write the definition, applied to the same 12 screened companies, to test whether the boundaries are decidable by someone else."
       ],
@@ -58,6 +59,7 @@
       "status": "pass",
       "evidenceIds": ["EV-002", "EV-003", "EV-004", "EV-005"],
       "contradictoryEvidenceIds": [],
+      "nonContributingEvidence": [],
       "missingEvidence": [
         "An artifact check on P-04's Riverside account — the document version history for that specific proposal — so the recalled 260 minutes can be compared against a record.",
         "Any record of the work performed outside the document (site measurement, pricing calls), which the version-history measurements exclude by construction."
@@ -99,6 +101,15 @@
       "status": "partial",
       "evidenceIds": [],
       "contradictoryEvidenceIds": ["EV-006"],
+      "nonContributingEvidence": [
+        {
+          "evidenceId": "EV-007",
+          "qualification": "unsuitable",
+          "relationshipStatus": "unresolved",
+          "reasonCodes": ["missing-applicable-timeframe", "missing-required-measurement"],
+          "rationale": "EV-007 does not provide exact event dates or predefined weekly buckets, so its summary cannot be evaluated against the applicable eight-week cadence."
+        }
+      ],
       "missingEvidence": [
         "The 14 dated events from EV-007 assigned to the exact predefined calendar-week buckets, without which its 13-day maximum gap cannot determine whether any defined week was empty.",
         "A second independent in-segment calendar-week export covering a predefined eight-week window, needed to meet the configured recurrence-source minimum in either direction.",
@@ -108,8 +119,8 @@
       "rationale": "CL-003 requires at least one proposal in every predefined calendar week across eight consecutive weeks; a period-wide mean above one is not enough. EV-006 directly records one zero-proposal week in its exact eight-week window and is counterevidence. EV-007 reports 14 events over 90 days and a longest gap of 13 days, but supplies neither the event dates nor predefined week counts. A 13-day interval can straddle calendar-week boundaries without leaving a defined week empty, so EV-007 is unsuitable for this threshold rather than direct falsification. With one valid counterevidence source, no qualifying support, and the configured two-source recurrence minimum unmet, the result is partial rather than fail.",
       "impact": "The packet contains one direct failure of the asserted weekly cadence and one export that cannot be bucketed against it. The uninterrupted recurrence pattern is not established, but the available counterevidence is not sufficiently scoped across the configured source minimum for fail.",
       "recommendation": "Keep CL-003 unchanged unless the team intends a different meaning. Collect proposal-event exports in fixed calendar-week buckets and evaluate the minimum count in each week, rather than using a period-wide mean.",
-      "verificationTest": "For each of two independent in-segment owners, define an eight-consecutive-calendar-week window before inspecting the events and count sent proposals separately in every week. The claim is supported only if each of all eight weeks contains at least one proposal for each owner; any zero-proposal week directly falsifies the cadence for that owner.",
-      "requiresHumanDecision": true,
+      "verificationTest": "For each independent in-segment owner, define the applicable eight-consecutive-calendar-week window before inspecting events and count sent proposals in every week. A source supports CL-003 only if every week in that predefined window meets the claim's threshold of at least one proposal. A zero week inside that window is source-level counterevidence; a zero week outside an otherwise qualifying window is not. Finding-level fail requires the configured independent-source minimum and no credible same-scope qualifying support within this packet.",
+      "requiresHumanDecision": false,
       "claimIds": ["CL-003"],
       "subAssessments": {
         "definitionQuality": {
@@ -141,6 +152,7 @@
       "status": "partial",
       "evidenceIds": ["EV-008", "EV-009"],
       "contradictoryEvidenceIds": [],
+      "nonContributingEvidence": [],
       "missingEvidence": [
         "Buyer correspondence for P-03's four late bids, establishing from the buyer's side whether lateness was why those bids were lost — the spreadsheet records dates only.",
         "Buyer-established lateness from at least one further independent in-segment owner, which is what would meet the configured two-source minimum for this narrow-pattern claim.",
@@ -184,6 +196,7 @@
       "status": "pass",
       "evidenceIds": ["EV-010", "EV-011", "EV-012"],
       "contradictoryEvidenceIds": [],
+      "nonContributingEvidence": [],
       "missingEvidence": [
         "A breakdown of P-03's task code BID hours separating proposal assembly from pricing research, since the code covers both.",
         "Expense records from a third independent in-segment owner, to show whether this expenditure is common or particular to these two.",

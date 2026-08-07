@@ -81,12 +81,14 @@ def test_assembled_document_validates_against_canonical_schema() -> None:
     )
 
     assert document["reviewStatus"] == "provisional"
+    assert document["schemaVersion"] == "2.0.0"
     assert document["humanReviewed"] is False
     assert document["generatedDate"] == "2026-08-05"
     assert document["reviewedBy"] is None
     assert document["reviewedDate"] is None
     assert "synthetic" in document["syntheticEvidenceNotice"]
     assert all(finding["reviewNote"] is None for finding in document["findings"])
+    assert all("nonContributingEvidence" in finding for finding in document["findings"])
     raise_for_issues(
         validate_audit_document(
             document=document,

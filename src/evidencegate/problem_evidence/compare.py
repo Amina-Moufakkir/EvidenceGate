@@ -21,6 +21,7 @@ STRUCTURAL_FIELDS = [
     "status",
     "evidenceIds",
     "contradictoryEvidenceIds",
+    "nonContributingEvidence",
     "severity",
     "requiresHumanDecision",
     "blockingReasons",

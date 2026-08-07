@@ -35,7 +35,7 @@ The auditor must:
 1. Evaluate each of the five requirements independently and emit **exactly one finding per requirement**, always, however empty the packet.
 2. Distinguish **definition quality** (is the claim specific and testable?) from **evidence strength** (do the records support it?) from **contradiction** (do records conflict with it?), and report all three.
 3. Cite supplied evidence by `evidenceId` for every conclusion, or state explicitly that evidence is absent.
-4. Keep supporting and conflicting records in **separate lists**, never merged, never netted off.
+4. Keep supporting, conflicting, and non-contributing records in **separate structured roles**, never merged or netted off.
 5. Name missing evidence as **concrete, obtainable artifacts**, not as abstractions.
 6. Propose a verification test that names an **observable outcome**, including what result would falsify the claim.
 7. Assess **provenance limitations recorded inside the packet** — recall bias, leading questions, self-selection, single-site coverage, unknown segment fit — because these are properties of the supplied records.
@@ -79,7 +79,7 @@ The line: the auditor may say *"this record cannot answer this question, and her
 
 **Output** — one result document conforming to `schema/audit-finding.schema.json`: exactly five findings, in requirement order, plus a mandatory synthetic-evidence notice whenever any record has `origin: "synthetic"`.
 
-The finding fields are the agreed `AuditFinding` interface. Phase 0 adds six fields, all additive: `claimIds`, `subAssessments`, `offSegmentSignal`, `blockingReasons`, `policyGap`, `reviewNote`. There is **no numeric confidence** in v1, because nothing has been defined or calibrated that such a number would mean.
+The finding fields are the agreed `AuditFinding` interface. Contract extensions are `claimIds`, `nonContributingEvidence`, `subAssessments`, `offSegmentSignal`, `blockingReasons`, `policyGap`, and `reviewNote`. Finding documents use schema version `2.0.0`; the required `nonContributingEvidence` role is a breaking addition to the earlier output contract. There is **no numeric confidence**, because nothing has been defined or calibrated that such a number would mean.
 
 ---
 
@@ -132,6 +132,8 @@ Neither was in the original policy set; both follow from it and are recorded her
 
 **`missing evidence ≠ contradictory evidence`** is the single most important boundary in this spec. `not-testable` and `fail` must never be substituted for each other. A finding that records missing evidence must leave `contradictoryEvidenceIds` empty unless a genuine conflict exists independently.
 
+**Non-contributing evidence remains visible without changing either side of the finding.** Each record in `nonContributingEvidence` is classified as `unsuitable` or `non-qualifying`, has an `unresolved` or `not-applicable` relationship to the requirement, uses the schema's closed reason-code catalog, and includes a rationale. Its `evidenceId` appears in neither support nor contradiction lists and never affects their source counts. The required array is present even when empty so omission cannot silently impersonate assessment.
+
 **Severity** expresses the **consequence of leaving this gap unresolved**. It takes `none` on passing findings. It is not a measure of how badly the requirement failed and not a priority ranking across requirements.
 
 **`requiresHumanDecision`** is set for credible contradictions, policy gaps, and borderline interpretations. It is deliberately *not* set for deterministic outcomes — a definition failure, a source count below the configured minimum, or a supersession that follows the stated rule — so that the flag keeps meaning something.
@@ -144,7 +146,7 @@ Neither was in the original policy set; both follow from it and are recorded her
 
 Evidence is a **record of something that happened**: an artifact the work produced, a measurement, an observation, or an account of a specific occurrence.
 
-The following are recorded in the packet but are **not evidence for any status**:
+The following are recorded in the packet but are **not evidence for any status**. Evidence records of these kinds are placed in `nonContributingEvidence` when they bear on the finding; interpretations remain in their separate packet collection and are never cited as evidence:
 
 - **Internal assertions.** The team's own belief, written in a brief. Writing a belief down does not convert it into an observation.
 - **Interpretations.** Held in a separate collection by design. May be reported; never cited as support.
@@ -183,7 +185,7 @@ Records are described by five independent axes, all recorded in the packet, all 
 
 Evidence is superseded only when the packet explicitly declares the relationship in the newer record's `supersession[]` entry and every condition holds: the newer evidence explicitly corrects, replaces or invalidates the older evidence; both address the same subject, measure, scope and applicable timeframe; the newer record has equal or stronger provenance; and it directly falsifies the claim at its defined threshold.
 
-Source identity, timestamps, category or proximity never imply supersession. If any condition is absent or false, both records remain in the assessment. Credible conflict then produces `partial` with `requiresHumanDecision: true` under §11. A valid explicit supersession is deterministic and does not alone set `requiresHumanDecision`; the displaced record is cited in neither evidence list and the relationship is described in the rationale and contradiction sub-assessment.
+Source identity, timestamps, category or proximity never imply supersession. If any condition is absent or false, both records remain in the assessment. Credible conflict then produces `partial` with `requiresHumanDecision: true` under §11. A valid explicit supersession is deterministic and does not alone set `requiresHumanDecision`; the displaced record is preserved in `nonContributingEvidence` with the `explicitly-superseded` reason code and the relationship is described in the rationale and contradiction sub-assessment.
 
 ---
 
@@ -242,6 +244,7 @@ Ten policies were decided by the project owner and are binding. Recorded here so
 10. **Problem evidence only.** Product demand, pilots of the proposed product, and willingness to pay for it are out of scope. (§4)
 11. **Partial segment fit is bounded.** Partial-fit evidence may contribute only up to `partial`, cannot independently pass or falsify a full-segment claim, and materially interpretive partial fit requires human decision. (§6.5)
 12. **Claim/requirement mismatch is a deterministic block.** Emit `not-testable` with a structured blocking reason and direct the user to restate or replace the claim. The mismatch alone is not a policy gap or human judgment call. (§17, OPEN-07)
+13. **Visible non-contributing evidence has its own role.** Unsuitable, non-qualifying, or explicitly superseded evidence that bears on a finding is preserved in `nonContributingEvidence`, never coerced into support or contradiction, and never counted toward either side. The three evidence roles are pairwise disjoint.
 
 ---
 
@@ -259,7 +262,7 @@ Full conditions, accepted and insufficient evidence types, default severities an
 
 ---
 
-## 15. Version 1 definition of done
+## 15. Version 2 finding-schema definition of done
 
 Phase 0 is complete when all of the following hold. Items 1–7 are verifiable mechanically; 8 is not, and is the gate that matters.
 
@@ -267,7 +270,7 @@ Phase 0 is complete when all of the following hold. Items 1–7 are verifiable m
 2. Every fixture validates against `schema/evidence-packet.schema.json`.
 3. Every expected-result file validates against `schema/audit-finding.schema.json`.
 4. Every fixture produces **exactly five** findings, one per requirement, in requirement order.
-5. Every `evidenceId` referenced in any expected file **exists in that file's fixture**, and no id appears in both `evidenceIds` and `contradictoryEvidenceIds` of the same finding.
+5. Every `evidenceId` referenced in any expected file **exists in that file's fixture**; `evidenceIds`, `contradictoryEvidenceIds`, and `nonContributingEvidence` are pairwise disjoint; and each non-contributing evidence ID appears at most once per finding.
 6. Every non-`pass` finding names at least one concrete missing artifact and an observable verification test; the `missing-evidence` fixture produces no contradiction claims anywhere.
 7. Every record in every fixture carries `"synthetic": true` and `"origin": "synthetic"`, and every expected file carries `reviewStatus: "provisional"`, `humanReviewed: false`, and the synthetic-evidence notice.
 8. **The project owner has reviewed and approved all expected results.** Each file carries `reviewStatus: "approved"` and `humanReviewed: true`; `reviewNote` remains null because no unresolved finding-level disagreement remains. This approval accepts the Phase 0 policy outcomes and does not empirically calibrate thresholds. The legitimate open-policy questions below remain open.

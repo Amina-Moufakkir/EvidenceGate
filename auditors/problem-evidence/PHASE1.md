@@ -130,7 +130,7 @@ Tests must prove:
 
 Load `SPEC.md`, `checklist.json`, the transport schema, and the packet. Normal audit prompts must not include approved expected files.
 
-The prompt must state the authority hierarchy, five ordered findings, packet-only evidence, separate support/conflict lists, no world knowledge, no product-demand conclusions, fixture-only synthetic pass behavior, runtime-owned metadata, and binding OPEN-04/06/07 rules.
+The prompt must state the authority hierarchy, five ordered findings, packet-only evidence, separate support/conflict/non-contributing roles, no world knowledge, no product-demand conclusions, fixture-only synthetic pass behavior, runtime-owned metadata, and binding OPEN-04/06/07 rules.
 
 ## Validation Categories
 
@@ -140,7 +140,8 @@ Structural invariants enforceable by code:
 - assembled output conforms to `audit-finding.schema.json`;
 - exactly five findings in REQ-1 through REQ-5 order;
 - referenced `claimIds` and evidence IDs exist in the packet;
-- `evidenceIds` and `contradictoryEvidenceIds` are disjoint;
+- `evidenceIds`, `contradictoryEvidenceIds`, and `nonContributingEvidence` are pairwise disjoint;
+- non-contributing evidence IDs are unique per finding and never affect support or contradiction counts;
 - synthetic-evidence notice is present when required by Phase 0;
 - runtime metadata is provisional and never claims human approval.
 
@@ -197,6 +198,7 @@ Strictly compare policy-critical structured content:
 - `status`;
 - `evidenceIds`;
 - `contradictoryEvidenceIds`;
+- `nonContributingEvidence`;
 - ID-bearing or categorical `offSegmentSignal` content;
 - `severity`;
 - `requiresHumanDecision`;
