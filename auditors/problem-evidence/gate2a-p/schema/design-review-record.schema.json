@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://evidencegate.local/auditors/problem-evidence/gate2a-p/schema/design-review-record.schema.json",
+  "title": "Gate 2A-P Design Review Record",
+  "description": "External review record. References an artifact and its canonical digest; never embedded in the artifact it reviews. Not authenticated identity, not detached authority.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "recordId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "contractVersion": {
+      "const": "0.13.0-draft"
+    },
+    "recordKind": {
+      "const": "design-review"
+    },
+    "reviewedArtifactPath": {
+      "type": "string",
+      "minLength": 1
+    },
+    "reviewedArtifactVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "reviewedArtifactDigest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "digestAlgorithm": {
+      "const": "json.dumps-sort-keys-compact-sha256"
+    },
+    "reviewStatus": {
+      "const": "pending-owner-review"
+    },
+    "humanReviewOccurred": {
+      "const": false
+    },
+    "designApproved": {
+      "const": false
+    },
+    "reviewerRepresentation": {
+      "type": "null"
+    },
+    "reviewTimestamp": {
+      "type": "null"
+    },
+    "scopeOfDecision": {
+      "type": "string",
+      "minLength": 1
+    },
+    "doesNotEstablish": {
+      "type": "array",
+      "minItems": 7,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "required": [
+    "recordId",
+    "contractVersion",
+    "recordKind",
+    "reviewedArtifactPath",
+    "reviewedArtifactVersion",
+    "reviewedArtifactDigest",
+    "digestAlgorithm",
+    "reviewStatus",
+    "humanReviewOccurred",
+    "designApproved",
+    "reviewerRepresentation",
+    "reviewTimestamp",
+    "scopeOfDecision",
+    "doesNotEstablish"
+  ]
+}

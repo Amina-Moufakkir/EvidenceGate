@@ -1,0 +1,94 @@
+{
+  "packageId": "gate2a-p-lifecycle-state",
+  "contractVersion": "0.13.0-draft",
+  "designReview": {
+    "currentState": "pending-owner-review",
+    "allowedStates": [
+      "drafted",
+      "reviewed",
+      "design-approved",
+      "superseded"
+    ],
+    "stateHeldExternally": true,
+    "note": "Design artifacts carry no approval field. Review state lives in a separate digest-bound record so that updating a review never mutates the reviewed artifact."
+  },
+  "operationalComparatorUse": {
+    "currentState": "prohibited",
+    "allowedStates": [
+      "prohibited",
+      "permitted"
+    ],
+    "changeableByGate2AP": false,
+    "note": "Permission would require a repository-recorded, digest-bound operational review record. That is not authenticated reviewer identity and cannot approve model compatibility, runtime enforcement, or acceptance."
+  },
+  "runtimeEnforcement": {
+    "currentState": "disabled",
+    "allowedStates": [
+      "disabled",
+      "enabled"
+    ],
+    "changeableByGate2AP": false,
+    "authorizingGate": "Gate 2B"
+  },
+  "modelCompatibility": {
+    "currentState": "unresolved-offline",
+    "changeableByGate2AP": false,
+    "authorizingGate": "Gate 2C"
+  },
+  "formalPhase1Acceptance": {
+    "representedAsRepositoryState": false,
+    "requires": "detached external authority",
+    "cannotBeConferredBy": [
+      "a repository boolean",
+      "a committed approval file",
+      "design approval",
+      "operational permission",
+      "runtime activation",
+      "diagnostic hashes",
+      "fixture passes",
+      "model-evaluation results alone"
+    ]
+  },
+  "crossDimensionalInvariants": [
+    {
+      "id": "X-1",
+      "invariant": "Operational permission requires design-approved.",
+      "enforcedBy": "deterministic-cross-document"
+    },
+    {
+      "id": "X-2",
+      "invariant": "Operational permission never enables runtime enforcement.",
+      "enforcedBy": "deterministic-cross-document"
+    },
+    {
+      "id": "X-3",
+      "invariant": "Runtime enforcement never implies formal acceptance.",
+      "enforcedBy": "deterministic-cross-document"
+    },
+    {
+      "id": "X-4",
+      "invariant": "A superseded design cannot remain operationally permitted without an explicit defined transition.",
+      "enforcedBy": "deterministic-cross-document"
+    },
+    {
+      "id": "X-5",
+      "invariant": "Every approval or permission binds the exact artifact digest it reviewed.",
+      "enforcedBy": "deterministic-cross-document"
+    },
+    {
+      "id": "X-6",
+      "invariant": "Gate 2A-P artifacts remain non-approved and non-operational until separately reviewed.",
+      "enforcedBy": "json-schema"
+    },
+    {
+      "id": "X-7",
+      "invariant": "A review record that records a completed review must represent that review truthfully rather than as not having occurred.",
+      "enforcedBy": "json-schema"
+    },
+    {
+      "id": "X-8",
+      "invariant": "Whether the obligation decomposition is semantically complete and genuinely independent.",
+      "enforcedBy": "human-review"
+    }
+  ]
+}

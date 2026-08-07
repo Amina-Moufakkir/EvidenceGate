@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://evidencegate.local/auditors/problem-evidence/gate2a-p/schema/traceability-map.schema.json",
+  "title": "Gate 2A-P Traceability Map",
+  "description": "Statement -> obligation part -> rule. semanticCriteriaIds from Gate 1 are descriptive metadata and are not a traceability key here.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "packageId": {
+      "const": "gate2a-p-traceability-map"
+    },
+    "contractVersion": {
+      "const": "0.13.0-draft"
+    },
+    "traceabilityKey": {
+      "const": "sourceStatementId"
+    },
+    "semanticCriteriaIdsAuthoritative": {
+      "const": false
+    },
+    "edges": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "sourceStatementId": {
+            "type": "string",
+            "pattern": "^SS-[0-9]{3}$"
+          },
+          "obligationPartId": {
+            "type": "string",
+            "pattern": "^OP-[0-9]{3}-[a-z]$"
+          },
+          "ruleId": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^BR-[a-z0-9-]+$"
+          },
+          "role": {
+            "enum": [
+              "primary",
+              "supporting",
+              "no-rule"
+            ]
+          },
+          "disposition": {
+            "enum": [
+              "rule-covered",
+              "human-review-obligation",
+              "unresolved"
+            ]
+          },
+          "derivationBasis": {
+            "enum": [
+              "source_obligation",
+              "evaluation_precondition",
+              "evaluation_proxy"
+            ]
+          }
+        },
+        "required": [
+          "sourceStatementId",
+          "obligationPartId",
+          "ruleId",
+          "role",
+          "disposition",
+          "derivationBasis"
+        ]
+      }
+    },
+    "sourceDerivedCoverageNote": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "packageId",
+    "contractVersion",
+    "traceabilityKey",
+    "semanticCriteriaIdsAuthoritative",
+    "edges",
+    "sourceDerivedCoverageNote"
+  ]
+}

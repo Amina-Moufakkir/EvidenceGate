@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://evidencegate.local/auditors/problem-evidence/gate2a-p/schema/bridge-authority-record.schema.json",
+  "title": "Gate 2A-P Bridge Authority Record",
+  "description": "External, digest-bound record of whether proxy results may be converted into normative outcomes. Never embedded in a rule artifact.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "recordId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "contractVersion": {
+      "const": "0.13.0-draft"
+    },
+    "recordKind": {
+      "const": "bridge-authority"
+    },
+    "governedArtifactPath": {
+      "type": "string",
+      "minLength": 1
+    },
+    "governedArtifactDigest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "digestAlgorithm": {
+      "const": "json.dumps-sort-keys-compact-sha256"
+    },
+    "authorityStatus": {
+      "const": "not-granted"
+    },
+    "grantedBy": {
+      "type": "null"
+    },
+    "grantedTimestamp": {
+      "type": "null"
+    },
+    "grantedForRuleIds": {
+      "type": "array",
+      "maxItems": 0,
+      "items": false
+    },
+    "scopeOfDecision": {
+      "type": "string",
+      "minLength": 1
+    },
+    "doesNotEstablish": {
+      "type": "array",
+      "minItems": 7,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "required": [
+    "recordId",
+    "contractVersion",
+    "recordKind",
+    "governedArtifactPath",
+    "governedArtifactDigest",
+    "digestAlgorithm",
+    "authorityStatus",
+    "grantedBy",
+    "grantedTimestamp",
+    "grantedForRuleIds",
+    "scopeOfDecision",
+    "doesNotEstablish"
+  ]
+}

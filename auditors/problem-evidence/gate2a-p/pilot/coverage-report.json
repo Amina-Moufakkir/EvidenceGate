@@ -1,0 +1,117 @@
+{
+  "packageId": "gate2a-p-coverage-report",
+  "contractVersion": "0.13.0-draft",
+  "scope": "pilot-subset",
+  "fullSetAtomicRuleTotal": "unknown",
+  "extrapolationPermitted": false,
+  "statementTotals": {
+    "selected": 7,
+    "recordsCreated": 7,
+    "fullyDecomposed": 7,
+    "partiallyDecomposed": 0
+  },
+  "statementClassification": {
+    "deterministic": 1,
+    "modelAssisted": 1,
+    "humanRequired": 0,
+    "composite": 4,
+    "unresolved": 1
+  },
+  "obligationTotals": {
+    "identified": 35,
+    "sourceObligation": 21,
+    "evaluationPrecondition": 6,
+    "evaluationProxy": 8,
+    "ruleCovered": 22,
+    "humanReviewObligation": 4,
+    "unresolved": 9,
+    "independentlyTestable": 26
+  },
+  "ruleTotals": {
+    "proposed": 22,
+    "deterministicDesign": 19,
+    "modelAssistedDesign": 3,
+    "sourceDerivedExecutableRuleCoverage": 12,
+    "preconditionRules": 2,
+    "proxyRules": 8,
+    "rulesPermittedToEmitNormativeOutcomes": 12
+  },
+  "evaluatorMaturity": {
+    "mechanismDefined": 22,
+    "evaluatorImplemented": 0,
+    "behaviourExecutedInTests": 0,
+    "liveModelEvaluationPerformed": 0,
+    "reliabilityEvidenceEstablished": 0
+  },
+  "fixtureEvidence": {
+    "actualRuleFixtures": 0,
+    "rulesWithIntendedEvidencePacketAssociation": 22,
+    "note": "No rule fixtures exist. intendedEvidencePacketAssociation names Gate 0 evidence packets that carry no rule-outcome evidence; it records an intended future association and is not fixture coverage."
+  },
+  "axisSeparation": {
+    "humanRequiredSourceObligations": 0,
+    "ruleDesignsGovernedByReviewPolicy": 22,
+    "ruleDesignsCapableOfProducingFindings": 12,
+    "note": "Three distinct measures never combined: 0 human-required source obligations (all 4 human-required parts are evaluation preconditions); 22 governed rule definitions; 12 finding-capable designs."
+  },
+  "claimBoundaries": [
+    "Mapped does not mean implemented.",
+    "Implemented does not mean validated.",
+    "An intended evidence-packet association is not fixture coverage.",
+    "A defined evaluator mechanism is not an implemented evaluator.",
+    "A proxy result is not proof of the source obligation it stands in for.",
+    "Operationally permitted does not mean formally accepted.",
+    "A validator pass establishes structural conformance only; semantic completeness requires owner review.",
+    "A proxy or precondition result is not obligation compliance and is not a product finding."
+  ],
+  "sourceObligationCoverage": {
+    "sourceObligationParts": 21,
+    "representedByRules": 12,
+    "humanRequiredDispositions": 0,
+    "unresolvedDispositions": 9,
+    "note": "Executable-rule coverage of source obligations is 12. Total source-obligation coverage is 21 = 12 rules + 0 human-required + 9 unresolved."
+  },
+  "findingPolicyAccounting": {
+    "totalRuleDesigns": 22,
+    "normativeRuleDesignsCapableOfProductFindings": 12,
+    "diagnosticOnlyRuleDesigns": 10,
+    "diagnosticProxyRules": 8,
+    "diagnosticPreconditionRules": 2,
+    "reviewPolicyGovernsRuleDefinitions": 22,
+    "currentlyImplementedEvaluators": 0,
+    "actualGeneratedFindings": 0,
+    "outputsQualifyingAsFindings": "Only obligation_satisfied and obligation_violation from the 12 source-obligation rules. condition_not_met is a diagnostic activation result, not a normative conclusion; indeterminate, evaluator_error, proxy and precondition results are likewise not findings.",
+    "note": "22 pilot rule designs; 12 normative; 10 diagnostic-only; 0 implemented evaluators; 0 generated findings. Applicability of the existing review policy to future pilot-rule findings remains unresolved pending pre-Gate 2B remediation."
+  },
+  "deferredRemediation": [
+    {
+      "id": "DR-1",
+      "mismatch": "Gate 1 phase1-behavior-coverage.json sets humanReviewRequired: true on all 87 source statements. That policy is expressed per statement, whereas findings are produced per rule, and 10 of 20 rule designs structurally cannot produce a finding at all.",
+      "affectedArtifact": "auditors/problem-evidence/eval-policy/phase1-behavior-coverage.json",
+      "modifiedInThisPass": false,
+      "resolution": "Restate the review policy in terms of findings produced by normative rules rather than in terms of source statements.",
+      "deferredTo": "pre-Gate 2B remediation"
+    }
+  ],
+  "statementDecompositionVsCoverage": {
+    "note": "Decomposition and coverage are governed independently. decompositionStatus records whether every identified normative obligation of a statement is REPRESENTED by a part. Coverage records whether a represented obligation has an approved enforcement mechanism. A statement can be fully decomposed and simultaneously carry unresolved obligations; neither implies the other and the counts are never summed. Decomposition claims are marked unconfirmed-pending-owner-review because no validator can establish semantic completeness.",
+    "statementsFullyDecomposed": 7,
+    "statementsPartiallyDecomposed": 0,
+    "statementsWithUnrepresentedObligations": 0,
+    "statementsContainingUnresolvedParts": 3,
+    "unresolvedPartsTotal": 9,
+    "decompositionAssurance": "unconfirmed-pending-owner-review"
+  },
+  "humanRequiredBreakdown": {
+    "humanRequiredParts": 4,
+    "asSourceObligations": 0,
+    "asEvaluationPreconditions": 4,
+    "partIds": [
+      "OP-006-g",
+      "OP-055-f",
+      "OP-055-m",
+      "OP-060-a"
+    ],
+    "note": "All 4 human-required parts are evaluation preconditions supplying conditional inputs. No source obligation carries a human-required disposition: every frozen fragment that reads as a condition has been classified as evaluator input rather than as an obligation."
+  }
+}

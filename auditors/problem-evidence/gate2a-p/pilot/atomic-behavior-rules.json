@@ -1,0 +1,1618 @@
+{
+  "packageId": "gate2a-p-atomic-behavior-rules",
+  "contractVersion": "0.13.0-draft",
+  "scope": "pilot-subset",
+  "note": "Illustrative pilot rules. Not production behaviorRules. No evaluator is implemented.",
+  "resultClassNote": "Only source_obligation rules may emit normative outcomes. Proxy rules report proxy_condition_met / proxy_condition_not_met; precondition rules report precondition_available / precondition_unavailable. Neither is obligation compliance, a product finding, or source-derived coverage.",
+  "bridgeAuthorityNote": "Bridge authority is not represented inside these rules. Any future grant must be recorded in a separate digest-bound bridge-authority record.",
+  "rules": [
+    {
+      "ruleId": "BR-006-provenance-validated",
+      "ruleVersion": "0.13.0-draft",
+      "primaryObligationPart": "OP-006-a",
+      "supportingObligationParts": [],
+      "supportingRelationshipJustification": null,
+      "classification": "deterministic",
+      "derivationBasis": "evaluation_proxy",
+      "resultClass": "proxy",
+      "countsAsSourceDerivedCoverage": false,
+      "atomicityJustification": "Maps to exactly one obligation part: declaration of the provenance validation step for EV-004.",
+      "applicability": {
+        "requirementId": "REQ-2",
+        "conditions": [
+          "EV-004 present in the packet"
+        ],
+        "predicateApproved": false
+      },
+      "requiredInputPaths": [
+        "/behaviorPlan/steps"
+      ],
+      "evidenceRequirements": [
+        "validate step for EV-004 with validationTarget=provenance"
+      ],
+      "provenanceRequirement": {
+        "trustedEventSourceRequired": false,
+        "approvedEventSourceAvailable": false
+      },
+      "orderingOperator": "none",
+      "expectedOutcomes": [
+        "proxy_condition_met",
+        "proxy_condition_not_met",
+        "indeterminate",
+        "evaluator_error"
+      ],
+      "bridgeAuthorityRequired": true,
+      "normativeOutcomeRequiresBridgeAuthority": true,
+      "bridgeAuthorityRecordRef": "records/bridge-authority-record.example.json",
+      "outcomeCodes": [
+        "PROVENANCE_VALIDATION_STEP_NOT_DECLARED"
+      ],
+      "evaluatorMechanism": "defined",
+      "evaluatorImplemented": false,
+      "behaviourExecutedInTests": false,
+      "intendedEvidencePacketAssociation": [
+        "contradictory-evidence.json"
+      ],
+      "ruleFixtures": [],
+      "requiresLiveModelEvidence": false,
+      "findingRequiresHumanReview": true,
+      "mayBeActedUponAutomatically": false,
+      "knownUnsupportedCases": [
+        "Whether EV-004's provenance was actually validated."
+      ],
+      "limitations": [
+        "Declaring a step in the submitted plan is not evidence that the step was or would be performed. This is an observable proxy for the source obligation, not the source obligation itself.",
+        "This rule reports only whether its proxy condition held. It cannot establish that the source obligation was satisfied or violated. Converting a proxy result into a normative outcome requires separately approved bridge authority, recorded outside this artifact."
+      ],
+      "canProduceProductFinding": false,
+      "diagnosticExclusionReasons": [],
+      "evaluatorContract": null,
+      "hasAntecedent": false
+    },
+    {
+      "ruleId": "BR-006-measurement-boundaries-validated",
+      "ruleVersion": "0.13.0-draft",
+      "primaryObligationPart": "OP-006-b",
+      "supportingObligationParts": [],
+      "supportingRelationshipJustification": null,
+      "classification": "deterministic",
+      "derivationBasis": "evaluation_proxy",
+      "resultClass": "proxy",
+      "countsAsSourceDerivedCoverage": false,
+      "atomicityJustification": "Maps to exactly one obligation part: declaration of the measurement-boundaries validation step for EV-004.",
+      "applicability": {
+        "requirementId": "REQ-2",
+        "conditions": [
+          "EV-004 present in the packet"
+        ],
+        "predicateApproved": false
+      },
+      "requiredInputPaths": [
+        "/behaviorPlan/steps"
+      ],
+      "evidenceRequirements": [
+        "validate step for EV-004 with validationTarget=measurement-boundaries"
+      ],
+      "provenanceRequirement": {
+        "trustedEventSourceRequired": false,
+        "approvedEventSourceAvailable": false
+      },
+      "orderingOperator": "none",
+      "expectedOutcomes": [
+        "proxy_condition_met",
+        "proxy_condition_not_met",
+        "indeterminate",
+        "evaluator_error"
+      ],
+      "bridgeAuthorityRequired": true,
+      "normativeOutcomeRequiresBridgeAuthority": true,
+      "bridgeAuthorityRecordRef": "records/bridge-authority-record.example.json",
+      "outcomeCodes": [
+        "MEASUREMENT_BOUNDARIES_VALIDATION_STEP_NOT_DECLARED"
+      ],
+      "evaluatorMechanism": "defined",
+      "evaluatorImplemented": false,
+      "behaviourExecutedInTests": false,
+      "intendedEvidencePacketAssociation": [
+        "contradictory-evidence.json"
+      ],
+      "ruleFixtures": [],
+      "requiresLiveModelEvidence": false,
+      "findingRequiresHumanReview": true,
+      "mayBeActedUponAutomatically": false,
+      "knownUnsupportedCases": [
+        "Whether EV-004's measurement-boundaries was actually validated."
+      ],
+      "limitations": [
+        "Declaring a step in the submitted plan is not evidence that the step was or would be performed. This is an observable proxy for the source obligation, not the source obligation itself.",
+        "This rule reports only whether its proxy condition held. It cannot establish that the source obligation was satisfied or violated. Converting a proxy result into a normative outcome requires separately approved bridge authority, recorded outside this artifact."
+      ],
+      "canProduceProductFinding": false,
+      "diagnosticExclusionReasons": [],
+      "evaluatorContract": null,
+      "hasAntecedent": false
+    },
+    {
+      "ruleId": "BR-006-segment-fit-validated",
+      "ruleVersion": "0.13.0-draft",
+      "primaryObligationPart": "OP-006-c",
+      "supportingObligationParts": [],
+      "supportingRelationshipJustification": null,
+      "classification": "deterministic",
+      "derivationBasis": "evaluation_proxy",
+      "resultClass": "proxy",
+      "countsAsSourceDerivedCoverage": false,
+      "atomicityJustification": "Maps to exactly one obligation part: declaration of the segment-fit validation step for EV-004.",
+      "applicability": {
+        "requirementId": "REQ-2",
+        "conditions": [
+          "EV-004 present in the packet"
+        ],
+        "predicateApproved": false
+      },
+      "requiredInputPaths": [
+        "/behaviorPlan/steps"
+      ],
+      "evidenceRequirements": [
+        "validate step for EV-004 with validationTarget=segment-fit"
+      ],
+      "provenanceRequirement": {
+        "trustedEventSourceRequired": false,
+        "approvedEventSourceAvailable": false
+      },
+      "orderingOperator": "none",
+      "expectedOutcomes": [
+        "proxy_condition_met",
+        "proxy_condition_not_met",
+        "indeterminate",
+        "evaluator_error"
+      ],
+      "bridgeAuthorityRequired": true,
+      "normativeOutcomeRequiresBridgeAuthority": true,
+      "bridgeAuthorityRecordRef": "records/bridge-authority-record.example.json",
+      "outcomeCodes": [
+        "SEGMENT_FIT_VALIDATION_STEP_NOT_DECLARED"
+      ],
+      "evaluatorMechanism": "defined",
+      "evaluatorImplemented": false,
+      "behaviourExecutedInTests": false,
+      "intendedEvidencePacketAssociation": [
+        "contradictory-evidence.json"
+      ],
+      "ruleFixtures": [],
+      "requiresLiveModelEvidence": false,
+      "findingRequiresHumanReview": true,
+      "mayBeActedUponAutomatically": false,
+      "knownUnsupportedCases": [
+        "Whether EV-004's segment-fit was actually validated."
+      ],
+      "limitations": [
+        "Declaring a step in the submitted plan is not evidence that the step was or would be performed. This is an observable proxy for the source obligation, not the source obligation itself.",
+        "This rule reports only whether its proxy condition held. It cannot establish that the source obligation was satisfied or violated. Converting a proxy result into a normative outcome requires separately approved bridge authority, recorded outside this artifact."
+      ],
+      "canProduceProductFinding": false,
+      "diagnosticExclusionReasons": [],
+      "evaluatorContract": null,
+      "hasAntecedent": false
+    },
+    {
+      "ruleId": "BR-006-threshold-validated",
+      "ruleVersion": "0.13.0-draft",
+      "primaryObligationPart": "OP-006-d",
+      "supportingObligationParts": [],
+      "supportingRelationshipJustification": null,
+      "classification": "deterministic",
+      "derivationBasis": "evaluation_proxy",
+      "resultClass": "proxy",
+      "countsAsSourceDerivedCoverage": false,
+      "atomicityJustification": "Maps to exactly one obligation part: declaration of the threshold validation step for EV-004.",
+      "applicability": {
+        "requirementId": "REQ-2",
+        "conditions": [
+          "EV-004 present in the packet"
+        ],
+        "predicateApproved": false
+      },
+      "requiredInputPaths": [
+        "/behaviorPlan/steps"
+      ],
+      "evidenceRequirements": [
+        "validate step for EV-004 with validationTarget=threshold"
+      ],
+      "provenanceRequirement": {
+        "trustedEventSourceRequired": false,
+        "approvedEventSourceAvailable": false
+      },
+      "orderingOperator": "none",
+      "expectedOutcomes": [
+        "proxy_condition_met",
+        "proxy_condition_not_met",
+        "indeterminate",
+        "evaluator_error"
+      ],
+      "bridgeAuthorityRequired": true,
+      "normativeOutcomeRequiresBridgeAuthority": true,
+      "bridgeAuthorityRecordRef": "records/bridge-authority-record.example.json",
+      "outcomeCodes": [
+        "THRESHOLD_VALIDATION_STEP_NOT_DECLARED"
+      ],
+      "evaluatorMechanism": "defined",
+      "evaluatorImplemented": false,
+      "behaviourExecutedInTests": false,
+      "intendedEvidencePacketAssociation": [
+        "contradictory-evidence.json"
+      ],
+      "ruleFixtures": [],
+      "requiresLiveModelEvidence": false,
+      "findingRequiresHumanReview": true,
+      "mayBeActedUponAutomatically": false,
+      "knownUnsupportedCases": [
+        "Whether EV-004's threshold was actually validated."
+      ],
+      "limitations": [
+        "Declaring a step in the submitted plan is not evidence that the step was or would be performed. This is an observable proxy for the source obligation, not the source obligation itself.",
+        "This rule reports only whether its proxy condition held. It cannot establish that the source obligation was satisfied or violated. Converting a proxy result into a normative outcome requires separately approved bridge authority, recorded outside this artifact."
+      ],
+      "canProduceProductFinding": false,
+      "diagnosticExclusionReasons": [],
+      "evaluatorContract": null,
+      "hasAntecedent": false
+    },
+    {
+      "ruleId": "BR-006-supersession-validated",
+      "ruleVersion": "0.13.0-draft",
+      "primaryObligationPart": "OP-006-e",
+      "supportingObligationParts": [],
+      "supportingRelationshipJustification": null,
+      "classification": "deterministic",
+      "derivationBasis": "evaluation_proxy",
+      "resultClass": "proxy",
+      "countsAsSourceDerivedCoverage": false,
+      "atomicityJustification": "Maps to exactly one obligation part: declaration of the supersession validation step for EV-004.",
+      "applicability": {
+        "requirementId": "REQ-2",
+        "conditions": [
+          "EV-004 present in the packet"
+        ],
+        "predicateApproved": false
+      },
+      "requiredInputPaths": [
+        "/behaviorPlan/steps"
+      ],
+      "evidenceRequirements": [
+        "validate step for EV-004 with validationTarget=supersession"
+      ],
+      "provenanceRequirement": {
+        "trustedEventSourceRequired": false,
+        "approvedEventSourceAvailable": false
+      },
+      "orderingOperator": "none",
+      "expectedOutcomes": [
+        "proxy_condition_met",
+        "proxy_condition_not_met",
+        "indeterminate",
+        "evaluator_error"
+      ],
+      "bridgeAuthorityRequired": true,
+      "normativeOutcomeRequiresBridgeAuthority": true,
+      "bridgeAuthorityRecordRef": "records/bridge-authority-record.example.json",
+      "outcomeCodes": [
+        "SUPERSESSION_VALIDATION_STEP_NOT_DECLARED"
+      ],
+      "evaluatorMechanism": "defined",
+      "evaluatorImplemented": false,
+      "behaviourExecutedInTests": false,
+      "intendedEvidencePacketAssociation": [
+        "contradictory-evidence.json"
+      ],
+      "ruleFixtures": [],
+      "requiresLiveModelEvidence": false,
+      "findingRequiresHumanReview": true,
+      "mayBeActedUponAutomatically": false,
+      "knownUnsupportedCases": [
+        "Whether EV-004's supersession was actually validated."
+      ],
+      "limitations": [
+        "Declaring a step in the submitted plan is not evidence that the step was or would be performed. This is an observable proxy for the source obligation, not the source obligation itself.",
+        "This rule reports only whether its proxy condition held. It cannot establish that the source obligation was satisfied or violated. Converting a proxy result into a normative outcome requires separately approved bridge authority, recorded outside this artifact."
+      ],
+      "canProduceProductFinding": false,
+      "diagnosticExclusionReasons": [],
+      "evaluatorContract": null,
+      "hasAntecedent": false
+    },
+    {
+      "ruleId": "BR-006-validation-precedes-conclusion",
+      "ruleVersion": "0.13.0-draft",
+      "primaryObligationPart": "OP-006-f",
+      "supportingObligationParts": [
+        "OP-006-a",
+        "OP-006-b",
+        "OP-006-c",
+        "OP-006-d",
+        "OP-006-e"
+      ],
+      "supportingRelationshipJustification": "Supporting only: the sibling parts determine evaluability. Their outcomes are reported by their own rules.",
+      "classification": "deterministic",
+      "derivationBasis": "evaluation_proxy",
+      "resultClass": "proxy",
+      "countsAsSourceDerivedCoverage": false,
+      "atomicityJustification": "Maps to exactly one obligation part: declared relative order. Step presence is owned by the five siblings.",
+      "applicability": {
+        "requirementId": "REQ-2",
+        "conditions": [
+          "at least one validate step and one concludeExistence step declared"
+        ],
+        "predicateApproved": false
+      },
+      "requiredInputPaths": [
+        "/behaviorPlan/steps[].ordinal"
+      ],
+      "evidenceRequirements": [
+        "declared step ordinals"
+      ],
+      "provenanceRequirement": {
+        "trustedEventSourceRequired": false,
+        "approvedEventSourceAvailable": false
+      },
+      "orderingOperator": "declaredStepPrecedes",
+      "expectedOutcomes": [
+        "proxy_condition_met",
+        "proxy_condition_not_met",
+        "indeterminate",
+        "evaluator_error"
+      ],
+      "bridgeAuthorityRequired": true,
+      "normativeOutcomeRequiresBridgeAuthority": true,
+      "bridgeAuthorityRecordRef": "records/bridge-authority-record.example.json",
+      "outcomeCodes": [
+        "DECLARED_ORDER_NOT_SATISFIED"
+      ],
+      "evaluatorMechanism": "defined",
+      "evaluatorImplemented": false,
+      "behaviourExecutedInTests": false,
+      "intendedEvidencePacketAssociation": [
+        "contradictory-evidence.json"
+      ],
+      "ruleFixtures": [],
+      "requiresLiveModelEvidence": false,
+      "findingRequiresHumanReview": true,
+      "mayBeActedUponAutomatically": false,
+      "knownUnsupportedCases": [
+        "Real-world chronology of validation relative to conclusion."
+      ],
+      "limitations": [
+        "Declared ordering only.",
+        "If no validate step or no concludeExistence step is declared the outcome is indeterminate.",
+        "This rule reports only whether its proxy condition held. It cannot establish that the source obligation was satisfied or violated. Converting a proxy result into a normative outcome requires separately approved bridge authority, recorded outside this artifact.",
+        "Scope: OP-006-f is EV-004-scoped like OP-006-a to OP-006-e, and is the sixth EV-004 proxy part. Its disposition is rule-covered, derivationBasis evaluation_proxy, resultClass proxy."
+      ],
+      "canProduceProductFinding": false,
+      "diagnosticExclusionReasons": [],
+      "evaluatorContract": null,
+      "hasAntecedent": false
+    },
+    {
+      "ruleId": "BR-026-wtp-classification-available",
+      "ruleVersion": "0.13.0-draft",
+      "primaryObligationPart": "OP-026-b",
+      "supportingObligationParts": [],
+      "supportingRelationshipJustification": null,
+      "classification": "model-assisted",
+      "derivationBasis": "evaluation_precondition",
+      "resultClass": "precondition",
+      "countsAsSourceDerivedCoverage": false,
+      "atomicityJustification": "Maps to one evaluator precondition: availability of an approved classification.",
+      "applicability": {
+        "requirementId": "REQ-5",
+        "conditions": [
+          "REQ-5 finding"
+        ],
+        "predicateApproved": false
+      },
+      "requiredInputPaths": [
+        "/packet/evidence"
+      ],
+      "evidenceRequirements": [
+        "candidate REQ-5 input inventory with approved classification"
+      ],
+      "provenanceRequirement": {
+        "trustedEventSourceRequired": false,
+        "approvedEventSourceAvailable": false
+      },
+      "orderingOperator": "none",
+      "expectedOutcomes": [
+        "precondition_available",
+        "precondition_unavailable",
+        "evaluator_error"
+      ],
+      "bridgeAuthorityRequired": false,
+      "normativeOutcomeRequiresBridgeAuthority": false,
+      "bridgeAuthorityRecordRef": null,
+      "outcomeCodes": [
+        "WTP_CLASSIFICATION_UNAVAILABLE"
+      ],
+      "evaluatorMechanism": "defined",
+      "evaluatorImplemented": false,
+      "behaviourExecutedInTests": false,
+      "intendedEvidencePacketAssociation": [
+        "contradictory-evidence.json"
+      ],
+      "ruleFixtures": [],
+      "requiresLiveModelEvidence": true,
+      "findingRequiresHumanReview": true,
+      "mayBeActedUponAutomatically": false,
+      "knownUnsupportedCases": [],
+      "limitations": [
+        "An evaluator precondition is not a normative obligation.",
+        "No approved classification scheme exists in the repository today."
+      ],
+      "canProduceProductFinding": false,
+      "diagnosticExclusionReasons": [],
+      "evaluatorContract": null,
+      "hasAntecedent": false
+    },
+    {
+      "ruleId": "BR-006-credible-establishes-existence",
+      "ruleVersion": "0.13.0-draft",
+      "primaryObligationPart": "OP-006-n",
+      "supportingObligationParts": [
+        "OP-006-g",
+        "OP-006-h",
+        "OP-006-i",
+        "OP-006-j",
+        "OP-006-k",
+        "OP-006-l",
+        "OP-006-m"
+      ],
+      "supportingRelationshipJustification": "Supporting only: the five validation obligations and the ordering obligation are prerequisites, and OP-006-g supplies the post-validation credibility judgment. Any prerequisite unestablished makes this rule indeterminate.",
+      "classification": "deterministic",
+      "derivationBasis": "source_obligation",
+      "resultClass": "normative",
+      "countsAsSourceDerivedCoverage": true,
+      "atomicityJustification": "The consequence of retained credibility alone; judging credibility is a separate human obligation.",
+      "applicability": {
+        "requirementId": "REQ-2",
+        "conditions": [
+          "credibility judgment recorded as retained"
+        ],
+        "predicateApproved": false
+      },
+      "requiredInputPaths": [
+        "/finding/status",
+        "the OP-006-g credibility judgment"
+      ],
+      "evidenceRequirements": [
+        "recorded credibility judgment"
+      ],
+      "provenanceRequirement": {
+        "trustedEventSourceRequired": false,
+        "approvedEventSourceAvailable": false
+      },
+      "orderingOperator": "none",
+      "expectedOutcomes": [
+        "obligation_satisfied",
+        "obligation_violation",
+        "condition_not_met",
+        "indeterminate",
+        "evaluator_error"
+      ],
+      "bridgeAuthorityRequired": false,
+      "normativeOutcomeRequiresBridgeAuthority": false,
+      "bridgeAuthorityRecordRef": null,
+      "outcomeCodes": [
+        "CREDIBLE_EV004_NOT_TREATED_AS_ESTABLISHING_EXISTENCE"
+      ],
+      "evaluatorMechanism": "defined",
+      "evaluatorImplemented": false,
+      "behaviourExecutedInTests": false,
+      "intendedEvidencePacketAssociation": [
+        "missing-evidence.json"
+      ],
+      "ruleFixtures": [],
+      "requiresLiveModelEvidence": false,
+      "findingRequiresHumanReview": true,
+      "mayBeActedUponAutomatically": false,
+      "knownUnsupportedCases": [],
+      "limitations": [
+        "Because OP-006-h through OP-006-m are unresolved, this rule currently returns indeterminate. It must never conclude that EV-004 establishes instance-scoped existence while validation is unresolved."
+      ],
+      "canProduceProductFinding": true,
+      "diagnosticExclusionReasons": [
+        {
+          "code": "EV004_NOT_CREDIBLE_CONDITION_NOT_MET",
+          "predicate": "EV-004 remains credible after validation",
+          "establishedBy": "the human credibility determination supplied by OP-006-g",
+          "effect": "antecedent false; the conditional consequence does not apply and no violation arises"
+        }
+      ],
+      "evaluatorContract": {
+        "normativeViolation": "CREDIBLE_EV004_NOT_TREATED_AS_ESTABLISHING_EXISTENCE is the only violation this rule may emit.",
+        "exclusionSemantics": "EV-004 determined not credible does not satisfy the antecedent; the conditional consequence is never activated and the result is condition_not_met, not obligation_satisfied.",
+        "candidateInventoryCompletenessRequired": false,
+        "trustedPredicateClassificationRequired": true,
+        "resultWhenInventoryIncomplete": "indeterminate",
+        "resultWhenPredicateClassificationMissingOrUntrusted": "indeterminate",
+        "workedExamples": [
+          {
+            "scenario": "credibility determination missing or untrusted",
+            "outcome": "indeterminate",
+            "diagnostics": [],
+            "reason": "The antecedent cannot be evaluated; never satisfied and never a violation."
+          },
+          {
+            "scenario": "validation obligations OP-006-h to OP-006-l incomplete, or ordering obligation OP-006-m unresolved",
+            "outcome": "indeterminate",
+            "diagnostics": [],
+            "reason": "'Remains credible after validation' presupposes completed validation and ordering. While those are unresolved this rule must not conclude anything."
+          },
+          {
+            "scenario": "EV-004 determined not credible after completed validation",
+            "outcome": "condition_not_met",
+            "diagnostics": [
+              "EV004_NOT_CREDIBLE_CONDITION_NOT_MET"
+            ],
+            "reason": "The antecedent is false, so the conditional imposes nothing. This is neither a violation nor a demonstration of compliance, and it does not count toward normative compliance totals."
+          },
+          {
+            "scenario": "EV-004 credible after completed validation, but the finding does not treat it as establishing instance-scoped existence",
+            "outcome": "obligation_violation",
+            "diagnostics": [
+              "CREDIBLE_EV004_NOT_TREATED_AS_ESTABLISHING_EXISTENCE"
+            ],
+            "reason": "The antecedent holds and the required consequence is absent."
+          }
+        ]
+      },
+      "hasAntecedent": true
+    },
+    {
+      "ruleId": "BR-026-no-wtp-substitution",
+      "ruleVersion": "0.13.0-draft",
+      "primaryObligationPart": "OP-026-a",
+      "supportingObligationParts": [
+        "OP-026-b"
+      ],
+      "supportingRelationshipJustification": "Supporting only: the approved classification supplies the input. Its unavailability is reported by BR-026-wtp-classification-available and yields indeterminate here, never a violation.",
+      "classification": "deterministic",
+      "derivationBasis": "source_obligation",
+      "resultClass": "normative",
+      "countsAsSourceDerivedCoverage": true,
+      "atomicityJustification": "The statement carries exactly one prohibition over one closed source category.",
+      "applicability": {
+        "requirementId": "REQ-5",
+        "conditions": [
+          "REQ-5 finding"
+        ],
+        "predicateApproved": false
+      },
+      "requiredInputPaths": [
+        "/packet/evidence",
+        "/behaviorPlan/evidenceTreatments",
+        "the approved willingness-to-pay classification"
+      ],
+      "evidenceRequirements": [
+        "complete candidate REQ-5 input inventory",
+        "approved willingness-to-pay classification per candidate input"
+      ],
+      "provenanceRequirement": {
+        "trustedEventSourceRequired": false,
+        "approvedEventSourceAvailable": false
+      },
+      "orderingOperator": "none",
+      "expectedOutcomes": [
+        "obligation_satisfied",
+        "obligation_violation",
+        "indeterminate",
+        "evaluator_error"
+      ],
+      "bridgeAuthorityRequired": false,
+      "normativeOutcomeRequiresBridgeAuthority": false,
+      "bridgeAuthorityRecordRef": null,
+      "outcomeCodes": [
+        "WTP_SUBSTITUTED_FOR_COMMITMENT",
+        "WTP_CLASSIFICATION_INCOMPLETE"
+      ],
+      "evaluatorMechanism": "defined",
+      "evaluatorImplemented": false,
+      "behaviourExecutedInTests": false,
+      "intendedEvidencePacketAssociation": [
+        "contradictory-evidence.json"
+      ],
+      "ruleFixtures": [],
+      "requiresLiveModelEvidence": false,
+      "findingRequiresHumanReview": true,
+      "mayBeActedUponAutomatically": false,
+      "knownUnsupportedCases": [
+        "Undeclared prose or misclassified evidence containing willingness-to-pay reasoning that the approved classification failed to capture."
+      ],
+      "limitations": [
+        "The obligation is source-derived unconditionally. Absent a complete approved classification the rule evaluates to indeterminate; it does not become a proxy.",
+        "Only a nonconforming implementation that checked incomplete or self-declared classifications would be a proxy.",
+        "Whether an approved classification authority exists is recorded in an external, digest-bound classification-authority record, not in this rule."
+      ],
+      "canProduceProductFinding": true,
+      "diagnosticExclusionReasons": [],
+      "evaluatorContract": null,
+      "hasAntecedent": false
+    },
+    {
+      "ruleId": "BR-033-boundary-terms-available",
+      "ruleVersion": "0.13.0-draft",
+      "primaryObligationPart": "OP-033-a",
+      "supportingObligationParts": [],
+      "supportingRelationshipJustification": null,
+      "classification": "model-assisted",
+      "derivationBasis": "evaluation_precondition",
+      "resultClass": "precondition",
+      "countsAsSourceDerivedCoverage": false,
+      "atomicityJustification": "Maps to one evaluator precondition: availability of labelled boundary terms.",
+      "applicability": {
+        "requirementId": "REQ-1",
+        "conditions": [
+          "a segment definition is proposed"
+        ],
+        "predicateApproved": false
+      },
+      "requiredInputPaths": [
+        "/behaviorPlan/definitionAnalysis/boundaryTerms"
+      ],
+      "evidenceRequirements": [
+        "structured boundary terms with decidability labels"
+      ],
+      "provenanceRequirement": {
+        "trustedEventSourceRequired": false,
+        "approvedEventSourceAvailable": false
+      },
+      "orderingOperator": "none",
+      "expectedOutcomes": [
+        "precondition_available",
+        "precondition_unavailable",
+        "evaluator_error"
+      ],
+      "bridgeAuthorityRequired": false,
+      "normativeOutcomeRequiresBridgeAuthority": false,
+      "bridgeAuthorityRecordRef": null,
+      "outcomeCodes": [
+        "ADJECTIVAL_DECIDABILITY_CLASSIFICATION_UNAVAILABLE"
+      ],
+      "evaluatorMechanism": "defined",
+      "evaluatorImplemented": false,
+      "behaviourExecutedInTests": false,
+      "intendedEvidencePacketAssociation": [
+        "missing-evidence.json"
+      ],
+      "ruleFixtures": [],
+      "requiresLiveModelEvidence": true,
+      "findingRequiresHumanReview": true,
+      "mayBeActedUponAutomatically": false,
+      "knownUnsupportedCases": [],
+      "limitations": [
+        "This is an evaluator precondition, not a source obligation. Failure to obtain the input yields indeterminate or evaluator_error and is never a product obligation violation.",
+        "Model output is structured evidence, not proof.",
+        "An evaluator precondition is not a normative obligation. This rule reports input availability only and can never emit an obligation outcome."
+      ],
+      "canProduceProductFinding": false,
+      "diagnosticExclusionReasons": [],
+      "evaluatorContract": null,
+      "hasAntecedent": false
+    },
+    {
+      "ruleId": "BR-033-no-adjectival-boundary",
+      "ruleVersion": "0.13.0-draft",
+      "primaryObligationPart": "OP-033-b",
+      "supportingObligationParts": [
+        "OP-033-a"
+      ],
+      "supportingRelationshipJustification": "Supporting only: the precondition supplies the input. Its unavailability is reported by BR-033-boundary-terms-available.",
+      "classification": "deterministic",
+      "derivationBasis": "source_obligation",
+      "resultClass": "normative",
+      "countsAsSourceDerivedCoverage": true,
+      "atomicityJustification": "A closed structural check over the available terms; independent of how they were obtained.",
+      "applicability": {
+        "requirementId": "REQ-1",
+        "conditions": [
+          "labelled boundary terms available"
+        ],
+        "predicateApproved": false
+      },
+      "requiredInputPaths": [
+        "/behaviorPlan/definitionAnalysis/boundaryTerms"
+      ],
+      "evidenceRequirements": [
+        "trusted decidability classification per adjectival term"
+      ],
+      "provenanceRequirement": {
+        "trustedEventSourceRequired": false,
+        "approvedEventSourceAvailable": false
+      },
+      "orderingOperator": "none",
+      "expectedOutcomes": [
+        "obligation_satisfied",
+        "obligation_violation",
+        "indeterminate",
+        "evaluator_error"
+      ],
+      "bridgeAuthorityRequired": false,
+      "normativeOutcomeRequiresBridgeAuthority": false,
+      "bridgeAuthorityRecordRef": null,
+      "outcomeCodes": [
+        "NON_DECIDABLE_TERM_USED_AS_BOUNDARY"
+      ],
+      "evaluatorMechanism": "defined",
+      "evaluatorImplemented": false,
+      "behaviourExecutedInTests": false,
+      "intendedEvidencePacketAssociation": [
+        "missing-evidence.json"
+      ],
+      "ruleFixtures": [],
+      "requiresLiveModelEvidence": false,
+      "findingRequiresHumanReview": true,
+      "mayBeActedUponAutomatically": false,
+      "knownUnsupportedCases": [],
+      "limitations": [
+        "Evaluates the source property (non-decidable), using the OP-033-a classification as evidence.",
+        "Scope follows the frozen statement: adjectival boundary terms only.",
+        "A broader prohibition over any non-decidable term is NOT source-derived and is not asserted.",
+        "Missing or untrusted classification yields indeterminate."
+      ],
+      "canProduceProductFinding": true,
+      "diagnosticExclusionReasons": [],
+      "evaluatorContract": null,
+      "hasAntecedent": false
+    },
+    {
+      "ruleId": "BR-034-duration-threshold-declared",
+      "ruleVersion": "0.13.0-draft",
+      "primaryObligationPart": "OP-034-a",
+      "supportingObligationParts": [],
+      "supportingRelationshipJustification": null,
+      "classification": "deterministic",
+      "derivationBasis": "source_obligation",
+      "resultClass": "normative",
+      "countsAsSourceDerivedCoverage": true,
+      "atomicityJustification": "Presence of a declared duration threshold; its falsifiability is a separate unresolved obligation.",
+      "applicability": {
+        "requirementId": "REQ-2",
+        "conditions": [
+          "REQ-2 finding"
+        ],
+        "predicateApproved": false
+      },
+      "requiredInputPaths": [
+        "/behaviorPlan/steps[].threshold"
+      ],
+      "evidenceRequirements": [
+        "a declared duration threshold"
+      ],
+      "provenanceRequirement": {
+        "trustedEventSourceRequired": false,
+        "approvedEventSourceAvailable": false
+      },
+      "orderingOperator": "none",
+      "expectedOutcomes": [
+        "obligation_satisfied",
+        "obligation_violation",
+        "indeterminate",
+        "evaluator_error"
+      ],
+      "bridgeAuthorityRequired": false,
+      "normativeOutcomeRequiresBridgeAuthority": false,
+      "bridgeAuthorityRecordRef": null,
+      "outcomeCodes": [
+        "DURATION_THRESHOLD_NOT_DECLARED"
+      ],
+      "evaluatorMechanism": "defined",
+      "evaluatorImplemented": false,
+      "behaviourExecutedInTests": false,
+      "intendedEvidencePacketAssociation": [
+        "missing-evidence.json"
+      ],
+      "ruleFixtures": [],
+      "requiresLiveModelEvidence": false,
+      "findingRequiresHumanReview": true,
+      "mayBeActedUponAutomatically": false,
+      "knownUnsupportedCases": [],
+      "limitations": [
+        "The frozen statement does not require the threshold to be numeric or unit-bearing.",
+        "Satisfying this rule does not satisfy SS-034; OP-034-b remains unresolved."
+      ],
+      "canProduceProductFinding": true,
+      "diagnosticExclusionReasons": [],
+      "evaluatorContract": null,
+      "hasAntecedent": false
+    },
+    {
+      "ruleId": "BR-055-pass-criterion",
+      "ruleVersion": "0.13.0-draft",
+      "primaryObligationPart": "OP-055-a",
+      "supportingObligationParts": [],
+      "supportingRelationshipJustification": null,
+      "classification": "deterministic",
+      "derivationBasis": "source_obligation",
+      "resultClass": "normative",
+      "countsAsSourceDerivedCoverage": true,
+      "atomicityJustification": "One conjunctive pass criterion. The four qualifications are predicates of this obligation and carry distinct failure codes; they do not produce independent normative findings.",
+      "applicability": {
+        "requirementId": "REQ-5",
+        "conditions": [
+          "status=pass proposed"
+        ],
+        "predicateApproved": false
+      },
+      "requiredInputPaths": [
+        "/finding/evidenceIds",
+        "auditors/problem-evidence/checklist.json"
+      ],
+      "evidenceRequirements": [
+        "independent in-segment sources documenting qualifying money or staff-hour commitment to the existing problem"
+      ],
+      "provenanceRequirement": {
+        "trustedEventSourceRequired": false,
+        "approvedEventSourceAvailable": false
+      },
+      "orderingOperator": "none",
+      "expectedOutcomes": [
+        "obligation_satisfied",
+        "obligation_violation",
+        "indeterminate",
+        "evaluator_error"
+      ],
+      "bridgeAuthorityRequired": false,
+      "normativeOutcomeRequiresBridgeAuthority": false,
+      "bridgeAuthorityRecordRef": null,
+      "outcomeCodes": [
+        "PASS_QUALIFYING_COUNT_BELOW_MINIMUM"
+      ],
+      "evaluatorMechanism": "defined",
+      "evaluatorImplemented": false,
+      "behaviourExecutedInTests": false,
+      "intendedEvidencePacketAssociation": [
+        "missing-evidence.json"
+      ],
+      "ruleFixtures": [],
+      "requiresLiveModelEvidence": false,
+      "findingRequiresHumanReview": true,
+      "mayBeActedUponAutomatically": false,
+      "knownUnsupportedCases": [],
+      "limitations": [
+        "Evaluates the conjunction: only sources satisfying all four predicates count toward the minimum.",
+        "The four predicate codes are diagnostic exclusion reasons, never independent violations.",
+        "Binds the configured threshold in checklist.json."
+      ],
+      "canProduceProductFinding": true,
+      "diagnosticExclusionReasons": [
+        {
+          "code": "PASS_SOURCE_NOT_INDEPENDENT",
+          "predicate": "source is independent of the other counted sources",
+          "establishedBy": "A trusted independence classification for the candidate sources. A declared independence relationship is evidence input only and cannot authenticate itself; missing or untrusted independence classification yields indeterminate rather than exclusion.",
+          "effect": "source excluded from the qualifying count"
+        },
+        {
+          "code": "PASS_SOURCE_OUT_OF_SEGMENT",
+          "predicate": "source is in-segment",
+          "establishedBy": "segment-fit determination for the source against the operative segment definition",
+          "effect": "source excluded from the qualifying count"
+        },
+        {
+          "code": "PASS_COMMITMENT_FORM_NOT_QUALIFYING",
+          "predicate": "source documents qualifying money or staff-hour commitment",
+          "establishedBy": "documented money or staff-hour commitment record in the packet",
+          "effect": "source excluded from the qualifying count"
+        },
+        {
+          "code": "PASS_COMMITMENT_NOT_TO_EXISTING_PROBLEM",
+          "predicate": "the commitment concerns the existing problem",
+          "establishedBy": "trusted classification of the commitment target as the existing problem rather than a proposed product",
+          "effect": "source excluded from the qualifying count"
+        }
+      ],
+      "evaluatorContract": {
+        "normativeViolation": "PASS_QUALIFYING_COUNT_BELOW_MINIMUM is the only violation this rule may emit.",
+        "exclusionSemantics": "A source failing any qualifying predicate on trusted evidence is excluded from the qualifying count, recorded as a diagnostic reason and never as a violation. A predicate that cannot be established on trusted evidence does not cause exclusion; it makes the rule indeterminate.",
+        "candidateInventoryCompletenessRequired": true,
+        "trustedPredicateClassificationRequired": true,
+        "resultWhenInventoryIncomplete": "indeterminate",
+        "resultWhenPredicateClassificationMissingOrUntrusted": "indeterminate",
+        "workedExamples": [
+          {
+            "scenario": "configured minimum 3; three qualifying sources plus two out-of-segment sources",
+            "outcome": "obligation_satisfied",
+            "diagnostics": [
+              "PASS_SOURCE_OUT_OF_SEGMENT x2"
+            ],
+            "reason": "The two out-of-segment sources are excluded; three qualifying sources meet the minimum."
+          },
+          {
+            "scenario": "configured minimum 3; two qualifying sources plus one out-of-segment source",
+            "outcome": "obligation_violation",
+            "diagnostics": [
+              "PASS_QUALIFYING_COUNT_BELOW_MINIMUM",
+              "PASS_SOURCE_OUT_OF_SEGMENT x1"
+            ],
+            "reason": "One source is excluded; the qualifying count of two is below the minimum of three."
+          },
+          {
+            "scenario": "configured minimum 3; candidate inventory incomplete or a predicate classification missing or untrusted",
+            "outcome": "indeterminate",
+            "diagnostics": [],
+            "reason": "No reliable qualifying count can be computed; never satisfied and never a violation."
+          },
+          {
+            "scenario": "configured minimum 3; independence is self-declared with no trusted classification",
+            "outcome": "indeterminate",
+            "diagnostics": [],
+            "reason": "A declared independence relationship is evidence input and cannot authenticate itself. Without a trusted independence classification no qualifying count can be computed."
+          }
+        ]
+      },
+      "hasAntecedent": false
+    },
+    {
+      "ruleId": "BR-055-counterevidence-structure",
+      "ruleVersion": "0.13.0-draft",
+      "primaryObligationPart": "OP-055-b",
+      "supportingObligationParts": [],
+      "supportingRelationshipJustification": null,
+      "classification": "deterministic",
+      "derivationBasis": "source_obligation",
+      "resultClass": "normative",
+      "countsAsSourceDerivedCoverage": true,
+      "atomicityJustification": "Maps to exactly one source obligation part.",
+      "applicability": {
+        "requirementId": "REQ-5",
+        "conditions": [
+          "a record is proposed as counterevidence"
+        ],
+        "predicateApproved": false
+      },
+      "requiredInputPaths": [
+        "/behaviorPlan/evidenceTreatments"
+      ],
+      "evidenceRequirements": [
+        "documentedEvaluation flag and outcome value"
+      ],
+      "provenanceRequirement": {
+        "trustedEventSourceRequired": false,
+        "approvedEventSourceAvailable": false
+      },
+      "orderingOperator": "none",
+      "expectedOutcomes": [
+        "obligation_satisfied",
+        "obligation_violation",
+        "indeterminate",
+        "evaluator_error"
+      ],
+      "bridgeAuthorityRequired": false,
+      "normativeOutcomeRequiresBridgeAuthority": false,
+      "bridgeAuthorityRecordRef": null,
+      "outcomeCodes": [
+        "COUNTEREVIDENCE_FORM_INVALID"
+      ],
+      "evaluatorMechanism": "defined",
+      "evaluatorImplemented": false,
+      "behaviourExecutedInTests": false,
+      "intendedEvidencePacketAssociation": [
+        "missing-evidence.json"
+      ],
+      "ruleFixtures": [],
+      "requiresLiveModelEvidence": false,
+      "findingRequiresHumanReview": true,
+      "mayBeActedUponAutomatically": false,
+      "knownUnsupportedCases": [],
+      "limitations": [],
+      "canProduceProductFinding": true,
+      "diagnosticExclusionReasons": [],
+      "evaluatorContract": null,
+      "hasAntecedent": false
+    },
+    {
+      "ruleId": "BR-055-counterevidence-reason",
+      "ruleVersion": "0.13.0-draft",
+      "primaryObligationPart": "OP-055-c",
+      "supportingObligationParts": [
+        "OP-055-b"
+      ],
+      "supportingRelationshipJustification": "Supporting only: the structural form gates which records this rule reads.",
+      "classification": "model-assisted",
+      "derivationBasis": "source_obligation",
+      "resultClass": "normative",
+      "countsAsSourceDerivedCoverage": true,
+      "atomicityJustification": "Maps to exactly one source obligation part.",
+      "applicability": {
+        "requirementId": "REQ-5",
+        "conditions": [
+          "a record passes the structural form"
+        ],
+        "predicateApproved": false
+      },
+      "requiredInputPaths": [
+        "/packet/evidence[].content"
+      ],
+      "evidenceRequirements": [
+        "the written decline or abandonment reason"
+      ],
+      "provenanceRequirement": {
+        "trustedEventSourceRequired": false,
+        "approvedEventSourceAvailable": false
+      },
+      "orderingOperator": "none",
+      "expectedOutcomes": [
+        "obligation_satisfied",
+        "obligation_violation",
+        "indeterminate",
+        "evaluator_error"
+      ],
+      "bridgeAuthorityRequired": false,
+      "normativeOutcomeRequiresBridgeAuthority": false,
+      "bridgeAuthorityRecordRef": null,
+      "outcomeCodes": [
+        "COUNTEREVIDENCE_REASON_NOT_PROBLEM_JUSTIFICATION"
+      ],
+      "evaluatorMechanism": "defined",
+      "evaluatorImplemented": false,
+      "behaviourExecutedInTests": false,
+      "intendedEvidencePacketAssociation": [
+        "missing-evidence.json"
+      ],
+      "ruleFixtures": [],
+      "requiresLiveModelEvidence": true,
+      "findingRequiresHumanReview": true,
+      "mayBeActedUponAutomatically": false,
+      "knownUnsupportedCases": [],
+      "limitations": [
+        "Model classification is structured evidence, not proof."
+      ],
+      "canProduceProductFinding": true,
+      "diagnosticExclusionReasons": [],
+      "evaluatorContract": null,
+      "hasAntecedent": false
+    },
+    {
+      "ruleId": "BR-055-counterevidence-exclusions",
+      "ruleVersion": "0.13.0-draft",
+      "primaryObligationPart": "OP-055-d",
+      "supportingObligationParts": [],
+      "supportingRelationshipJustification": null,
+      "classification": "deterministic",
+      "derivationBasis": "source_obligation",
+      "resultClass": "normative",
+      "countsAsSourceDerivedCoverage": true,
+      "atomicityJustification": "Maps to exactly one source obligation part.",
+      "applicability": {
+        "requirementId": "REQ-5",
+        "conditions": [
+          "a record is proposed as counterevidence"
+        ],
+        "predicateApproved": false
+      },
+      "requiredInputPaths": [
+        "/behaviorPlan/evidenceTreatments"
+      ],
+      "evidenceRequirements": [
+        "qualification value per contradiction-role treatment"
+      ],
+      "provenanceRequirement": {
+        "trustedEventSourceRequired": false,
+        "approvedEventSourceAvailable": false
+      },
+      "orderingOperator": "none",
+      "expectedOutcomes": [
+        "obligation_satisfied",
+        "obligation_violation",
+        "indeterminate",
+        "evaluator_error"
+      ],
+      "bridgeAuthorityRequired": false,
+      "normativeOutcomeRequiresBridgeAuthority": false,
+      "bridgeAuthorityRecordRef": null,
+      "outcomeCodes": [
+        "EXCLUDED_FORM_COUNTED_AS_COUNTEREVIDENCE"
+      ],
+      "evaluatorMechanism": "defined",
+      "evaluatorImplemented": false,
+      "behaviourExecutedInTests": false,
+      "intendedEvidencePacketAssociation": [
+        "missing-evidence.json"
+      ],
+      "ruleFixtures": [],
+      "requiresLiveModelEvidence": false,
+      "findingRequiresHumanReview": true,
+      "mayBeActedUponAutomatically": false,
+      "knownUnsupportedCases": [],
+      "limitations": [],
+      "canProduceProductFinding": true,
+      "diagnosticExclusionReasons": [],
+      "evaluatorContract": null,
+      "hasAntecedent": false
+    },
+    {
+      "ruleId": "BR-055-fail-criterion",
+      "ruleVersion": "0.13.0-draft",
+      "primaryObligationPart": "OP-055-e",
+      "supportingObligationParts": [
+        "OP-055-f"
+      ],
+      "supportingRelationshipJustification": "Supporting only: OP-055-f supplies the trusted determination whether a comparably credible qualifying commitment exists. Missing or untrusted evidence makes this rule indeterminate.",
+      "classification": "deterministic",
+      "derivationBasis": "source_obligation",
+      "resultClass": "normative",
+      "countsAsSourceDerivedCoverage": true,
+      "atomicityJustification": "One conjunctive fail criterion. The counterevidence minimum and the absence of a comparably credible commitment are conjuncts of a single condition on recording fail.",
+      "applicability": {
+        "requirementId": "REQ-5",
+        "conditions": [
+          "status=fail proposed"
+        ],
+        "predicateApproved": false
+      },
+      "requiredInputPaths": [
+        "/finding/contradictoryEvidenceIds",
+        "auditors/problem-evidence/checklist.json"
+      ],
+      "evidenceRequirements": [
+        "qualifying counterevidence sources"
+      ],
+      "provenanceRequirement": {
+        "trustedEventSourceRequired": false,
+        "approvedEventSourceAvailable": false
+      },
+      "orderingOperator": "none",
+      "expectedOutcomes": [
+        "obligation_satisfied",
+        "obligation_violation",
+        "condition_not_met",
+        "indeterminate",
+        "evaluator_error"
+      ],
+      "bridgeAuthorityRequired": false,
+      "normativeOutcomeRequiresBridgeAuthority": false,
+      "bridgeAuthorityRecordRef": null,
+      "outcomeCodes": [
+        "FAIL_RECORDED_WITHOUT_QUALIFYING_CRITERIA"
+      ],
+      "evaluatorMechanism": "defined",
+      "evaluatorImplemented": false,
+      "behaviourExecutedInTests": false,
+      "intendedEvidencePacketAssociation": [
+        "missing-evidence.json"
+      ],
+      "ruleFixtures": [],
+      "requiresLiveModelEvidence": false,
+      "findingRequiresHumanReview": true,
+      "mayBeActedUponAutomatically": false,
+      "knownUnsupportedCases": [],
+      "limitations": [
+        "One conjunctive criterion. Neither conjunct independently obliges anything and neither produces an independent finding.",
+        "Binds the configured threshold in checklist.json."
+      ],
+      "canProduceProductFinding": true,
+      "diagnosticExclusionReasons": [
+        {
+          "code": "FAIL_NOT_RECORDED",
+          "predicate": "a fail was recorded",
+          "establishedBy": "the recorded finding status",
+          "effect": "antecedent false; the fail criteria are not activated"
+        },
+        {
+          "code": "FAIL_COUNTEREVIDENCE_MINIMUM_NOT_MET",
+          "predicate": "qualifying counterevidence count is at least the configured minimum",
+          "establishedBy": "count of qualifying counterevidence sources against checklist.json",
+          "effect": "conjunct unmet; contributes to the single fail violation"
+        },
+        {
+          "code": "FAIL_COMPARABLY_CREDIBLE_COMMITMENT_PRESENT",
+          "predicate": "no comparably credible qualifying commitment exists within the packet",
+          "establishedBy": "trusted determination supplied by the OP-055-f precondition",
+          "effect": "conjunct unmet; contributes to the single fail violation"
+        }
+      ],
+      "evaluatorContract": {
+        "normativeViolation": "FAIL_RECORDED_WITHOUT_QUALIFYING_CRITERIA is the only violation this rule may emit. Neither conjunct produces an independent finding.",
+        "exclusionSemantics": "The antecedent is that a fail was recorded. Whether a comparably credible qualifying commitment exists is established solely by the OP-055-f precondition and is never assumed.",
+        "candidateInventoryCompletenessRequired": true,
+        "trustedPredicateClassificationRequired": true,
+        "resultWhenInventoryIncomplete": "indeterminate",
+        "resultWhenPredicateClassificationMissingOrUntrusted": "indeterminate",
+        "workedExamples": [
+          {
+            "scenario": "a fail was not recorded",
+            "outcome": "condition_not_met",
+            "diagnostics": [
+              "FAIL_NOT_RECORDED"
+            ],
+            "reason": "The antecedent is false; the fail criteria are not activated."
+          },
+          {
+            "scenario": "a fail was recorded; the comparable-credibility determination is missing or untrusted",
+            "outcome": "indeterminate",
+            "diagnostics": [],
+            "reason": "One conjunct cannot be established; never satisfied and never a violation."
+          },
+          {
+            "scenario": "a fail was recorded; counterevidence minimum met and no comparably credible qualifying commitment exists",
+            "outcome": "obligation_satisfied",
+            "diagnostics": [],
+            "reason": "Both conjuncts hold."
+          },
+          {
+            "scenario": "a fail was recorded; a comparably credible qualifying commitment exists",
+            "outcome": "obligation_violation",
+            "diagnostics": [
+              "FAIL_RECORDED_WITHOUT_QUALIFYING_CRITERIA",
+              "FAIL_COMPARABLY_CREDIBLE_COMMITMENT_PRESENT"
+            ],
+            "reason": "Fail was recorded although a conjunct of the criterion does not hold."
+          }
+        ]
+      },
+      "hasAntecedent": true
+    },
+    {
+      "ruleId": "BR-055-partial-on-two-sided-credible",
+      "ruleVersion": "0.13.0-draft",
+      "primaryObligationPart": "OP-055-g",
+      "supportingObligationParts": [
+        "OP-055-m"
+      ],
+      "supportingRelationshipJustification": "Supporting only: OP-055-m supplies the trusted per-side credibility determinations. Missing or untrusted determinations make this rule indeterminate.",
+      "classification": "deterministic",
+      "derivationBasis": "source_obligation",
+      "resultClass": "normative",
+      "countsAsSourceDerivedCoverage": true,
+      "atomicityJustification": "Maps to one source obligation: credible evidence on both sides must yield partial. The antecedent is the credibility of the evidence, following the frozen verb 'yields'.",
+      "applicability": {
+        "requirementId": "REQ-5",
+        "conditions": [
+          "qualifying commitment and counterevidence both present"
+        ],
+        "predicateApproved": false
+      },
+      "requiredInputPaths": [
+        "/finding/status"
+      ],
+      "evidenceRequirements": [
+        "recorded credibility judgment from OP-055-f"
+      ],
+      "provenanceRequirement": {
+        "trustedEventSourceRequired": false,
+        "approvedEventSourceAvailable": false
+      },
+      "orderingOperator": "none",
+      "expectedOutcomes": [
+        "obligation_satisfied",
+        "obligation_violation",
+        "condition_not_met",
+        "indeterminate",
+        "evaluator_error"
+      ],
+      "bridgeAuthorityRequired": false,
+      "normativeOutcomeRequiresBridgeAuthority": false,
+      "bridgeAuthorityRecordRef": null,
+      "outcomeCodes": [
+        "TWO_SIDED_CREDIBLE_NOT_PARTIAL"
+      ],
+      "evaluatorMechanism": "defined",
+      "evaluatorImplemented": false,
+      "behaviourExecutedInTests": false,
+      "intendedEvidencePacketAssociation": [
+        "missing-evidence.json"
+      ],
+      "ruleFixtures": [],
+      "requiresLiveModelEvidence": false,
+      "findingRequiresHumanReview": true,
+      "mayBeActedUponAutomatically": false,
+      "knownUnsupportedCases": [],
+      "limitations": [
+        "The implication follows the frozen verb 'yields': credible evidence on both sides obliges a partial. It does not say that a recorded partial requires credible evidence.",
+        "Credibility is established only by OP-055-m; missing or untrusted determinations yield indeterminate."
+      ],
+      "canProduceProductFinding": true,
+      "diagnosticExclusionReasons": [
+        {
+          "code": "TWO_SIDED_CREDIBILITY_CONDITION_NOT_MET",
+          "predicate": "the evidence on both sides is credible",
+          "establishedBy": "trusted credibility determinations supplied by the OP-055-m precondition",
+          "effect": "antecedent false; the partial consequence is not activated"
+        }
+      ],
+      "evaluatorContract": {
+        "normativeViolation": "TWO_SIDED_CREDIBLE_NOT_PARTIAL is the only violation this rule may emit.",
+        "exclusionSemantics": "The antecedent is that the evidence on both sides is credible, following the frozen verb 'yields'. Credibility is established solely by the OP-055-m precondition; the rule contains no internal mechanism for establishing it and must never assume it.",
+        "candidateInventoryCompletenessRequired": false,
+        "trustedPredicateClassificationRequired": true,
+        "resultWhenInventoryIncomplete": "indeterminate",
+        "resultWhenPredicateClassificationMissingOrUntrusted": "indeterminate",
+        "workedExamples": [
+          {
+            "scenario": "credibility determination missing or untrusted, whatever result was recorded",
+            "outcome": "indeterminate",
+            "diagnostics": [],
+            "reason": "The antecedent cannot be evaluated; never satisfied and never a violation."
+          },
+          {
+            "scenario": "evidence on either side determined not credible, whatever result was recorded",
+            "outcome": "condition_not_met",
+            "diagnostics": [
+              "TWO_SIDED_CREDIBILITY_CONDITION_NOT_MET"
+            ],
+            "reason": "The antecedent is false; the partial consequence is not activated."
+          },
+          {
+            "scenario": "evidence on both sides determined credible and the recorded status is partial",
+            "outcome": "obligation_satisfied",
+            "diagnostics": [],
+            "reason": "The antecedent holds and the required consequence is present."
+          },
+          {
+            "scenario": "evidence on both sides determined credible but the recorded status is not partial",
+            "outcome": "obligation_violation",
+            "diagnostics": [
+              "TWO_SIDED_CREDIBLE_NOT_PARTIAL"
+            ],
+            "reason": "The antecedent holds and the required consequence is absent."
+          }
+        ]
+      },
+      "hasAntecedent": true
+    },
+    {
+      "ruleId": "BR-060-underspecified-boundary-recorded",
+      "ruleVersion": "0.13.0-draft",
+      "primaryObligationPart": "OP-060-c",
+      "supportingObligationParts": [],
+      "supportingRelationshipJustification": null,
+      "classification": "deterministic",
+      "derivationBasis": "source_obligation",
+      "resultClass": "normative",
+      "countsAsSourceDerivedCoverage": true,
+      "atomicityJustification": "Recording the boundary as underspecified alone; the status change is a separate obligation.",
+      "applicability": {
+        "requirementId": "REQ-1",
+        "conditions": [
+          "materiality recorded as material"
+        ],
+        "predicateApproved": false
+      },
+      "requiredInputPaths": [
+        "/finding/subAssessments/definitionQuality",
+        "the OP-060-a materiality judgment"
+      ],
+      "evidenceRequirements": [
+        "recorded materiality judgment"
+      ],
+      "provenanceRequirement": {
+        "trustedEventSourceRequired": false,
+        "approvedEventSourceAvailable": false
+      },
+      "orderingOperator": "none",
+      "expectedOutcomes": [
+        "obligation_satisfied",
+        "obligation_violation",
+        "condition_not_met",
+        "indeterminate",
+        "evaluator_error"
+      ],
+      "bridgeAuthorityRequired": false,
+      "normativeOutcomeRequiresBridgeAuthority": false,
+      "bridgeAuthorityRecordRef": null,
+      "outcomeCodes": [
+        "UNDERSPECIFIED_BOUNDARY_NOT_RECORDED"
+      ],
+      "evaluatorMechanism": "defined",
+      "evaluatorImplemented": false,
+      "behaviourExecutedInTests": false,
+      "intendedEvidencePacketAssociation": [
+        "missing-evidence.json"
+      ],
+      "ruleFixtures": [],
+      "requiresLiveModelEvidence": false,
+      "findingRequiresHumanReview": true,
+      "mayBeActedUponAutomatically": false,
+      "knownUnsupportedCases": [],
+      "limitations": [
+        "Materiality is established only by the OP-060-a precondition. Missing or untrusted determination yields indeterminate.",
+        "An immaterial disagreement yields condition_not_met, not obligation_satisfied."
+      ],
+      "canProduceProductFinding": true,
+      "diagnosticExclusionReasons": [],
+      "evaluatorContract": null,
+      "hasAntecedent": true
+    },
+    {
+      "ruleId": "BR-060-material-disagreement-downgrades",
+      "ruleVersion": "0.13.0-draft",
+      "primaryObligationPart": "OP-060-b",
+      "supportingObligationParts": [
+        "OP-060-a"
+      ],
+      "supportingRelationshipJustification": "Supporting only: materiality is an input; its absence yields indeterminate.",
+      "classification": "deterministic",
+      "derivationBasis": "source_obligation",
+      "resultClass": "normative",
+      "countsAsSourceDerivedCoverage": true,
+      "atomicityJustification": "The status transition alone; the materiality judgment is a separate human obligation.",
+      "applicability": {
+        "requirementId": "REQ-1",
+        "conditions": [
+          "materiality recorded as material"
+        ],
+        "predicateApproved": false
+      },
+      "requiredInputPaths": [
+        "/finding/status"
+      ],
+      "evidenceRequirements": [
+        "recorded materiality judgment from OP-060-a"
+      ],
+      "provenanceRequirement": {
+        "trustedEventSourceRequired": false,
+        "approvedEventSourceAvailable": false
+      },
+      "orderingOperator": "none",
+      "expectedOutcomes": [
+        "obligation_satisfied",
+        "obligation_violation",
+        "condition_not_met",
+        "indeterminate",
+        "evaluator_error"
+      ],
+      "bridgeAuthorityRequired": false,
+      "normativeOutcomeRequiresBridgeAuthority": false,
+      "bridgeAuthorityRecordRef": null,
+      "outcomeCodes": [
+        "MATERIAL_DISAGREEMENT_NOT_DOWNGRADED"
+      ],
+      "evaluatorMechanism": "defined",
+      "evaluatorImplemented": false,
+      "behaviourExecutedInTests": false,
+      "intendedEvidencePacketAssociation": [
+        "strong-evidence.json"
+      ],
+      "ruleFixtures": [],
+      "requiresLiveModelEvidence": false,
+      "findingRequiresHumanReview": true,
+      "mayBeActedUponAutomatically": false,
+      "knownUnsupportedCases": [],
+      "limitations": [
+        "Materiality is established only by the OP-060-a precondition. Missing or untrusted determination yields indeterminate.",
+        "An immaterial disagreement yields condition_not_met, not obligation_satisfied."
+      ],
+      "canProduceProductFinding": true,
+      "diagnosticExclusionReasons": [],
+      "evaluatorContract": null,
+      "hasAntecedent": true
+    },
+    {
+      "ruleId": "BR-070-window-step-declared",
+      "ruleVersion": "0.13.0-draft",
+      "primaryObligationPart": "OP-070-a",
+      "supportingObligationParts": [],
+      "supportingRelationshipJustification": null,
+      "classification": "deterministic",
+      "derivationBasis": "evaluation_proxy",
+      "resultClass": "proxy",
+      "countsAsSourceDerivedCoverage": false,
+      "atomicityJustification": "Declaration of the window step alone; relative order is a separate rule.",
+      "applicability": {
+        "requirementId": "REQ-3",
+        "conditions": [
+          "claimScope=recurrence"
+        ],
+        "predicateApproved": false
+      },
+      "requiredInputPaths": [
+        "/behaviorPlan/steps"
+      ],
+      "evidenceRequirements": [
+        "defineWindow step declaring eight consecutive calendar-week windows"
+      ],
+      "provenanceRequirement": {
+        "trustedEventSourceRequired": false,
+        "approvedEventSourceAvailable": false
+      },
+      "orderingOperator": "none",
+      "expectedOutcomes": [
+        "proxy_condition_met",
+        "proxy_condition_not_met",
+        "indeterminate",
+        "evaluator_error"
+      ],
+      "bridgeAuthorityRequired": true,
+      "normativeOutcomeRequiresBridgeAuthority": true,
+      "bridgeAuthorityRecordRef": "records/bridge-authority-record.example.json",
+      "outcomeCodes": [
+        "WINDOW_STEP_NOT_DECLARED",
+        "WINDOW_COUNT_NOT_EIGHT"
+      ],
+      "evaluatorMechanism": "defined",
+      "evaluatorImplemented": false,
+      "behaviourExecutedInTests": false,
+      "intendedEvidencePacketAssociation": [
+        "strong-evidence.json"
+      ],
+      "ruleFixtures": [],
+      "requiresLiveModelEvidence": false,
+      "findingRequiresHumanReview": true,
+      "mayBeActedUponAutomatically": false,
+      "knownUnsupportedCases": [
+        "Whether eight consecutive calendar-week windows were actually defined (OP-070-d, unresolved).",
+        "Whether that definition preceded event inspection (OP-070-c, unresolved)."
+      ],
+      "limitations": [
+        "Declaring a step in the submitted plan is not evidence that the step was or would be performed. This is an observable proxy for the source obligation, not the source obligation itself.",
+        "This rule reports only whether its proxy condition held. It cannot establish that the source obligation was satisfied or violated. Converting a proxy result into a normative outcome requires separately approved bridge authority, recorded outside this artifact."
+      ],
+      "canProduceProductFinding": false,
+      "diagnosticExclusionReasons": [],
+      "evaluatorContract": null,
+      "hasAntecedent": false
+    },
+    {
+      "ruleId": "BR-070-window-declared-before-measure",
+      "ruleVersion": "0.13.0-draft",
+      "primaryObligationPart": "OP-070-b",
+      "supportingObligationParts": [
+        "OP-070-a"
+      ],
+      "supportingRelationshipJustification": "Supporting only: step declaration determines evaluability.",
+      "classification": "deterministic",
+      "derivationBasis": "evaluation_proxy",
+      "resultClass": "proxy",
+      "countsAsSourceDerivedCoverage": false,
+      "atomicityJustification": "Relative declared order alone; step declaration is owned by BR-070-window-step-declared.",
+      "applicability": {
+        "requirementId": "REQ-3",
+        "conditions": [
+          "both defineWindow and measureEvents steps declared"
+        ],
+        "predicateApproved": false
+      },
+      "requiredInputPaths": [
+        "/behaviorPlan/steps[].ordinal"
+      ],
+      "evidenceRequirements": [
+        "declared step ordinals"
+      ],
+      "provenanceRequirement": {
+        "trustedEventSourceRequired": false,
+        "approvedEventSourceAvailable": false
+      },
+      "orderingOperator": "declaredStepPrecedes",
+      "expectedOutcomes": [
+        "proxy_condition_met",
+        "proxy_condition_not_met",
+        "indeterminate",
+        "evaluator_error"
+      ],
+      "bridgeAuthorityRequired": true,
+      "normativeOutcomeRequiresBridgeAuthority": true,
+      "bridgeAuthorityRecordRef": "records/bridge-authority-record.example.json",
+      "outcomeCodes": [
+        "DECLARED_ORDER_NOT_SATISFIED"
+      ],
+      "evaluatorMechanism": "defined",
+      "evaluatorImplemented": false,
+      "behaviourExecutedInTests": false,
+      "intendedEvidencePacketAssociation": [
+        "strong-evidence.json"
+      ],
+      "ruleFixtures": [],
+      "requiresLiveModelEvidence": false,
+      "findingRequiresHumanReview": true,
+      "mayBeActedUponAutomatically": false,
+      "knownUnsupportedCases": [
+        "Whether the windows were actually fixed before events were inspected (OP-070-c, unresolved)."
+      ],
+      "limitations": [
+        "Declared plan order is only a proxy for OP-070-c, which remains unresolved.",
+        "This rule reports only whether its proxy condition held. It cannot establish that the source obligation was satisfied or violated. Converting a proxy result into a normative outcome requires separately approved bridge authority, recorded outside this artifact."
+      ],
+      "canProduceProductFinding": false,
+      "diagnosticExclusionReasons": [],
+      "evaluatorContract": null,
+      "hasAntecedent": false
+    }
+  ]
+}

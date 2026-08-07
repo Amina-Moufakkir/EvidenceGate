@@ -1,0 +1,1354 @@
+{
+  "packageId": "gate2a-p-obligation-parts",
+  "contractVersion": "0.13.0-draft",
+  "scope": "pilot-subset",
+  "derivationBasisNote": "source_obligation is required by the frozen text. evaluation_precondition is input the evaluator needs and is not a source requirement. evaluation_proxy is an observable stand-in for a source obligation the repository cannot observe directly; a proxy never counts as source-derived coverage.",
+  "parts": [
+    {
+      "obligationPartId": "OP-006-a",
+      "sourceStatementId": "SS-006",
+      "normativeObligation": "The plan must declare a validation step covering the provenance of EV-004.",
+      "sourceClauseReference": "First validate EV-004's provenance",
+      "derivationBasis": "evaluation_proxy",
+      "proxiedSourceObligation": "EV-004's provenance must actually be validated. (OP-006-h)",
+      "proxyLimitation": "Declaring a step in the submitted plan is not evidence that the step was or would be performed. This is an observable proxy for the source obligation, not the source obligation itself.",
+      "applicabilityConditions": [
+        "REQ-2 finding",
+        "EV-004 is present in the packet"
+      ],
+      "requiredEvidence": [
+        "/behaviorPlan/steps entry with operation=validate, subject=EV-004, validationTarget=provenance"
+      ],
+      "observableInvariant": "A validate step for EV-004 whose validationTarget is provenance exists in the plan.",
+      "evaluatorResponsibility": "deterministic",
+      "independentlyTestable": true,
+      "independenceJustification": "Each of the five named validation targets can be present or absent independently of the other four.",
+      "dependsOn": [],
+      "coverageState": "rule-covered",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": null,
+      "missingAuthorityOrDependency": null,
+      "whyRepositoryCannotResolve": null,
+      "requiredOwnerDecisionOrEvidence": null,
+      "possibleLaterClassifications": [],
+      "knownLimitations": [
+        "Declaring a step in the submitted plan is not evidence that the step was or would be performed. This is an observable proxy for the source obligation, not the source obligation itself.",
+        "Scope is EV-004 specifically, as named by the frozen statement; it is not generalised."
+      ],
+      "evidenceContract": null,
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-006-b",
+      "sourceStatementId": "SS-006",
+      "normativeObligation": "The plan must declare a validation step covering the complete active-assembly measurement boundaries of EV-004.",
+      "sourceClauseReference": "complete active-assembly measurement boundaries",
+      "derivationBasis": "evaluation_proxy",
+      "proxiedSourceObligation": "EV-004's complete active-assembly measurement boundaries must actually be validated. (OP-006-i)",
+      "proxyLimitation": "Declaring a step in the submitted plan is not evidence that the step was or would be performed. This is an observable proxy for the source obligation, not the source obligation itself.",
+      "applicabilityConditions": [
+        "REQ-2 finding",
+        "EV-004 is present in the packet"
+      ],
+      "requiredEvidence": [
+        "/behaviorPlan/steps entry with operation=validate, subject=EV-004, validationTarget=measurement-boundaries"
+      ],
+      "observableInvariant": "A validate step for EV-004 whose validationTarget is measurement-boundaries exists in the plan.",
+      "evaluatorResponsibility": "deterministic",
+      "independentlyTestable": true,
+      "independenceJustification": "Each of the five named validation targets can be present or absent independently of the other four.",
+      "dependsOn": [],
+      "coverageState": "rule-covered",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": null,
+      "missingAuthorityOrDependency": null,
+      "whyRepositoryCannotResolve": null,
+      "requiredOwnerDecisionOrEvidence": null,
+      "possibleLaterClassifications": [],
+      "knownLimitations": [
+        "Declaring a step in the submitted plan is not evidence that the step was or would be performed. This is an observable proxy for the source obligation, not the source obligation itself.",
+        "Scope is EV-004 specifically, as named by the frozen statement; it is not generalised."
+      ],
+      "evidenceContract": null,
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-006-c",
+      "sourceStatementId": "SS-006",
+      "normativeObligation": "The plan must declare a validation step covering the segment fit of EV-004.",
+      "sourceClauseReference": "segment fit",
+      "derivationBasis": "evaluation_proxy",
+      "proxiedSourceObligation": "EV-004's segment fit must actually be validated. (OP-006-j)",
+      "proxyLimitation": "Declaring a step in the submitted plan is not evidence that the step was or would be performed. This is an observable proxy for the source obligation, not the source obligation itself.",
+      "applicabilityConditions": [
+        "REQ-2 finding",
+        "EV-004 is present in the packet"
+      ],
+      "requiredEvidence": [
+        "/behaviorPlan/steps entry with operation=validate, subject=EV-004, validationTarget=segment-fit"
+      ],
+      "observableInvariant": "A validate step for EV-004 whose validationTarget is segment-fit exists in the plan.",
+      "evaluatorResponsibility": "deterministic",
+      "independentlyTestable": true,
+      "independenceJustification": "Each of the five named validation targets can be present or absent independently of the other four.",
+      "dependsOn": [],
+      "coverageState": "rule-covered",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": null,
+      "missingAuthorityOrDependency": null,
+      "whyRepositoryCannotResolve": null,
+      "requiredOwnerDecisionOrEvidence": null,
+      "possibleLaterClassifications": [],
+      "knownLimitations": [
+        "Declaring a step in the submitted plan is not evidence that the step was or would be performed. This is an observable proxy for the source obligation, not the source obligation itself.",
+        "Scope is EV-004 specifically, as named by the frozen statement; it is not generalised."
+      ],
+      "evidenceContract": null,
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-006-d",
+      "sourceStatementId": "SS-006",
+      "normativeObligation": "The plan must declare a validation step covering the threshold of EV-004.",
+      "sourceClauseReference": "threshold",
+      "derivationBasis": "evaluation_proxy",
+      "proxiedSourceObligation": "EV-004's threshold must actually be validated. (OP-006-k)",
+      "proxyLimitation": "Declaring a step in the submitted plan is not evidence that the step was or would be performed. This is an observable proxy for the source obligation, not the source obligation itself.",
+      "applicabilityConditions": [
+        "REQ-2 finding",
+        "EV-004 is present in the packet"
+      ],
+      "requiredEvidence": [
+        "/behaviorPlan/steps entry with operation=validate, subject=EV-004, validationTarget=threshold"
+      ],
+      "observableInvariant": "A validate step for EV-004 whose validationTarget is threshold exists in the plan.",
+      "evaluatorResponsibility": "deterministic",
+      "independentlyTestable": true,
+      "independenceJustification": "Each of the five named validation targets can be present or absent independently of the other four.",
+      "dependsOn": [],
+      "coverageState": "rule-covered",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": null,
+      "missingAuthorityOrDependency": null,
+      "whyRepositoryCannotResolve": null,
+      "requiredOwnerDecisionOrEvidence": null,
+      "possibleLaterClassifications": [],
+      "knownLimitations": [
+        "Declaring a step in the submitted plan is not evidence that the step was or would be performed. This is an observable proxy for the source obligation, not the source obligation itself.",
+        "Scope is EV-004 specifically, as named by the frozen statement; it is not generalised."
+      ],
+      "evidenceContract": null,
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-006-e",
+      "sourceStatementId": "SS-006",
+      "normativeObligation": "The plan must declare a validation step covering the supersession status of EV-004.",
+      "sourceClauseReference": "and supersession status",
+      "derivationBasis": "evaluation_proxy",
+      "proxiedSourceObligation": "EV-004's supersession status must actually be validated. (OP-006-l)",
+      "proxyLimitation": "Declaring a step in the submitted plan is not evidence that the step was or would be performed. This is an observable proxy for the source obligation, not the source obligation itself.",
+      "applicabilityConditions": [
+        "REQ-2 finding",
+        "EV-004 is present in the packet"
+      ],
+      "requiredEvidence": [
+        "/behaviorPlan/steps entry with operation=validate, subject=EV-004, validationTarget=supersession-status"
+      ],
+      "observableInvariant": "A validate step for EV-004 whose validationTarget is supersession-status exists in the plan.",
+      "evaluatorResponsibility": "deterministic",
+      "independentlyTestable": true,
+      "independenceJustification": "Each of the five named validation targets can be present or absent independently of the other four.",
+      "dependsOn": [],
+      "coverageState": "rule-covered",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": null,
+      "missingAuthorityOrDependency": null,
+      "whyRepositoryCannotResolve": null,
+      "requiredOwnerDecisionOrEvidence": null,
+      "possibleLaterClassifications": [],
+      "knownLimitations": [
+        "Declaring a step in the submitted plan is not evidence that the step was or would be performed. This is an observable proxy for the source obligation, not the source obligation itself.",
+        "Scope is EV-004 specifically, as named by the frozen statement; it is not generalised."
+      ],
+      "evidenceContract": null,
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-006-f",
+      "sourceStatementId": "SS-006",
+      "normativeObligation": "The EV-004 validation steps must be declared before the step that concludes instance-scoped existence.",
+      "sourceClauseReference": "First validate | if it remains credible, it establishes instance-scoped existence",
+      "derivationBasis": "evaluation_proxy",
+      "proxiedSourceObligation": "The five EV-004 validations must actually be performed before EV-004 is used to establish instance-scoped existence. (OP-006-m)",
+      "proxyLimitation": "Declared ordinals are a proxy for real chronology. See operator declaredStepPrecedes and the unresolved observed-chronology case in PROVENANCE-QUESTIONS.md.",
+      "applicabilityConditions": [
+        "REQ-2 finding",
+        "at least one validate step and one concludeExistence step are declared"
+      ],
+      "requiredEvidence": [
+        "/behaviorPlan/steps[].ordinal"
+      ],
+      "observableInvariant": "Every EV-004 validate step ordinal is lower than the concludeExistence step ordinal.",
+      "evaluatorResponsibility": "deterministic",
+      "independentlyTestable": true,
+      "independenceJustification": "Ordering is testable independently of whether any individual validation target is present.",
+      "dependsOn": [
+        "OP-006-a",
+        "OP-006-b",
+        "OP-006-c",
+        "OP-006-d",
+        "OP-006-e"
+      ],
+      "coverageState": "rule-covered",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": null,
+      "missingAuthorityOrDependency": null,
+      "whyRepositoryCannotResolve": null,
+      "requiredOwnerDecisionOrEvidence": null,
+      "possibleLaterClassifications": [],
+      "knownLimitations": [
+        "Declaring a step in the submitted plan is not evidence that the step was or would be performed. This is an observable proxy for the source obligation, not the source obligation itself.",
+        "Declared ordering only; not evidence of real-world chronology."
+      ],
+      "evidenceContract": null,
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-006-g",
+      "sourceStatementId": "SS-006",
+      "normativeObligation": "The evaluator must obtain a post-validation credibility determination for EV-004 in order to evaluate the conditional consequence in OP-006-n.",
+      "sourceClauseReference": "(no source clause: input required to evaluate OP-006-n. The frozen text states the condition 'if it remains credible', not a command to judge credibility.)",
+      "derivationBasis": "evaluation_precondition",
+      "proxiedSourceObligation": null,
+      "proxyLimitation": null,
+      "applicabilityConditions": [
+        "REQ-2 finding",
+        "the five validation steps are declared"
+      ],
+      "requiredEvidence": [
+        "Reviewer judgment over EV-004 and its declared limitations"
+      ],
+      "observableInvariant": "A post-validation credibility determination for EV-004 is available and trusted.",
+      "evaluatorResponsibility": "human",
+      "independentlyTestable": true,
+      "independenceJustification": "Obtaining the credibility determination is separable from the conditional consequence that consumes it.",
+      "dependsOn": [
+        "OP-006-a",
+        "OP-006-b",
+        "OP-006-c",
+        "OP-006-d",
+        "OP-006-e"
+      ],
+      "coverageState": "human-review-obligation",
+      "humanJudgmentRequired": "Whether EV-004 remains credible after the declared validations.",
+      "whyAutomationInsufficient": "Credibility is not a structural property of the plan and is not derivable from any packet field. A deterministic check could only confirm that validation steps were declared, which is a different question. A model could restate the record but cannot settle its credibility.",
+      "unresolvedTerm": null,
+      "missingAuthorityOrDependency": null,
+      "whyRepositoryCannotResolve": null,
+      "requiredOwnerDecisionOrEvidence": null,
+      "possibleLaterClassifications": [],
+      "knownLimitations": [
+        "This is an evaluator precondition, not a source obligation. The frozen statement states a condition ('if it remains credible'), not an obligation to perform a judgment.",
+        "Its disposition remains human-review-obligation: the determination can only be supplied by a person. Unavailability or untrusted determination yields indeterminate for OP-006-n, never a product obligation violation.",
+        "It is a human-required precondition, not a human-required source obligation."
+      ],
+      "evidenceContract": null,
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-006-h",
+      "sourceStatementId": "SS-006",
+      "normativeObligation": "EV-004's provenance must actually be validated.",
+      "sourceClauseReference": "First validate EV-004's provenance",
+      "derivationBasis": "source_obligation",
+      "proxiedSourceObligation": null,
+      "proxyLimitation": null,
+      "evidenceContract": null,
+      "applicabilityConditions": [
+        "REQ-2 finding",
+        "EV-004 is present in the packet"
+      ],
+      "requiredEvidence": [
+        "An approved, pinned, independently produced record that the provenance of EV-004 was validated"
+      ],
+      "observableInvariant": "Undefined: no trustworthy record exists showing that the validation was performed, as distinct from a step declaring that it would be.",
+      "evaluatorResponsibility": "none",
+      "independentlyTestable": false,
+      "independenceJustification": "Cannot be judged independently testable while no trustworthy record of the validation act exists.",
+      "dependsOn": [],
+      "coverageState": "unresolved",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": "actual validation of the provenance of EV-004, as opposed to a declared intention to validate it",
+      "missingAuthorityOrDependency": "An approved, externally pinned, independently produced record of the validation act.",
+      "whyRepositoryCannotResolve": "The behaviour plan can only declare that a validate step exists. evidence-packet.schema.json carries no field recording that a validation was performed, by whom, or when, so declaration is the only observable and it is authored by the party under evaluation.",
+      "requiredOwnerDecisionOrEvidence": "The same owner decision as OP-070-c and OP-070-d: whether a provenance contract is pursued, then external approval and pinning of a source.",
+      "possibleLaterClassifications": [
+        "external-then-deterministic, once a trustworthy record exists"
+      ],
+      "knownLimitations": [
+        "No rule is defined; the obligation is normative but currently unsupported.",
+        "OP-006-a's declared step is a proxy for this obligation and must not be treated as satisfying it."
+      ],
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-006-i",
+      "sourceStatementId": "SS-006",
+      "normativeObligation": "EV-004's complete active-assembly measurement boundaries must actually be validated.",
+      "sourceClauseReference": "complete active-assembly measurement boundaries",
+      "derivationBasis": "source_obligation",
+      "proxiedSourceObligation": null,
+      "proxyLimitation": null,
+      "evidenceContract": null,
+      "applicabilityConditions": [
+        "REQ-2 finding",
+        "EV-004 is present in the packet"
+      ],
+      "requiredEvidence": [
+        "An approved, pinned, independently produced record that the complete active-assembly measurement boundaries of EV-004 was validated"
+      ],
+      "observableInvariant": "Undefined: no trustworthy record exists showing that the validation was performed, as distinct from a step declaring that it would be.",
+      "evaluatorResponsibility": "none",
+      "independentlyTestable": false,
+      "independenceJustification": "Cannot be judged independently testable while no trustworthy record of the validation act exists.",
+      "dependsOn": [],
+      "coverageState": "unresolved",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": "actual validation of the complete active-assembly measurement boundaries of EV-004, as opposed to a declared intention to validate it",
+      "missingAuthorityOrDependency": "An approved, externally pinned, independently produced record of the validation act.",
+      "whyRepositoryCannotResolve": "The behaviour plan can only declare that a validate step exists. evidence-packet.schema.json carries no field recording that a validation was performed, by whom, or when, so declaration is the only observable and it is authored by the party under evaluation.",
+      "requiredOwnerDecisionOrEvidence": "The same owner decision as OP-070-c and OP-070-d: whether a provenance contract is pursued, then external approval and pinning of a source.",
+      "possibleLaterClassifications": [
+        "external-then-deterministic, once a trustworthy record exists"
+      ],
+      "knownLimitations": [
+        "No rule is defined; the obligation is normative but currently unsupported.",
+        "OP-006-b's declared step is a proxy for this obligation and must not be treated as satisfying it."
+      ],
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-006-j",
+      "sourceStatementId": "SS-006",
+      "normativeObligation": "EV-004's segment fit must actually be validated.",
+      "sourceClauseReference": "segment fit",
+      "derivationBasis": "source_obligation",
+      "proxiedSourceObligation": null,
+      "proxyLimitation": null,
+      "evidenceContract": null,
+      "applicabilityConditions": [
+        "REQ-2 finding",
+        "EV-004 is present in the packet"
+      ],
+      "requiredEvidence": [
+        "An approved, pinned, independently produced record that the segment fit of EV-004 was validated"
+      ],
+      "observableInvariant": "Undefined: no trustworthy record exists showing that the validation was performed, as distinct from a step declaring that it would be.",
+      "evaluatorResponsibility": "none",
+      "independentlyTestable": false,
+      "independenceJustification": "Cannot be judged independently testable while no trustworthy record of the validation act exists.",
+      "dependsOn": [],
+      "coverageState": "unresolved",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": "actual validation of the segment fit of EV-004, as opposed to a declared intention to validate it",
+      "missingAuthorityOrDependency": "An approved, externally pinned, independently produced record of the validation act.",
+      "whyRepositoryCannotResolve": "The behaviour plan can only declare that a validate step exists. evidence-packet.schema.json carries no field recording that a validation was performed, by whom, or when, so declaration is the only observable and it is authored by the party under evaluation.",
+      "requiredOwnerDecisionOrEvidence": "The same owner decision as OP-070-c and OP-070-d: whether a provenance contract is pursued, then external approval and pinning of a source.",
+      "possibleLaterClassifications": [
+        "external-then-deterministic, once a trustworthy record exists"
+      ],
+      "knownLimitations": [
+        "No rule is defined; the obligation is normative but currently unsupported.",
+        "OP-006-c's declared step is a proxy for this obligation and must not be treated as satisfying it."
+      ],
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-006-k",
+      "sourceStatementId": "SS-006",
+      "normativeObligation": "EV-004's threshold must actually be validated.",
+      "sourceClauseReference": "threshold",
+      "derivationBasis": "source_obligation",
+      "proxiedSourceObligation": null,
+      "proxyLimitation": null,
+      "evidenceContract": null,
+      "applicabilityConditions": [
+        "REQ-2 finding",
+        "EV-004 is present in the packet"
+      ],
+      "requiredEvidence": [
+        "An approved, pinned, independently produced record that the threshold of EV-004 was validated"
+      ],
+      "observableInvariant": "Undefined: no trustworthy record exists showing that the validation was performed, as distinct from a step declaring that it would be.",
+      "evaluatorResponsibility": "none",
+      "independentlyTestable": false,
+      "independenceJustification": "Cannot be judged independently testable while no trustworthy record of the validation act exists.",
+      "dependsOn": [],
+      "coverageState": "unresolved",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": "actual validation of the threshold of EV-004, as opposed to a declared intention to validate it",
+      "missingAuthorityOrDependency": "An approved, externally pinned, independently produced record of the validation act.",
+      "whyRepositoryCannotResolve": "The behaviour plan can only declare that a validate step exists. evidence-packet.schema.json carries no field recording that a validation was performed, by whom, or when, so declaration is the only observable and it is authored by the party under evaluation.",
+      "requiredOwnerDecisionOrEvidence": "The same owner decision as OP-070-c and OP-070-d: whether a provenance contract is pursued, then external approval and pinning of a source.",
+      "possibleLaterClassifications": [
+        "external-then-deterministic, once a trustworthy record exists"
+      ],
+      "knownLimitations": [
+        "No rule is defined; the obligation is normative but currently unsupported.",
+        "OP-006-d's declared step is a proxy for this obligation and must not be treated as satisfying it."
+      ],
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-006-l",
+      "sourceStatementId": "SS-006",
+      "normativeObligation": "EV-004's supersession status must actually be validated.",
+      "sourceClauseReference": "and supersession status",
+      "derivationBasis": "source_obligation",
+      "proxiedSourceObligation": null,
+      "proxyLimitation": null,
+      "evidenceContract": null,
+      "applicabilityConditions": [
+        "REQ-2 finding",
+        "EV-004 is present in the packet"
+      ],
+      "requiredEvidence": [
+        "An approved, pinned, independently produced record that the supersession status of EV-004 was validated"
+      ],
+      "observableInvariant": "Undefined: no trustworthy record exists showing that the validation was performed, as distinct from a step declaring that it would be.",
+      "evaluatorResponsibility": "none",
+      "independentlyTestable": false,
+      "independenceJustification": "Cannot be judged independently testable while no trustworthy record of the validation act exists.",
+      "dependsOn": [],
+      "coverageState": "unresolved",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": "actual validation of the supersession status of EV-004, as opposed to a declared intention to validate it",
+      "missingAuthorityOrDependency": "An approved, externally pinned, independently produced record of the validation act.",
+      "whyRepositoryCannotResolve": "The behaviour plan can only declare that a validate step exists. evidence-packet.schema.json carries no field recording that a validation was performed, by whom, or when, so declaration is the only observable and it is authored by the party under evaluation.",
+      "requiredOwnerDecisionOrEvidence": "The same owner decision as OP-070-c and OP-070-d: whether a provenance contract is pursued, then external approval and pinning of a source.",
+      "possibleLaterClassifications": [
+        "external-then-deterministic, once a trustworthy record exists"
+      ],
+      "knownLimitations": [
+        "No rule is defined; the obligation is normative but currently unsupported.",
+        "OP-006-e's declared step is a proxy for this obligation and must not be treated as satisfying it."
+      ],
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-006-m",
+      "sourceStatementId": "SS-006",
+      "normativeObligation": "The five EV-004 validations must actually be performed before EV-004 is used to establish instance-scoped existence.",
+      "sourceClauseReference": "First validate | if it remains credible, it establishes instance-scoped existence",
+      "derivationBasis": "source_obligation",
+      "proxiedSourceObligation": null,
+      "proxyLimitation": null,
+      "evidenceContract": null,
+      "applicabilityConditions": [
+        "REQ-2 finding",
+        "EV-004 is present in the packet"
+      ],
+      "requiredEvidence": [
+        "An approved, pinned, independently produced record that the ordering of the EV-004 validations relative to the existence conclusion was validated"
+      ],
+      "observableInvariant": "Undefined: no trustworthy record exists showing that the validation was performed, as distinct from a step declaring that it would be.",
+      "evaluatorResponsibility": "none",
+      "independentlyTestable": false,
+      "independenceJustification": "Cannot be judged independently testable while no trustworthy record of the validation act exists.",
+      "dependsOn": [],
+      "coverageState": "unresolved",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": "actual validation of the ordering of the EV-004 validations relative to the existence conclusion, as opposed to a declared intention to validate it",
+      "missingAuthorityOrDependency": "An approved, externally pinned, independently produced record of the validation act.",
+      "whyRepositoryCannotResolve": "The behaviour plan can only declare that a validate step exists. evidence-packet.schema.json carries no field recording that a validation was performed, by whom, or when, so declaration is the only observable and it is authored by the party under evaluation.",
+      "requiredOwnerDecisionOrEvidence": "The same owner decision as OP-070-c and OP-070-d: whether a provenance contract is pursued, then external approval and pinning of a source.",
+      "possibleLaterClassifications": [
+        "external-then-deterministic, once a trustworthy record exists"
+      ],
+      "knownLimitations": [
+        "No rule is defined; the obligation is normative but currently unsupported.",
+        "OP-006-f's declared step is a proxy for this obligation and must not be treated as satisfying it."
+      ],
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-006-n",
+      "sourceStatementId": "SS-006",
+      "normativeObligation": "If EV-004 remains credible after validation, it must be treated as establishing instance-scoped existence.",
+      "sourceClauseReference": "if it remains credible, it establishes instance-scoped existence",
+      "derivationBasis": "source_obligation",
+      "proxiedSourceObligation": null,
+      "proxyLimitation": null,
+      "evidenceContract": null,
+      "applicabilityConditions": [
+        "REQ-2 finding",
+        "credibility judgment recorded as retained"
+      ],
+      "requiredEvidence": [
+        "/finding/status",
+        "the OP-006-g credibility judgment"
+      ],
+      "observableInvariant": "When credibility is recorded as retained, the finding treats EV-004 as establishing instance-scoped existence.",
+      "evaluatorResponsibility": "deterministic",
+      "independentlyTestable": true,
+      "independenceJustification": "The consequence of retained credibility is separable both from judging credibility and from performing the validations first.",
+      "dependsOn": [
+        "OP-006-g",
+        "OP-006-h",
+        "OP-006-i",
+        "OP-006-j",
+        "OP-006-k",
+        "OP-006-l",
+        "OP-006-m"
+      ],
+      "coverageState": "rule-covered",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": null,
+      "missingAuthorityOrDependency": null,
+      "whyRepositoryCannotResolve": null,
+      "requiredOwnerDecisionOrEvidence": null,
+      "possibleLaterClassifications": [],
+      "knownLimitations": [
+        "Prerequisites are explicit: the five validation obligations (OP-006-h to OP-006-l) and the ordering obligation (OP-006-m) must be established, and the credibility judgment (OP-006-g) supplied.",
+        "Because OP-006-h through OP-006-m are unresolved, this rule currently returns indeterminate. It must never conclude that EV-004 establishes instance-scoped existence while validation is unresolved."
+      ],
+      "qualifyingPredicates": [],
+      "humanInputRequired": "A post-validation credibility determination for EV-004 (OP-006-g), which is authoritative only once the validation and ordering obligations it rests on are themselves established."
+    },
+    {
+      "obligationPartId": "OP-026-a",
+      "sourceStatementId": "SS-026",
+      "normativeObligation": "No plan step or evidence treatment may use willingness to pay for the proposed product as REQ-5 support.",
+      "sourceClauseReference": "Do not substitute willingness to pay for the proposed product.",
+      "derivationBasis": "source_obligation",
+      "proxiedSourceObligation": null,
+      "proxyLimitation": null,
+      "applicabilityConditions": [
+        "REQ-5 finding"
+      ],
+      "requiredEvidence": [
+        "A complete inventory of candidate REQ-5 inputs (OP-026-b)",
+        "An approved willingness-to-pay classification for every candidate input (OP-026-b)"
+      ],
+      "observableInvariant": "Across every classified candidate REQ-5 input, none classified as willingness-to-pay for the proposed product appears in a supporting role.",
+      "evaluatorResponsibility": "deterministic",
+      "independentlyTestable": true,
+      "independenceJustification": "The statement expresses exactly one prohibition over a single closed source category.",
+      "dependsOn": [
+        "OP-026-b"
+      ],
+      "coverageState": "rule-covered",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": null,
+      "missingAuthorityOrDependency": null,
+      "whyRepositoryCannotResolve": null,
+      "requiredOwnerDecisionOrEvidence": null,
+      "possibleLaterClassifications": [],
+      "knownLimitations": [
+        "Normative only over inputs covered by an approved classification. If the inventory is incomplete or the classification is absent or untrusted, the result is indeterminate, never satisfied.",
+        "Checking declared sourceCategory alone cannot establish that undeclared prose or misclassified evidence contains no willingness-to-pay reasoning; that is why OP-026-b is required."
+      ],
+      "evidenceContract": {
+        "completeInventoryRequired": true,
+        "inventoryScope": "every candidate REQ-5 input in the packet, not only inputs with a declared sourceCategory",
+        "trustedClassificationRequired": true,
+        "resultWhenInventoryIncomplete": "indeterminate",
+        "resultWhenClassificationMissingOrUntrusted": "indeterminate",
+        "remainsSourceDerivedOnlyIf": "The obligation is source-derived unconditionally; it is normative language in the frozen statement. Only a nonconforming implementation that checked incomplete or self-declared classifications, rather than a complete approved inventory, would be a proxy.",
+        "currentStatus": "Whether an approved classification authority exists is recorded externally, not here. Absent an approved classification the rule evaluates to indeterminate; it does not cease to be source-derived.",
+        "classificationAuthorityRecordRef": "records/classification-authority-record.example.json"
+      },
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-026-b",
+      "sourceStatementId": "SS-026",
+      "normativeObligation": "The evaluator must obtain a complete inventory of candidate REQ-5 inputs together with an approved willingness-to-pay classification for each.",
+      "sourceClauseReference": "(no source clause: input required to evaluate OP-026-a normatively)",
+      "derivationBasis": "evaluation_precondition",
+      "proxiedSourceObligation": null,
+      "proxyLimitation": null,
+      "applicabilityConditions": [
+        "REQ-5 finding"
+      ],
+      "requiredEvidence": [
+        "/packet/evidence[]",
+        "an approved classification of each candidate input"
+      ],
+      "observableInvariant": "A complete candidate-input inventory exists and every entry carries an approved willingness-to-pay classification.",
+      "evaluatorResponsibility": "model-assisted",
+      "independentlyTestable": true,
+      "independenceJustification": "Obtaining and classifying the candidate inputs is separable from the prohibition that consumes the classification.",
+      "dependsOn": [],
+      "coverageState": "rule-covered",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": null,
+      "missingAuthorityOrDependency": null,
+      "whyRepositoryCannotResolve": null,
+      "requiredOwnerDecisionOrEvidence": null,
+      "possibleLaterClassifications": [],
+      "knownLimitations": [
+        "This is an evaluator precondition, not a source obligation. Unavailability yields precondition_unavailable and is never a product obligation violation.",
+        "No approved classification scheme for REQ-5 candidate inputs exists in the repository today, so OP-026-a currently evaluates to indeterminate."
+      ],
+      "evidenceContract": null,
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-033-a",
+      "sourceStatementId": "SS-033",
+      "normativeObligation": "The evaluator must obtain a trusted decidability classification for the adjectival terms used by the proposed segment definition.",
+      "sourceClauseReference": "(no source clause: input required to evaluate 'adjectives like small or struggling')",
+      "derivationBasis": "evaluation_precondition",
+      "proxiedSourceObligation": null,
+      "proxyLimitation": null,
+      "applicabilityConditions": [
+        "REQ-1 finding",
+        "a segment definition is proposed"
+      ],
+      "requiredEvidence": [
+        "/behaviorPlan/definitionAnalysis/boundaryTerms[]"
+      ],
+      "observableInvariant": "A trusted decidability classification is available for every adjectival term in the proposed segment definition.",
+      "evaluatorResponsibility": "model-assisted",
+      "independentlyTestable": true,
+      "independenceJustification": "Obtaining the input is separable from the prohibition that consumes it.",
+      "dependsOn": [],
+      "coverageState": "rule-covered",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": null,
+      "missingAuthorityOrDependency": null,
+      "whyRepositoryCannotResolve": null,
+      "requiredOwnerDecisionOrEvidence": null,
+      "possibleLaterClassifications": [],
+      "knownLimitations": [
+        "This is an evaluator precondition supplying evidence about decidability; it is not the source obligation, which concerns the property itself.",
+        "Unavailability or untrusted classification yields precondition_unavailable and is never a product obligation violation.",
+        "Model output is structured evidence, not proof; classification accuracy is uncalibrated."
+      ],
+      "evidenceContract": null,
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-033-b",
+      "sourceStatementId": "SS-033",
+      "normativeObligation": "A non-decidable adjectival term must not serve as a segment membership boundary.",
+      "sourceClauseReference": "Do not treat adjectives like small or struggling as decidable boundaries.",
+      "derivationBasis": "source_obligation",
+      "proxiedSourceObligation": null,
+      "proxyLimitation": null,
+      "applicabilityConditions": [
+        "REQ-1 finding",
+        "boundary terms with decidability labels are available"
+      ],
+      "requiredEvidence": [
+        "/behaviorPlan/definitionAnalysis/boundaryTerms[]"
+      ],
+      "observableInvariant": "No adjectival term that is non-decidable is used as a segment membership boundary.",
+      "evaluatorResponsibility": "deterministic",
+      "independentlyTestable": true,
+      "independenceJustification": "Given the input, the prohibition is a closed structural check independent of how the input was produced.",
+      "dependsOn": [
+        "OP-033-a"
+      ],
+      "coverageState": "rule-covered",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": null,
+      "missingAuthorityOrDependency": null,
+      "whyRepositoryCannotResolve": null,
+      "requiredOwnerDecisionOrEvidence": null,
+      "possibleLaterClassifications": [],
+      "knownLimitations": [
+        "The obligation concerns the property of being non-decidable, not the presence of a label. A decidability classification is evaluator evidence supplied by OP-033-a, not the source requirement.",
+        "Scope follows the frozen statement: adjectival boundary terms, with 'small' and 'struggling' as examples rather than an exhaustive list.",
+        "A broader prohibition covering any non-decidable term is NOT source-derived and would require separate authority.",
+        "If the classification is missing or untrusted the outcome is indeterminate, never satisfied and never a violation."
+      ],
+      "evidenceContract": null,
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-034-a",
+      "sourceStatementId": "SS-034",
+      "normativeObligation": "The plan must declare a duration threshold.",
+      "sourceClauseReference": "Require a duration threshold",
+      "derivationBasis": "source_obligation",
+      "proxiedSourceObligation": null,
+      "proxyLimitation": null,
+      "applicabilityConditions": [
+        "REQ-2 finding"
+      ],
+      "requiredEvidence": [
+        "/behaviorPlan/steps[].threshold"
+      ],
+      "observableInvariant": "A duration threshold is declared.",
+      "evaluatorResponsibility": "deterministic",
+      "independentlyTestable": true,
+      "independenceJustification": "Presence of a declared threshold is testable without reference to whether that threshold is falsifiable.",
+      "dependsOn": [],
+      "coverageState": "rule-covered",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": null,
+      "missingAuthorityOrDependency": null,
+      "whyRepositoryCannotResolve": null,
+      "requiredOwnerDecisionOrEvidence": null,
+      "possibleLaterClassifications": [],
+      "knownLimitations": [
+        "The frozen statement does not require the threshold to be numeric or to carry an explicit unit; no such requirement is imposed here.",
+        "Satisfying this part does not satisfy SS-034; its falsifiability obligation OP-034-b is unresolved."
+      ],
+      "evidenceContract": null,
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-034-b",
+      "sourceStatementId": "SS-034",
+      "normativeObligation": "The declared duration threshold must be one the team can be wrong about.",
+      "sourceClauseReference": "the team can be wrong about",
+      "derivationBasis": "source_obligation",
+      "proxiedSourceObligation": null,
+      "proxyLimitation": null,
+      "applicabilityConditions": [
+        "REQ-2 finding",
+        "a duration threshold is declared"
+      ],
+      "requiredEvidence": [
+        "No sufficient input exists in the current repository"
+      ],
+      "observableInvariant": "Undefined: no decidable criterion for threshold falsifiability exists.",
+      "evaluatorResponsibility": "none",
+      "independentlyTestable": false,
+      "independenceJustification": "Cannot be judged independently testable while its normative term is undefined.",
+      "dependsOn": [
+        "OP-034-a"
+      ],
+      "coverageState": "unresolved",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": "'a duration threshold the team can be wrong about' (falsifiability of a threshold)",
+      "missingAuthorityOrDependency": "A decidable falsifiability criterion for duration thresholds.",
+      "whyRepositoryCannotResolve": "SPEC.md:90 poses falsifiability as a question and SPEC.md:131 makes non-falsifiability a not-testable trigger, but neither supplies a decidable test. checklist.json:84 supplies a falsifiability heuristic for segment definitions, which does not transfer to a duration threshold.",
+      "requiredOwnerDecisionOrEvidence": "An owner decision defining the criterion.",
+      "possibleLaterClassifications": [
+        "deterministic, if the owner supplies a structural criterion",
+        "model-assisted, if the criterion requires reading claim prose"
+      ],
+      "knownLimitations": [
+        "No rule is defined. Inventing a criterion would raise the automation count using an authored definition rather than an owner decision."
+      ],
+      "evidenceContract": null,
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-055-a",
+      "sourceStatementId": "SS-055",
+      "normativeObligation": "A pass requires that the number of sources which are independent, in-segment, document qualifying money or staff-hour commitment, and concern the existing problem is at least the configured minimum.",
+      "sourceClauseReference": "Pass requires the configured minimum of independent in-segment sources documenting qualifying money or staff-hour commitment to the existing problem.",
+      "derivationBasis": "source_obligation",
+      "proxiedSourceObligation": null,
+      "proxyLimitation": null,
+      "applicabilityConditions": [
+        "REQ-5 finding",
+        "status=pass proposed"
+      ],
+      "requiredEvidence": [
+        "/finding/evidenceIds",
+        "checklist.json configurableThresholds.minimumIndependentDirectlyRelevantSources"
+      ],
+      "observableInvariant": "Counting only sources satisfying all four qualifying predicates, the qualifying count is at least the configured minimum. A source failing any predicate is excluded from the count; its presence is never itself a violation.",
+      "evaluatorResponsibility": "deterministic",
+      "independentlyTestable": true,
+      "independenceJustification": "One conjunctive pass criterion. The four qualifications determine which sources count toward the single threshold; they are predicates of this obligation, not independent obligations, because evaluating the raw count apart from them could report a satisfied minimum that no qualifying source supports.",
+      "dependsOn": [],
+      "coverageState": "rule-covered",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": null,
+      "missingAuthorityOrDependency": null,
+      "whyRepositoryCannotResolve": null,
+      "requiredOwnerDecisionOrEvidence": null,
+      "possibleLaterClassifications": [],
+      "knownLimitations": [
+        "The four qualifications are exclusion predicates, not independent obligations. A non-qualifying source is excluded from the qualifying count and must not produce a violation when enough other sources qualify.",
+        "The single normative violation is that the qualifying count is below the configured minimum.",
+        "If the candidate-source inventory is incomplete, or any predicate classification is missing or untrusted, the result is indeterminate, never satisfied and never a violation.",
+        "Binds the configured threshold in checklist.json."
+      ],
+      "evidenceContract": null,
+      "qualifyingPredicates": [
+        "source is independent of the other counted sources",
+        "source is in-segment",
+        "source documents qualifying money or staff-hour commitment",
+        "the commitment concerns the existing problem"
+      ],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-055-b",
+      "sourceStatementId": "SS-055",
+      "normativeObligation": "Counterevidence must take the form of a documented evaluation followed by decline or abandonment.",
+      "sourceClauseReference": "Counterevidence requires documented evaluation followed by decline or abandonment",
+      "derivationBasis": "source_obligation",
+      "proxiedSourceObligation": null,
+      "proxyLimitation": null,
+      "applicabilityConditions": [
+        "REQ-5 finding",
+        "a record is proposed as counterevidence"
+      ],
+      "requiredEvidence": [
+        "/behaviorPlan/evidenceTreatments[] with role=contradiction"
+      ],
+      "observableInvariant": "Every contradiction-role treatment carries documentedEvaluation=true and outcome in {decline, abandon}.",
+      "evaluatorResponsibility": "deterministic",
+      "independentlyTestable": true,
+      "independenceJustification": "The structural form of counterevidence is testable separately from the reason behind it.",
+      "dependsOn": [],
+      "coverageState": "rule-covered",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": null,
+      "missingAuthorityOrDependency": null,
+      "whyRepositoryCannotResolve": null,
+      "requiredOwnerDecisionOrEvidence": null,
+      "possibleLaterClassifications": [],
+      "knownLimitations": [],
+      "evidenceContract": null,
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-055-c",
+      "sourceStatementId": "SS-055",
+      "normativeObligation": "The documented decline or abandonment must be because the problem did not justify the expenditure.",
+      "sourceClauseReference": "because the problem did not justify expenditure",
+      "derivationBasis": "source_obligation",
+      "proxiedSourceObligation": null,
+      "proxyLimitation": null,
+      "applicabilityConditions": [
+        "REQ-5 finding",
+        "a record passes the OP-055-b structural form"
+      ],
+      "requiredEvidence": [
+        "/packet/evidence[].content: the written reason"
+      ],
+      "observableInvariant": "The stated reason is classified as problem-did-not-justify-expenditure rather than another cause.",
+      "evaluatorResponsibility": "model-assisted",
+      "independentlyTestable": true,
+      "independenceJustification": "Reason classification is separable from the structural form.",
+      "dependsOn": [
+        "OP-055-b"
+      ],
+      "coverageState": "rule-covered",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": null,
+      "missingAuthorityOrDependency": null,
+      "whyRepositoryCannotResolve": null,
+      "requiredOwnerDecisionOrEvidence": null,
+      "possibleLaterClassifications": [],
+      "knownLimitations": [
+        "Model classification is structured evidence, not proof."
+      ],
+      "evidenceContract": null,
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-055-d",
+      "sourceStatementId": "SS-055",
+      "normativeObligation": "Non-purchase, missing records, unrelated budget constraints, and rejection of the proposed product must not qualify as counterevidence.",
+      "sourceClauseReference": "non-purchase, missing records, unrelated budget constraints, and rejection of the proposed product do not qualify",
+      "derivationBasis": "source_obligation",
+      "proxiedSourceObligation": null,
+      "proxyLimitation": null,
+      "applicabilityConditions": [
+        "REQ-5 finding",
+        "a record is proposed as counterevidence"
+      ],
+      "requiredEvidence": [
+        "/behaviorPlan/evidenceTreatments[] with role=contradiction"
+      ],
+      "observableInvariant": "No contradiction-role treatment carries an excluded qualification value.",
+      "evaluatorResponsibility": "deterministic",
+      "independentlyTestable": true,
+      "independenceJustification": "A closed exclusion set testable independently of the positive counterevidence conditions.",
+      "dependsOn": [],
+      "coverageState": "rule-covered",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": null,
+      "missingAuthorityOrDependency": null,
+      "whyRepositoryCannotResolve": null,
+      "requiredOwnerDecisionOrEvidence": null,
+      "possibleLaterClassifications": [],
+      "knownLimitations": [],
+      "evidenceContract": null,
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-055-e",
+      "sourceStatementId": "SS-055",
+      "normativeObligation": "A fail may be recorded only when the qualifying counterevidence count is at least the configured minimum and no comparably credible qualifying commitment exists within the packet.",
+      "sourceClauseReference": "Fail requires the configured counterevidence-source minimum | and no comparably credible qualifying commitment within this packet",
+      "derivationBasis": "source_obligation",
+      "proxiedSourceObligation": null,
+      "proxyLimitation": null,
+      "applicabilityConditions": [
+        "REQ-5 finding",
+        "status=fail proposed"
+      ],
+      "requiredEvidence": [
+        "/finding/contradictoryEvidenceIds",
+        "checklist.json configurableThresholds"
+      ],
+      "observableInvariant": "When a fail is recorded, the qualifying counterevidence count is at least the configured minimum and no comparably credible qualifying commitment exists within the packet.",
+      "evaluatorResponsibility": "deterministic",
+      "independentlyTestable": true,
+      "independenceJustification": "One conjunctive fail criterion. The counterevidence minimum and the absence of a comparably credible commitment are conjuncts of a single condition on recording fail, not independent obligations.",
+      "dependsOn": [
+        "OP-055-f"
+      ],
+      "coverageState": "rule-covered",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": null,
+      "missingAuthorityOrDependency": null,
+      "whyRepositoryCannotResolve": null,
+      "requiredOwnerDecisionOrEvidence": null,
+      "possibleLaterClassifications": [],
+      "knownLimitations": [
+        "The implication runs from the recorded result to the evidence: recording fail requires both conjuncts. Neither conjunct independently obliges anything.",
+        "Whether a comparably credible qualifying commitment exists is evaluator evidence supplied by the OP-055-f precondition. Missing, incomplete, or untrusted evidence yields indeterminate.",
+        "Binds the configured threshold in checklist.json."
+      ],
+      "evidenceContract": null,
+      "qualifyingPredicates": [
+        "qualifying counterevidence count is at least the configured minimum",
+        "no comparably credible qualifying commitment exists within the packet"
+      ],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-055-f",
+      "sourceStatementId": "SS-055",
+      "normativeObligation": "The evaluator must obtain a trusted determination whether a comparably credible qualifying commitment exists within the packet, in order to evaluate the fail criterion in OP-055-e.",
+      "sourceClauseReference": "(no source clause: input required to evaluate OP-055-e. The frozen fragment 'and no comparably credible qualifying commitment within this packet' is a conjunct of the fail criterion, not an independent obligation.)",
+      "derivationBasis": "evaluation_precondition",
+      "proxiedSourceObligation": null,
+      "proxyLimitation": null,
+      "applicabilityConditions": [
+        "REQ-5 finding",
+        "status=fail proposed",
+        "counterevidence minimum met"
+      ],
+      "requiredEvidence": [
+        "Reviewer judgment comparing credibility across records"
+      ],
+      "observableInvariant": "A trusted determination is available as to whether a comparably credible qualifying commitment exists within the packet.",
+      "evaluatorResponsibility": "human",
+      "independentlyTestable": true,
+      "independenceJustification": "Obtaining the determination is separable from the fail criterion that consumes it.",
+      "dependsOn": [],
+      "coverageState": "human-review-obligation",
+      "humanJudgmentRequired": "Whether a remaining qualifying commitment is comparably credible to the counterevidence.",
+      "whyAutomationInsufficient": "'Comparably credible' is a relative judgment across heterogeneous records with no defined metric in the repository. Counting sources does not answer it, and a model comparison would be an opinion presented as a measurement.",
+      "unresolvedTerm": null,
+      "missingAuthorityOrDependency": null,
+      "whyRepositoryCannotResolve": null,
+      "requiredOwnerDecisionOrEvidence": null,
+      "possibleLaterClassifications": [],
+      "knownLimitations": [
+        "This is an evaluator precondition, not a source obligation. The frozen fragment is grammatically part of the conjunctive fail criterion.",
+        "Its disposition remains human-review-obligation: comparative credibility has no defined metric in the repository.",
+        "Missing, incomplete, or untrusted evidence yields indeterminate for OP-055-e. No independent finding is generated merely because a comparable commitment does or does not exist."
+      ],
+      "evidenceContract": null,
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-055-g",
+      "sourceStatementId": "SS-055",
+      "normativeObligation": "Credible evidence on both sides must yield partial.",
+      "sourceClauseReference": "credible evidence on both sides yields partial",
+      "derivationBasis": "source_obligation",
+      "proxiedSourceObligation": null,
+      "proxyLimitation": null,
+      "applicabilityConditions": [
+        "REQ-5 finding",
+        "qualifying commitment and qualifying counterevidence both present"
+      ],
+      "requiredEvidence": [
+        "/finding/status",
+        "the OP-055-f credibility judgment"
+      ],
+      "observableInvariant": "When the evidence on each side has been determined credible, the recorded status is partial.",
+      "evaluatorResponsibility": "deterministic",
+      "independentlyTestable": true,
+      "independenceJustification": "A status-mapping rule testable once its credibility inputs are supplied.",
+      "dependsOn": [
+        "OP-055-m"
+      ],
+      "coverageState": "rule-covered",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": null,
+      "missingAuthorityOrDependency": null,
+      "whyRepositoryCannotResolve": null,
+      "requiredOwnerDecisionOrEvidence": null,
+      "possibleLaterClassifications": [],
+      "knownLimitations": [
+        "The implication follows the frozen verb 'yields': credible evidence on both sides is the antecedent and partial is the required consequence. It does not say that a partial requires credible evidence.",
+        "Credibility determinations are supplied by the OP-055-m precondition. Missing or untrusted determinations make the rule indeterminate; they are never assumed.",
+        "No workflow ordering is imposed."
+      ],
+      "evidenceContract": null,
+      "qualifyingPredicates": [],
+      "humanInputRequired": "Trusted credibility determinations for the evidence on each side, supplied by the OP-055-m precondition. This is the evaluation method for the obligation, not a separate obligation to perform a judgment in any order."
+    },
+    {
+      "obligationPartId": "OP-055-m",
+      "sourceStatementId": "SS-055",
+      "normativeObligation": "The evaluator must obtain trusted credibility determinations for the evidence on each side in order to evaluate OP-055-g.",
+      "sourceClauseReference": "(no source clause: input required to evaluate OP-055-g. The frozen text states the condition 'credible evidence on both sides', not a command to judge credibility.)",
+      "derivationBasis": "evaluation_precondition",
+      "proxiedSourceObligation": null,
+      "proxyLimitation": null,
+      "evidenceContract": null,
+      "qualifyingPredicates": [],
+      "humanInputRequired": null,
+      "applicabilityConditions": [
+        "REQ-5 finding",
+        "evidence present on both sides"
+      ],
+      "requiredEvidence": [
+        "Reviewer credibility determination for the evidence on each side"
+      ],
+      "observableInvariant": "A trusted credibility determination is available for the evidence on each side.",
+      "evaluatorResponsibility": "human",
+      "independentlyTestable": true,
+      "independenceJustification": "Obtaining the credibility determinations is separable from the status mapping that consumes them.",
+      "dependsOn": [],
+      "coverageState": "human-review-obligation",
+      "humanJudgmentRequired": "Whether the evidence on each side is credible.",
+      "whyAutomationInsufficient": "Credibility is not derivable from any packet field and has no defined metric in the repository. A model comparison would be an opinion presented as a measurement.",
+      "unresolvedTerm": null,
+      "missingAuthorityOrDependency": null,
+      "whyRepositoryCannotResolve": null,
+      "requiredOwnerDecisionOrEvidence": null,
+      "possibleLaterClassifications": [],
+      "knownLimitations": [
+        "This is an evaluator precondition, not a source obligation. It supplies evidence for OP-055-g.",
+        "Missing or untrusted credibility determinations yield indeterminate for OP-055-g, never a product obligation violation.",
+        "No executable evaluator coverage: the determination can only be supplied by a person."
+      ]
+    },
+    {
+      "obligationPartId": "OP-060-a",
+      "sourceStatementId": "SS-060",
+      "normativeObligation": "The evaluator must obtain a trusted materiality determination for a classification disagreement with team sorting in order to evaluate OP-060-b and OP-060-c.",
+      "sourceClauseReference": "(no source clause: input required to evaluate OP-060-b and OP-060-c. The frozen text states the condition 'any material classification disagreement', not a command to judge every disagreement.)",
+      "derivationBasis": "evaluation_precondition",
+      "proxiedSourceObligation": null,
+      "proxyLimitation": null,
+      "applicabilityConditions": [
+        "REQ-1 finding",
+        "an independent rater result is available"
+      ],
+      "requiredEvidence": [
+        "Reviewer judgment over the disagreement set"
+      ],
+      "observableInvariant": "A trusted materiality determination is available for the classification disagreement with team sorting.",
+      "evaluatorResponsibility": "human",
+      "independentlyTestable": true,
+      "independenceJustification": "Obtaining the materiality determination is separable from the two consequences that consume it.",
+      "dependsOn": [],
+      "coverageState": "human-review-obligation",
+      "humanJudgmentRequired": "Whether an observed classification disagreement is material.",
+      "whyAutomationInsufficient": "No materiality threshold exists in SPEC.md or checklist.json. A count-based proxy would be an invented criterion, and a model judgment would restate the question rather than settle it.",
+      "unresolvedTerm": null,
+      "missingAuthorityOrDependency": null,
+      "whyRepositoryCannotResolve": null,
+      "requiredOwnerDecisionOrEvidence": null,
+      "possibleLaterClassifications": [],
+      "knownLimitations": [
+        "This is an evaluator precondition, not a source obligation. The frozen statement states a condition ('any material classification disagreement'), not an obligation to judge every disagreement.",
+        "Its disposition remains human-review-obligation: no materiality threshold exists in SPEC.md or checklist.json, so the determination can only be supplied by a person.",
+        "Missing or untrusted determination yields indeterminate for OP-060-b and OP-060-c, never a product obligation violation."
+      ],
+      "evidenceContract": null,
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-060-c",
+      "sourceStatementId": "SS-060",
+      "normativeObligation": "A material classification disagreement with team sorting must be treated as evidence of an underspecified boundary.",
+      "sourceClauseReference": "as evidence of an underspecified boundary",
+      "derivationBasis": "source_obligation",
+      "proxiedSourceObligation": null,
+      "proxyLimitation": null,
+      "evidenceContract": null,
+      "applicabilityConditions": [
+        "REQ-1 finding",
+        "materiality recorded as material"
+      ],
+      "requiredEvidence": [
+        "/finding/subAssessments/definitionQuality",
+        "the OP-060-a materiality judgment"
+      ],
+      "observableInvariant": "When materiality is recorded as material, the finding records an underspecified segment-definition boundary.",
+      "evaluatorResponsibility": "deterministic",
+      "independentlyTestable": true,
+      "independenceJustification": "Recording the boundary as underspecified is separable from judging materiality and from the status change that follows.",
+      "dependsOn": [
+        "OP-060-a"
+      ],
+      "coverageState": "rule-covered",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": null,
+      "missingAuthorityOrDependency": null,
+      "whyRepositoryCannotResolve": null,
+      "requiredOwnerDecisionOrEvidence": null,
+      "possibleLaterClassifications": [],
+      "knownLimitations": [
+        "Depends on a human input. Absent the OP-060-a judgment the outcome is indeterminate."
+      ],
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-060-b",
+      "sourceStatementId": "SS-060",
+      "normativeObligation": "A material classification disagreement must change the finding from pass to partial.",
+      "sourceClauseReference": "changes the result from pass to partial",
+      "derivationBasis": "source_obligation",
+      "proxiedSourceObligation": null,
+      "proxyLimitation": null,
+      "applicabilityConditions": [
+        "REQ-1 finding",
+        "materiality judgment recorded as material"
+      ],
+      "requiredEvidence": [
+        "/finding/status",
+        "the OP-060-a materiality judgment"
+      ],
+      "observableInvariant": "When materiality is recorded as material, status is partial and not pass.",
+      "evaluatorResponsibility": "deterministic",
+      "independentlyTestable": true,
+      "independenceJustification": "The status transition is a closed mapping testable once materiality is supplied.",
+      "dependsOn": [
+        "OP-060-a"
+      ],
+      "coverageState": "rule-covered",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": null,
+      "missingAuthorityOrDependency": null,
+      "whyRepositoryCannotResolve": null,
+      "requiredOwnerDecisionOrEvidence": null,
+      "possibleLaterClassifications": [],
+      "knownLimitations": [
+        "Depends on a human input. If the OP-060-a judgment is absent the outcome is indeterminate."
+      ],
+      "evidenceContract": null,
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-070-a",
+      "sourceStatementId": "SS-070",
+      "normativeObligation": "The plan must declare a window-definition step producing eight consecutive calendar-week windows.",
+      "sourceClauseReference": "Define eight consecutive calendar-week windows",
+      "derivationBasis": "evaluation_proxy",
+      "proxiedSourceObligation": "Exactly eight consecutive calendar-week windows are actually defined (OP-070-d).",
+      "proxyLimitation": "Declaring a step in the submitted plan is not evidence that the step was or would be performed. This is an observable proxy for the source obligation, not the source obligation itself.",
+      "applicabilityConditions": [
+        "REQ-3 finding",
+        "claimScope=recurrence"
+      ],
+      "requiredEvidence": [
+        "/behaviorPlan/steps entry with operation=defineWindow"
+      ],
+      "observableInvariant": "A defineWindow step exists declaring eight consecutive calendar-week windows.",
+      "evaluatorResponsibility": "deterministic",
+      "independentlyTestable": true,
+      "independenceJustification": "Step presence is testable independently of the order in which steps appear.",
+      "dependsOn": [],
+      "coverageState": "rule-covered",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": null,
+      "missingAuthorityOrDependency": null,
+      "whyRepositoryCannotResolve": null,
+      "requiredOwnerDecisionOrEvidence": null,
+      "possibleLaterClassifications": [],
+      "knownLimitations": [
+        "Declaring a step in the submitted plan is not evidence that the step was or would be performed. This is an observable proxy for the source obligation, not the source obligation itself."
+      ],
+      "evidenceContract": null,
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-070-b",
+      "sourceStatementId": "SS-070",
+      "normativeObligation": "The window-definition step must be declared before the event-measurement step.",
+      "sourceClauseReference": "before inspecting events",
+      "derivationBasis": "evaluation_proxy",
+      "proxiedSourceObligation": "The windows were actually fixed before the events were inspected (OP-070-c).",
+      "proxyLimitation": "Declared plan order is only a proxy. The real chronology obligation is OP-070-c and remains unresolved; the two must stay distinguishable.",
+      "applicabilityConditions": [
+        "REQ-3 finding",
+        "both a defineWindow step and a measureEvents step are declared"
+      ],
+      "requiredEvidence": [
+        "/behaviorPlan/steps[].ordinal"
+      ],
+      "observableInvariant": "The defineWindow ordinal is lower than the measureEvents ordinal.",
+      "evaluatorResponsibility": "deterministic",
+      "independentlyTestable": true,
+      "independenceJustification": "Relative order is a distinct obligation from the presence of either step.",
+      "dependsOn": [
+        "OP-070-a"
+      ],
+      "coverageState": "rule-covered",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": null,
+      "missingAuthorityOrDependency": null,
+      "whyRepositoryCannotResolve": null,
+      "requiredOwnerDecisionOrEvidence": null,
+      "possibleLaterClassifications": [],
+      "knownLimitations": [
+        "Declared ordering only.",
+        "If either step is absent this is indeterminate, not a violation; absence is reported by OP-070-a."
+      ],
+      "evidenceContract": null,
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-070-c",
+      "sourceStatementId": "SS-070",
+      "normativeObligation": "The windows must actually have been fixed before the events were inspected.",
+      "sourceClauseReference": "before inspecting events",
+      "derivationBasis": "source_obligation",
+      "proxiedSourceObligation": null,
+      "proxyLimitation": null,
+      "applicabilityConditions": [
+        "REQ-3 finding",
+        "a recurrence claim is evaluated against dated event records"
+      ],
+      "requiredEvidence": [
+        "An approved, pinned, independently produced event source recording when the window was defined"
+      ],
+      "observableInvariant": "Undefined: no trustworthy event source exists against which to compare.",
+      "evaluatorResponsibility": "none",
+      "independentlyTestable": false,
+      "independenceJustification": "Cannot be judged independently testable while no approved event source exists.",
+      "dependsOn": [
+        "OP-070-b"
+      ],
+      "coverageState": "unresolved",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": "real-world chronology of window definition relative to event inspection",
+      "missingAuthorityOrDependency": "An approved, externally pinned, independently produced and tamper-evident event source.",
+      "whyRepositoryCannotResolve": "evidence-packet.schema.json exposes collectedDate, collectionMethod, proximity, source, supersession, scope and limitations, and contains no field recording when a method, window or threshold was defined; searches for predefin, preregist, protocol, definedAt, methodDate, recordedAt and timestamp return zero occurrences. collectedDate records collection, not window selection, and is self-declared inside the packet.",
+      "requiredOwnerDecisionOrEvidence": "An owner decision on whether a provenance contract is pursued, then external approval and pinning.",
+      "possibleLaterClassifications": [
+        "external-then-deterministic, only after an event source is externally approved and pinned"
+      ],
+      "knownLimitations": [
+        "No rule is defined; the obligation is normative but currently unsupported.",
+        "OP-070-b's declared order is a proxy for this obligation and must not be treated as satisfying it.",
+        "Remains unsupported for observedEventPrecedes until trustworthy chronology is externally approved.",
+        "SS-070 carries two distinct source obligations: OP-070-d (windows genuinely defined) and OP-070-c (that definition preceded inspection). Neither is established by a declared step."
+      ],
+      "evidenceContract": null,
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-070-d",
+      "sourceStatementId": "SS-070",
+      "normativeObligation": "Exactly eight consecutive calendar-week windows must actually be defined.",
+      "sourceClauseReference": "Define eight consecutive calendar-week windows",
+      "derivationBasis": "source_obligation",
+      "proxiedSourceObligation": null,
+      "proxyLimitation": null,
+      "applicabilityConditions": [
+        "REQ-3 finding",
+        "claimScope=recurrence"
+      ],
+      "requiredEvidence": [
+        "An approved, pinned, independently produced record that the windows were defined"
+      ],
+      "observableInvariant": "Undefined: no trustworthy record exists showing that exactly eight consecutive calendar-week windows were actually defined, as distinct from a step declaring that they would be.",
+      "evaluatorResponsibility": "none",
+      "independentlyTestable": false,
+      "independenceJustification": "Cannot be judged independently testable while no trustworthy record of the definition act exists.",
+      "dependsOn": [],
+      "coverageState": "unresolved",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": "actual definition of the evaluation windows, as opposed to a declared intention to define them",
+      "missingAuthorityOrDependency": "An approved, externally pinned, independently produced record of the window-definition act.",
+      "whyRepositoryCannotResolve": "The behaviour plan can only declare that a defineWindow step exists. evidence-packet.schema.json carries no field recording that windows were defined, by whom, or when, so declaration is the only observable and it is authored by the party under evaluation.",
+      "requiredOwnerDecisionOrEvidence": "The same owner decision as OP-070-c: whether a provenance contract is pursued, then external approval and pinning of a source.",
+      "possibleLaterClassifications": [
+        "external-then-deterministic, once a trustworthy record exists"
+      ],
+      "knownLimitations": [
+        "No rule is defined; the obligation is normative but currently unsupported.",
+        "OP-070-a's declared window step is a proxy for this obligation and must not be treated as satisfying it.",
+        "SS-070 carries two distinct source obligations: the windows must genuinely be defined (OP-070-d) and that definition must precede inspection (OP-070-c). A declared workflow step is only a proxy for either fact.",
+        "The window count (exactly eight), their consecutiveness, and their calendar-week basis are part of this obligation and must appear in any future evaluation contract, not only in the quoted source."
+      ],
+      "evidenceContract": null,
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    }
+  ]
+}

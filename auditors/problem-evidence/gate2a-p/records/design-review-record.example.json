@@ -1,0 +1,24 @@
+{
+  "recordId": "gate2a-p-design-review-pending",
+  "contractVersion": "0.13.0-draft",
+  "recordKind": "design-review",
+  "reviewedArtifactPath": "auditors/problem-evidence/gate2a-p/manifest.json",
+  "reviewedArtifactVersion": "0.2.0-draft",
+  "reviewedArtifactDigest": "a4f754c6d3de82d1426cd2693cf11e3832d925235a54562fc6c7833a86fe313e",
+  "digestAlgorithm": "json.dumps-sort-keys-compact-sha256",
+  "reviewStatus": "pending-owner-review",
+  "humanReviewOccurred": false,
+  "designApproved": false,
+  "reviewerRepresentation": null,
+  "reviewTimestamp": null,
+  "scopeOfDecision": "Illustrative example of the external review-record shape. No review has occurred. The record references the package manifest and its digest and is excluded from that digest, so updating the record never mutates the reviewed content.",
+  "doesNotEstablish": [
+    "Authenticated reviewer identity",
+    "Tamper-proof detached authority",
+    "Operational comparator permission",
+    "Runtime-enforcement permission",
+    "Model compatibility approval",
+    "Gate 2A-P or Gate 2A completion",
+    "Formal Phase 1 acceptance"
+  ]
+}
