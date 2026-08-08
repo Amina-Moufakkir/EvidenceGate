@@ -57,6 +57,11 @@ src/
 tests/
   problem_evidence/          Phase 1 runtime tests (offline, fake adapters)
   gate2a/                    Gate 2A design-package structural validation
+docs/
+  audits/
+    README.md                Audit governance: record requirements, coordinated
+                             disclosure, false-pass preservation
+    records/                 One record per review, verdicts preserved as issued
 ```
 
 ## Authority
@@ -66,6 +71,8 @@ Three artifacts own three different things. Where they disagree, the owner wins.
 - **`schema/*.json`** owns structure — fields, types, enums, ID formats.
 - **`checklist.json`** owns requirement definitions and configurable thresholds, each with its rationale.
 - **`SPEC.md`** owns policy semantics — status meanings, gating, contradiction handling, scope of authority.
+
+Those three own the auditor. **Repository review governance is separate and lives in `docs/audits/README.md`** — what an audit record must contain, the coordinated-disclosure policy, and what a record of a false pass must preserve. It governs how reviews are recorded and disclosed; it confers no authority over auditor structure, requirement definitions, or policy semantics.
 
 ## Components
 
