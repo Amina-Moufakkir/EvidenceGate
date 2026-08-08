@@ -1,7 +1,7 @@
 {
   "packageId": "gate2a-p-obligation-parts",
   "contractVersion": "0.14.0-draft",
-  "scope": "pilot-subset",
+  "scope": "expansion-in-progress",
   "derivationBasisNote": "source_obligation is required by the frozen text. evaluation_precondition is input the evaluator needs and is not a source requirement. evaluation_proxy is an observable stand-in for a source obligation the repository cannot observe directly; a proxy never counts as source-derived coverage.",
   "parts": [
     {
@@ -1345,6 +1345,442 @@
         "OP-070-a's declared window step is a proxy for this obligation and must not be treated as satisfying it.",
         "SS-070 carries two distinct source obligations: the windows must genuinely be defined (OP-070-d) and that definition must precede inspection (OP-070-c). A declared workflow step is only a proxy for either fact.",
         "The window count (exactly eight), their consecutiveness, and their calendar-week basis are part of this obligation and must appear in any future evaluation contract, not only in the quoted source."
+      ],
+      "evidenceContract": null,
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-004-a",
+      "sourceStatementId": "SS-004",
+      "normativeObligation": "No REQ-1 verification step or evidence treatment may cite the existing screening sheet as empirical proof of market validity.",
+      "sourceClauseReference": "Do not treat the existing screening sheet as empirical proof of market validity.",
+      "derivationBasis": "source_obligation",
+      "proxiedSourceObligation": null,
+      "proxyLimitation": null,
+      "applicabilityConditions": [
+        "REQ-1 finding"
+      ],
+      "requiredEvidence": [],
+      "observableInvariant": "Across every classified candidate REQ-1 input, none classified as the existing screening sheet appears in a role asserting empirical proof of market validity.",
+      "evaluatorResponsibility": "deterministic",
+      "independentlyTestable": true,
+      "independenceJustification": "The statement expresses exactly one prohibition over a single named packet artifact in a single asserted role.",
+      "dependsOn": [
+        "OP-004-b"
+      ],
+      "coverageState": "rule-covered",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": null,
+      "missingAuthorityOrDependency": null,
+      "whyRepositoryCannotResolve": null,
+      "requiredOwnerDecisionOrEvidence": null,
+      "possibleLaterClassifications": [],
+      "knownLimitations": [
+        "Normative only over inputs covered by an approved classification. If the inventory is incomplete or the classification is absent or untrusted, the result is indeterminate, never satisfied.",
+        "The frozen statement prohibits treating the sheet as empirical proof of market validity. It does not prohibit citing the sheet for any other purpose, and this part does not broaden it to one."
+      ],
+      "evidenceContract": {
+        "completeInventoryRequired": true,
+        "inventoryScope": "every candidate REQ-1 input in the packet, together with the role each input is given in the finding, not only inputs already identified as the screening sheet",
+        "trustedClassificationRequired": true,
+        "resultWhenInventoryIncomplete": "indeterminate",
+        "resultWhenClassificationMissingOrUntrusted": "indeterminate",
+        "remainsSourceDerivedOnlyIf": "The obligation is source-derived unconditionally; it is normative language in the frozen statement. Only a nonconforming implementation that checked an incomplete inventory or a self-declared screening-sheet identification, rather than a complete approved inventory, would be a proxy.",
+        "currentStatus": "Whether an approved screening-sheet identification exists is recorded externally, not here. Absent an approved identification the rule evaluates to indeterminate; it does not cease to be source-derived.",
+        "classificationAuthorityRecordRef": "records/classification-authority-record.example.json"
+      },
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-004-b",
+      "sourceStatementId": "SS-004",
+      "normativeObligation": "The evaluator must obtain a complete inventory of candidate REQ-1 inputs together with an approved identification of the existing screening sheet and of any role asserting empirical proof of market validity.",
+      "sourceClauseReference": "(no source clause: input required to evaluate OP-004-a normatively)",
+      "derivationBasis": "evaluation_precondition",
+      "proxiedSourceObligation": null,
+      "proxyLimitation": null,
+      "applicabilityConditions": [
+        "REQ-1 finding"
+      ],
+      "requiredEvidence": [
+        "/packet/evidence[]",
+        "an approved identification of the existing screening sheet"
+      ],
+      "observableInvariant": "A complete candidate-input inventory exists and every entry carries an approved screening-sheet identification and an approved role classification.",
+      "evaluatorResponsibility": "model-assisted",
+      "independentlyTestable": true,
+      "independenceJustification": "Identifying the artifact and its asserted role is separable from the prohibition that consumes that identification.",
+      "dependsOn": [],
+      "coverageState": "rule-covered",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": null,
+      "missingAuthorityOrDependency": null,
+      "whyRepositoryCannotResolve": null,
+      "requiredOwnerDecisionOrEvidence": null,
+      "possibleLaterClassifications": [],
+      "knownLimitations": [
+        "This is an evaluator precondition, not a source obligation. Unavailability yields precondition_unavailable and is never a product obligation violation.",
+        "No approved identification scheme for REQ-1 candidate inputs exists in the repository today, so OP-004-a currently evaluates to indeterminate."
+      ],
+      "evidenceContract": null,
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-009-a",
+      "sourceStatementId": "SS-009",
+      "normativeObligation": "No recorded determination that EV-003 supersedes EV-002 may rest on source identity or chronology alone.",
+      "sourceClauseReference": "Do not treat EV-003 as automatically superseding EV-002 by source identity or chronology.",
+      "derivationBasis": "source_obligation",
+      "proxiedSourceObligation": null,
+      "proxyLimitation": null,
+      "applicabilityConditions": [
+        "REQ-2 finding"
+      ],
+      "requiredEvidence": [],
+      "observableInvariant": "For every recorded EV-003-supersedes-EV-002 determination, the recorded justification is classified as resting on something other than source identity or chronology alone.",
+      "evaluatorResponsibility": "deterministic",
+      "independentlyTestable": true,
+      "independenceJustification": "The statement expresses exactly one prohibition over a single named supersession determination and a single closed set of disallowed justifications.",
+      "dependsOn": [
+        "OP-009-b"
+      ],
+      "coverageState": "rule-covered",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": null,
+      "missingAuthorityOrDependency": null,
+      "whyRepositoryCannotResolve": null,
+      "requiredOwnerDecisionOrEvidence": null,
+      "possibleLaterClassifications": [],
+      "knownLimitations": [
+        "Normative only over determinations covered by an approved justification classification. If the inventory is incomplete or the classification is absent or untrusted, the result is indeterminate, never satisfied.",
+        "The frozen statement prohibits AUTOMATIC supersession by source identity or chronology. It does not prohibit supersession itself: a determination justified by satisfaction of the explicit supersession conditions is permitted and this part does not forbid it."
+      ],
+      "evidenceContract": {
+        "completeInventoryRequired": true,
+        "inventoryScope": "every recorded supersession determination between EV-003 and EV-002, together with its recorded justification, not only determinations whose justification basis is already declared",
+        "trustedClassificationRequired": true,
+        "resultWhenInventoryIncomplete": "indeterminate",
+        "resultWhenClassificationMissingOrUntrusted": "indeterminate",
+        "remainsSourceDerivedOnlyIf": "The obligation is source-derived unconditionally; it is normative language in the frozen statement. Only a nonconforming implementation that checked an incomplete inventory or a self-declared justification-basis classification, rather than a complete approved inventory, would be a proxy.",
+        "currentStatus": "Whether an approved justification-basis classification exists is recorded externally, not here. Absent an approved classification the rule evaluates to indeterminate; it does not cease to be source-derived.",
+        "classificationAuthorityRecordRef": "records/classification-authority-record.example.json"
+      },
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-009-b",
+      "sourceStatementId": "SS-009",
+      "normativeObligation": "The evaluator must obtain a complete inventory of recorded EV-003-supersedes-EV-002 determinations together with an approved classification of each recorded justification.",
+      "sourceClauseReference": "(no source clause: input required to evaluate OP-009-a normatively)",
+      "derivationBasis": "evaluation_precondition",
+      "proxiedSourceObligation": null,
+      "proxyLimitation": null,
+      "applicabilityConditions": [
+        "REQ-2 finding"
+      ],
+      "requiredEvidence": [
+        "/behaviorPlan/evidenceTreatments",
+        "an approved classification of each recorded supersession justification"
+      ],
+      "observableInvariant": "A complete supersession-determination inventory exists and every entry carries an approved justification classification.",
+      "evaluatorResponsibility": "model-assisted",
+      "independentlyTestable": true,
+      "independenceJustification": "Obtaining and classifying the recorded justifications is separable from the prohibition that consumes the classification.",
+      "dependsOn": [],
+      "coverageState": "rule-covered",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": null,
+      "missingAuthorityOrDependency": null,
+      "whyRepositoryCannotResolve": null,
+      "requiredOwnerDecisionOrEvidence": null,
+      "possibleLaterClassifications": [],
+      "knownLimitations": [
+        "This is an evaluator precondition, not a source obligation. Unavailability yields precondition_unavailable and is never a product obligation violation.",
+        "No approved justification-classification scheme exists in the repository today, so OP-009-a currently evaluates to indeterminate."
+      ],
+      "evidenceContract": null,
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-010-a",
+      "sourceStatementId": "SS-010",
+      "normativeObligation": "EV-015, which the frozen statement identifies as out of segment, must appear in neither a supporting nor a contradicting role in the REQ-2 finding.",
+      "sourceClauseReference": "Do not use out-of-segment EV-015 as support or contradiction.",
+      "derivationBasis": "source_obligation",
+      "proxiedSourceObligation": null,
+      "proxyLimitation": null,
+      "applicabilityConditions": [
+        "REQ-2 finding"
+      ],
+      "requiredEvidence": [],
+      "observableInvariant": "No evidence treatment referencing EV-015 carries a supporting role, and no evidence treatment referencing EV-015 carries a contradicting role.",
+      "evaluatorResponsibility": "deterministic",
+      "independentlyTestable": true,
+      "independenceJustification": "The statement expresses one symmetric prohibition over a single named evidence item; the two directions share one exclusion and are not independently satisfiable.",
+      "dependsOn": [],
+      "coverageState": "rule-covered",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": null,
+      "missingAuthorityOrDependency": null,
+      "whyRepositoryCannotResolve": null,
+      "requiredOwnerDecisionOrEvidence": null,
+      "possibleLaterClassifications": [],
+      "knownLimitations": [
+        "The exclusion is symmetric. Enforcing only the supporting direction would silently drop half of the frozen obligation, so both directions are conjoined in one invariant.",
+        "The invariant is observable over declared evidence treatments. Undeclared prose that uses EV-015 without referencing it cannot be detected structurally.",
+        "The frozen statement supplies EV-015's out-of-segment status; this part does not re-derive it and does not require the evaluator to determine segment fit."
+      ],
+      "evidenceContract": null,
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-027-a",
+      "sourceStatementId": "SS-027",
+      "normativeObligation": "No plan step or evidence treatment may use demand for a proposed product as evidence of existing-problem commitment for REQ-5.",
+      "sourceClauseReference": "Do not use demand for a proposed product as evidence of existing-problem commitment.",
+      "derivationBasis": "source_obligation",
+      "proxiedSourceObligation": null,
+      "proxyLimitation": null,
+      "applicabilityConditions": [
+        "REQ-5 finding"
+      ],
+      "requiredEvidence": [],
+      "observableInvariant": "Across every classified candidate REQ-5 input, none classified as demand for the proposed product appears as evidence of existing-problem commitment.",
+      "evaluatorResponsibility": "deterministic",
+      "independentlyTestable": true,
+      "independenceJustification": "The statement expresses exactly one prohibition over a single source category in a single asserted role.",
+      "dependsOn": [
+        "OP-027-b"
+      ],
+      "coverageState": "rule-covered",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": null,
+      "missingAuthorityOrDependency": null,
+      "whyRepositoryCannotResolve": null,
+      "requiredOwnerDecisionOrEvidence": null,
+      "possibleLaterClassifications": [],
+      "knownLimitations": [
+        "Normative only over inputs covered by an approved classification. If the inventory is incomplete or the classification is absent or untrusted, the result is indeterminate, never satisfied.",
+        "Owner-selected D2 representation: this obligation is deliberately separate from OP-026-a, and their enforceable invariants overlap. SS-026 and SS-027 are distinct frozen statements with distinct stable numbers, so each keeps its own obligation part, its own atomic rule and its own traceability path. Neither statement may disappear from the 87-statement accounting by being folded into the other.",
+        "Scope relation, stated so the redundancy is explicit rather than silent: this part's category is demand for the proposed product, of which willingness to pay is one species. OP-026-a remains scoped to willingness to pay and is not broadened here; this part is not narrowed to willingness to pay alone."
+      ],
+      "evidenceContract": {
+        "completeInventoryRequired": true,
+        "inventoryScope": "every candidate REQ-5 input in the packet, classified for proposed-product demand rather than only for willingness to pay, not only inputs with a declared sourceCategory",
+        "trustedClassificationRequired": true,
+        "resultWhenInventoryIncomplete": "indeterminate",
+        "resultWhenClassificationMissingOrUntrusted": "indeterminate",
+        "remainsSourceDerivedOnlyIf": "The obligation is source-derived unconditionally; it is normative language in the frozen statement. Only a nonconforming implementation that checked an incomplete inventory or a self-declared proposed-product-demand classification, rather than a complete approved inventory, would be a proxy.",
+        "currentStatus": "Whether an approved proposed-product-demand classification exists is recorded externally, not here. Absent an approved classification the rule evaluates to indeterminate; it does not cease to be source-derived.",
+        "classificationAuthorityRecordRef": "records/classification-authority-record.example.json"
+      },
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-027-b",
+      "sourceStatementId": "SS-027",
+      "normativeObligation": "The evaluator must obtain a complete inventory of candidate REQ-5 inputs together with an approved proposed-product-demand classification for each.",
+      "sourceClauseReference": "(no source clause: input required to evaluate OP-027-a normatively)",
+      "derivationBasis": "evaluation_precondition",
+      "proxiedSourceObligation": null,
+      "proxyLimitation": null,
+      "applicabilityConditions": [
+        "REQ-5 finding"
+      ],
+      "requiredEvidence": [
+        "/packet/evidence[]",
+        "an approved proposed-product-demand classification of each candidate input"
+      ],
+      "observableInvariant": "A complete candidate-input inventory exists and every entry carries an approved proposed-product-demand classification.",
+      "evaluatorResponsibility": "model-assisted",
+      "independentlyTestable": true,
+      "independenceJustification": "Obtaining and classifying the candidate inputs is separable from the prohibition that consumes the classification.",
+      "dependsOn": [],
+      "coverageState": "rule-covered",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": null,
+      "missingAuthorityOrDependency": null,
+      "whyRepositoryCannotResolve": null,
+      "requiredOwnerDecisionOrEvidence": null,
+      "possibleLaterClassifications": [],
+      "knownLimitations": [
+        "This is an evaluator precondition, not a source obligation. Unavailability yields precondition_unavailable and is never a product obligation violation.",
+        "No approved classification scheme for REQ-5 candidate inputs exists in the repository today, so OP-027-a currently evaluates to indeterminate.",
+        "This precondition is distinct from OP-026-b: it requires a proposed-product-demand classification, which is broader than the willingness-to-pay classification OP-026-b requires. Neither substitutes for the other."
+      ],
+      "evidenceContract": null,
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-028-a",
+      "sourceStatementId": "SS-028",
+      "normativeObligation": "Every withdrawn or declined commitment record present in the packet must remain visible in the REQ-5 finding's evidence treatments and must not be omitted.",
+      "sourceClauseReference": "Do not ignore withdrawn or declined commitment records.",
+      "derivationBasis": "source_obligation",
+      "proxiedSourceObligation": null,
+      "proxyLimitation": null,
+      "applicabilityConditions": [
+        "REQ-5 finding"
+      ],
+      "requiredEvidence": [],
+      "observableInvariant": "Every packet record classified as a withdrawn or declined commitment record appears in the REQ-5 finding's evidence treatments in some role, including a visible non-qualifying role.",
+      "evaluatorResponsibility": "deterministic",
+      "independentlyTestable": true,
+      "independenceJustification": "The statement expresses exactly one non-omission duty over a single closed record category.",
+      "dependsOn": [
+        "OP-028-b"
+      ],
+      "coverageState": "rule-covered",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": null,
+      "missingAuthorityOrDependency": null,
+      "whyRepositoryCannotResolve": null,
+      "requiredOwnerDecisionOrEvidence": null,
+      "possibleLaterClassifications": [],
+      "knownLimitations": [
+        "Normative only over records covered by an approved classification. If the inventory is incomplete or the classification is absent or untrusted, the result is indeterminate, never satisfied.",
+        "This obligation is visibility, not qualification. Whether a withdrawn or declined record QUALIFIES as REQ-5 counterevidence is governed separately by OP-055-b, OP-055-c and OP-055-d. A record may be visible and non-qualifying at the same time; this part does not make it counterevidence and does not exempt it from those qualification rules."
+      ],
+      "evidenceContract": {
+        "completeInventoryRequired": true,
+        "inventoryScope": "every commitment record in the packet, classified for withdrawal or decline, not only records already present in the REQ-5 finding's evidence treatments",
+        "trustedClassificationRequired": true,
+        "resultWhenInventoryIncomplete": "indeterminate",
+        "resultWhenClassificationMissingOrUntrusted": "indeterminate",
+        "remainsSourceDerivedOnlyIf": "The obligation is source-derived unconditionally; it is normative language in the frozen statement. Only a nonconforming implementation that checked an incomplete inventory or a self-declared withdrawn-or-declined classification, rather than a complete approved inventory, would be a proxy.",
+        "currentStatus": "Whether an approved withdrawn-or-declined classification exists is recorded externally, not here. Absent an approved classification the rule evaluates to indeterminate; it does not cease to be source-derived.",
+        "classificationAuthorityRecordRef": "records/classification-authority-record.example.json"
+      },
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-028-b",
+      "sourceStatementId": "SS-028",
+      "normativeObligation": "The evaluator must obtain a complete inventory of packet commitment records together with an approved withdrawn-or-declined classification for each.",
+      "sourceClauseReference": "(no source clause: input required to evaluate OP-028-a normatively)",
+      "derivationBasis": "evaluation_precondition",
+      "proxiedSourceObligation": null,
+      "proxyLimitation": null,
+      "applicabilityConditions": [
+        "REQ-5 finding"
+      ],
+      "requiredEvidence": [
+        "/packet/evidence[]",
+        "an approved withdrawn-or-declined classification of each commitment record"
+      ],
+      "observableInvariant": "A complete commitment-record inventory exists and every entry carries an approved withdrawn-or-declined classification.",
+      "evaluatorResponsibility": "model-assisted",
+      "independentlyTestable": true,
+      "independenceJustification": "Identifying which records are withdrawn or declined is separable from the non-omission duty that consumes that identification.",
+      "dependsOn": [],
+      "coverageState": "rule-covered",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": null,
+      "missingAuthorityOrDependency": null,
+      "whyRepositoryCannotResolve": null,
+      "requiredOwnerDecisionOrEvidence": null,
+      "possibleLaterClassifications": [],
+      "knownLimitations": [
+        "This is an evaluator precondition, not a source obligation. Unavailability yields precondition_unavailable and is never a product obligation violation.",
+        "No approved withdrawn-or-declined classification scheme exists in the repository today, so OP-028-a currently evaluates to indeterminate."
+      ],
+      "evidenceContract": null,
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-039-a",
+      "sourceStatementId": "SS-039",
+      "normativeObligation": "Absence of occurrence evidence must not be recorded as contradiction of the REQ-2 claim.",
+      "sourceClauseReference": "Do not treat missing occurrence evidence as contradiction.",
+      "derivationBasis": "source_obligation",
+      "proxiedSourceObligation": null,
+      "proxyLimitation": null,
+      "applicabilityConditions": [
+        "REQ-2 finding"
+      ],
+      "requiredEvidence": [],
+      "observableInvariant": "No evidence treatment whose recorded basis is the absence of occurrence evidence carries a contradicting role.",
+      "evaluatorResponsibility": "deterministic",
+      "independentlyTestable": true,
+      "independenceJustification": "The statement expresses exactly one prohibition over a single closed basis category in a single role.",
+      "dependsOn": [
+        "OP-039-b"
+      ],
+      "coverageState": "rule-covered",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": null,
+      "missingAuthorityOrDependency": null,
+      "whyRepositoryCannotResolve": null,
+      "requiredOwnerDecisionOrEvidence": null,
+      "possibleLaterClassifications": [],
+      "knownLimitations": [
+        "Normative only over treatments covered by an approved absence classification. If the inventory is incomplete or the classification is absent or untrusted, the result is indeterminate, never satisfied.",
+        "The frozen statement governs MISSING occurrence evidence. It says nothing about a complete qualifying record that contains no occurrences, and this part does not extend to that case."
+      ],
+      "evidenceContract": {
+        "completeInventoryRequired": true,
+        "inventoryScope": "every REQ-2 evidence treatment in the finding, classified for whether its recorded basis is the absence of occurrence evidence, not only treatments that already declare an absence basis",
+        "trustedClassificationRequired": true,
+        "resultWhenInventoryIncomplete": "indeterminate",
+        "resultWhenClassificationMissingOrUntrusted": "indeterminate",
+        "remainsSourceDerivedOnlyIf": "The obligation is source-derived unconditionally; it is normative language in the frozen statement. Only a nonconforming implementation that checked an incomplete inventory or a self-declared absence-basis classification, rather than a complete approved inventory, would be a proxy.",
+        "currentStatus": "Whether an approved absence-basis classification exists is recorded externally, not here. Absent an approved classification the rule evaluates to indeterminate; it does not cease to be source-derived.",
+        "classificationAuthorityRecordRef": "records/classification-authority-record.example.json"
+      },
+      "qualifyingPredicates": [],
+      "humanInputRequired": null
+    },
+    {
+      "obligationPartId": "OP-039-b",
+      "sourceStatementId": "SS-039",
+      "normativeObligation": "The evaluator must obtain a complete inventory of REQ-2 evidence treatments together with an approved classification of whether each rests on the absence of occurrence evidence.",
+      "sourceClauseReference": "(no source clause: input required to evaluate OP-039-a normatively)",
+      "derivationBasis": "evaluation_precondition",
+      "proxiedSourceObligation": null,
+      "proxyLimitation": null,
+      "applicabilityConditions": [
+        "REQ-2 finding"
+      ],
+      "requiredEvidence": [
+        "/behaviorPlan/evidenceTreatments",
+        "an approved absence-basis classification of each REQ-2 evidence treatment"
+      ],
+      "observableInvariant": "A complete REQ-2 evidence-treatment inventory exists and every entry carries an approved absence-basis classification.",
+      "evaluatorResponsibility": "model-assisted",
+      "independentlyTestable": true,
+      "independenceJustification": "Determining which treatments rest on absence is separable from the prohibition that consumes that determination.",
+      "dependsOn": [],
+      "coverageState": "rule-covered",
+      "humanJudgmentRequired": null,
+      "whyAutomationInsufficient": null,
+      "unresolvedTerm": null,
+      "missingAuthorityOrDependency": null,
+      "whyRepositoryCannotResolve": null,
+      "requiredOwnerDecisionOrEvidence": null,
+      "possibleLaterClassifications": [],
+      "knownLimitations": [
+        "This is an evaluator precondition, not a source obligation. Unavailability yields precondition_unavailable and is never a product obligation violation.",
+        "No approved absence-basis classification scheme exists in the repository today, so OP-039-a currently evaluates to indeterminate."
       ],
       "evidenceContract": null,
       "qualifyingPredicates": [],

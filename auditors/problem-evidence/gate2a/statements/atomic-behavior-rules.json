@@ -1,7 +1,7 @@
 {
   "packageId": "gate2a-p-atomic-behavior-rules",
   "contractVersion": "0.14.0-draft",
-  "scope": "pilot-subset",
+  "scope": "expansion-in-progress",
   "note": "Illustrative pilot rules. Not production behaviorRules. No evaluator is implemented.",
   "resultClassNote": "Only source_obligation rules may emit normative outcomes. Proxy rules report proxy_condition_met / proxy_condition_not_met; precondition rules report precondition_available / precondition_unavailable. Neither is obligation compliance, a product finding, or source-derived coverage.",
   "bridgeAuthorityNote": "Bridge authority is not represented inside these rules. Any future grant must be recorded in a separate digest-bound bridge-authority record.",
@@ -1610,6 +1610,727 @@
         "This rule reports only whether its proxy condition held. It cannot establish that the source obligation was satisfied or violated. Converting a proxy result into a normative outcome requires separately approved bridge authority, recorded outside this artifact."
       ],
       "canProduceProductFinding": false,
+      "diagnosticExclusionReasons": [],
+      "evaluatorContract": null,
+      "hasAntecedent": false
+    },
+    {
+      "ruleId": "BR-004-screening-sheet-classification-available",
+      "ruleVersion": "0.13.0-draft",
+      "primaryObligationPart": "OP-004-b",
+      "supportingObligationParts": [],
+      "supportingRelationshipJustification": null,
+      "classification": "model-assisted",
+      "derivationBasis": "evaluation_precondition",
+      "resultClass": "precondition",
+      "countsAsSourceDerivedCoverage": false,
+      "atomicityJustification": "Maps to one evaluator precondition: availability of the classification the paired normative rule consumes.",
+      "applicability": {
+        "requirementId": "REQ-1",
+        "conditions": [
+          "REQ-1 finding"
+        ],
+        "predicateApproved": false
+      },
+      "requiredInputPaths": [
+        "/packet/evidence"
+      ],
+      "evidenceRequirements": [
+        "candidate REQ-1 input inventory with approved screening-sheet identification"
+      ],
+      "provenanceRequirement": {
+        "trustedEventSourceRequired": false,
+        "approvedEventSourceAvailable": false
+      },
+      "orderingOperator": "none",
+      "expectedOutcomes": [
+        "precondition_available",
+        "precondition_unavailable",
+        "evaluator_error"
+      ],
+      "bridgeAuthorityRequired": false,
+      "normativeOutcomeRequiresBridgeAuthority": false,
+      "bridgeAuthorityRecordRef": null,
+      "outcomeCodes": [
+        "SCREENING_SHEET_CLASSIFICATION_UNAVAILABLE"
+      ],
+      "evaluatorMechanism": "defined",
+      "evaluatorImplemented": false,
+      "behaviourExecutedInTests": false,
+      "intendedEvidencePacketAssociation": [
+        "contradictory-evidence.json"
+      ],
+      "ruleFixtures": [],
+      "requiresLiveModelEvidence": true,
+      "findingRequiresHumanReview": true,
+      "mayBeActedUponAutomatically": false,
+      "knownUnsupportedCases": [],
+      "limitations": [
+        "An evaluator precondition is not a normative obligation.",
+        "No approved classification scheme exists in the repository today."
+      ],
+      "canProduceProductFinding": false,
+      "diagnosticExclusionReasons": [],
+      "evaluatorContract": null,
+      "hasAntecedent": false
+    },
+    {
+      "ruleId": "BR-004-no-screening-sheet-as-market-proof",
+      "ruleVersion": "0.13.0-draft",
+      "primaryObligationPart": "OP-004-a",
+      "supportingObligationParts": [
+        "OP-004-b"
+      ],
+      "supportingRelationshipJustification": "Supporting only: the approved identification supplies the input. Its unavailability is reported by BR-004-screening-sheet-classification-available and yields indeterminate here, never a violation.",
+      "classification": "deterministic",
+      "derivationBasis": "source_obligation",
+      "resultClass": "normative",
+      "countsAsSourceDerivedCoverage": true,
+      "atomicityJustification": "Maps to exactly one prohibition expressed by one frozen statement; no second obligation is folded in.",
+      "applicability": {
+        "requirementId": "REQ-1",
+        "conditions": [
+          "REQ-1 finding"
+        ],
+        "predicateApproved": false
+      },
+      "requiredInputPaths": [
+        "/packet/evidence",
+        "/behaviorPlan/evidenceTreatments",
+        "the approved screening-sheet identification"
+      ],
+      "evidenceRequirements": [
+        "complete candidate REQ-1 input inventory",
+        "approved screening-sheet identification per candidate input"
+      ],
+      "provenanceRequirement": {
+        "trustedEventSourceRequired": false,
+        "approvedEventSourceAvailable": false
+      },
+      "orderingOperator": "none",
+      "expectedOutcomes": [
+        "obligation_satisfied",
+        "obligation_violation",
+        "indeterminate",
+        "evaluator_error"
+      ],
+      "bridgeAuthorityRequired": false,
+      "normativeOutcomeRequiresBridgeAuthority": false,
+      "bridgeAuthorityRecordRef": null,
+      "outcomeCodes": [
+        "SCREENING_SHEET_TREATED_AS_MARKET_PROOF",
+        "SCREENING_SHEET_CLASSIFICATION_INCOMPLETE"
+      ],
+      "evaluatorMechanism": "defined",
+      "evaluatorImplemented": false,
+      "behaviourExecutedInTests": false,
+      "intendedEvidencePacketAssociation": [
+        "contradictory-evidence.json"
+      ],
+      "ruleFixtures": [],
+      "requiresLiveModelEvidence": false,
+      "findingRequiresHumanReview": true,
+      "mayBeActedUponAutomatically": false,
+      "knownUnsupportedCases": [
+        "Undeclared prose asserting market validity from the screening sheet that the approved identification failed to capture."
+      ],
+      "limitations": [
+        "The obligation is source-derived unconditionally. Absent a complete approved classification the rule evaluates to indeterminate; it does not become a proxy.",
+        "Only a nonconforming implementation that checked incomplete or self-declared classifications would be a proxy.",
+        "Whether an approved classification authority exists is recorded in an external, digest-bound classification-authority record, not in this rule.",
+        "Citing the screening sheet for a purpose other than empirical proof of market validity is outside this rule and is not a violation of it."
+      ],
+      "canProduceProductFinding": true,
+      "diagnosticExclusionReasons": [],
+      "evaluatorContract": null,
+      "hasAntecedent": false
+    },
+    {
+      "ruleId": "BR-009-supersession-justification-classification-available",
+      "ruleVersion": "0.13.0-draft",
+      "primaryObligationPart": "OP-009-b",
+      "supportingObligationParts": [],
+      "supportingRelationshipJustification": null,
+      "classification": "model-assisted",
+      "derivationBasis": "evaluation_precondition",
+      "resultClass": "precondition",
+      "countsAsSourceDerivedCoverage": false,
+      "atomicityJustification": "Maps to one evaluator precondition: availability of the classification the paired normative rule consumes.",
+      "applicability": {
+        "requirementId": "REQ-2",
+        "conditions": [
+          "REQ-2 finding"
+        ],
+        "predicateApproved": false
+      },
+      "requiredInputPaths": [
+        "/behaviorPlan/evidenceTreatments"
+      ],
+      "evidenceRequirements": [
+        "recorded supersession-determination inventory with approved justification classification"
+      ],
+      "provenanceRequirement": {
+        "trustedEventSourceRequired": false,
+        "approvedEventSourceAvailable": false
+      },
+      "orderingOperator": "none",
+      "expectedOutcomes": [
+        "precondition_available",
+        "precondition_unavailable",
+        "evaluator_error"
+      ],
+      "bridgeAuthorityRequired": false,
+      "normativeOutcomeRequiresBridgeAuthority": false,
+      "bridgeAuthorityRecordRef": null,
+      "outcomeCodes": [
+        "SUPERSESSION_JUSTIFICATION_CLASSIFICATION_UNAVAILABLE"
+      ],
+      "evaluatorMechanism": "defined",
+      "evaluatorImplemented": false,
+      "behaviourExecutedInTests": false,
+      "intendedEvidencePacketAssociation": [
+        "contradictory-evidence.json"
+      ],
+      "ruleFixtures": [],
+      "requiresLiveModelEvidence": true,
+      "findingRequiresHumanReview": true,
+      "mayBeActedUponAutomatically": false,
+      "knownUnsupportedCases": [],
+      "limitations": [
+        "An evaluator precondition is not a normative obligation.",
+        "No approved classification scheme exists in the repository today."
+      ],
+      "canProduceProductFinding": false,
+      "diagnosticExclusionReasons": [],
+      "evaluatorContract": null,
+      "hasAntecedent": false
+    },
+    {
+      "ruleId": "BR-009-no-automatic-supersession",
+      "ruleVersion": "0.13.0-draft",
+      "primaryObligationPart": "OP-009-a",
+      "supportingObligationParts": [
+        "OP-009-b"
+      ],
+      "supportingRelationshipJustification": "Supporting only: the approved justification classification supplies the input. Its unavailability is reported by BR-009-supersession-justification-classification-available and yields indeterminate here, never a violation.",
+      "classification": "deterministic",
+      "derivationBasis": "source_obligation",
+      "resultClass": "normative",
+      "countsAsSourceDerivedCoverage": true,
+      "atomicityJustification": "Maps to exactly one prohibition expressed by one frozen statement; no second obligation is folded in.",
+      "applicability": {
+        "requirementId": "REQ-2",
+        "conditions": [
+          "REQ-2 finding"
+        ],
+        "predicateApproved": false
+      },
+      "requiredInputPaths": [
+        "/behaviorPlan/evidenceTreatments",
+        "the approved justification classification"
+      ],
+      "evidenceRequirements": [
+        "complete recorded supersession-determination inventory",
+        "approved justification classification per determination"
+      ],
+      "provenanceRequirement": {
+        "trustedEventSourceRequired": false,
+        "approvedEventSourceAvailable": false
+      },
+      "orderingOperator": "none",
+      "expectedOutcomes": [
+        "obligation_satisfied",
+        "obligation_violation",
+        "indeterminate",
+        "evaluator_error"
+      ],
+      "bridgeAuthorityRequired": false,
+      "normativeOutcomeRequiresBridgeAuthority": false,
+      "bridgeAuthorityRecordRef": null,
+      "outcomeCodes": [
+        "SUPERSESSION_JUSTIFIED_BY_SOURCE_IDENTITY_ALONE",
+        "SUPERSESSION_JUSTIFIED_BY_CHRONOLOGY_ALONE",
+        "SUPERSESSION_JUSTIFICATION_CLASSIFICATION_INCOMPLETE"
+      ],
+      "evaluatorMechanism": "defined",
+      "evaluatorImplemented": false,
+      "behaviourExecutedInTests": false,
+      "intendedEvidencePacketAssociation": [
+        "contradictory-evidence.json"
+      ],
+      "ruleFixtures": [],
+      "requiresLiveModelEvidence": false,
+      "findingRequiresHumanReview": true,
+      "mayBeActedUponAutomatically": false,
+      "knownUnsupportedCases": [
+        "A justification recorded in prose that the approved classification failed to capture."
+      ],
+      "limitations": [
+        "The obligation is source-derived unconditionally. Absent a complete approved classification the rule evaluates to indeterminate; it does not become a proxy.",
+        "Only a nonconforming implementation that checked incomplete or self-declared classifications would be a proxy.",
+        "Whether an approved classification authority exists is recorded in an external, digest-bound classification-authority record, not in this rule.",
+        "Supersession justified by satisfaction of the explicit supersession conditions is permitted by the frozen statement and is not a violation of this rule.",
+        "This rule does not evaluate whether those explicit supersession conditions were in fact satisfied; that is a separate obligation and is not represented here."
+      ],
+      "canProduceProductFinding": true,
+      "diagnosticExclusionReasons": [],
+      "evaluatorContract": null,
+      "hasAntecedent": false
+    },
+    {
+      "ruleId": "BR-010-no-out-of-segment-ev-015-use",
+      "ruleVersion": "0.13.0-draft",
+      "primaryObligationPart": "OP-010-a",
+      "supportingObligationParts": [],
+      "supportingRelationshipJustification": null,
+      "classification": "deterministic",
+      "derivationBasis": "source_obligation",
+      "resultClass": "normative",
+      "countsAsSourceDerivedCoverage": true,
+      "atomicityJustification": "Maps to exactly one prohibition expressed by one frozen statement; no second obligation is folded in.",
+      "applicability": {
+        "requirementId": "REQ-2",
+        "conditions": [
+          "REQ-2 finding"
+        ],
+        "predicateApproved": false
+      },
+      "requiredInputPaths": [
+        "/behaviorPlan/evidenceTreatments"
+      ],
+      "evidenceRequirements": [
+        "declared evidence treatments with their recorded roles"
+      ],
+      "provenanceRequirement": {
+        "trustedEventSourceRequired": false,
+        "approvedEventSourceAvailable": false
+      },
+      "orderingOperator": "none",
+      "expectedOutcomes": [
+        "obligation_satisfied",
+        "obligation_violation",
+        "indeterminate",
+        "evaluator_error"
+      ],
+      "bridgeAuthorityRequired": false,
+      "normativeOutcomeRequiresBridgeAuthority": false,
+      "bridgeAuthorityRecordRef": null,
+      "outcomeCodes": [
+        "EV_015_USED_AS_SUPPORT",
+        "EV_015_USED_AS_CONTRADICTION"
+      ],
+      "evaluatorMechanism": "defined",
+      "evaluatorImplemented": false,
+      "behaviourExecutedInTests": false,
+      "intendedEvidencePacketAssociation": [
+        "contradictory-evidence.json"
+      ],
+      "ruleFixtures": [],
+      "requiresLiveModelEvidence": false,
+      "findingRequiresHumanReview": true,
+      "mayBeActedUponAutomatically": false,
+      "knownUnsupportedCases": [
+        "Undeclared prose that relies on EV-015 without referencing the evidence identifier."
+      ],
+      "limitations": [
+        "Both directions are checked. Reporting only the supporting direction would enforce half of a symmetric frozen exclusion.",
+        "The rule consumes EV-015's out-of-segment status as stated by the frozen statement; it does not determine segment fit and would not detect an equivalent out-of-segment item under another identifier."
+      ],
+      "canProduceProductFinding": true,
+      "diagnosticExclusionReasons": [],
+      "evaluatorContract": null,
+      "hasAntecedent": false
+    },
+    {
+      "ruleId": "BR-027-proposed-product-demand-classification-available",
+      "ruleVersion": "0.13.0-draft",
+      "primaryObligationPart": "OP-027-b",
+      "supportingObligationParts": [],
+      "supportingRelationshipJustification": null,
+      "classification": "model-assisted",
+      "derivationBasis": "evaluation_precondition",
+      "resultClass": "precondition",
+      "countsAsSourceDerivedCoverage": false,
+      "atomicityJustification": "Maps to one evaluator precondition: availability of the classification the paired normative rule consumes.",
+      "applicability": {
+        "requirementId": "REQ-5",
+        "conditions": [
+          "REQ-5 finding"
+        ],
+        "predicateApproved": false
+      },
+      "requiredInputPaths": [
+        "/packet/evidence"
+      ],
+      "evidenceRequirements": [
+        "candidate REQ-5 input inventory with approved proposed-product-demand classification"
+      ],
+      "provenanceRequirement": {
+        "trustedEventSourceRequired": false,
+        "approvedEventSourceAvailable": false
+      },
+      "orderingOperator": "none",
+      "expectedOutcomes": [
+        "precondition_available",
+        "precondition_unavailable",
+        "evaluator_error"
+      ],
+      "bridgeAuthorityRequired": false,
+      "normativeOutcomeRequiresBridgeAuthority": false,
+      "bridgeAuthorityRecordRef": null,
+      "outcomeCodes": [
+        "PROPOSED_PRODUCT_DEMAND_CLASSIFICATION_UNAVAILABLE"
+      ],
+      "evaluatorMechanism": "defined",
+      "evaluatorImplemented": false,
+      "behaviourExecutedInTests": false,
+      "intendedEvidencePacketAssociation": [
+        "contradictory-evidence.json"
+      ],
+      "ruleFixtures": [],
+      "requiresLiveModelEvidence": true,
+      "findingRequiresHumanReview": true,
+      "mayBeActedUponAutomatically": false,
+      "knownUnsupportedCases": [],
+      "limitations": [
+        "An evaluator precondition is not a normative obligation.",
+        "No approved classification scheme exists in the repository today.",
+        "Distinct from BR-026-wtp-classification-available: this rule reports availability of the broader proposed-product-demand classification, not of the willingness-to-pay classification."
+      ],
+      "canProduceProductFinding": false,
+      "diagnosticExclusionReasons": [],
+      "evaluatorContract": null,
+      "hasAntecedent": false
+    },
+    {
+      "ruleId": "BR-027-no-proposed-product-demand-as-commitment",
+      "ruleVersion": "0.13.0-draft",
+      "primaryObligationPart": "OP-027-a",
+      "supportingObligationParts": [
+        "OP-027-b"
+      ],
+      "supportingRelationshipJustification": "Supporting only: the approved proposed-product-demand classification supplies the input. Its unavailability is reported by BR-027-proposed-product-demand-classification-available and yields indeterminate here, never a violation.",
+      "classification": "deterministic",
+      "derivationBasis": "source_obligation",
+      "resultClass": "normative",
+      "countsAsSourceDerivedCoverage": true,
+      "atomicityJustification": "Maps to exactly one prohibition expressed by one frozen statement; no second obligation is folded in.",
+      "applicability": {
+        "requirementId": "REQ-5",
+        "conditions": [
+          "REQ-5 finding"
+        ],
+        "predicateApproved": false
+      },
+      "requiredInputPaths": [
+        "/packet/evidence",
+        "/behaviorPlan/evidenceTreatments",
+        "the approved proposed-product-demand classification"
+      ],
+      "evidenceRequirements": [
+        "complete candidate REQ-5 input inventory",
+        "approved proposed-product-demand classification per candidate input"
+      ],
+      "provenanceRequirement": {
+        "trustedEventSourceRequired": false,
+        "approvedEventSourceAvailable": false
+      },
+      "orderingOperator": "none",
+      "expectedOutcomes": [
+        "obligation_satisfied",
+        "obligation_violation",
+        "indeterminate",
+        "evaluator_error"
+      ],
+      "bridgeAuthorityRequired": false,
+      "normativeOutcomeRequiresBridgeAuthority": false,
+      "bridgeAuthorityRecordRef": null,
+      "outcomeCodes": [
+        "PROPOSED_PRODUCT_DEMAND_USED_AS_COMMITMENT",
+        "PROPOSED_PRODUCT_DEMAND_CLASSIFICATION_INCOMPLETE"
+      ],
+      "evaluatorMechanism": "defined",
+      "evaluatorImplemented": false,
+      "behaviourExecutedInTests": false,
+      "intendedEvidencePacketAssociation": [
+        "contradictory-evidence.json"
+      ],
+      "ruleFixtures": [],
+      "requiresLiveModelEvidence": false,
+      "findingRequiresHumanReview": true,
+      "mayBeActedUponAutomatically": false,
+      "knownUnsupportedCases": [
+        "Undeclared prose treating proposed-product demand as commitment that the approved classification failed to capture."
+      ],
+      "limitations": [
+        "The obligation is source-derived unconditionally. Absent a complete approved classification the rule evaluates to indeterminate; it does not become a proxy.",
+        "Only a nonconforming implementation that checked incomplete or self-declared classifications would be a proxy.",
+        "Whether an approved classification authority exists is recorded in an external, digest-bound classification-authority record, not in this rule.",
+        "Owner-selected D2 representation: this rule is deliberately separate from BR-026-no-wtp-substitution and their enforceable invariants overlap. SS-026 and SS-027 are distinct frozen statements and each retains its own rule so that statement-level coverage stays independently traceable.",
+        "This rule is scoped to proposed-product demand, of which willingness to pay is one species. It is not narrowed to willingness to pay, and BR-026-no-wtp-substitution is not broadened to proposed-product demand."
+      ],
+      "canProduceProductFinding": true,
+      "diagnosticExclusionReasons": [],
+      "evaluatorContract": null,
+      "hasAntecedent": false
+    },
+    {
+      "ruleId": "BR-028-withdrawn-or-declined-classification-available",
+      "ruleVersion": "0.13.0-draft",
+      "primaryObligationPart": "OP-028-b",
+      "supportingObligationParts": [],
+      "supportingRelationshipJustification": null,
+      "classification": "model-assisted",
+      "derivationBasis": "evaluation_precondition",
+      "resultClass": "precondition",
+      "countsAsSourceDerivedCoverage": false,
+      "atomicityJustification": "Maps to one evaluator precondition: availability of the classification the paired normative rule consumes.",
+      "applicability": {
+        "requirementId": "REQ-5",
+        "conditions": [
+          "REQ-5 finding"
+        ],
+        "predicateApproved": false
+      },
+      "requiredInputPaths": [
+        "/packet/evidence"
+      ],
+      "evidenceRequirements": [
+        "commitment-record inventory with approved withdrawn-or-declined classification"
+      ],
+      "provenanceRequirement": {
+        "trustedEventSourceRequired": false,
+        "approvedEventSourceAvailable": false
+      },
+      "orderingOperator": "none",
+      "expectedOutcomes": [
+        "precondition_available",
+        "precondition_unavailable",
+        "evaluator_error"
+      ],
+      "bridgeAuthorityRequired": false,
+      "normativeOutcomeRequiresBridgeAuthority": false,
+      "bridgeAuthorityRecordRef": null,
+      "outcomeCodes": [
+        "WITHDRAWN_OR_DECLINED_CLASSIFICATION_UNAVAILABLE"
+      ],
+      "evaluatorMechanism": "defined",
+      "evaluatorImplemented": false,
+      "behaviourExecutedInTests": false,
+      "intendedEvidencePacketAssociation": [
+        "contradictory-evidence.json"
+      ],
+      "ruleFixtures": [],
+      "requiresLiveModelEvidence": true,
+      "findingRequiresHumanReview": true,
+      "mayBeActedUponAutomatically": false,
+      "knownUnsupportedCases": [],
+      "limitations": [
+        "An evaluator precondition is not a normative obligation.",
+        "No approved classification scheme exists in the repository today."
+      ],
+      "canProduceProductFinding": false,
+      "diagnosticExclusionReasons": [],
+      "evaluatorContract": null,
+      "hasAntecedent": false
+    },
+    {
+      "ruleId": "BR-028-no-omission-of-withdrawn-or-declined",
+      "ruleVersion": "0.13.0-draft",
+      "primaryObligationPart": "OP-028-a",
+      "supportingObligationParts": [
+        "OP-028-b"
+      ],
+      "supportingRelationshipJustification": "Supporting only: the approved withdrawn-or-declined classification supplies the input. Its unavailability is reported by BR-028-withdrawn-or-declined-classification-available and yields indeterminate here, never a violation.",
+      "classification": "deterministic",
+      "derivationBasis": "source_obligation",
+      "resultClass": "normative",
+      "countsAsSourceDerivedCoverage": true,
+      "atomicityJustification": "Maps to exactly one prohibition expressed by one frozen statement; no second obligation is folded in.",
+      "applicability": {
+        "requirementId": "REQ-5",
+        "conditions": [
+          "REQ-5 finding"
+        ],
+        "predicateApproved": false
+      },
+      "requiredInputPaths": [
+        "/packet/evidence",
+        "/behaviorPlan/evidenceTreatments",
+        "the approved withdrawn-or-declined classification"
+      ],
+      "evidenceRequirements": [
+        "complete commitment-record inventory",
+        "approved withdrawn-or-declined classification per record"
+      ],
+      "provenanceRequirement": {
+        "trustedEventSourceRequired": false,
+        "approvedEventSourceAvailable": false
+      },
+      "orderingOperator": "none",
+      "expectedOutcomes": [
+        "obligation_satisfied",
+        "obligation_violation",
+        "indeterminate",
+        "evaluator_error"
+      ],
+      "bridgeAuthorityRequired": false,
+      "normativeOutcomeRequiresBridgeAuthority": false,
+      "bridgeAuthorityRecordRef": null,
+      "outcomeCodes": [
+        "WITHDRAWN_OR_DECLINED_RECORD_OMITTED",
+        "WITHDRAWN_OR_DECLINED_CLASSIFICATION_INCOMPLETE"
+      ],
+      "evaluatorMechanism": "defined",
+      "evaluatorImplemented": false,
+      "behaviourExecutedInTests": false,
+      "intendedEvidencePacketAssociation": [
+        "contradictory-evidence.json"
+      ],
+      "ruleFixtures": [],
+      "requiresLiveModelEvidence": false,
+      "findingRequiresHumanReview": true,
+      "mayBeActedUponAutomatically": false,
+      "knownUnsupportedCases": [
+        "A withdrawn or declined record present only in prose that the approved classification failed to capture."
+      ],
+      "limitations": [
+        "The obligation is source-derived unconditionally. Absent a complete approved classification the rule evaluates to indeterminate; it does not become a proxy.",
+        "Only a nonconforming implementation that checked incomplete or self-declared classifications would be a proxy.",
+        "Whether an approved classification authority exists is recorded in an external, digest-bound classification-authority record, not in this rule.",
+        "This rule enforces visibility, not qualification. Presence in a visible non-qualifying role satisfies it; whether the record qualifies as REQ-5 counterevidence is decided by BR-055-counterevidence-structure, BR-055-counterevidence-reason and BR-055-counterevidence-exclusions, which this rule neither duplicates nor overrides."
+      ],
+      "canProduceProductFinding": true,
+      "diagnosticExclusionReasons": [],
+      "evaluatorContract": null,
+      "hasAntecedent": false
+    },
+    {
+      "ruleId": "BR-039-absence-basis-classification-available",
+      "ruleVersion": "0.13.0-draft",
+      "primaryObligationPart": "OP-039-b",
+      "supportingObligationParts": [],
+      "supportingRelationshipJustification": null,
+      "classification": "model-assisted",
+      "derivationBasis": "evaluation_precondition",
+      "resultClass": "precondition",
+      "countsAsSourceDerivedCoverage": false,
+      "atomicityJustification": "Maps to one evaluator precondition: availability of the classification the paired normative rule consumes.",
+      "applicability": {
+        "requirementId": "REQ-2",
+        "conditions": [
+          "REQ-2 finding"
+        ],
+        "predicateApproved": false
+      },
+      "requiredInputPaths": [
+        "/behaviorPlan/evidenceTreatments"
+      ],
+      "evidenceRequirements": [
+        "REQ-2 evidence-treatment inventory with approved absence-basis classification"
+      ],
+      "provenanceRequirement": {
+        "trustedEventSourceRequired": false,
+        "approvedEventSourceAvailable": false
+      },
+      "orderingOperator": "none",
+      "expectedOutcomes": [
+        "precondition_available",
+        "precondition_unavailable",
+        "evaluator_error"
+      ],
+      "bridgeAuthorityRequired": false,
+      "normativeOutcomeRequiresBridgeAuthority": false,
+      "bridgeAuthorityRecordRef": null,
+      "outcomeCodes": [
+        "ABSENCE_BASIS_CLASSIFICATION_UNAVAILABLE"
+      ],
+      "evaluatorMechanism": "defined",
+      "evaluatorImplemented": false,
+      "behaviourExecutedInTests": false,
+      "intendedEvidencePacketAssociation": [
+        "missing-evidence.json"
+      ],
+      "ruleFixtures": [],
+      "requiresLiveModelEvidence": true,
+      "findingRequiresHumanReview": true,
+      "mayBeActedUponAutomatically": false,
+      "knownUnsupportedCases": [],
+      "limitations": [
+        "An evaluator precondition is not a normative obligation.",
+        "No approved classification scheme exists in the repository today."
+      ],
+      "canProduceProductFinding": false,
+      "diagnosticExclusionReasons": [],
+      "evaluatorContract": null,
+      "hasAntecedent": false
+    },
+    {
+      "ruleId": "BR-039-absence-is-not-contradiction",
+      "ruleVersion": "0.13.0-draft",
+      "primaryObligationPart": "OP-039-a",
+      "supportingObligationParts": [
+        "OP-039-b"
+      ],
+      "supportingRelationshipJustification": "Supporting only: the approved absence-basis classification supplies the input. Its unavailability is reported by BR-039-absence-basis-classification-available and yields indeterminate here, never a violation.",
+      "classification": "deterministic",
+      "derivationBasis": "source_obligation",
+      "resultClass": "normative",
+      "countsAsSourceDerivedCoverage": true,
+      "atomicityJustification": "Maps to exactly one prohibition expressed by one frozen statement; no second obligation is folded in.",
+      "applicability": {
+        "requirementId": "REQ-2",
+        "conditions": [
+          "REQ-2 finding"
+        ],
+        "predicateApproved": false
+      },
+      "requiredInputPaths": [
+        "/behaviorPlan/evidenceTreatments",
+        "the approved absence-basis classification"
+      ],
+      "evidenceRequirements": [
+        "complete REQ-2 evidence-treatment inventory",
+        "approved absence-basis classification per treatment"
+      ],
+      "provenanceRequirement": {
+        "trustedEventSourceRequired": false,
+        "approvedEventSourceAvailable": false
+      },
+      "orderingOperator": "none",
+      "expectedOutcomes": [
+        "obligation_satisfied",
+        "obligation_violation",
+        "indeterminate",
+        "evaluator_error"
+      ],
+      "bridgeAuthorityRequired": false,
+      "normativeOutcomeRequiresBridgeAuthority": false,
+      "bridgeAuthorityRecordRef": null,
+      "outcomeCodes": [
+        "MISSING_OCCURRENCE_EVIDENCE_TREATED_AS_CONTRADICTION",
+        "ABSENCE_BASIS_CLASSIFICATION_INCOMPLETE"
+      ],
+      "evaluatorMechanism": "defined",
+      "evaluatorImplemented": false,
+      "behaviourExecutedInTests": false,
+      "intendedEvidencePacketAssociation": [
+        "missing-evidence.json"
+      ],
+      "ruleFixtures": [],
+      "requiresLiveModelEvidence": false,
+      "findingRequiresHumanReview": true,
+      "mayBeActedUponAutomatically": false,
+      "knownUnsupportedCases": [
+        "A treatment whose absence basis is stated only in prose that the approved classification failed to capture."
+      ],
+      "limitations": [
+        "The obligation is source-derived unconditionally. Absent a complete approved classification the rule evaluates to indeterminate; it does not become a proxy.",
+        "Only a nonconforming implementation that checked incomplete or self-declared classifications would be a proxy.",
+        "Whether an approved classification authority exists is recorded in an external, digest-bound classification-authority record, not in this rule.",
+        "The rule governs missing occurrence evidence only. A complete qualifying record containing no occurrences is a different case, is not covered here, and is not asserted to be permitted or prohibited by this rule."
+      ],
+      "canProduceProductFinding": true,
       "diagnosticExclusionReasons": [],
       "evaluatorContract": null,
       "hasAntecedent": false

@@ -1,6 +1,8 @@
 # Problem Evidence Auditor — Specification
 
-**Phase 0.** This document, `checklist.json`, `schema/`, `fixtures/` and `expected/` constitute the contract, policies, schemas and benchmark fixtures for the Problem Evidence Auditor. Nothing here is an operational agent. There is no runtime, no model call, no dependency and no application code. The deliverable is the definition of correct behaviour, written down before anything is built that could quietly redefine it.
+**Phase 0 contract.** This document, `checklist.json`, `schema/`, `fixtures/` and `expected/` constitute the contract, policies, schemas and benchmark fixtures for the Problem Evidence Auditor. None of them is an operational agent, and none of them executes: this layer is the definition of correct behaviour, written down before anything was built that could quietly redefine it.
+
+A Phase 1 runtime now implements that definition. It lives in `src/evidencegate/problem_evidence/`, is specified in `PHASE1.md`, depends on `jsonschema` and `openai`, and can call a model through an opt-in adapter. It is offline-tested and **not formally accepted**, and zero live-model evaluations have been performed. This document remains authoritative over it: where the runtime and this specification disagree, this specification owns policy semantics and the runtime is the defect.
 
 ---
 
@@ -272,8 +274,8 @@ Phase 0 is complete when all of the following hold. Items 1–7 are verifiable m
 4. Every fixture produces **exactly five** findings, one per requirement, in requirement order.
 5. Every `evidenceId` referenced in any expected file **exists in that file's fixture**; `evidenceIds`, `contradictoryEvidenceIds`, and `nonContributingEvidence` are pairwise disjoint; and each non-contributing evidence ID appears at most once per finding.
 6. Every non-`pass` finding names at least one concrete missing artifact and an observable verification test; the `missing-evidence` fixture produces no contradiction claims anywhere.
-7. Every record in every fixture carries `"synthetic": true` and `"origin": "synthetic"`, and every expected file carries `reviewStatus: "provisional"`, `humanReviewed: false`, and the synthetic-evidence notice.
-8. **The project owner has reviewed and approved all expected results.** Each file carries `reviewStatus: "approved"` and `humanReviewed: true`; `reviewNote` remains null because no unresolved finding-level disagreement remains. This approval accepts the Phase 0 policy outcomes and does not empirically calibrate thresholds. The legitimate open-policy questions below remain open.
+7. Every record in every fixture carries `"synthetic": true` and `"origin": "synthetic"`, and every expected file carries the synthetic-evidence notice. **Before owner approval** each expected file carries `reviewStatus: "provisional"` and `humanReviewed: false` — that is the pre-approval condition, and it is also the state the Phase 1 runtime injects into every document it generates, which may never claim approval it does not have.
+8. **The project owner has reviewed and approved all expected results.** Approval moves the files out of the item 7 pre-approval condition: each now carries `reviewStatus: "approved"` and `humanReviewed: true`, which is their current state. `reviewNote` remains null because no unresolved finding-level disagreement remains. This approval accepts the Phase 0 policy outcomes and does not empirically calibrate thresholds. The legitimate open-policy questions below remain open.
 
 Explicitly **not** in v1: any runtime, any model call, any generated TypeScript types, numeric confidence, cross-requirement aggregation, and any packet built from real evidence.
 
@@ -289,6 +291,7 @@ Explicitly **not** in v1: any runtime, any model call, any generated TypeScript 
 6. **No handling of packet evolution.** Re-auditing after new evidence arrives, and what happens to a finding that was `not-testable` and is now `fail`, is undesigned.
 7. **`limitations` is author-supplied.** A packet whose author does not record a leading question hides it from the auditor. The auditor can read a limitation; it cannot detect an unrecorded one.
 8. **Synthetic fixtures contain only failure modes their author anticipated.** Real packets will contain confusions not represented here.
+9. **Untrusted packet text can influence the model's semantic judgments.** The Phase 1 runtime places the supplied packet directly into the model prompt, so instruction-like text written into a claim, an evidence description, a recorded limitation or an interpretation may steer model-owned fields — `status`, `severity`, `requiresHumanDecision`, and every prose field. This is prompt injection, and it is distinct from limitation 3: fabrication misleads by content, injection subverts by control. **No mitigation for it is implemented.** Structural validation does not detect it, because a status is a semantic judgment and no structural check can distinguish an injected verdict from an honest one. What structural validation does prevent is a generated document claiming review it does not have: `reviewStatus`, `humanReviewed`, `reviewedBy`, `reviewedDate` and `reviewNote` are runtime-owned, injected after the model returns, and re-validated before the document is written.
 
 ---
 

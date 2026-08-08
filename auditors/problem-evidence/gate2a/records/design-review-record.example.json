@@ -4,7 +4,7 @@
   "recordKind": "design-review",
   "reviewedArtifactPath": "auditors/problem-evidence/gate2a/manifest.json",
   "reviewedArtifactVersion": "0.2.0-draft",
-  "reviewedArtifactDigest": "2b7d8238afbc3266a2b4fa20774209cf00dae60b943d90633166c5b73c95549c",
+  "reviewedArtifactDigest": "2ca61669d68ec0ead018df8a34788eed851accefe1b8eeff81f6da4f00797162",
   "digestAlgorithm": "json.dumps-sort-keys-compact-sha256",
   "reviewStatus": "pending-owner-review",
   "humanReviewOccurred": false,

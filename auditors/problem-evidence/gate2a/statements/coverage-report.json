@@ -1,44 +1,44 @@
 {
   "packageId": "gate2a-p-coverage-report",
   "contractVersion": "0.14.0-draft",
-  "scope": "pilot-subset",
+  "scope": "expansion-in-progress",
   "fullSetAtomicRuleTotal": "unknown",
   "extrapolationPermitted": false,
   "statementTotals": {
-    "selected": 7,
-    "recordsCreated": 7,
-    "fullyDecomposed": 7,
+    "selected": 13,
+    "recordsCreated": 13,
+    "fullyDecomposed": 13,
     "partiallyDecomposed": 0,
-    "statementsRemaining": 80
+    "statementsRemaining": 74
   },
   "statementClassification": {
-    "deterministic": 1,
+    "deterministic": 7,
     "modelAssisted": 1,
     "humanRequired": 0,
     "composite": 4,
     "unresolved": 1
   },
   "obligationTotals": {
-    "identified": 35,
-    "sourceObligation": 21,
-    "evaluationPrecondition": 6,
+    "identified": 46,
+    "sourceObligation": 27,
+    "evaluationPrecondition": 11,
     "evaluationProxy": 8,
-    "ruleCovered": 22,
+    "ruleCovered": 33,
     "humanReviewObligation": 4,
     "unresolved": 9,
-    "independentlyTestable": 26
+    "independentlyTestable": 37
   },
   "ruleTotals": {
-    "proposed": 22,
-    "deterministicDesign": 19,
-    "modelAssistedDesign": 3,
-    "sourceDerivedExecutableRuleCoverage": 12,
-    "preconditionRules": 2,
+    "proposed": 33,
+    "deterministicDesign": 25,
+    "modelAssistedDesign": 8,
+    "sourceDerivedExecutableRuleCoverage": 18,
+    "preconditionRules": 7,
     "proxyRules": 8,
-    "rulesPermittedToEmitNormativeOutcomes": 12
+    "rulesPermittedToEmitNormativeOutcomes": 18
   },
   "evaluatorMaturity": {
-    "mechanismDefined": 22,
+    "mechanismDefined": 33,
     "evaluatorImplemented": 0,
     "behaviourExecutedInTests": 0,
     "liveModelEvaluationPerformed": 0,
@@ -46,14 +46,14 @@
   },
   "fixtureEvidence": {
     "actualRuleFixtures": 0,
-    "rulesWithIntendedEvidencePacketAssociation": 22,
+    "rulesWithIntendedEvidencePacketAssociation": 33,
     "note": "No rule fixtures exist. intendedEvidencePacketAssociation names Gate 0 evidence packets that carry no rule-outcome evidence; it records an intended future association and is not fixture coverage."
   },
   "axisSeparation": {
     "humanRequiredSourceObligations": 0,
-    "ruleDesignsGovernedByReviewPolicy": 22,
-    "ruleDesignsCapableOfProducingFindings": 12,
-    "note": "Three distinct measures never combined: 0 human-required source obligations (all 4 human-required parts are evaluation preconditions); 22 governed rule definitions; 12 finding-capable designs."
+    "ruleDesignsGovernedByReviewPolicy": 33,
+    "ruleDesignsCapableOfProducingFindings": 18,
+    "note": "Three distinct measures never combined: 0 human-required source obligations (all 4 human-required parts are evaluation preconditions); 33 governed rule definitions; 18 finding-capable designs."
   },
   "claimBoundaries": [
     "Mapped does not mean implemented.",
@@ -66,23 +66,23 @@
     "A proxy or precondition result is not obligation compliance and is not a product finding."
   ],
   "sourceObligationCoverage": {
-    "sourceObligationParts": 21,
-    "representedByRules": 12,
+    "sourceObligationParts": 27,
+    "representedByRules": 18,
     "humanRequiredDispositions": 0,
     "unresolvedDispositions": 9,
-    "note": "Executable-rule coverage of source obligations is 12. Total source-obligation coverage is 21 = 12 rules + 0 human-required + 9 unresolved."
+    "note": "Executable-rule coverage of source obligations is 18. Total source-obligation coverage is 27 = 18 rules + 0 human-required + 9 unresolved."
   },
   "findingPolicyAccounting": {
-    "totalRuleDesigns": 22,
-    "normativeRuleDesignsCapableOfProductFindings": 12,
-    "diagnosticOnlyRuleDesigns": 10,
+    "totalRuleDesigns": 33,
+    "normativeRuleDesignsCapableOfProductFindings": 18,
+    "diagnosticOnlyRuleDesigns": 15,
     "diagnosticProxyRules": 8,
-    "diagnosticPreconditionRules": 2,
-    "reviewPolicyGovernsRuleDefinitions": 22,
+    "diagnosticPreconditionRules": 7,
+    "reviewPolicyGovernsRuleDefinitions": 33,
     "currentlyImplementedEvaluators": 0,
     "actualGeneratedFindings": 0,
-    "outputsQualifyingAsFindings": "Only obligation_satisfied and obligation_violation from the 12 source-obligation rules. condition_not_met is a diagnostic activation result, not a normative conclusion; indeterminate, evaluator_error, proxy and precondition results are likewise not findings.",
-    "note": "22 pilot rule designs; 12 normative; 10 diagnostic-only; 0 implemented evaluators; 0 generated findings. Applicability of the existing review policy to future pilot-rule findings remains unresolved pending pre-Gate 2B remediation."
+    "outputsQualifyingAsFindings": "Only obligation_satisfied and obligation_violation from the 18 source-obligation rules. condition_not_met is a diagnostic activation result, not a normative conclusion; indeterminate, evaluator_error, proxy and precondition results are likewise not findings.",
+    "note": "33 rule designs; 18 normative; 15 diagnostic-only; 0 implemented evaluators; 0 generated findings. Applicability of the existing review policy to future rule findings remains unresolved pending pre-Gate 2B remediation."
   },
   "deferredRemediation": [
     {
@@ -96,7 +96,7 @@
   ],
   "statementDecompositionVsCoverage": {
     "note": "Decomposition and coverage are governed independently. decompositionStatus records whether every identified normative obligation of a statement is REPRESENTED by a part. Coverage records whether a represented obligation has an approved enforcement mechanism. A statement can be fully decomposed and simultaneously carry unresolved obligations; neither implies the other and the counts are never summed. Decomposition claims are marked unconfirmed-pending-owner-review because no validator can establish semantic completeness.",
-    "statementsFullyDecomposed": 7,
+    "statementsFullyDecomposed": 13,
     "statementsPartiallyDecomposed": 0,
     "statementsWithUnrepresentedObligations": 0,
     "statementsContainingUnresolvedParts": 3,

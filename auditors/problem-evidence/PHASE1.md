@@ -260,6 +260,8 @@ Live tests are skipped unless `OPENAI_API_KEY`, `EVIDENCEGATE_LIVE_MODEL_TESTS=1
 
 Secrets come only from environment variables. Do not log secrets. Network access is isolated to the live model adapter. Approved benchmarks are read-only inputs by convention.
 
+**Prompt injection is an unmitigated limitation.** The prompt builder places the supplied evidence packet directly into the model prompt, so instruction-like text written into any free-text packet field — claim text, evidence description, recorded limitation, interpretation — may influence model-owned semantic output: `status`, `severity`, `requiresHumanDecision`, evidence placement, and all prose fields. No isolation, delimiting, or injection resistance is implemented, and structural validation cannot detect it, because distinguishing an injected verdict from an honest one is a semantic judgment. The runtime-owned metadata boundary is unaffected: `reviewStatus`, `humanReviewed`, `reviewedBy`, `reviewedDate` and `reviewNote` are injected after the model returns and re-validated before output, so an injected packet can never produce a document claiming human approval.
+
 Failures produce non-zero exits and concise diagnostics with path, JSON pointer where possible, fixture, run ID, response ID when available, and requirement ID where applicable.
 
 ## Implementation Sequence

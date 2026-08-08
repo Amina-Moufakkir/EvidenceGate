@@ -22,13 +22,13 @@
     "auditors/problem-evidence/gate2a/contracts/lifecycle-state.json": "5a141364482a781f811375f6271deac9d524b98412bfda05017801973cdade4f",
     "auditors/problem-evidence/gate2a/contracts/operator-set.json": "ddafe992422cb38d3f4d03deef5d6af492aa5017df4d42be03621d8b9868a943",
     "auditors/problem-evidence/gate2a/contracts/outcome-taxonomy.json": "73ac9facb484bcc9f5f243616148e466b63cd587957ab315a1cec85181f2e542",
-    "auditors/problem-evidence/gate2a/statements/atomic-behavior-rules.json": "d94652ce11adad30ed857d51517cc4927f439aa988e39c5ff7179faf866a26ea",
-    "auditors/problem-evidence/gate2a/statements/coverage-report.json": "c3bb7d580164909ce611f6107f6c910aad13184764008e359dfea05c171ce424",
-    "auditors/problem-evidence/gate2a/statements/obligation-parts.json": "b60a781b092c6ce1de45814789b1f8416c314c7e4e68d60230cf99aecbdc79da",
-    "auditors/problem-evidence/gate2a/statements/source-statement-records.json": "2de05aec4d790d646d55a6cbd4559508c05d5019e67ef6f4d26215958fdedbe7",
-    "auditors/problem-evidence/gate2a/statements/traceability-map.json": "222ec2bb67ed0bbab18795504591849efb963dd95e8753d9fadba2d9d2484ad0",
+    "auditors/problem-evidence/gate2a/statements/atomic-behavior-rules.json": "0b042d4b547389ba02fb4e54443bdca940af2149d175116392fa625ddc9ede9d",
+    "auditors/problem-evidence/gate2a/statements/coverage-report.json": "8abacb1a80bc2f0322cdc2be792099a3821787768691a6fb25090a16c7816943",
+    "auditors/problem-evidence/gate2a/statements/obligation-parts.json": "dc6317a133e9d33d1bc7170ac467b066becf337fd45dbc55d689781fc336be83",
+    "auditors/problem-evidence/gate2a/statements/source-statement-records.json": "824bf42e613e6495271c5496d0a45f4a74a453f65051e2151bc955f610c13d92",
+    "auditors/problem-evidence/gate2a/statements/traceability-map.json": "874c789a2115399a6e43474202dbff85dbd63ec7eb41db827ea61a3fc6bed0d3",
     "auditors/problem-evidence/gate2a/PROVENANCE-QUESTIONS.md": "90930dac33e2b0955487effde63df0c197e3be621ca4a99d7d49ee0d130809d8",
-    "auditors/problem-evidence/gate2a/README.md": "abe8eb36deb062640ec41cc5842c5979fa7b3dc6a148af0dc5482b069b9476b4"
+    "auditors/problem-evidence/gate2a/README.md": "cc1fe441b4a62460113f219d48ad97b67bb834ae91ddc770e361feb8353f40a8"
   },
   "exclusions": [
     {
@@ -53,5 +53,5 @@
     }
   ],
   "documentationInclusionNote": "README.md and PROVENANCE-QUESTIONS.md are included in the digest. PROVENANCE-QUESTIONS.md records the F-6 provenance analysis and the justification for OP-070-c; README.md states package-level contract claims. Both are substantive and must not be editable without invalidating the review.",
-  "packageDigest": "2b7d8238afbc3266a2b4fa20774209cf00dae60b943d90633166c5b73c95549c"
+  "packageDigest": "2ca61669d68ec0ead018df8a34788eed851accefe1b8eeff81f6da4f00797162"
 }

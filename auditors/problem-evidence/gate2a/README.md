@@ -1,12 +1,15 @@
-# Gate 2A-P — Contract and Representative Pilot (draft, correction pass applied)
+# Gate 2A — Contract, Representative Pilot, and Gate 2A-F batch F-1 (draft)
 
 **Status: draft design artifacts awaiting owner review.** Nothing here is approved, operational, or
 enforced. Creating or correcting these files did not approve them.
 
 Gate 2A-P defines the contracts by which the 87 frozen v15 boundary statements can later be
-decomposed into reviewable obligations and rules, and proves those contracts against a
-seven-statement pilot. **Gate 2A-P completion is not Gate 2A completion.** Gate 2A-F — the full
-87-statement accounting — is not authorized and has not been started.
+decomposed into reviewable obligations and rules, and proved those contracts against a
+seven-statement pilot. Gate 2A-F applies them to the remaining statements in authorized batches.
+**13 of the 87 frozen statements are represented; 74 remain.** **Neither Gate 2A-P completion nor
+batch F-1 is Gate 2A completion.** Gate 2A-F is in progress: batch F-1 added six statements
+(SS-004, SS-009, SS-010, SS-027, SS-028, SS-039). Batches F-2 onward are not authorized and have
+not been started.
 
 ## Layout
 
@@ -15,8 +18,10 @@ gate2a/
   manifest.json  explicit package manifest and package digest
   schema/        contract schemas (Draft 2020-12)
   contracts/     outcome taxonomy, operator set, lifecycle dimensions
-  statements/    the seven-statement pilot
-  records/       external design-review record (example, pending)
+  statements/    the 13 represented statements (7 pilot + 6 from batch F-1)
+  records/       three external authority-record examples, all non-approved:
+                 design-review (pending-owner-review), bridge-authority (not-granted),
+                 classification-authority (not-approved)
 ```
 
 ## Three kinds of obligation — the central distinction
@@ -52,12 +57,44 @@ declared plan order is a **proxy** for real chronology, whose source obligation 
 to the exact phrase *"before inspecting events"* — remains a **normative source obligation** with an
 **unresolved** disposition, unsupported until trustworthy chronology is externally approved.
 
-`SS-026` shows the other shape. `OP-026-a` is genuinely normative and now carries an explicit
+`SS-026` shows the other shape. `OP-026-a` is genuinely normative and carries an explicit
 `evidenceContract`: it remains source-derived **only if** it evaluates a complete, approved inventory
 of every candidate REQ-5 input using trusted classifications. Missing, incomplete, or untrusted
 classification yields `indeterminate`. If that contract is abandoned the rule becomes a proxy and
-source-derived executable-rule coverage drops from 10 to 9. No approved classification exists today,
+source-derived executable-rule coverage drops from 18 to 17. No approved classification exists today,
 so the rule currently returns `indeterminate`.
+
+Five further source obligations depend on exactly the same inventory-and-classification structure, so
+each now carries a structured `evidenceContract` rather than describing one in prose. The complete
+contract-bearing set is `OP-004-a`, `OP-009-a`, `OP-026-a`, `OP-027-a`, `OP-028-a` and `OP-039-a`,
+each scoped to its own statement: REQ-1 inputs and screening-sheet identification, supersession
+inputs and justification-basis classification, REQ-5 inputs and willingness-to-pay classification,
+REQ-5 inputs and proposed-product-demand classification, commitment records and
+withdrawn-or-declined classification, and REQ-2 evidence-treatment inputs and absence-basis
+classification. Every one of them requires a complete inventory and a trusted classification, yields
+`indeterminate` rather than satisfied when either is missing, and names the same external
+classification-authority record. Each remains a source obligation; only a nonconforming
+implementation reading an incomplete or self-declared classification would be a proxy. `OP-010-a`
+deliberately carries **no** contract: the frozen statement supplies EV-015's out-of-segment status
+directly, so that obligation depends on no inventory and no classification.
+
+### `SS-026` and `SS-027` — owner-selected D2, intentional and explicit
+
+`SS-026` (*"Do not substitute willingness to pay for the proposed product"*) and `SS-027` (*"Do not
+use demand for a proposed product as evidence of existing-problem commitment"*) are separate frozen
+statements whose enforceable invariants normalize to the same product-demand boundary. The owner
+selected **D2**: two distinct source obligations, each with its own obligation part, its own atomic
+rule and its own traceability path. Neither statement is folded into the other, so neither can
+disappear from the 87-statement accounting and statement-level coverage stays independently
+traceable.
+
+The redundancy is deliberate and is recorded rather than hidden. Scope is preserved in both
+directions: `OP-026-a` stays scoped to willingness to pay, `OP-027-a` is scoped to proposed-product
+demand — of which willingness to pay is one species — and neither is widened or narrowed to match
+the other. D1 (one shared rule) and D3 (one obligation citing two statements) remain unselected;
+D3 is not representable under the current schema in any case. `SS-056`, `SS-085` and `SS-087` belong
+to the same product-demand family, are **not** classified by this decision, and remain
+unrepresented.
 
 `SS-070` carries **two** distinct source obligations, because a declared workflow step is only a proxy
 for either fact: `OP-070-d` — the windows must genuinely be defined — and `OP-070-c` — that definition
@@ -81,10 +118,11 @@ classification.
 | `human-review-obligation` | inherently requires human judgment; no fictional rule is invented, and it is **not** unresolved |
 | `unresolved` | a normative term or authority is missing; no reliable rule can be defined yet |
 
-## Pilot accounting
+## Accounting
 
-7 statements → **35 obligation parts** → **22 atomic rules**, 4 human-review obligations, 9
-unresolved parts. Reconciliation: `22 + 4 + 9 = 35`.
+**13 of 87** frozen statements represented; **74 remain**. 13 statements → **46 obligation parts**
+→ **33 atomic rules**, 4 human-review obligations, 9 unresolved parts. Reconciliation:
+`33 + 4 + 9 = 46`. `scope` is `expansion-in-progress`, and no full-set rule total is asserted.
 
 **Implication direction follows the frozen verb, not a house style.** *"Fail **requires** the
 configured counterevidence-source minimum and no comparably credible qualifying commitment"* runs from
@@ -92,29 +130,29 @@ the recorded result to the evidence: `fail ⇒ both conjuncts`. *"credible evide
 **yields** partial"* runs the other way: `credible on both sides ⇒ partial`. Reading either against its
 own verb inverts the obligation, so each conditional rule records its antecedent explicitly.
 
-By derivation: **21** source obligations · **6** evaluation preconditions · **8** evaluation proxies.
-Rules: **12** source-derived (the only rules permitted to emit normative outcomes) · **2** precondition
+By derivation: **27** source obligations · **11** evaluation preconditions · **8** evaluation proxies.
+Rules: **18** source-derived (the only rules permitted to emit normative outcomes) · **7** precondition
 · **8** proxy.
 
 **Source-obligation coverage — the two numbers are different:**
 
 | Measure | Value |
 |---|---|
-| Source obligations represented by executable rules | **12** |
+| Source obligations represented by executable rules | **18** |
 | Source obligations with a human-required disposition | **0** |
 | Source obligations with an unresolved disposition | **9** |
-| **Total source obligations** | **21** |
+| **Total source obligations** | **27** |
 
-12 is *executable-rule* coverage, not total source-obligation coverage.
+18 is *executable-rule* coverage, not total source-obligation coverage.
 
 **Decomposition and coverage are governed independently.** `decompositionStatus` records whether every
 identified normative obligation is *represented* by a part. Coverage records whether a represented
 obligation has an approved *enforcement mechanism*. A statement can be fully decomposed and still carry
-unresolved obligations — three do. All 7 are `fully_decomposed`; 9 parts remain `unresolved`. Neither
+unresolved obligations — three do. All 13 are `fully_decomposed`; 9 parts remain `unresolved`. Neither
 implies the other and the counts are never summed.
 
 Every record carries `decompositionAssurance: "unconfirmed-pending-owner-review"`, because no validator
-can establish semantic completeness. Classification: 4 composite, 1 deterministic, 1 model-assisted,
+can establish semantic completeness. Classification: 7 deterministic, 4 composite, 1 model-assisted,
 1 unresolved.
 
 No full-set rule-count estimate is made, and none may be extrapolated from this pilot.
@@ -123,15 +161,15 @@ No full-set rule-count estimate is made, and none may be extrapolated from this 
 
 | Measure | Value |
 |---|---|
-| Total rule designs | **22** |
-| Normative rule designs capable of producing a product finding | **12** |
-| Diagnostic-only rule designs (8 proxy + 2 precondition) | **10** |
-| Rule definitions governed by the review policy | **22** |
+| Total rule designs | **33** |
+| Normative rule designs capable of producing a product finding | **18** |
+| Diagnostic-only rule designs (8 proxy + 7 precondition) | **15** |
+| Rule definitions governed by the review policy | **33** |
 | Currently implemented evaluators | **0** |
 | Actual generated findings | **0** |
-| Outputs qualifying as findings | only normative outcomes from the 10 normative rules |
+| Outputs qualifying as findings | only normative outcomes from the 18 normative rules |
 
-Describing all 22 rules as "producing findings" would be wrong: 10 structurally cannot, and none can
+Describing all 33 rules as "producing findings" would be wrong: 15 structurally cannot, and none can
 today because no evaluator is implemented and no finding has been generated.
 
 **Deferred remediation DR-1.** Gate 1 `phase1-behavior-coverage.json` expresses the review policy per
@@ -141,9 +179,9 @@ modified in this pass.**
 
 ## Evaluator maturity — stated separately, never merged
 
-| Level | Count / 22 |
+| Level | Count / 33 |
 |---|---|
-| Evaluator mechanism defined | 22 |
+| Evaluator mechanism defined | 33 |
 | Evaluator implemented | **0** |
 | Behaviour executed in tests | **0** |
 | Live-model evaluation performed | **0** |
@@ -163,8 +201,9 @@ own right; a declared step is only a proxy for it.
 | `OP-006-l` supersession status actually validated | `OP-006-e` | *"and supersession status"* |
 | `OP-006-m` validations actually performed before establishing existence | `OP-006-f` | *"First validate"* + *"if it remains credible, it establishes instance-scoped existence"* |
 
-`OP-006-g` (credibility) is a `source_obligation` with a `human-review-obligation` disposition.
-No additional rule is created merely to represent an unresolved source obligation.
+`OP-006-g` (credibility) has derivation basis `evaluation_precondition` and coverage state
+`human-review-obligation`. No additional rule is created merely to represent an unresolved source
+obligation.
 
 ## Source-clause fidelity, and its limits
 
@@ -204,9 +243,9 @@ When a conditional rule's antecedent is false, the result is **`condition_not_me
 taxonomy keeps it in `diagnosticActivationResults`, outside the `normativeOutcomes` enum. A false condition means the consequence was never activated — not that the
 obligation was fulfilled. `condition_not_met` carries `countsAsObligationCompliance: false`, so it can
 never inflate compliance totals, and it is distinct from `indeterminate`, which means the antecedent
-could not be evaluated at all. Four rules declare antecedents: `BR-006-credible-establishes-existence`,
-`BR-055-partial-on-two-sided-credible`, `BR-060-underspecified-boundary-recorded`, and
-`BR-060-material-disagreement-downgrades`.
+could not be evaluated at all. Five rules declare antecedents: `BR-006-credible-establishes-existence`,
+`BR-055-fail-criterion`, `BR-055-partial-on-two-sided-credible`,
+`BR-060-underspecified-boundary-recorded`, and `BR-060-material-disagreement-downgrades`.
 
 ## Fixture evidence
 
@@ -216,12 +255,14 @@ evidence; it records an intended future association and is **not** fixture cover
 
 ## Two human-review axes are separate
 
-- **4** parts require human judgment — but only **1** is a source obligation (`OP-055-f`). The other
-  three (`OP-006-g`, `OP-055-h`, `OP-060-a`) are **evaluation preconditions** with human dispositions:
-  the frozen text states conditions — *"if it remains credible"*, *"credible evidence on both sides"*,
-  *"any material classification disagreement"* — not commands to perform judgments.
-- **22** rule definitions are governed by the review policy.
-- **12** rule designs can actually produce a reviewable product finding.
+- **4** parts require human judgment, and **none of them is a source obligation**. All four —
+  `OP-006-g`, `OP-055-f`, `OP-055-m` and `OP-060-a` — are **evaluation preconditions** with human
+  dispositions: the frozen text states conditions — *"if it remains credible"*, *"and no comparably
+  credible qualifying commitment within this packet"*, *"credible evidence on both sides"*,
+  *"any material classification disagreement"* — not commands to perform judgments. Source
+  obligations with a human-required disposition: **0**.
+- **33** rule definitions are governed by the review policy.
+- **18** rule designs can actually produce a reviewable product finding.
 
 Three different measures. None explains another, and they are never combined.
 

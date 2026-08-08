@@ -436,6 +436,134 @@
       "role": "supporting",
       "disposition": "rule-covered",
       "derivationBasis": "evaluation_proxy"
+    },
+    {
+      "sourceStatementId": "SS-004",
+      "obligationPartId": "OP-004-a",
+      "ruleId": "BR-004-no-screening-sheet-as-market-proof",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "source_obligation"
+    },
+    {
+      "sourceStatementId": "SS-004",
+      "obligationPartId": "OP-004-b",
+      "ruleId": "BR-004-screening-sheet-classification-available",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "evaluation_precondition"
+    },
+    {
+      "sourceStatementId": "SS-009",
+      "obligationPartId": "OP-009-a",
+      "ruleId": "BR-009-no-automatic-supersession",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "source_obligation"
+    },
+    {
+      "sourceStatementId": "SS-009",
+      "obligationPartId": "OP-009-b",
+      "ruleId": "BR-009-supersession-justification-classification-available",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "evaluation_precondition"
+    },
+    {
+      "sourceStatementId": "SS-010",
+      "obligationPartId": "OP-010-a",
+      "ruleId": "BR-010-no-out-of-segment-ev-015-use",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "source_obligation"
+    },
+    {
+      "sourceStatementId": "SS-027",
+      "obligationPartId": "OP-027-a",
+      "ruleId": "BR-027-no-proposed-product-demand-as-commitment",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "source_obligation"
+    },
+    {
+      "sourceStatementId": "SS-027",
+      "obligationPartId": "OP-027-b",
+      "ruleId": "BR-027-proposed-product-demand-classification-available",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "evaluation_precondition"
+    },
+    {
+      "sourceStatementId": "SS-028",
+      "obligationPartId": "OP-028-a",
+      "ruleId": "BR-028-no-omission-of-withdrawn-or-declined",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "source_obligation"
+    },
+    {
+      "sourceStatementId": "SS-028",
+      "obligationPartId": "OP-028-b",
+      "ruleId": "BR-028-withdrawn-or-declined-classification-available",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "evaluation_precondition"
+    },
+    {
+      "sourceStatementId": "SS-039",
+      "obligationPartId": "OP-039-a",
+      "ruleId": "BR-039-absence-is-not-contradiction",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "source_obligation"
+    },
+    {
+      "sourceStatementId": "SS-039",
+      "obligationPartId": "OP-039-b",
+      "ruleId": "BR-039-absence-basis-classification-available",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "evaluation_precondition"
+    },
+    {
+      "sourceStatementId": "SS-004",
+      "obligationPartId": "OP-004-b",
+      "ruleId": "BR-004-no-screening-sheet-as-market-proof",
+      "role": "supporting",
+      "disposition": "rule-covered",
+      "derivationBasis": "evaluation_precondition"
+    },
+    {
+      "sourceStatementId": "SS-009",
+      "obligationPartId": "OP-009-b",
+      "ruleId": "BR-009-no-automatic-supersession",
+      "role": "supporting",
+      "disposition": "rule-covered",
+      "derivationBasis": "evaluation_precondition"
+    },
+    {
+      "sourceStatementId": "SS-027",
+      "obligationPartId": "OP-027-b",
+      "ruleId": "BR-027-no-proposed-product-demand-as-commitment",
+      "role": "supporting",
+      "disposition": "rule-covered",
+      "derivationBasis": "evaluation_precondition"
+    },
+    {
+      "sourceStatementId": "SS-028",
+      "obligationPartId": "OP-028-b",
+      "ruleId": "BR-028-no-omission-of-withdrawn-or-declined",
+      "role": "supporting",
+      "disposition": "rule-covered",
+      "derivationBasis": "evaluation_precondition"
+    },
+    {
+      "sourceStatementId": "SS-039",
+      "obligationPartId": "OP-039-b",
+      "ruleId": "BR-039-absence-is-not-contradiction",
+      "role": "supporting",
+      "disposition": "rule-covered",
+      "derivationBasis": "evaluation_precondition"
     }
   ]
 }

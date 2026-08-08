@@ -313,15 +313,18 @@ def _orphan(package: dict, where: str) -> dict:
 
 NEGATIVE_CASES = [
     ("duplicate-id",            _duplicate_id,                                    "DUPLICATE_SOURCE_STATEMENT_ID"),
-    ("n7-expansion",            lambda p: _with_scope(p, "expansion-in-progress"), "SCOPE_DOES_NOT_MATCH_N"),
-    ("n7-full",                 lambda p: _with_scope(p, "full-set-87"),           "SCOPE_DOES_NOT_MATCH_N"),
-    ("n8-pilot",                lambda p: _with_n(p, 8),                           "SCOPE_DOES_NOT_MATCH_N"),
-    ("n13-pilot",               lambda p: _with_n(p, 13),                          "SCOPE_DOES_NOT_MATCH_N"),
-    ("n86-pilot",               lambda p: _with_n(p, 86),                          "SCOPE_DOES_NOT_MATCH_N"),
+    # Every N/scope case states BOTH coordinates, so a case can never silently become a no-op
+    # because the committed baseline moved. F-1 moved it from (7, pilot-subset) to
+    # (13, expansion-in-progress) and four baseline-relative cases stopped falsifying anything.
+    ("n7-expansion",            lambda p: _with_scope(_with_n(p, 7), "expansion-in-progress"), "SCOPE_DOES_NOT_MATCH_N"),
+    ("n7-full",                 lambda p: _with_scope(_with_n(p, 7), "full-set-87"),  "SCOPE_DOES_NOT_MATCH_N"),
+    ("n8-pilot",                lambda p: _with_scope(_with_n(p, 8), "pilot-subset"),  "SCOPE_DOES_NOT_MATCH_N"),
+    ("n13-pilot",               lambda p: _with_scope(_with_n(p, 13), "pilot-subset"), "SCOPE_DOES_NOT_MATCH_N"),
+    ("n86-pilot",               lambda p: _with_scope(_with_n(p, 86), "pilot-subset"), "SCOPE_DOES_NOT_MATCH_N"),
     ("n8-full",                 lambda p: _with_scope(_with_n(p, 8), "full-set-87"),  "SCOPE_DOES_NOT_MATCH_N"),
     ("n13-full",                lambda p: _with_scope(_with_n(p, 13), "full-set-87"), "SCOPE_DOES_NOT_MATCH_N"),
     ("n86-full",                lambda p: _with_scope(_with_n(p, 86), "full-set-87"), "SCOPE_DOES_NOT_MATCH_N"),
-    ("n87-pilot",               lambda p: _with_n(p, 87),                          "SCOPE_DOES_NOT_MATCH_N"),
+    ("n87-pilot",               lambda p: _with_scope(_with_n(p, 87), "pilot-subset"), "SCOPE_DOES_NOT_MATCH_N"),
     ("n87-expansion",           lambda p: _with_scope(_with_n(p, 87), "expansion-in-progress"), "SCOPE_DOES_NOT_MATCH_N"),
     ("drift-records",           lambda p: _with_scope(p, "full-set-87", SCOPE_BEARING[0]), "SCOPE_DISAGREEMENT"),
     ("drift-parts",             lambda p: _with_scope(p, "full-set-87", SCOPE_BEARING[1]), "SCOPE_DISAGREEMENT"),
@@ -343,6 +346,14 @@ def test_falsified_payloads_are_rejected(label, mutate, expected_code) -> None:
     """Each case must be rejected for ITS invariant, so an unrelated defect cannot pass it."""
     assert scope_and_count_violations(load_package()) == [], "baseline must be clean"
     assert expected_code in scope_and_count_violations(mutate(load_package())), label
+
+
+@pytest.mark.parametrize("label,mutate,expected_code",
+                         NEGATIVE_CASES, ids=[c[0] for c in NEGATIVE_CASES])
+def test_every_negative_case_actually_mutates_the_baseline(label, mutate, expected_code) -> None:
+    """A case that no longer changes anything cannot falsify anything, however green it looks."""
+    baseline = load_package()
+    assert mutate(load_package()) != baseline, label
 
 
 def test_unknown_fourth_scope_value_is_rejected_by_schema() -> None:
@@ -680,7 +691,7 @@ def test_evaluator_maturity_separates_design_from_implementation(rules) -> None:
         assert rule["behaviourExecutedInTests"] is False
 
 
-def test_pilot_totals_reconcile(parts, rules, records) -> None:
+def test_statement_and_rule_totals_reconcile(parts, rules, records) -> None:
     report = load("statements/coverage-report.json")
     states = Counter(p["coverageState"] for p in parts)
     derivations = Counter(p["derivationBasis"] for p in parts)
@@ -693,7 +704,7 @@ def test_pilot_totals_reconcile(parts, rules, records) -> None:
     assert st["selected"] == st["recordsCreated"] == len(records) == derived_n
     assert st["fullyDecomposed"] == decomposition["fully_decomposed"]
     assert st["partiallyDecomposed"] == decomposition["partially_decomposed"]
-    assert st["fullyDecomposed"] + st["partiallyDecomposed"] == 7
+    assert st["fullyDecomposed"] + st["partiallyDecomposed"] == derived_n
 
     assert ob["identified"] == len(parts)
     assert (ob["sourceObligation"] + ob["evaluationPrecondition"]
@@ -731,7 +742,7 @@ def test_pilot_totals_reconcile(parts, rules, records) -> None:
     assert (soc["representedByRules"] + soc["humanRequiredDispositions"]
             + soc["unresolvedDispositions"]) == soc["sourceObligationParts"]
 
-    assert sum(report["statementClassification"].values()) == 7
+    assert sum(report["statementClassification"].values()) == derived_n
 
 
 def test_no_full_set_rule_count_is_extrapolated() -> None:
@@ -982,9 +993,70 @@ def test_every_source_clause_is_verbatim_from_its_frozen_statement(parts, record
         assert "..." not in clause and "…" not in clause, part["obligationPartId"]
 
 
-def test_only_ss_026_declares_an_evidence_contract(parts) -> None:
+# Every source obligation whose enforcement depends on a complete inventory plus a trusted
+# classification, mapped to the statement-specific terms its inventory scope must actually name.
+# A part absent from this map must carry no contract; a part present must carry a conforming one.
+INVENTORY_DEPENDENT_CONTRACTS = {
+    "OP-004-a": ("REQ-1", "screening sheet"),
+    "OP-009-a": ("EV-003", "supersession"),
+    "OP-026-a": ("REQ-5", "declared sourceCategory"),
+    "OP-027-a": ("REQ-5", "proposed-product demand"),
+    "OP-028-a": ("commitment record", "withdraw"),
+    "OP-039-a": ("REQ-2", "absence of occurrence evidence"),
+}
+
+
+def test_inventory_dependent_source_obligations_declare_evidence_contracts(parts) -> None:
+    """The contract-bearing set is exactly six, and each contract is specific, complete and bound."""
+    owned = {p["obligationPartId"]: p for p in parts}
     with_contract = [p["obligationPartId"] for p in parts if p["evidenceContract"] is not None]
-    assert with_contract == ["OP-026-a"], with_contract
+
+    # exact set: rejects both a missing contract and an unexpected extra one
+    assert sorted(with_contract) == sorted(INVENTORY_DEPENDENT_CONTRACTS), with_contract
+    assert len(with_contract) == 6, with_contract
+
+    # OP-010-a depends on no inventory: the frozen statement supplies EV-015's status directly
+    assert owned["OP-010-a"]["evidenceContract"] is None
+    assert not owned["OP-010-a"]["dependsOn"]
+
+    scopes = []
+    for part_id, required_terms in INVENTORY_DEPENDENT_CONTRACTS.items():
+        part = owned[part_id]
+        contract = part["evidenceContract"]
+        assert contract is not None, part_id
+
+        # incomplete inventory or absent/untrusted classification must never read as satisfied
+        assert contract["completeInventoryRequired"] is True, part_id
+        assert contract["trustedClassificationRequired"] is True, part_id
+        assert contract["resultWhenInventoryIncomplete"] == "indeterminate", part_id
+        assert contract["resultWhenClassificationMissingOrUntrusted"] == "indeterminate", part_id
+
+        # authority is referenced, never embedded: an approval state here would be self-granted
+        assert contract["classificationAuthorityRecordRef"] == \
+            "records/classification-authority-record.example.json", part_id
+        for forbidden in ("classificationApprovalStatus", "approvedBy", "authorityStatus"):
+            assert forbidden not in contract, (part_id, forbidden)
+
+        # the obligation stays source-derived; only a nonconforming evaluator would be a proxy
+        assert part["derivationBasis"] == "source_obligation", part_id
+        assert part["proxiedSourceObligation"] is None, part_id
+        assert "proxy" in contract["remainsSourceDerivedOnlyIf"].lower(), part_id
+        assert "indeterminate" in contract["currentStatus"].lower(), part_id
+
+        # statement-specific, not boilerplate: the scope must name this statement's own subject
+        scope = contract["inventoryScope"]
+        assert len(scope) >= 40, part_id
+        for term in required_terms:
+            assert term.lower() in scope.lower(), (part_id, term)
+        scopes.append(scope)
+
+    # no two contracts may share a scope, which is how generic filler would show up
+    assert len(set(scopes)) == len(scopes), "inventory scopes must be statement-specific"
+
+    # a contract stated only in prose is unenforceable: none may survive anywhere in the package
+    for part in parts:
+        for limitation in part["knownLimitations"]:
+            assert "structured evidenceContract block" not in limitation, part["obligationPartId"]
 
 
 def test_finding_policy_records_zero_implementation_and_zero_findings() -> None:
@@ -1156,3 +1228,459 @@ def test_gate_1_artifacts_are_not_referenced_as_authoritative_traceability() -> 
     assert trace["traceabilityKey"] == "sourceStatementId"
     assert trace["semanticCriteriaIdsAuthoritative"] is False
     assert "semanticCriteriaIds" not in json.dumps(load("statements/atomic-behavior-rules.json"))
+
+
+# ===================================================================== F-1: first Gate 2A-F batch
+F1_STATEMENTS = ("SS-004", "SS-009", "SS-010", "SS-027", "SS-028", "SS-039")
+F1_ORDER = ("SS-004", "SS-006", "SS-009", "SS-010", "SS-026", "SS-027", "SS-028",
+            "SS-033", "SS-034", "SS-039", "SS-055", "SS-060", "SS-070")
+FUTURE_DEMAND_FAMILY = ("SS-056", "SS-085", "SS-087")
+
+
+def frozen_statements() -> list[tuple[str, str, str, str]]:
+    """The 87 frozen statements in the repository's canonical order."""
+    policy = json.loads(POLICY.read_text())
+    ordered: list[tuple[str, str, str, str]] = []
+    for fixture_name in ("contradictory-evidence.json", "missing-evidence.json",
+                         "strong-evidence.json"):
+        block = next(f for f in policy["fixtures"] if f["fixture"] == fixture_name)
+        for requirement in block["requirements"]:
+            for text in requirement["requiredVerificationBehavior"]:
+                ordered.append((fixture_name, requirement["requirementId"],
+                                "requiredVerificationBehavior", text))
+            for text in requirement["prohibitedSubstitutions"]:
+                ordered.append((fixture_name, requirement["requirementId"],
+                                "prohibitedSubstitution", text))
+    return ordered
+
+
+def test_f1_added_exactly_the_six_authorized_statements(records) -> None:
+    present = {r["sourceStatementId"] for r in records}
+    assert set(F1_STATEMENTS) <= present
+    assert present == set(F1_ORDER), sorted(present ^ set(F1_ORDER))
+
+
+def test_f1_statements_carry_the_exact_frozen_metadata(records) -> None:
+    """Fixture, requirement, type, wording and stable number, all read from the frozen policy."""
+    ordered = frozen_statements()
+    expected = {
+        "SS-004": ("contradictory-evidence.json", "REQ-1", "prohibitedSubstitution"),
+        "SS-009": ("contradictory-evidence.json", "REQ-2", "prohibitedSubstitution"),
+        "SS-010": ("contradictory-evidence.json", "REQ-2", "prohibitedSubstitution"),
+        "SS-027": ("contradictory-evidence.json", "REQ-5", "prohibitedSubstitution"),
+        "SS-028": ("contradictory-evidence.json", "REQ-5", "prohibitedSubstitution"),
+        "SS-039": ("missing-evidence.json", "REQ-2", "prohibitedSubstitution"),
+    }
+    by_id = {r["sourceStatementId"]: r for r in records}
+    for statement_id, (fixture, requirement_id, statement_type) in expected.items():
+        record = by_id[statement_id]
+        assert record["v15Index"] == int(statement_id[3:])
+        assert (record["fixture"], record["requirementId"], record["statementType"]) == (
+            fixture, requirement_id, statement_type)
+        assert record["statementText"] == ordered[record["v15Index"] - 1][3]
+
+
+def test_f1_statement_digests_reconcile(records) -> None:
+    ordered = frozen_statements()
+    for record in records:
+        fixture, requirement_id, statement_type, text = ordered[record["v15Index"] - 1]
+        expected = hashlib.sha256(json.dumps(
+            {"fixture": fixture, "requirementId": requirement_id,
+             "statementType": statement_type, "statement": text},
+            sort_keys=True, separators=(",", ":"), ensure_ascii=True).encode("utf-8")).hexdigest()
+        assert record["statementDigest"] == expected, record["sourceStatementId"]
+    assert len({r["statementDigest"] for r in records}) == len(records)
+
+
+def test_f1_records_stay_in_canonical_stable_number_order(records) -> None:
+    ids = [r["sourceStatementId"] for r in records]
+    assert ids == list(F1_ORDER)
+    assert [r["v15Index"] for r in records] == sorted(r["v15Index"] for r in records)
+    assert len(set(ids)) == len(ids)
+
+
+def test_f1_accounting_is_thirteen_represented_and_seventy_four_remaining() -> None:
+    report = load("statements/coverage-report.json")
+    totals = report["statementTotals"]
+    assert totals["selected"] == totals["recordsCreated"] == 13
+    assert totals["statementsRemaining"] == 74
+    assert totals["recordsCreated"] + totals["statementsRemaining"] == FROZEN_STATEMENT_TOTAL
+    assert report["scope"] == "expansion-in-progress"
+    assert report["fullSetAtomicRuleTotal"] == "unknown"
+    for rel in SCOPE_BEARING:
+        assert load(rel)["scope"] == "expansion-in-progress", rel
+
+
+def test_f1_full_set_scope_is_rejected_while_statements_remain() -> None:
+    """74 statements remain, so full-set-87 must not be emittable."""
+    package = load_package()
+    assert scope_and_count_violations(package) == []
+    falsified = _with_scope(package, "full-set-87")
+    assert "SCOPE_DOES_NOT_MATCH_N" in scope_and_count_violations(falsified)
+
+
+def test_f1_new_parts_and_rules_close_referentially(parts, rules, records) -> None:
+    statement_ids = {r["sourceStatementId"] for r in records}
+    part_ids = {p["obligationPartId"] for p in parts}
+    rule_ids = {r["ruleId"] for r in rules}
+    new_parts = [p for p in parts if p["sourceStatementId"] in F1_STATEMENTS]
+    assert len(new_parts) == 11
+    for part in new_parts:
+        assert part["sourceStatementId"] in statement_ids
+        assert set(part["dependsOn"]) <= part_ids
+        assert part["coverageState"] == "rule-covered"
+    new_rules = [r for r in rules if r["primaryObligationPart"] in
+                 {p["obligationPartId"] for p in new_parts}]
+    assert len(new_rules) == 11
+    assert len({r["ruleId"] for r in new_rules}) == 11
+    assert {r["ruleId"] for r in new_rules} <= rule_ids
+    for rule in new_rules:
+        assert set(rule["supportingObligationParts"]) <= part_ids
+
+
+def test_f1_source_clauses_are_verbatim_substrings_of_their_statements(parts, records) -> None:
+    by_id = {r["sourceStatementId"]: r for r in records}
+    checked = 0
+    for part in parts:
+        if part["sourceStatementId"] in F1_STATEMENTS \
+                and part["derivationBasis"] == "source_obligation":
+            statement = by_id[part["sourceStatementId"]]["statementText"]
+            assert part["sourceClauseReference"] in statement, part["obligationPartId"]
+            checked += 1
+    assert checked == 6, "one source-obligation part per new statement"
+
+
+def test_f1_derivation_basis_and_result_class_agree(parts, rules) -> None:
+    by_part = {p["obligationPartId"]: p for p in parts}
+    for rule in rules:
+        part = by_part[rule["primaryObligationPart"]]
+        if part["sourceStatementId"] not in F1_STATEMENTS:
+            continue
+        assert rule["derivationBasis"] == part["derivationBasis"], rule["ruleId"]
+        assert rule["resultClass"] == RESULT_CLASS[rule["derivationBasis"]], rule["ruleId"]
+        key = rule["resultClass"]
+        if key == "normative" and rule["hasAntecedent"]:
+            key = "normative_conditional"
+        assert set(rule["expectedOutcomes"]) == ALLOWED_RESULTS[key], rule["ruleId"]
+        assert rule["countsAsSourceDerivedCoverage"] is (
+            rule["derivationBasis"] == "source_obligation")
+        assert rule["canProduceProductFinding"] is (
+            rule["derivationBasis"] == "source_obligation")
+
+
+def test_f1_preserves_identity_i5(parts, rules) -> None:
+    """atomic-rule count == rule-covered obligation-part count, before and after the batch."""
+    rule_covered = [p for p in parts if p["coverageState"] == "rule-covered"]
+    assert len(rule_covered) == len(rules) == 33
+    assert {p["obligationPartId"] for p in rule_covered} == {
+        r["primaryObligationPart"] for r in rules}
+
+
+def test_f1_leaves_no_orphans(parts, rules, records) -> None:
+    statement_ids = {r["sourceStatementId"] for r in records}
+    part_ids = {p["obligationPartId"] for p in parts}
+    assert {p["sourceStatementId"] for p in parts} <= statement_ids
+    assert {r["primaryObligationPart"] for r in rules} <= part_ids
+    for edge in load("statements/traceability-map.json")["edges"]:
+        assert edge["sourceStatementId"] in statement_ids
+        assert edge["obligationPartId"] in part_ids
+        if edge["ruleId"] is not None:
+            assert edge["ruleId"] in {r["ruleId"] for r in rules}
+
+
+def test_f1_recorded_totals_equal_independently_derived_totals(parts, rules, records) -> None:
+    report = load("statements/coverage-report.json")
+    states = Counter(p["coverageState"] for p in parts)
+    derivations = Counter(p["derivationBasis"] for p in parts)
+    rule_derivations = Counter(r["derivationBasis"] for r in rules)
+    ob, ru = report["obligationTotals"], report["ruleTotals"]
+    assert ob["identified"] == len(parts) == 46
+    assert ob["sourceObligation"] == derivations["source_obligation"] == 27
+    assert ob["evaluationPrecondition"] == derivations["evaluation_precondition"] == 11
+    assert ob["evaluationProxy"] == derivations["evaluation_proxy"] == 8
+    assert ob["ruleCovered"] == states["rule-covered"] == 33
+    assert ru["proposed"] == len(rules) == 33
+    assert ru["sourceDerivedExecutableRuleCoverage"] == rule_derivations["source_obligation"] == 18
+    assert ru["preconditionRules"] == rule_derivations["evaluation_precondition"] == 7
+    assert ru["proxyRules"] == rule_derivations["evaluation_proxy"] == 8
+    assert report["evaluatorMaturity"]["mechanismDefined"] == len(rules)
+    assert sum(report["statementClassification"].values()) == len(records) == 13
+
+
+def test_f1_manifest_membership_and_exclusions_are_unchanged() -> None:
+    manifest = load("manifest.json")
+    assert len(manifest["includedFiles"]) == 22
+    assert len(manifest["exclusions"]) == 5
+    assert manifest["contractVersion"] == "0.14.0-draft"
+
+
+def test_f1_authority_states_are_unchanged() -> None:
+    assert load("records/design-review-record.example.json")["reviewStatus"] == \
+        "pending-owner-review"
+    assert load("records/bridge-authority-record.example.json")["authorityStatus"] == "not-granted"
+    assert load("records/classification-authority-record.example.json")["authorityStatus"] == \
+        "not-approved"
+
+
+def test_f1_versions_are_unchanged(rules) -> None:
+    for rel in ("statements/source-statement-records.json", "statements/obligation-parts.json",
+                "statements/atomic-behavior-rules.json", "statements/traceability-map.json",
+                "statements/coverage-report.json"):
+        assert load(rel)["contractVersion"] == "0.14.0-draft", rel
+    assert {r["ruleVersion"] for r in rules} == {"0.13.0-draft"}
+
+
+F1_MUTATIONS = [
+    ("drop-a-new-record", lambda p: _drop_record(p, "SS-027")),
+    ("drop-a-new-part", lambda p: _drop_part(p, "OP-027-a")),
+    ("drop-a-new-edge", lambda p: _drop_edge(p, "OP-027-a")),
+    ("stale-thirteen-remaining", lambda p: _totals(p, statementsRemaining=80)),
+    ("scope-left-at-pilot", lambda p: _with_scope(p, "pilot-subset")),
+]
+
+
+def _drop_record(package: dict, statement_id: str) -> dict:
+    pkg = copy.deepcopy(package)
+    doc = pkg["statements/source-statement-records.json"]
+    doc["records"] = [r for r in doc["records"] if r["sourceStatementId"] != statement_id]
+    return pkg
+
+
+def _drop_part(package: dict, part_id: str) -> dict:
+    pkg = copy.deepcopy(package)
+    doc = pkg["statements/obligation-parts.json"]
+    doc["parts"] = [p for p in doc["parts"] if p["obligationPartId"] != part_id]
+    return pkg
+
+
+def _drop_edge(package: dict, part_id: str) -> dict:
+    pkg = copy.deepcopy(package)
+    doc = pkg["statements/traceability-map.json"]
+    doc["edges"] = [e for e in doc["edges"] if e["obligationPartId"] != part_id]
+    return pkg
+
+
+@pytest.mark.parametrize("label,mutate", F1_MUTATIONS, ids=[c[0] for c in F1_MUTATIONS])
+def test_f1_accounting_mutations_are_caught(label, mutate) -> None:
+    assert scope_and_count_violations(load_package()) == [], "baseline must be clean"
+    falsified = mutate(load_package())
+    if label == "drop-a-new-edge":
+        # a dropped edge does not change N; it breaks the traceability path instead
+        edges = falsified["statements/traceability-map.json"]["edges"]
+        assert not any(e["obligationPartId"] == "OP-027-a" for e in edges)
+        assert any(e["obligationPartId"] == "OP-027-a"
+                   for e in load("statements/traceability-map.json")["edges"])
+    elif label == "drop-a-new-part":
+        parts = falsified["statements/obligation-parts.json"]["parts"]
+        rules = load("statements/atomic-behavior-rules.json")["rules"]
+        covered = {p["obligationPartId"] for p in parts if p["coverageState"] == "rule-covered"}
+        assert {r["primaryObligationPart"] for r in rules} != covered, "I5 must break"
+    else:
+        assert scope_and_count_violations(falsified) != [], label
+
+
+# ------------------------------------------------------- owner decision D2: SS-026 versus SS-027
+def test_d2_ss_026_and_ss_027_remain_separate_records(records) -> None:
+    by_id = {r["sourceStatementId"]: r for r in records}
+    assert "SS-026" in by_id and "SS-027" in by_id
+    assert by_id["SS-026"]["v15Index"] == 26 and by_id["SS-027"]["v15Index"] == 27
+    assert by_id["SS-026"]["statementText"] != by_id["SS-027"]["statementText"]
+    assert by_id["SS-026"]["statementDigest"] != by_id["SS-027"]["statementDigest"]
+
+
+def test_d2_each_statement_owns_its_source_obligation_part(parts) -> None:
+    for statement_id, part_id in (("SS-026", "OP-026-a"), ("SS-027", "OP-027-a")):
+        owned = [p for p in parts if p["sourceStatementId"] == statement_id
+                 and p["derivationBasis"] == "source_obligation"]
+        assert [p["obligationPartId"] for p in owned] == [part_id]
+
+
+def test_d2_each_rule_covered_part_owns_exactly_one_rule(parts, rules) -> None:
+    for statement_id in ("SS-026", "SS-027"):
+        owned = [p["obligationPartId"] for p in parts
+                 if p["sourceStatementId"] == statement_id and p["coverageState"] == "rule-covered"]
+        assert len(owned) == 2
+        for part_id in owned:
+            matching = [r for r in rules if r["primaryObligationPart"] == part_id]
+            assert len(matching) == 1, part_id
+
+
+def test_d2_neither_statement_reuses_the_others_identifiers(parts, rules) -> None:
+    ss026_parts = {p["obligationPartId"] for p in parts if p["sourceStatementId"] == "SS-026"}
+    ss027_parts = {p["obligationPartId"] for p in parts if p["sourceStatementId"] == "SS-027"}
+    assert ss026_parts == {"OP-026-a", "OP-026-b"}
+    assert ss027_parts == {"OP-027-a", "OP-027-b"}
+    assert not (ss026_parts & ss027_parts)
+    ss026_rules = {r["ruleId"] for r in rules if r["primaryObligationPart"] in ss026_parts}
+    ss027_rules = {r["ruleId"] for r in rules if r["primaryObligationPart"] in ss027_parts}
+    assert not (ss026_rules & ss027_rules)
+    # neither rule may reach into the other statement's parts, in any role
+    for rule in rules:
+        if rule["primaryObligationPart"] in ss026_parts:
+            assert not (set(rule["supportingObligationParts"]) & ss027_parts), rule["ruleId"]
+        if rule["primaryObligationPart"] in ss027_parts:
+            assert not (set(rule["supportingObligationParts"]) & ss026_parts), rule["ruleId"]
+
+
+def test_d2_both_source_clauses_are_verbatim(parts, records) -> None:
+    by_id = {r["sourceStatementId"]: r["statementText"] for r in records}
+    for statement_id, part_id in (("SS-026", "OP-026-a"), ("SS-027", "OP-027-a")):
+        part = next(p for p in parts if p["obligationPartId"] == part_id)
+        assert part["sourceClauseReference"] in by_id[statement_id], part_id
+
+
+def test_d2_both_traceability_paths_close_independently() -> None:
+    edges = load("statements/traceability-map.json")["edges"]
+    for statement_id, primaries in (("SS-026", {"OP-026-a", "OP-026-b"}),
+                                    ("SS-027", {"OP-027-a", "OP-027-b"})):
+        owned = [e for e in edges if e["sourceStatementId"] == statement_id]
+        assert {e["obligationPartId"] for e in owned if e["role"] == "primary"} == primaries
+        assert all(e["ruleId"] for e in owned if e["role"] in ("primary", "supporting"))
+        # no edge of one statement may name the other statement's part
+        other = {"SS-026": "OP-027", "SS-027": "OP-026"}[statement_id]
+        assert not any(e["obligationPartId"].startswith(other) for e in owned)
+
+
+def test_d2_overlap_does_not_break_uniqueness_or_identity_i5(parts, rules) -> None:
+    part_ids = [p["obligationPartId"] for p in parts]
+    rule_ids = [r["ruleId"] for r in rules]
+    assert len(part_ids) == len(set(part_ids))
+    assert len(rule_ids) == len(set(rule_ids))
+    rule_covered = {p["obligationPartId"] for p in parts if p["coverageState"] == "rule-covered"}
+    assert rule_covered == {r["primaryObligationPart"] for r in rules}
+
+
+def test_d2_ss_027_is_not_narrowed_to_willingness_to_pay(parts, rules) -> None:
+    part = next(p for p in parts if p["obligationPartId"] == "OP-027-a")
+    text = f"{part['normativeObligation']} {part['observableInvariant']}".lower()
+    assert "demand for the proposed product" in text or "demand for a proposed product" in text
+    assert "willingness to pay" not in part["normativeObligation"].lower()
+    assert "willingness to pay" not in part["observableInvariant"].lower()
+    rule = next(r for r in rules if r["primaryObligationPart"] == "OP-027-a")
+    assert any("PROPOSED_PRODUCT_DEMAND" in code for code in rule["outcomeCodes"])
+    assert not any("WTP" in code for code in rule["outcomeCodes"])
+
+
+def test_d2_ss_026_is_not_broadened_beyond_willingness_to_pay(parts, rules) -> None:
+    part = next(p for p in parts if p["obligationPartId"] == "OP-026-a")
+    assert "willingness-to-pay" in part["observableInvariant"].lower()
+    assert "demand" not in part["observableInvariant"].lower()
+    rule = next(r for r in rules if r["primaryObligationPart"] == "OP-026-a")
+    assert rule["outcomeCodes"] == ["WTP_SUBSTITUTED_FOR_COMMITMENT", "WTP_CLASSIFICATION_INCOMPLETE"]
+
+
+def test_d2_intentional_redundancy_is_stated_not_silent(parts) -> None:
+    part = next(p for p in parts if p["obligationPartId"] == "OP-027-a")
+    joined = " ".join(part["knownLimitations"]).lower()
+    assert "d2" in joined
+    assert "op-026-a" in joined
+
+
+def test_d2_removing_either_side_breaks_reconciliation(parts, rules, records) -> None:
+    for statement_id, part_id, rule_id in (
+            ("SS-026", "OP-026-a", "BR-026-no-wtp-substitution"),
+            ("SS-027", "OP-027-a", "BR-027-no-proposed-product-demand-as-commitment")):
+        remaining_records = [r for r in records if r["sourceStatementId"] != statement_id]
+        assert len(remaining_records) == len(records) - 1
+        surviving = {r["sourceStatementId"] for r in remaining_records}
+        assert any(p["sourceStatementId"] not in surviving for p in parts), statement_id
+        remaining_parts = [p for p in parts if p["obligationPartId"] != part_id]
+        covered = {p["obligationPartId"] for p in remaining_parts
+                   if p["coverageState"] == "rule-covered"}
+        assert {r["primaryObligationPart"] for r in rules} != covered, part_id
+        remaining_rules = [r for r in rules if r["ruleId"] != rule_id]
+        covered_all = {p["obligationPartId"] for p in parts if p["coverageState"] == "rule-covered"}
+        assert {r["primaryObligationPart"] for r in remaining_rules} != covered_all, rule_id
+        edges = [e for e in load("statements/traceability-map.json")["edges"]
+                 if e["sourceStatementId"] == statement_id]
+        assert edges and all(e["obligationPartId"].startswith(f"OP-{statement_id[3:]}")
+                             for e in edges)
+
+
+def test_d2_future_demand_family_statements_stay_unrepresented(parts, rules, records) -> None:
+    """D2 was selected for SS-026/SS-027 only; SS-056, SS-085 and SS-087 remain unscheduled."""
+    present = {r["sourceStatementId"] for r in records}
+    for statement_id in FUTURE_DEMAND_FAMILY:
+        assert statement_id not in present, statement_id
+        assert not any(p["sourceStatementId"] == statement_id for p in parts), statement_id
+        index = statement_id[3:]
+        assert not any(p["obligationPartId"].startswith(f"OP-{index}") for p in parts), statement_id
+        assert not any(r["primaryObligationPart"].startswith(f"OP-{index}")
+                       for r in rules), statement_id
+        assert not any(e["sourceStatementId"] == statement_id
+                       for e in load("statements/traceability-map.json")["edges"]), statement_id
+
+
+# ------------------------------------ documentation consistency: gate2a/README.md prose versus data
+# A package whose JSON reconciles perfectly can still tell a human reader the wrong number. Every
+# value below is derived from the artifacts; the README is checked against it, never the reverse.
+NUMBER_WORDS = {"Three": 3, "Four": 4, "Five": 5, "Six": 6, "Seven": 7, "Eight": 8}
+
+
+def test_gate2a_readme_prose_matches_the_derived_artifact_totals(parts, rules) -> None:
+    import re
+
+    readme = (GATE / "README.md").read_text(encoding="utf-8")
+    report = load("statements/coverage-report.json")
+    part_ids = {p["obligationPartId"] for p in parts}
+    rule_ids = {r["ruleId"] for r in rules}
+
+    # every identifier the prose names must exist: this is what a dangling OP-055-h looks like
+    named_parts = set(re.findall(r"OP-\d{3}-[a-z]", readme))
+    named_rules = set(re.findall(r"BR-\d{3}-[a-z0-9-]+?(?=[`\s,.])", readme))
+    assert named_parts <= part_ids, sorted(named_parts - part_ids)
+    assert named_rules <= rule_ids, sorted(named_rules - rule_ids)
+
+    # rule-count claims, derived rather than restated
+    governed = report["findingPolicyAccounting"]["reviewPolicyGovernsRuleDefinitions"]
+    finding_capable = sum(1 for r in rules if r["canProduceProductFinding"])
+    assert governed == len(rules)
+    assert finding_capable == report["findingPolicyAccounting"][
+        "normativeRuleDesignsCapableOfProductFindings"]
+    assert f"**{governed}** rule definitions are governed by the review policy" in readme
+    assert f"**{finding_capable}** rule designs can actually produce a reviewable product finding" \
+        in readme
+
+    # The human-review claim is checked as an isolated block. Asking only whether an ID appears
+    # somewhere in the README would pass a bullet that dropped one, added one, or miscounted.
+    human = [p for p in parts if p["coverageState"] == "human-review-obligation"]
+    human_parts = {p["obligationPartId"] for p in human}
+    assert len(human_parts) == 4, sorted(human_parts)
+    assert all(p["derivationBasis"] == "evaluation_precondition" for p in human), \
+        sorted((p["obligationPartId"], p["derivationBasis"]) for p in human)
+    assert report["sourceObligationCoverage"]["humanRequiredDispositions"] == 0
+
+    # isolate the bullet: from its declared count up to the start of the governed-rule bullet
+    bullet = re.search(
+        r"- \*\*(\d+)\*\* parts require human judgment"
+        r"(.*?)(?=- \*\*\d+\*\* rule definitions are governed)",
+        readme, re.S)
+    assert bullet is not None, "human-judgment bullet not found in README"
+    declared_count, block = int(bullet.group(1)), bullet.group(2)
+    listed = set(re.findall(r"OP-\d{3}-[a-z]", block))
+
+    assert declared_count == len(human_parts), (declared_count, sorted(human_parts))
+    assert listed == human_parts, sorted(listed ^ human_parts)
+    assert "none of them is a source obligation" in block
+    stated_source = re.search(
+        r"Source\s+obligations with a human-required disposition: \*\*(\d+)\*\*", block)
+    assert stated_source is not None, "the bullet must state its source-obligation count"
+    assert int(stated_source.group(1)) == \
+        report["sourceObligationCoverage"]["humanRequiredDispositions"]
+
+    # the SS-006 credibility sentence must name both authoritative fields, read from the artifact
+    op_006_g = next(p for p in parts if p["obligationPartId"] == "OP-006-g")
+    statement = re.search(r"`OP-006-g` \(credibility\)(.*?)\.\s", readme, re.S)
+    assert statement is not None, "OP-006-g credibility statement not found in README"
+    stated_basis = re.search(r"derivation basis `([a-z_]+)`", statement.group(1))
+    stated_state = re.search(r"coverage state\s+`([a-z-]+)`", statement.group(1))
+    assert stated_basis is not None and stated_state is not None, statement.group(1)
+    assert stated_basis.group(1) == op_006_g["derivationBasis"], stated_basis.group(1)
+    assert stated_state.group(1) == op_006_g["coverageState"], stated_state.group(1)
+
+    # the antecedent enumeration must be complete and correctly counted
+    sentence = re.search(r"(\w+) rules declare antecedents:(.*?)\.\n", readme, re.S)
+    assert sentence is not None, "antecedent enumeration missing from README"
+    antecedent = {r["ruleId"] for r in rules if r["hasAntecedent"]}
+    assert NUMBER_WORDS[sentence.group(1)] == len(antecedent), sentence.group(1)
+    assert set(re.findall(r"BR-\d{3}-[a-z0-9-]+?(?=[`\s,.])", sentence.group(2))) == antecedent
