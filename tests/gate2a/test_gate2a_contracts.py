@@ -59,6 +59,25 @@ EXCLUDED_RECORD_RELS = (
 )
 CONTRACT_VERSION = "0.15.0-draft"
 PACKAGE_VERSION = "0.3.0-draft"
+
+# The owner decision recorded in this branch. The artifact itself is private and lives outside the
+# repository; only its SHA-256 is ever committed, so a later copy can be proven identical without
+# publishing its contents.
+APPROVAL_TIMESTAMP = "2026-08-09T03:08:24Z"
+APPROVAL_ARTIFACT_SHA256 = "92af4c29fbaa604d8baa9a5605133521e1acc005902ff11d8908696ec1d55da3"
+APPROVED_REVIEWER_REPRESENTATION = (
+    "Repository owner — represented in this record; authorization evidenced separately by a "
+    "private approval artifact SHA-256.")
+APPROVED_SCOPE_OF_DECISION = (
+    "Owner approval of the Gate 2A semantic design for the bound package digest. Invariant X-8 "
+    "received owner review. Findings F-6 through F-9 remain deferred. This decision grants no "
+    "authority beyond the approved semantic design.")
+PENDING_SCOPE_OF_DECISION = (
+    "No owner review has occurred. This record binds the candidate package digest under review "
+    "and asserts no approval.")
+APPROVED_EVIDENCE_STATEMENT = (
+    "The repository owner approved the exact bound Gate 2A semantic-design package digest. "
+    "Authorization evidence is the SHA-256 of a separately preserved private approval artifact.")
 MUTABLE_STATE_KEYS = ("currentState", "designApproved", "humanReviewOccurred", "reviewStatus",
                       "humanReviewed", "reviewedBy", "reviewedDate")
 ALLOWED_RESULTS = {
@@ -1268,18 +1287,29 @@ def test_design_review_example_record_is_pending_and_digest_bound() -> None:
         assert absent not in record
 
 
-def test_authoritative_design_review_record_is_pending_at_this_commit() -> None:
+def test_authoritative_design_review_record_is_approved_and_evidenced() -> None:
+    """The committed authoritative record carries the owner decision for the bound digest."""
     record = load("records/design-review-record.json")
     assert record["recordRole"] == "authoritative"
-    assert record["reviewStatus"] == "pending-owner-review"
-    assert record["humanReviewOccurred"] is False
-    assert record["designApproved"] is False
-    assert record["reviewerRepresentation"] is None
-    assert record["reviewTimestamp"] is None
+    assert record["reviewStatus"] == "design-approved"
+    assert record["humanReviewOccurred"] is True
+    assert record["designApproved"] is True
+    assert record["reviewerRepresentation"] == APPROVED_REVIEWER_REPRESENTATION
+    assert record["reviewTimestamp"] == APPROVAL_TIMESTAMP
+    assert record["scopeOfDecision"] == APPROVED_SCOPE_OF_DECISION
+    assert record["approvalScope"] == "gate2a-semantic-design"
+    assert record["invariantsReviewed"] == ["X-8"]
+    assert record["deferredFindings"] == ["F-6", "F-7", "F-8", "F-9"]
+
+    evidence = record["authorizationEvidence"]
+    assert evidence["evidenceKind"] == "private-approval-artifact-sha256"
+    assert evidence["artifactSha256"] == APPROVAL_ARTIFACT_SHA256
+    assert evidence["statement"] == APPROVED_EVIDENCE_STATEMENT
+
+    # Approval changes what is authorized; it changes none of the non-authorizations.
+    assert record["doesNotEstablish"] == CANONICAL_DOES_NOT_ESTABLISH
+    assert len(record["nonAuthorizations"]) == 7
     assert all(value is False for value in record["nonAuthorizations"].values())
-    for absent in ("approvalScope", "invariantsReviewed", "deferredFindings",
-                   "authorizationEvidence"):
-        assert absent not in record
 
 
 def test_manifest_membership_is_explicit_and_complete() -> None:
@@ -1334,7 +1364,7 @@ def test_lifecycle_contract_declares_dimensions_without_state() -> None:
 
 def test_lifecycle_record_holds_state_and_non_design_dimensions_stay_closed() -> None:
     record = load("records/lifecycle-state-record.json")
-    assert record["designReview"]["currentState"] == "pending-owner-review"
+    assert record["designReview"]["currentState"] == "design-approved"
     assert record["designReview"]["currentState"] in record["designReview"]["allowedStates"]
     assert record["operationalComparatorUse"]["currentState"] == "prohibited"
     assert record["runtimeEnforcement"]["currentState"] == "disabled"
@@ -1551,8 +1581,9 @@ def test_f1_manifest_membership_and_exclusions_are_unchanged() -> None:
     assert manifest["packageVersion"] == PACKAGE_VERSION
 
 
-def test_f1_authority_states_are_unchanged() -> None:
-    assert load("records/design-review-record.json")["reviewStatus"] == "pending-owner-review"
+def test_only_design_review_advanced_every_other_authority_is_unchanged() -> None:
+    """Design review is approved. Nothing else moved, and the illustrative example never moves."""
+    assert load("records/design-review-record.json")["reviewStatus"] == "design-approved"
     assert load("records/design-review-record.example.json")["reviewStatus"] == \
         "pending-owner-review"
     assert load("records/bridge-authority-record.example.json")["authorityStatus"] == "not-granted"
@@ -2007,24 +2038,23 @@ def _primary(b: dict) -> dict:
     return next(r for r in b["review_records"] if r["recordRole"] == "authoritative")
 
 
-def _approve(b: dict) -> dict:
-    """Promote the authoritative record to a fully valid approved record."""
-    record = _primary(b)
-    record["reviewStatus"] = "design-approved"
-    record["humanReviewOccurred"] = True
-    record["designApproved"] = True
-    record["reviewerRepresentation"] = "Repository owner"
-    record["reviewTimestamp"] = "2026-08-09T00:00:00+00:00"
-    record["approvalScope"] = "gate2a-semantic-design"
-    record["invariantsReviewed"] = list(APPROVED_INVARIANTS)
-    record["deferredFindings"] = list(APPROVED_DEFERRALS)
-    record["authorizationEvidence"] = {
-        "evidenceKind": ACCEPTED_EVIDENCE_KIND,
-        "artifactSha256": "0" * 64,
-        "statement": "canonical",
-    }
-    b["lifecycle_record"]["designReview"]["currentState"] = "design-approved"
-    return b
+def _revert_to_pending(record: dict) -> dict:
+    """Turn an approved record into a COHERENT pending one.
+
+    Not a status flip: a record left pending while still carrying approval-only fields would be
+    caught by the pending-branch rule instead of the rule under test, so the mutation would prove
+    the wrong thing. Non-authorizations are preserved because they are state-independent.
+    """
+    record["reviewStatus"] = "pending-owner-review"
+    record["humanReviewOccurred"] = False
+    record["designApproved"] = False
+    record["reviewerRepresentation"] = None
+    record["reviewTimestamp"] = None
+    record["scopeOfDecision"] = PENDING_SCOPE_OF_DECISION
+    for approval_only in ("approvalScope", "invariantsReviewed", "deferredFindings",
+                          "authorizationEvidence"):
+        record.pop(approval_only, None)
+    return record
 
 
 def _m_digest(b):        _primary(b)["reviewedArtifactDigest"] = "f" * 64; return b
@@ -2032,22 +2062,20 @@ def _m_path(b):          b["lifecycle_record"]["governedArtifactPath"] = "wrong/
 def _m_version_split(b): b["lifecycle_record"]["governedArtifactVersion"] = "9.9.9-draft"; return b
 def _m_version_src(b):   b["manifest"]["packageVersion"] = "9.9.9-draft"; return b
 def _m_pending_approved(b):
-    b = _approve(b); b["lifecycle_record"]["designReview"]["currentState"] = "pending-owner-review"; return b
+    b["lifecycle_record"]["designReview"]["currentState"] = "pending-owner-review"; return b
 def _m_approved_no_record(b):
-    b["lifecycle_record"]["designReview"]["currentState"] = "design-approved"; return b
+    _revert_to_pending(_primary(b)); return b
 def _m_two_authoritative(b):
     b["review_records"][1]["recordRole"] = "authoritative"; return b
 def _m_derivation(b):    b["lifecycle_record"]["designReview"]["derivedFromRecordId"] = "other"; return b
-def _m_invariants(b):
-    b = _approve(b); _primary(b)["invariantsReviewed"] = ["X-8", "X-7"]; return b
-def _m_deferrals(b):
-    b = _approve(b); _primary(b)["deferredFindings"] = ["F-6", "F-7", "F-8"]; return b
+def _m_invariants(b):    _primary(b)["invariantsReviewed"] = ["X-8", "X-7"]; return b
+def _m_deferrals(b):     _primary(b)["deferredFindings"] = ["F-6", "F-7", "F-8"]; return b
 def _m_non_auth(b):
     _primary(b)["nonAuthorizations"]["enablesRuntimeEnforcement"] = True; return b
 def _m_non_design(b):
     b["lifecycle_record"]["runtimeEnforcement"]["currentState"] = "enabled"; return b
 def _m_allowed_states(b):
-    b["lifecycle_record"]["designReview"]["allowedStates"] = ["design-approved"]; return b
+    b["lifecycle_record"]["designReview"]["allowedStates"] = ["pending-owner-review"]; return b
 def _m_member_state(b):
     b["member_instances"]["contracts/lifecycle-state.json"]["designReview"]["currentState"] = "design-approved"
     return b
@@ -2056,9 +2084,9 @@ def _m_exclusions(b):
 def _m_missing_file(b):
     b["present_paths"] = set(b["present_paths"]) - {MANIFEST_PATH}; return b
 def _m_evidence_invalid(b):
-    b = _approve(b); _primary(b)["authorizationEvidence"].pop("artifactSha256"); return b
+    _primary(b)["authorizationEvidence"].pop("artifactSha256"); return b
 def _m_evidence_weak(b):
-    b = _approve(b); _primary(b)["authorizationEvidence"]["evidenceKind"] = "representation-only"; return b
+    _primary(b)["authorizationEvidence"]["evidenceKind"] = "representation-only"; return b
 def _m_prose(b):
     _primary(b)["doesNotEstablish"] = ["a", "b", "c", "d", "e", "f", "g"]; return b
 

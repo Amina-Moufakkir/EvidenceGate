@@ -11,7 +11,7 @@
       "pending-owner-review",
       "design-approved"
     ],
-    "currentState": "pending-owner-review",
+    "currentState": "design-approved",
     "derivedFromRecordPath": "auditors/problem-evidence/gate2a/records/design-review-record.json",
     "derivedFromRecordId": "gate2a-p-design-review"
   },
