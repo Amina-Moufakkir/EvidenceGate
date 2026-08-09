@@ -1,6 +1,6 @@
 {
   "packageId": "gate2a-p-source-statement-records",
-  "contractVersion": "0.14.0-draft",
+  "contractVersion": "0.15.0-draft",
   "sourcePolicyPath": "auditors/problem-evidence/eval-policy/phase1-benchmark-policy.json",
   "sourcePolicySchemaVersion": "1.0.0",
   "statementDigestAlgorithm": "json.dumps-sort-keys-compact-sha256",

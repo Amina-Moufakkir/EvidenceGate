@@ -9,7 +9,11 @@
       "const": "gate2a-p-package-manifest"
     },
     "contractVersion": {
-      "const": "0.14.0-draft"
+      "const": "0.15.0-draft"
+    },
+    "packageVersion": {
+      "type": "string",
+      "minLength": 1
     },
     "digestAlgorithm": {
       "const": "json.dumps-sort-keys-compact-sha256"
@@ -76,6 +80,7 @@
   "required": [
     "packageId",
     "contractVersion",
+    "packageVersion",
     "digestAlgorithm",
     "fileDigestRule",
     "packageDigestRule",

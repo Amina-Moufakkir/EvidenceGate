@@ -1,19 +1,16 @@
 {
   "packageId": "gate2a-p-lifecycle-state",
-  "contractVersion": "0.14.0-draft",
+  "contractVersion": "0.15.0-draft",
+  "stateRecordPath": "auditors/problem-evidence/gate2a/records/lifecycle-state-record.json",
   "designReview": {
-    "currentState": "pending-owner-review",
     "allowedStates": [
-      "drafted",
-      "reviewed",
-      "design-approved",
-      "superseded"
+      "pending-owner-review",
+      "design-approved"
     ],
     "stateHeldExternally": true,
-    "note": "Design artifacts carry no approval field. Review state lives in a separate digest-bound record so that updating a review never mutates the reviewed artifact."
+    "note": "Design artifacts carry no approval field and no current state. Both the current state and the decision that authorizes it live in detached records excluded from the package digest, so a transition never mutates the reviewed artifact. The authorizing decision is the design-review record; the lifecycle-state record is its derived projection."
   },
   "operationalComparatorUse": {
-    "currentState": "prohibited",
     "allowedStates": [
       "prohibited",
       "permitted"
@@ -22,7 +19,6 @@
     "note": "Permission would require a repository-recorded, digest-bound operational review record. That is not authenticated reviewer identity and cannot approve model compatibility, runtime enforcement, or acceptance."
   },
   "runtimeEnforcement": {
-    "currentState": "disabled",
     "allowedStates": [
       "disabled",
       "enabled"
@@ -31,7 +27,6 @@
     "authorizingGate": "Gate 2B"
   },
   "modelCompatibility": {
-    "currentState": "unresolved-offline",
     "changeableByGate2AP": false,
     "authorizingGate": "Gate 2C"
   },
@@ -67,7 +62,7 @@
     },
     {
       "id": "X-4",
-      "invariant": "A superseded design cannot remain operationally permitted without an explicit defined transition.",
+      "invariant": "Approval of one package digest does not approve or supersede a different package digest; every package requires its own explicit digest-bound decision.",
       "enforcedBy": "deterministic-cross-document"
     },
     {

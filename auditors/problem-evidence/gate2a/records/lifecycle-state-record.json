@@ -1,0 +1,35 @@
+{
+  "recordId": "gate2a-p-lifecycle-state-record",
+  "contractVersion": "0.15.0-draft",
+  "recordKind": "lifecycle-state",
+  "governedArtifactPath": "auditors/problem-evidence/gate2a/manifest.json",
+  "governedArtifactVersion": "0.3.0-draft",
+  "governedArtifactDigest": "442c433a36991f5c2e62a646f4b9f0eccf198ef268fae485daa114f8fe833646",
+  "digestAlgorithm": "json.dumps-sort-keys-compact-sha256",
+  "designReview": {
+    "allowedStates": [
+      "pending-owner-review",
+      "design-approved"
+    ],
+    "currentState": "pending-owner-review",
+    "derivedFromRecordPath": "auditors/problem-evidence/gate2a/records/design-review-record.json",
+    "derivedFromRecordId": "gate2a-p-design-review"
+  },
+  "operationalComparatorUse": {
+    "currentState": "prohibited",
+    "changeableByGate2AP": false
+  },
+  "runtimeEnforcement": {
+    "currentState": "disabled",
+    "changeableByGate2AP": false,
+    "authorizingGate": "Gate 2B"
+  },
+  "modelCompatibility": {
+    "currentState": "unresolved-offline",
+    "changeableByGate2AP": false,
+    "authorizingGate": "Gate 2C"
+  },
+  "formalPhase1Acceptance": {
+    "representedAsRepositoryState": false
+  }
+}

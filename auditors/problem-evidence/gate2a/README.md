@@ -19,7 +19,10 @@ gate2a/
   schema/        contract schemas (Draft 2020-12)
   contracts/     outcome taxonomy, operator set, lifecycle dimensions
   statements/    the 13 represented statements (7 pilot + 6 from batch F-1)
-  records/       three external authority-record examples, all non-approved:
+  records/       detached state, excluded from the package digest:
+                 design-review-record.json      authoritative decision (pending-owner-review)
+                 lifecycle-state-record.json    derived current state (pending-owner-review)
+                 three illustrative examples, all non-approved:
                  design-review (pending-owner-review), bridge-authority (not-granted),
                  classification-authority (not-approved)
 ```
@@ -281,30 +284,47 @@ correct. That is invariant **X-8** and requires owner review.
 
 ## Approval state lives outside the artifact
 
-Design artifacts carry no `reviewStatus`, `humanReviewed`, or `designApproved` field. Review state
-lives in `records/`, referencing `manifest.json` and its package digest. The review record is
-excluded from that digest, so updating a review never mutates the reviewed content; any substantive
-change produces a new digest and requires a new review record.
+Design artifacts carry no `reviewStatus`, `humanReviewed`, `designApproved`, or `currentState`
+field. Both the decision and the state live in `records/`, referencing `manifest.json` and its
+package digest. Those records are excluded from that digest, so a review or a transition never
+mutates the reviewed content; any substantive change to reviewed content produces a new digest and
+requires its own new decision.
 
-`manifest.json` lists all **22** included files with per-file digests and documents each exclusion.
-Included: **12** `schema/`, **3** `contracts/`, **5** `statements/`, and **2** Markdown documents. Excluded
-and documented: `manifest.json` itself (self-reference), `records/design-review-record.example.json`,
-`records/bridge-authority-record.example.json`, and
+Two records, two different jobs. `records/design-review-record.json` is the **authorizing
+instrument**: the single authoritative decision, digest-bound, carrying its authorization evidence.
+`records/lifecycle-state-record.json` is its **derived projection** of current state — never an
+independent source of truth. Cross-record validation enforces the derivation in both directions,
+so the two can never disagree.
+
+`manifest.json` lists all **23** included files with per-file digests and documents each exclusion.
+Included: **13** `schema/`, **3** `contracts/`, **5** `statements/`, and **2** Markdown documents. Excluded
+and documented: `manifest.json` itself (self-reference), the two authoritative records
+`records/design-review-record.json` and `records/lifecycle-state-record.json`, the three
+illustrative records `records/design-review-record.example.json`,
+`records/bridge-authority-record.example.json` and
 `records/classification-authority-record.example.json` (authority state must sit outside reviewed
 content), and `tests/gate2a/` (outside the package).
 
-Package file inventory: **22 digest members + 3 excluded records + 1 excluded manifest = 26 files
-under `gate2a/`**, plus **1 test module** outside it — **27 files in the reviewed Gate 2A scope**.
+Exclusion from the digest is not exclusion from validation: every excluded record is schema-validated
+and subject to cross-record integrity checks.
+
+Package file inventory: **23 digest members + 5 excluded records + 1 excluded manifest = 29 files
+under `gate2a/`**, plus **1 test module** outside it — **30 files in the reviewed Gate 2A scope**.
 
 ## Lifecycle dimensions
 
-| Dimension | Current state | Changeable by Gate 2A-P |
-|---|---|---|
-| Design review | `pending-owner-review` | no |
-| Operational comparator use | `prohibited` | no |
-| Runtime enforcement | `disabled` | no (Gate 2B) |
-| Model compatibility | `unresolved-offline` | no (Gate 2C) |
-| Formal Phase 1 acceptance | not a repository state at all | no — requires detached authority |
+This package declares the dimensions and their allowed states. It does not declare which state any
+dimension is currently in: current state is mutable, and a digest-bound artifact that asserted it
+could not change without invalidating the digest a review was bound to. Current state is therefore
+held in `records/lifecycle-state-record.json`, which is excluded from the package digest.
+
+| Dimension | Allowed states | State held in | Changeable by Gate 2A-P |
+|---|---|---|---|
+| Design review | `pending-owner-review`, `design-approved` | `records/lifecycle-state-record.json` | no |
+| Operational comparator use | `prohibited`, `permitted` | `records/lifecycle-state-record.json` | no |
+| Runtime enforcement | `disabled`, `enabled` | `records/lifecycle-state-record.json` | no (Gate 2B) |
+| Model compatibility | — | `records/lifecycle-state-record.json` | no (Gate 2C) |
+| Formal Phase 1 acceptance | not a repository state at all | not represented | no — requires detached authority |
 
 ## Ordering
 

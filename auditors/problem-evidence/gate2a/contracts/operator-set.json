@@ -1,6 +1,6 @@
 {
   "packageId": "gate2a-p-operator-set",
-  "contractVersion": "0.14.0-draft",
+  "contractVersion": "0.15.0-draft",
   "operators": [
     {
       "operator": "declaredStepPrecedes",

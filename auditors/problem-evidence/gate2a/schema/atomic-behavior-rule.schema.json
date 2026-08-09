@@ -10,7 +10,7 @@
       "const": "gate2a-p-atomic-behavior-rules"
     },
     "contractVersion": {
-      "const": "0.14.0-draft"
+      "const": "0.15.0-draft"
     },
     "scope": {
       "enum": [

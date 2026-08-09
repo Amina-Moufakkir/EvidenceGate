@@ -1,8 +1,8 @@
 {
-  "recordId": "gate2a-p-design-review-pending",
+  "recordId": "gate2a-p-design-review",
   "contractVersion": "0.15.0-draft",
   "recordKind": "design-review",
-  "recordRole": "illustrative-example",
+  "recordRole": "authoritative",
   "reviewedArtifactPath": "auditors/problem-evidence/gate2a/manifest.json",
   "reviewedArtifactVersion": "0.3.0-draft",
   "reviewedArtifactDigest": "442c433a36991f5c2e62a646f4b9f0eccf198ef268fae485daa114f8fe833646",
@@ -12,7 +12,7 @@
   "designApproved": false,
   "reviewerRepresentation": null,
   "reviewTimestamp": null,
-  "scopeOfDecision": "Illustrative example of the external review-record shape. No review has occurred. The record references the package manifest and its digest and is excluded from that digest, so updating the record never mutates the reviewed content.",
+  "scopeOfDecision": "No owner review has occurred. This record binds the candidate package digest under review and asserts no approval.",
   "doesNotEstablish": [
     "Formal Phase 1 acceptance",
     "Gate 2C model-compatibility approval",

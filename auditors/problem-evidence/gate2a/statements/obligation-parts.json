@@ -1,6 +1,6 @@
 {
   "packageId": "gate2a-p-obligation-parts",
-  "contractVersion": "0.14.0-draft",
+  "contractVersion": "0.15.0-draft",
   "scope": "expansion-in-progress",
   "derivationBasisNote": "source_obligation is required by the frozen text. evaluation_precondition is input the evaluator needs and is not a source requirement. evaluation_proxy is an observable stand-in for a source obligation the repository cannot observe directly; a proxy never counts as source-derived coverage.",
   "parts": [

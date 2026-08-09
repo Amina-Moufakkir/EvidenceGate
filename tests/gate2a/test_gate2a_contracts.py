@@ -31,12 +31,36 @@ PAIRS = [
     ("contracts/outcome-taxonomy.json", "schema/outcome-taxonomy.schema.json"),
     ("contracts/operator-set.json", "schema/operator-set.schema.json"),
     ("contracts/lifecycle-state.json", "schema/lifecycle-state.schema.json"),
+    ("records/design-review-record.json", "schema/design-review-record.schema.json"),
+    ("records/lifecycle-state-record.json", "schema/lifecycle-state-record.schema.json"),
     ("records/design-review-record.example.json", "schema/design-review-record.schema.json"),
     ("records/bridge-authority-record.example.json", "schema/bridge-authority-record.schema.json"),
     ("records/classification-authority-record.example.json",
      "schema/classification-authority-record.schema.json"),
     ("manifest.json", "schema/package-manifest.schema.json"),
 ]
+# Exclusion from the package digest is not exclusion from validation: every excluded record above is
+# schema-validated here and subject to the cross-record integrity rules at the end of this module.
+EXCLUSION_PATHS = (
+    "auditors/problem-evidence/gate2a/manifest.json",
+    "auditors/problem-evidence/gate2a/records/design-review-record.json",
+    "auditors/problem-evidence/gate2a/records/lifecycle-state-record.json",
+    "auditors/problem-evidence/gate2a/records/design-review-record.example.json",
+    "auditors/problem-evidence/gate2a/records/bridge-authority-record.example.json",
+    "auditors/problem-evidence/gate2a/records/classification-authority-record.example.json",
+    "tests/gate2a/test_gate2a_contracts.py",
+)
+EXCLUDED_RECORD_RELS = (
+    "records/design-review-record.json",
+    "records/lifecycle-state-record.json",
+    "records/design-review-record.example.json",
+    "records/bridge-authority-record.example.json",
+    "records/classification-authority-record.example.json",
+)
+CONTRACT_VERSION = "0.15.0-draft"
+PACKAGE_VERSION = "0.3.0-draft"
+MUTABLE_STATE_KEYS = ("currentState", "designApproved", "humanReviewOccurred", "reviewStatus",
+                      "humanReviewed", "reviewedBy", "reviewedDate")
 ALLOWED_RESULTS = {
     "normative": {"obligation_satisfied", "obligation_violation", "indeterminate", "evaluator_error"},
     "normative_conditional": {"obligation_satisfied", "obligation_violation", "condition_not_met",
@@ -122,6 +146,34 @@ def load(rel: str) -> dict:
     return json.loads((GATE / rel).read_text())
 
 
+def walk_keys(node: object):
+    """Yield every object key reachable in a JSON document, at any depth."""
+    if isinstance(node, dict):
+        for key, value in node.items():
+            yield key
+            yield from walk_keys(value)
+    elif isinstance(node, list):
+        for item in node:
+            yield from walk_keys(item)
+
+
+def compute_member_digests() -> dict[str, str]:
+    files: dict[str, str] = {}
+    for subdirectory in MANIFEST_DIRS:
+        for path in sorted((GATE / subdirectory).glob("*.json")):
+            files[f"auditors/problem-evidence/gate2a/{subdirectory}/{path.name}"] = \
+                hashlib.sha256(path.read_bytes()).hexdigest()
+    for document in sorted(MANIFEST_DOCS):
+        files[f"auditors/problem-evidence/gate2a/{document}"] = \
+            hashlib.sha256((GATE / document).read_bytes()).hexdigest()
+    return files
+
+
+def compute_package_digest(files: dict[str, str]) -> str:
+    return hashlib.sha256(
+        json.dumps(files, sort_keys=True, separators=(",", ":")).encode("utf-8")).hexdigest()
+
+
 @pytest.fixture(scope="module")
 def parts() -> list[dict]:
     return load("statements/obligation-parts.json")["parts"]
@@ -154,26 +206,50 @@ def test_instance_validates_against_declared_schema(instance_rel: str, schema_re
 
 @pytest.mark.parametrize("schema_rel", sorted({s for _, s in PAIRS}))
 def test_every_object_location_is_closed(schema_rel: str) -> None:
+    """Every object DEFINITION must be closed.
+
+    `if` / `then` / `else` subschemas are constraint overlays on an object defined elsewhere, not
+    definitions of their own. Setting `additionalProperties: false` inside one would forbid every
+    property the overlay does not itself restate, which is the opposite of what closure means.
+    Closure for those objects is enforced at the enclosing definition, which this walk still
+    checks. `test_conditional_branches_sit_inside_a_closed_object` proves that enclosure holds.
+    """
     open_locations: list[str] = []
 
-    def walk(node: object, path: str) -> None:
+    def walk(node: object, path: str, in_overlay: bool = False) -> None:
         if not isinstance(node, dict):
             return
         is_object = node.get("type") == "object" or "properties" in node
         closed = node.get("additionalProperties")
-        if is_object and closed is not False and not isinstance(closed, dict):
+        if is_object and not in_overlay and closed is not False and not isinstance(closed, dict):
             open_locations.append(path)
         for keyword in ("properties", "$defs", "patternProperties"):
             for name, child in (node.get(keyword) or {}).items():
-                walk(child, f"{path}/{keyword}/{name}")
-        for keyword in ("items", "not", "if", "then", "else", "contains", "propertyNames"):
-            walk(node.get(keyword), f"{path}/{keyword}")
+                walk(child, f"{path}/{keyword}/{name}", in_overlay)
+        for keyword in ("items", "not", "contains", "propertyNames"):
+            walk(node.get(keyword), f"{path}/{keyword}", in_overlay)
+        for keyword in ("if", "then", "else"):
+            walk(node.get(keyword), f"{path}/{keyword}", True)
         for keyword in ("allOf", "anyOf", "oneOf", "prefixItems"):
             for index, child in enumerate(node.get(keyword) or []):
-                walk(child, f"{path}/{keyword}/{index}")
+                walk(child, f"{path}/{keyword}/{index}", in_overlay)
 
     walk(load(schema_rel), "#")
     assert not open_locations, open_locations
+
+
+def test_conditional_branches_sit_inside_a_closed_object() -> None:
+    """A schema that uses if/then overlays must close the object those overlays constrain."""
+    checked = []
+    for schema_rel in sorted({s for _, s in PAIRS}):
+        schema = load(schema_rel)
+        if not any(isinstance(branch, dict) and ("if" in branch or "then" in branch)
+                   for branch in schema.get("allOf", []) or []):
+            continue
+        checked.append(schema_rel)
+        assert schema.get("type") == "object", schema_rel
+        assert schema.get("additionalProperties") is False, schema_rel
+    assert checked, "expected at least one schema to use conditional branches"
 
 
 # --------------------------------------------------------------------- frozen source fidelity
@@ -1143,25 +1219,67 @@ def test_observed_chronology_is_unsupported_and_unused_by_any_rule(rules) -> Non
 
 
 # --------------------------------------------------------------------- C4 + lifecycle
-def test_approval_state_is_external_to_the_design_artifacts() -> None:
-    forbidden = ("reviewStatus", "humanReviewed", "reviewedBy", "reviewedDate", "designApproved")
+def test_class_a_digest_member_instances_assert_no_mutable_state() -> None:
+    """Class A: digest-member INSTANCES may not carry approval or current-state keys.
+
+    A recursive key walk, not a text search: a schema is allowed to define this vocabulary and
+    documentation is allowed to discuss it. Only an instance asserting it is prohibited.
+    """
     for instance_rel, _ in PAIRS:
-        if instance_rel.startswith("records/"):
+        if instance_rel.startswith("records/") or instance_rel == "manifest.json":
             continue
-        blob = json.dumps(load(instance_rel))
-        for field in forbidden:
-            assert f'"{field}"' not in blob, (instance_rel, field)
+        for key in walk_keys(load(instance_rel)):
+            assert key not in MUTABLE_STATE_KEYS, (instance_rel, key)
 
 
-def test_design_review_record_is_pending_and_digest_bound() -> None:
+def test_class_b_lifecycle_schema_cannot_admit_current_state() -> None:
+    """Class B: the schema may name the vocabulary, but must not admit a currentState instance."""
+    schema = load("schema/lifecycle-state.schema.json")
+    for dimension in ("designReview", "operationalComparatorUse", "runtimeEnforcement",
+                      "modelCompatibility"):
+        node = schema["properties"][dimension]
+        assert "currentState" not in node["properties"], dimension
+        assert "currentState" not in node["required"], dimension
+        assert node["additionalProperties"] is False, dimension
+    assert schema["properties"]["designReview"]["properties"]["allowedStates"]["const"] == [
+        "pending-owner-review", "design-approved"]
+
+
+def test_class_c_documentation_does_not_assert_current_state() -> None:
+    """Class C: prose may name states; it may not present one as current repository fact."""
+    readme = (GATE / "README.md").read_text(encoding="utf-8")
+    assert "| Current state |" not in readme
+    assert "records/lifecycle-state-record.json" in readme
+
+
+def test_design_review_example_record_is_pending_and_digest_bound() -> None:
     record = load("records/design-review-record.example.json")
+    assert record["recordRole"] == "illustrative-example"
     assert record["reviewStatus"] == "pending-owner-review"
     assert record["humanReviewOccurred"] is False
     assert record["designApproved"] is False
     assert record["reviewerRepresentation"] is None
+    assert record["reviewTimestamp"] is None
     assert record["reviewedArtifactPath"].endswith("manifest.json")
     assert len(record["reviewedArtifactDigest"]) == 64
-    assert len(record["doesNotEstablish"]) >= 7
+    assert len(record["doesNotEstablish"]) == 7
+    for absent in ("approvalScope", "invariantsReviewed", "deferredFindings",
+                   "authorizationEvidence"):
+        assert absent not in record
+
+
+def test_authoritative_design_review_record_is_pending_at_this_commit() -> None:
+    record = load("records/design-review-record.json")
+    assert record["recordRole"] == "authoritative"
+    assert record["reviewStatus"] == "pending-owner-review"
+    assert record["humanReviewOccurred"] is False
+    assert record["designApproved"] is False
+    assert record["reviewerRepresentation"] is None
+    assert record["reviewTimestamp"] is None
+    assert all(value is False for value in record["nonAuthorizations"].values())
+    for absent in ("approvalScope", "invariantsReviewed", "deferredFindings",
+                   "authorizationEvidence"):
+        assert absent not in record
 
 
 def test_manifest_membership_is_explicit_and_complete() -> None:
@@ -1176,43 +1294,61 @@ def test_manifest_membership_is_explicit_and_complete() -> None:
     assert listed == expected, sorted(listed ^ expected)
     assert "auditors/problem-evidence/gate2a/PROVENANCE-QUESTIONS.md" in listed
     assert "auditors/problem-evidence/gate2a/README.md" in listed
-    excluded = {e["path"] for e in manifest["exclusions"]}
-    assert "auditors/problem-evidence/gate2a/manifest.json" in excluded
-    assert any("design-review-record" in path for path in excluded)
-    assert any("bridge-authority-record" in path for path in excluded)
+    excluded_list = [e["path"] for e in manifest["exclusions"]]
+    excluded = set(excluded_list)
+    assert len(excluded_list) == len(excluded), "exclusion paths must be unique"
+    assert excluded == set(EXCLUSION_PATHS)
     assert all(e["reason"] for e in manifest["exclusions"])
     assert not any(path in listed for path in excluded)
+    for path in excluded_list:
+        assert (ROOT / path).is_file(), f"excluded path must exist on disk: {path}"
 
 
-def test_package_digest_recomputes_and_matches_the_review_record() -> None:
+def test_package_digest_recomputes_and_every_detached_record_binds_it() -> None:
     manifest = load("manifest.json")
-    files: dict[str, str] = {}
-    for subdirectory in MANIFEST_DIRS:
-        for path in sorted((GATE / subdirectory).glob("*.json")):
-            rel = f"auditors/problem-evidence/gate2a/{subdirectory}/{path.name}"
-            files[rel] = hashlib.sha256(path.read_bytes()).hexdigest()
-    for document in sorted(MANIFEST_DOCS):
-        rel = f"auditors/problem-evidence/gate2a/{document}"
-        files[rel] = hashlib.sha256((GATE / document).read_bytes()).hexdigest()
-
+    files = compute_member_digests()
     assert files == manifest["includedFiles"], "per-file digests must be current"
-    expected = hashlib.sha256(json.dumps(
-        files, sort_keys=True, separators=(",", ":")).encode("utf-8")).hexdigest()
+    expected = compute_package_digest(files)
     assert manifest["packageDigest"] == expected
+    assert load("records/design-review-record.json")["reviewedArtifactDigest"] == expected
+    assert load("records/lifecycle-state-record.json")["governedArtifactDigest"] == expected
     assert load("records/design-review-record.example.json")["reviewedArtifactDigest"] == expected
     assert load("records/bridge-authority-record.example.json")["governedArtifactDigest"] == expected
+    assert load("records/classification-authority-record.example.json")[
+        "governedArtifactDigest"] == expected
 
 
-def test_lifecycle_dimensions_remain_closed() -> None:
+def test_lifecycle_contract_declares_dimensions_without_state() -> None:
     lifecycle = load("contracts/lifecycle-state.json")
-    assert lifecycle["designReview"]["currentState"] == "pending-owner-review"
+    assert lifecycle["stateRecordPath"].endswith("records/lifecycle-state-record.json")
     assert lifecycle["designReview"]["stateHeldExternally"] is True
-    assert lifecycle["operationalComparatorUse"]["currentState"] == "prohibited"
+    assert lifecycle["designReview"]["allowedStates"] == ["pending-owner-review", "design-approved"]
     assert lifecycle["operationalComparatorUse"]["changeableByGate2AP"] is False
-    assert lifecycle["runtimeEnforcement"]["currentState"] == "disabled"
     assert lifecycle["runtimeEnforcement"]["changeableByGate2AP"] is False
-    assert lifecycle["modelCompatibility"]["currentState"] == "unresolved-offline"
+    assert lifecycle["modelCompatibility"]["changeableByGate2AP"] is False
     assert lifecycle["formalPhase1Acceptance"]["representedAsRepositoryState"] is False
+    for dimension in ("designReview", "operationalComparatorUse", "runtimeEnforcement",
+                      "modelCompatibility"):
+        assert "currentState" not in lifecycle[dimension], dimension
+
+
+def test_lifecycle_record_holds_state_and_non_design_dimensions_stay_closed() -> None:
+    record = load("records/lifecycle-state-record.json")
+    assert record["designReview"]["currentState"] == "pending-owner-review"
+    assert record["designReview"]["currentState"] in record["designReview"]["allowedStates"]
+    assert record["operationalComparatorUse"]["currentState"] == "prohibited"
+    assert record["runtimeEnforcement"]["currentState"] == "disabled"
+    assert record["modelCompatibility"]["currentState"] == "unresolved-offline"
+    assert record["formalPhase1Acceptance"]["representedAsRepositoryState"] is False
+
+
+def test_x4_is_a_digest_transfer_invariant() -> None:
+    invariants = {i["id"]: i for i in load("contracts/lifecycle-state.json")["crossDimensionalInvariants"]}
+    x4 = invariants["X-4"]
+    assert x4["enforcedBy"] == "deterministic-cross-document"
+    assert "does not approve or supersede a different package digest" in x4["invariant"]
+    assert "superseded" not in json.dumps(load("contracts/lifecycle-state.json")).replace(
+        "supersede a different", "")
 
 
 def test_semantic_invariants_are_declared_human_review_not_deterministic() -> None:
@@ -1409,12 +1545,14 @@ def test_f1_recorded_totals_equal_independently_derived_totals(parts, rules, rec
 
 def test_f1_manifest_membership_and_exclusions_are_unchanged() -> None:
     manifest = load("manifest.json")
-    assert len(manifest["includedFiles"]) == 22
-    assert len(manifest["exclusions"]) == 5
-    assert manifest["contractVersion"] == "0.14.0-draft"
+    assert len(manifest["includedFiles"]) == 23
+    assert len(manifest["exclusions"]) == 7
+    assert manifest["contractVersion"] == CONTRACT_VERSION
+    assert manifest["packageVersion"] == PACKAGE_VERSION
 
 
 def test_f1_authority_states_are_unchanged() -> None:
+    assert load("records/design-review-record.json")["reviewStatus"] == "pending-owner-review"
     assert load("records/design-review-record.example.json")["reviewStatus"] == \
         "pending-owner-review"
     assert load("records/bridge-authority-record.example.json")["authorityStatus"] == "not-granted"
@@ -1426,7 +1564,7 @@ def test_f1_versions_are_unchanged(rules) -> None:
     for rel in ("statements/source-statement-records.json", "statements/obligation-parts.json",
                 "statements/atomic-behavior-rules.json", "statements/traceability-map.json",
                 "statements/coverage-report.json"):
-        assert load(rel)["contractVersion"] == "0.14.0-draft", rel
+        assert load(rel)["contractVersion"] == CONTRACT_VERSION, rel
     assert {r["ruleVersion"] for r in rules} == {"0.13.0-draft"}
 
 
@@ -1684,3 +1822,298 @@ def test_gate2a_readme_prose_matches_the_derived_artifact_totals(parts, rules) -
     antecedent = {r["ruleId"] for r in rules if r["hasAntecedent"]}
     assert NUMBER_WORDS[sentence.group(1)] == len(antecedent), sentence.group(1)
     assert set(re.findall(r"BR-\d{3}-[a-z0-9-]+?(?=[`\s,.])", sentence.group(2))) == antecedent
+
+
+# ------------------------------------------------------------------ cross-record integrity
+# JSON Schema validates one document at a time. Every rule below is a relation BETWEEN documents,
+# so none of them can live in a schema. Signature verification is deliberately absent: a git
+# signature is not a property of JSON and belongs to a separate repository-level check.
+
+CANONICAL_DOES_NOT_ESTABLISH = [
+    "Formal Phase 1 acceptance",
+    "Gate 2C model-compatibility approval",
+    "Bridge authority",
+    "Classification authority",
+    "Runtime enforcement",
+    "Operational comparator use",
+    "Production readiness",
+]
+NON_AUTHORIZATION_KEYS = [
+    "grantsFormalPhase1Acceptance",
+    "grantsGate2CModelCompatibility",
+    "grantsBridgeAuthority",
+    "grantsClassificationAuthority",
+    "enablesRuntimeEnforcement",
+    "permitsOperationalComparatorUse",
+    "impliesProductionReadiness",
+]
+APPROVED_INVARIANTS = ["X-8"]
+APPROVED_DEFERRALS = ["F-6", "F-7", "F-8", "F-9"]
+ACCEPTED_EVIDENCE_KIND = "private-approval-artifact-sha256"
+MANIFEST_PATH = "auditors/problem-evidence/gate2a/manifest.json"
+
+CROSS_RECORD_CODES = {
+    "DIGEST_BINDING_MISMATCH",
+    "PATH_BINDING_MISMATCH",
+    "VERSION_BINDING_MISMATCH",
+    "VERSION_NOT_DERIVED_FROM_MANIFEST",
+    "LIFECYCLE_PENDING_WITH_APPROVED_REVIEW",
+    "LIFECYCLE_APPROVED_WITHOUT_APPROVED_REVIEW",
+    "AUTHORITATIVE_RECORD_NOT_EXACTLY_ONE",
+    "DERIVATION_REFERENCE_MISMATCH",
+    "INVARIANT_SCOPE_NOT_EXACTLY_X8",
+    "DEFERRAL_SET_NOT_EXACTLY_F6_F9",
+    "NON_AUTHORIZATION_TRUE",
+    "NON_DESIGN_DIMENSION_CHANGED",
+    "CURRENT_STATE_NOT_IN_ALLOWED_STATES",
+    "DIGEST_MEMBER_ASSERTS_MUTABLE_STATE",
+    "EXCLUSION_SET_MISMATCH",
+    "EXCLUDED_FILE_MISSING",
+    "AUTHORIZATION_EVIDENCE_INVALID",
+    "AUTHORIZATION_EVIDENCE_INSUFFICIENT_FOR_APPROVAL",
+    "PROSE_FIELD_NOT_CANONICAL",
+}
+
+
+def cross_record_violations(bundle: dict) -> list[str]:
+    """Pure deterministic cross-document validator. Returns sorted stable violation codes.
+
+    No filesystem, no git, no clock: everything it needs is in the bundle.
+    """
+    codes: set[str] = set()
+    manifest = bundle["manifest"]
+    lifecycle = bundle["lifecycle_record"]
+    reviews = bundle["review_records"]
+    digest = bundle["recomputed_digest"]
+    package_version = manifest.get("packageVersion")
+
+    detached = [("lifecycle", lifecycle, "governedArtifactDigest", "governedArtifactPath",
+                 "governedArtifactVersion")]
+    for record in reviews:
+        detached.append((record.get("recordId"), record, "reviewedArtifactDigest",
+                         "reviewedArtifactPath", "reviewedArtifactVersion"))
+
+    for _name, record, digest_key, path_key, version_key in detached:
+        if record.get(digest_key) != digest:
+            codes.add("DIGEST_BINDING_MISMATCH")
+        if record.get(path_key) != MANIFEST_PATH:
+            codes.add("PATH_BINDING_MISMATCH")
+        if version_key in record and record.get(version_key) != package_version:
+            codes.add("VERSION_NOT_DERIVED_FROM_MANIFEST")
+
+    authoritative = [r for r in reviews if r.get("recordRole") == "authoritative"]
+    if len(authoritative) != 1:
+        codes.add("AUTHORITATIVE_RECORD_NOT_EXACTLY_ONE")
+
+    if authoritative:
+        primary = authoritative[0]
+        if primary.get("reviewedArtifactVersion") != lifecycle.get("governedArtifactVersion"):
+            codes.add("VERSION_BINDING_MISMATCH")
+        if primary.get("reviewedArtifactDigest") != lifecycle.get("governedArtifactDigest"):
+            codes.add("DIGEST_BINDING_MISMATCH")
+
+        design = lifecycle.get("designReview", {})
+        if design.get("derivedFromRecordId") != primary.get("recordId"):
+            codes.add("DERIVATION_REFERENCE_MISMATCH")
+
+        current = design.get("currentState")
+        approved = primary.get("reviewStatus") == "design-approved"
+        if current == "pending-owner-review" and approved:
+            codes.add("LIFECYCLE_PENDING_WITH_APPROVED_REVIEW")
+        if current == "design-approved" and not approved:
+            codes.add("LIFECYCLE_APPROVED_WITHOUT_APPROVED_REVIEW")
+        if current not in design.get("allowedStates", []):
+            codes.add("CURRENT_STATE_NOT_IN_ALLOWED_STATES")
+
+        # Approval-only obligations. Conditional by design: a pending baseline must never be
+        # required to carry fields that are valid only after approval.
+        if approved:
+            if primary.get("invariantsReviewed") != APPROVED_INVARIANTS:
+                codes.add("INVARIANT_SCOPE_NOT_EXACTLY_X8")
+            if primary.get("deferredFindings") != APPROVED_DEFERRALS:
+                codes.add("DEFERRAL_SET_NOT_EXACTLY_F6_F9")
+            evidence = primary.get("authorizationEvidence")
+            if not isinstance(evidence, dict) or "artifactSha256" not in evidence \
+                    or "statement" not in evidence:
+                codes.add("AUTHORIZATION_EVIDENCE_INVALID")
+            elif evidence.get("evidenceKind") != ACCEPTED_EVIDENCE_KIND:
+                codes.add("AUTHORIZATION_EVIDENCE_INSUFFICIENT_FOR_APPROVAL")
+            if not primary.get("reviewerRepresentation") or not primary.get("reviewTimestamp"):
+                codes.add("AUTHORIZATION_EVIDENCE_INVALID")
+        else:
+            for approval_only in ("approvalScope", "invariantsReviewed", "deferredFindings",
+                                  "authorizationEvidence"):
+                if approval_only in primary:
+                    codes.add("AUTHORIZATION_EVIDENCE_INVALID")
+
+    for record in reviews:
+        non_auth = record.get("nonAuthorizations", {})
+        if any(non_auth.get(key) is not False for key in NON_AUTHORIZATION_KEYS):
+            codes.add("NON_AUTHORIZATION_TRUE")
+        if record.get("doesNotEstablish") != CANONICAL_DOES_NOT_ESTABLISH:
+            codes.add("PROSE_FIELD_NOT_CANONICAL")
+        if len(CANONICAL_DOES_NOT_ESTABLISH) != len(NON_AUTHORIZATION_KEYS):
+            codes.add("PROSE_FIELD_NOT_CANONICAL")
+
+    pinned = {"operationalComparatorUse": "prohibited", "runtimeEnforcement": "disabled",
+              "modelCompatibility": "unresolved-offline"}
+    for dimension, expected in pinned.items():
+        if lifecycle.get(dimension, {}).get("currentState") != expected:
+            codes.add("NON_DESIGN_DIMENSION_CHANGED")
+    if lifecycle.get("formalPhase1Acceptance", {}).get("representedAsRepositoryState") is not False:
+        codes.add("NON_DESIGN_DIMENSION_CHANGED")
+
+    for rel, document in bundle["member_instances"].items():
+        for key in walk_keys(document):
+            if key in MUTABLE_STATE_KEYS:
+                codes.add("DIGEST_MEMBER_ASSERTS_MUTABLE_STATE")
+
+    exclusion_paths = [e["path"] for e in manifest.get("exclusions", [])]
+    if sorted(exclusion_paths) != sorted(EXCLUSION_PATHS) \
+            or len(exclusion_paths) != len(set(exclusion_paths)):
+        codes.add("EXCLUSION_SET_MISMATCH")
+    for path in exclusion_paths:
+        if path not in bundle["present_paths"]:
+            codes.add("EXCLUDED_FILE_MISSING")
+
+    return sorted(codes)
+
+
+def build_bundle() -> dict:
+    files = compute_member_digests()
+    member_instances = {rel: load(rel) for rel, _ in PAIRS
+                        if not rel.startswith("records/") and rel != "manifest.json"}
+    return {
+        "manifest": load("manifest.json"),
+        "lifecycle_record": load("records/lifecycle-state-record.json"),
+        "review_records": [load("records/design-review-record.json"),
+                           load("records/design-review-record.example.json")],
+        "member_instances": member_instances,
+        "present_paths": {p for p in EXCLUSION_PATHS if (ROOT / p).is_file()},
+        "recomputed_digest": compute_package_digest(files),
+    }
+
+
+@pytest.fixture()
+def bundle() -> dict:
+    return build_bundle()
+
+
+def test_cross_record_baseline_is_clean(bundle) -> None:
+    assert cross_record_violations(bundle) == []
+
+
+def _primary(b: dict) -> dict:
+    return next(r for r in b["review_records"] if r["recordRole"] == "authoritative")
+
+
+def _approve(b: dict) -> dict:
+    """Promote the authoritative record to a fully valid approved record."""
+    record = _primary(b)
+    record["reviewStatus"] = "design-approved"
+    record["humanReviewOccurred"] = True
+    record["designApproved"] = True
+    record["reviewerRepresentation"] = "Repository owner"
+    record["reviewTimestamp"] = "2026-08-09T00:00:00+00:00"
+    record["approvalScope"] = "gate2a-semantic-design"
+    record["invariantsReviewed"] = list(APPROVED_INVARIANTS)
+    record["deferredFindings"] = list(APPROVED_DEFERRALS)
+    record["authorizationEvidence"] = {
+        "evidenceKind": ACCEPTED_EVIDENCE_KIND,
+        "artifactSha256": "0" * 64,
+        "statement": "canonical",
+    }
+    b["lifecycle_record"]["designReview"]["currentState"] = "design-approved"
+    return b
+
+
+def _m_digest(b):        _primary(b)["reviewedArtifactDigest"] = "f" * 64; return b
+def _m_path(b):          b["lifecycle_record"]["governedArtifactPath"] = "wrong/manifest.json"; return b
+def _m_version_split(b): b["lifecycle_record"]["governedArtifactVersion"] = "9.9.9-draft"; return b
+def _m_version_src(b):   b["manifest"]["packageVersion"] = "9.9.9-draft"; return b
+def _m_pending_approved(b):
+    b = _approve(b); b["lifecycle_record"]["designReview"]["currentState"] = "pending-owner-review"; return b
+def _m_approved_no_record(b):
+    b["lifecycle_record"]["designReview"]["currentState"] = "design-approved"; return b
+def _m_two_authoritative(b):
+    b["review_records"][1]["recordRole"] = "authoritative"; return b
+def _m_derivation(b):    b["lifecycle_record"]["designReview"]["derivedFromRecordId"] = "other"; return b
+def _m_invariants(b):
+    b = _approve(b); _primary(b)["invariantsReviewed"] = ["X-8", "X-7"]; return b
+def _m_deferrals(b):
+    b = _approve(b); _primary(b)["deferredFindings"] = ["F-6", "F-7", "F-8"]; return b
+def _m_non_auth(b):
+    _primary(b)["nonAuthorizations"]["enablesRuntimeEnforcement"] = True; return b
+def _m_non_design(b):
+    b["lifecycle_record"]["runtimeEnforcement"]["currentState"] = "enabled"; return b
+def _m_allowed_states(b):
+    b["lifecycle_record"]["designReview"]["allowedStates"] = ["design-approved"]; return b
+def _m_member_state(b):
+    b["member_instances"]["contracts/lifecycle-state.json"]["designReview"]["currentState"] = "design-approved"
+    return b
+def _m_exclusions(b):
+    b["manifest"]["exclusions"] = b["manifest"]["exclusions"][:-1]; return b
+def _m_missing_file(b):
+    b["present_paths"] = set(b["present_paths"]) - {MANIFEST_PATH}; return b
+def _m_evidence_invalid(b):
+    b = _approve(b); _primary(b)["authorizationEvidence"].pop("artifactSha256"); return b
+def _m_evidence_weak(b):
+    b = _approve(b); _primary(b)["authorizationEvidence"]["evidenceKind"] = "representation-only"; return b
+def _m_prose(b):
+    _primary(b)["doesNotEstablish"] = ["a", "b", "c", "d", "e", "f", "g"]; return b
+
+
+CROSS_MUTATIONS = [
+    ("digest-binding",          _m_digest,             "DIGEST_BINDING_MISMATCH"),
+    ("path-binding",            _m_path,               "PATH_BINDING_MISMATCH"),
+    ("version-disagreement",    _m_version_split,      "VERSION_BINDING_MISMATCH"),
+    ("version-not-derived",     _m_version_src,        "VERSION_NOT_DERIVED_FROM_MANIFEST"),
+    ("pending-with-approved",   _m_pending_approved,   "LIFECYCLE_PENDING_WITH_APPROVED_REVIEW"),
+    ("approved-without-record", _m_approved_no_record, "LIFECYCLE_APPROVED_WITHOUT_APPROVED_REVIEW"),
+    ("two-authoritative",       _m_two_authoritative,  "AUTHORITATIVE_RECORD_NOT_EXACTLY_ONE"),
+    ("derivation-reference",    _m_derivation,         "DERIVATION_REFERENCE_MISMATCH"),
+    ("wrong-invariant-scope",   _m_invariants,         "INVARIANT_SCOPE_NOT_EXACTLY_X8"),
+    ("wrong-deferral-set",      _m_deferrals,          "DEFERRAL_SET_NOT_EXACTLY_F6_F9"),
+    ("non-authorization-true",  _m_non_auth,           "NON_AUTHORIZATION_TRUE"),
+    ("non-design-dimension",    _m_non_design,         "NON_DESIGN_DIMENSION_CHANGED"),
+    ("state-outside-allowed",   _m_allowed_states,     "CURRENT_STATE_NOT_IN_ALLOWED_STATES"),
+    ("member-asserts-state",    _m_member_state,       "DIGEST_MEMBER_ASSERTS_MUTABLE_STATE"),
+    ("exclusion-set",           _m_exclusions,         "EXCLUSION_SET_MISMATCH"),
+    ("excluded-file-missing",   _m_missing_file,       "EXCLUDED_FILE_MISSING"),
+    ("evidence-invalid",        _m_evidence_invalid,   "AUTHORIZATION_EVIDENCE_INVALID"),
+    ("evidence-insufficient",   _m_evidence_weak,      "AUTHORIZATION_EVIDENCE_INSUFFICIENT_FOR_APPROVAL"),
+    ("prose-not-canonical",     _m_prose,              "PROSE_FIELD_NOT_CANONICAL"),
+]
+
+
+@pytest.mark.parametrize("name,mutate,expected", CROSS_MUTATIONS, ids=[m[0] for m in CROSS_MUTATIONS])
+def test_cross_record_rule_is_falsifiable(name, mutate, expected) -> None:
+    baseline = build_bundle()
+    assert cross_record_violations(baseline) == [], name
+    mutated = mutate(copy.deepcopy(baseline))
+    assert mutated != baseline, f"{name}: mutation did not change the bundle"
+    assert expected in cross_record_violations(mutated), name
+
+
+def test_every_cross_record_code_has_a_falsifying_mutation() -> None:
+    covered = {expected for _, _, expected in CROSS_MUTATIONS}
+    assert covered == CROSS_RECORD_CODES, sorted(covered ^ CROSS_RECORD_CODES)
+
+
+@pytest.mark.parametrize("rel", EXCLUDED_RECORD_RELS)
+def test_mutating_an_excluded_record_leaves_the_package_digest_unchanged(rel, tmp_path) -> None:
+    """Property, not a static violation: exclusion means the digest cannot see these files."""
+    path = GATE / rel
+    original = path.read_bytes()
+    before = compute_package_digest(compute_member_digests())
+    try:
+        document = json.loads(original)
+        document["recordId"] = document["recordId"] + "-mutated-for-test"
+        path.write_text(json.dumps(document, indent=2) + "\n", encoding="utf-8")
+        assert path.read_bytes() != original, f"{rel}: mutation did not change the record"
+        after = compute_package_digest(compute_member_digests())
+        assert after == before, f"{rel}: mutating an excluded record changed the package digest"
+    finally:
+        path.write_bytes(original)
+    assert path.read_bytes() == original
+    assert compute_package_digest(compute_member_digests()) == before
