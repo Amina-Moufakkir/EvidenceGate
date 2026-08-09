@@ -1,0 +1,22 @@
+{
+  "recordId": "gate2a-p-bridge-authority-pending",
+  "contractVersion": "0.15.0-draft",
+  "recordKind": "bridge-authority",
+  "governedArtifactPath": "auditors/problem-evidence/gate2a/manifest.json",
+  "governedArtifactDigest": "442c433a36991f5c2e62a646f4b9f0eccf198ef268fae485daa114f8fe833646",
+  "digestAlgorithm": "json.dumps-sort-keys-compact-sha256",
+  "authorityStatus": "not-granted",
+  "grantedBy": null,
+  "grantedTimestamp": null,
+  "grantedForRuleIds": [],
+  "scopeOfDecision": "Illustrative example of the external bridge-authority record shape. No authority has been granted. Without a granted record, a proxy result may never be converted into a normative obligation outcome.",
+  "doesNotEstablish": [
+    "Authenticated reviewer identity",
+    "Tamper-proof detached authority",
+    "That any proxy condition proves its source obligation",
+    "Operational comparator permission",
+    "Runtime-enforcement permission",
+    "Model compatibility approval",
+    "Formal Phase 1 acceptance"
+  ]
+}

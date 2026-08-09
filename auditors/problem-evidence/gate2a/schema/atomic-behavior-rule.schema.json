@@ -1,0 +1,408 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://evidencegate.local/auditors/problem-evidence/gate2a/schema/atomic-behavior-rule.schema.json",
+  "title": "Gate 2A-P Atomic Behavior Rule",
+  "description": "Each rule maps to exactly one primary obligation part. Result vocabulary is fixed by derivationBasis. No mutable authority state is stored here.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "packageId": {
+      "const": "gate2a-p-atomic-behavior-rules"
+    },
+    "contractVersion": {
+      "const": "0.15.0-draft"
+    },
+    "scope": {
+      "enum": [
+        "pilot-subset",
+        "expansion-in-progress",
+        "full-set-87"
+      ]
+    },
+    "note": {
+      "type": "string",
+      "minLength": 1
+    },
+    "resultClassNote": {
+      "type": "string",
+      "minLength": 1
+    },
+    "bridgeAuthorityNote": {
+      "type": "string",
+      "minLength": 1
+    },
+    "rules": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ruleId": {
+            "type": "string",
+            "pattern": "^BR-[a-z0-9-]+$"
+          },
+          "ruleVersion": {
+            "const": "0.13.0-draft"
+          },
+          "primaryObligationPart": {
+            "type": "string",
+            "pattern": "^OP-[0-9]{3}-[a-z]$"
+          },
+          "supportingObligationParts": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^OP-[0-9]{3}-[a-z]$"
+            }
+          },
+          "supportingRelationshipJustification": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 1
+          },
+          "classification": {
+            "enum": [
+              "deterministic",
+              "model-assisted"
+            ]
+          },
+          "derivationBasis": {
+            "enum": [
+              "source_obligation",
+              "evaluation_precondition",
+              "evaluation_proxy"
+            ]
+          },
+          "resultClass": {
+            "enum": [
+              "normative",
+              "proxy",
+              "precondition"
+            ]
+          },
+          "countsAsSourceDerivedCoverage": {
+            "type": "boolean"
+          },
+          "atomicityJustification": {
+            "type": "string",
+            "minLength": 1
+          },
+          "applicability": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "requirementId": {
+                "type": "string",
+                "pattern": "^REQ-[1-5]$"
+              },
+              "conditions": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "predicateApproved": {
+                "const": false
+              }
+            },
+            "required": [
+              "requirementId",
+              "conditions",
+              "predicateApproved"
+            ]
+          },
+          "requiredInputPaths": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "evidenceRequirements": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "provenanceRequirement": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "trustedEventSourceRequired": {
+                "type": "boolean"
+              },
+              "approvedEventSourceAvailable": {
+                "const": false
+              }
+            },
+            "required": [
+              "trustedEventSourceRequired",
+              "approvedEventSourceAvailable"
+            ]
+          },
+          "orderingOperator": {
+            "enum": [
+              "declaredStepPrecedes",
+              "observedEventPrecedes",
+              "none"
+            ]
+          },
+          "expectedOutcomes": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "enum": [
+                "condition_not_met",
+                "evaluator_error",
+                "indeterminate",
+                "not_applicable",
+                "obligation_satisfied",
+                "obligation_violation",
+                "precondition_available",
+                "precondition_unavailable",
+                "proxy_condition_met",
+                "proxy_condition_not_met"
+              ]
+            }
+          },
+          "bridgeAuthorityRequired": {
+            "type": "boolean"
+          },
+          "normativeOutcomeRequiresBridgeAuthority": {
+            "type": "boolean"
+          },
+          "bridgeAuthorityRecordRef": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 1
+          },
+          "outcomeCodes": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Z0-9_]+$"
+            }
+          },
+          "evaluatorMechanism": {
+            "const": "defined"
+          },
+          "evaluatorImplemented": {
+            "const": false
+          },
+          "behaviourExecutedInTests": {
+            "const": false
+          },
+          "intendedEvidencePacketAssociation": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "ruleFixtures": {
+            "type": "array",
+            "maxItems": 0,
+            "items": false
+          },
+          "requiresLiveModelEvidence": {
+            "type": "boolean"
+          },
+          "findingRequiresHumanReview": {
+            "const": true
+          },
+          "mayBeActedUponAutomatically": {
+            "const": false
+          },
+          "knownUnsupportedCases": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "limitations": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "canProduceProductFinding": {
+            "type": "boolean"
+          },
+          "diagnosticExclusionReasons": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "pattern": "^[A-Z0-9_]+$"
+                },
+                "predicate": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "establishedBy": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "effect": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "code",
+                "predicate",
+                "establishedBy",
+                "effect"
+              ]
+            }
+          },
+          "evaluatorContract": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "normativeViolation": {
+                "type": "string",
+                "minLength": 1
+              },
+              "exclusionSemantics": {
+                "type": "string",
+                "minLength": 1
+              },
+              "candidateInventoryCompletenessRequired": {
+                "type": "boolean"
+              },
+              "trustedPredicateClassificationRequired": {
+                "type": "boolean"
+              },
+              "resultWhenInventoryIncomplete": {
+                "const": "indeterminate"
+              },
+              "resultWhenPredicateClassificationMissingOrUntrusted": {
+                "const": "indeterminate"
+              },
+              "workedExamples": {
+                "type": "array",
+                "minItems": 3,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "scenario": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "outcome": {
+                      "enum": [
+                        "condition_not_met",
+                        "evaluator_error",
+                        "indeterminate",
+                        "not_applicable",
+                        "obligation_satisfied",
+                        "obligation_violation",
+                        "precondition_available",
+                        "precondition_unavailable",
+                        "proxy_condition_met",
+                        "proxy_condition_not_met"
+                      ]
+                    },
+                    "diagnostics": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    },
+                    "reason": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "scenario",
+                    "outcome",
+                    "diagnostics",
+                    "reason"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "normativeViolation",
+              "exclusionSemantics",
+              "candidateInventoryCompletenessRequired",
+              "trustedPredicateClassificationRequired",
+              "resultWhenInventoryIncomplete",
+              "resultWhenPredicateClassificationMissingOrUntrusted",
+              "workedExamples"
+            ]
+          },
+          "hasAntecedent": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "ruleId",
+          "ruleVersion",
+          "primaryObligationPart",
+          "supportingObligationParts",
+          "supportingRelationshipJustification",
+          "classification",
+          "derivationBasis",
+          "resultClass",
+          "countsAsSourceDerivedCoverage",
+          "atomicityJustification",
+          "applicability",
+          "requiredInputPaths",
+          "evidenceRequirements",
+          "provenanceRequirement",
+          "orderingOperator",
+          "expectedOutcomes",
+          "bridgeAuthorityRequired",
+          "normativeOutcomeRequiresBridgeAuthority",
+          "bridgeAuthorityRecordRef",
+          "outcomeCodes",
+          "evaluatorMechanism",
+          "evaluatorImplemented",
+          "behaviourExecutedInTests",
+          "intendedEvidencePacketAssociation",
+          "ruleFixtures",
+          "requiresLiveModelEvidence",
+          "findingRequiresHumanReview",
+          "mayBeActedUponAutomatically",
+          "knownUnsupportedCases",
+          "limitations",
+          "canProduceProductFinding",
+          "diagnosticExclusionReasons",
+          "evaluatorContract",
+          "hasAntecedent"
+        ]
+      }
+    }
+  },
+  "required": [
+    "packageId",
+    "contractVersion",
+    "scope",
+    "note",
+    "resultClassNote",
+    "bridgeAuthorityNote",
+    "rules"
+  ]
+}

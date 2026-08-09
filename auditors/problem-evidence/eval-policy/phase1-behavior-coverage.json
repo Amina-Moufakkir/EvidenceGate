@@ -1,0 +1,1219 @@
+{
+  "coverageId": "problem-evidence-phase1-v2-behavior-coverage",
+  "schemaVersion": "2.0.0-draft",
+  "reviewStatus": "human-review-required",
+  "humanReviewed": false,
+  "reviewedBy": null,
+  "reviewedDate": null,
+  "externalAuthorityRequired": true,
+  "externalAuthorityManifest": null,
+  "sourcePolicyId": "problem-evidence-phase1-benchmark-policy",
+  "sourcePolicySchemaVersion": "1.0.0",
+  "statementCounts": {
+    "notYetAutomated": 87,
+    "humanOnly": 0,
+    "total": 87
+  },
+  "mappings": [
+    {
+      "fixture": "contradictory-evidence.json",
+      "requirements": [
+        {
+          "requirementId": "REQ-1",
+          "statements": [
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Use independent application of the written segment definition to real or borderline companies to surface undecidable boundaries.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "segment.definition.boundary"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (segment.definition.boundary) without relying on prohibited substitutions? Statement: Use independent application of the written segment definition to real or borderline companies to surface undecidable boundaries.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Treat disagreement in sorting as evidence that the segment definition needs refinement.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "segment.definition.boundary"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (segment.definition.boundary) without relying on prohibited substitutions? Statement: Treat disagreement in sorting as evidence that the segment definition needs refinement.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not recommend market sizing, product demand testing, or more general interviews as a substitute for definition application.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "segment.definition.boundary",
+                "commitment.resource.records",
+                "claim.replacement.open07"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (segment.definition.boundary, commitment.resource.records, claim.replacement.open07) without relying on prohibited substitutions? Statement: Do not recommend market sizing, product demand testing, or more general interviews as a substitute for definition application.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not treat the existing screening sheet as empirical proof of market validity.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "segment.definition.boundary"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (segment.definition.boundary) without relying on prohibited substitutions? Statement: Do not treat the existing screening sheet as empirical proof of market validity.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            }
+          ]
+        },
+        {
+          "requirementId": "REQ-2",
+          "statements": [
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Preserve REQ-2 as instance-scoped: one credible qualifying occurrence can establish that the behavior exists.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "instance.behavior.threshold"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (instance.behavior.threshold) without relying on prohibited substitutions? Statement: Preserve REQ-2 as instance-scoped: one credible qualifying occurrence can establish that the behavior exists.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "First validate EV-004's provenance, complete active-assembly measurement boundaries, segment fit, threshold, and supersession status; if it remains credible, it establishes instance-scoped existence.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "instance.behavior.threshold",
+                "supersession.open04"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (instance.behavior.threshold, supersession.open04) without relying on prohibited substitutions? Statement: First validate EV-004's provenance, complete active-assembly measurement boundaries, segment fit, threshold, and supersession status; if it remains credible, it establishes instance-scoped existence.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Treat measurement of further in-segment owners and reuse-versus-blank behavior as optional research into variation or recurrence; any association must not change REQ-2's status, imply causation, or invalidate the segment without separate evidence.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "proposal.weekly.buckets"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (proposal.weekly.buckets) without relying on prohibited substitutions? Statement: Treat measurement of further in-segment owners and reuse-versus-blank behavior as optional research into variation or recurrence; any association must not change REQ-2's status, imply causation, or invalidate the segment without separate evidence.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not require recurrence or segment-wide prevalence to pass the instance-scoped REQ-2 question.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "instance.behavior.threshold",
+                "proposal.weekly.buckets"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (instance.behavior.threshold, proposal.weekly.buckets) without relying on prohibited substitutions? Statement: Do not require recurrence or segment-wide prevalence to pass the instance-scoped REQ-2 question.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not treat EV-003 as automatically superseding EV-002 by source identity or chronology.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "supersession.open04"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (supersession.open04) without relying on prohibited substitutions? Statement: Do not treat EV-003 as automatically superseding EV-002 by source identity or chronology.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not use out-of-segment EV-015 as support or contradiction.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "partial.segment.fit"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (partial.segment.fit) without relying on prohibited substitutions? Statement: Do not use out-of-segment EV-015 as support or contradiction.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            }
+          ]
+        },
+        {
+          "requirementId": "REQ-3",
+          "statements": [
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Ask P-11 to identify the period meant by the generalized rate estimate or explicitly correct it.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "segment.definition.boundary"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (segment.definition.boundary) without relying on prohibited substitutions? Statement: Ask P-11 to identify the period meant by the generalized rate estimate or explicitly correct it.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Apply OPEN-04 only if every explicit supersession condition is satisfied, including same applicable timeframe.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "supersession.open04"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (supersession.open04) without relying on prohibited substitutions? Statement: Apply OPEN-04 only if every explicit supersession condition is satisfied, including same applicable timeframe.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Keep unresolved measured-versus-self-report conflict visible.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "segment.definition.boundary"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (segment.definition.boundary) without relying on prohibited substitutions? Statement: Keep unresolved measured-versus-self-report conflict visible.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not infer supersession from newer instrumented data alone.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "supersession.open04"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (supersession.open04) without relying on prohibited substitutions? Statement: Do not infer supersession from newer instrumented data alone.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not discard EV-007 solely because EV-005 is newer or more instrumented.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "segment.definition.boundary"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (segment.definition.boundary) without relying on prohibited substitutions? Statement: Do not discard EV-007 solely because EV-005 is newer or more instrumented.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not average rates across conflicting records.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "segment.definition.boundary"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (segment.definition.boundary) without relying on prohibited substitutions? Statement: Do not average rates across conflicting records.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            }
+          ]
+        },
+        {
+          "requirementId": "REQ-4",
+          "statements": [
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Collect buyer correspondence over twelve months from additional in-segment owners.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "buyer.loss.causation"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (buyer.loss.causation) without relying on prohibited substitutions? Statement: Collect buyer correspondence over twelve months from additional in-segment owners.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Record whether each loss involved late submission and owner proposal volume.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "proposal.weekly.buckets",
+                "buyer.loss.causation"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (proposal.weekly.buckets, buyer.loss.causation) without relying on prohibited substitutions? Statement: Record whether each loss involved late submission and owner proposal volume.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Use the result to determine whether late-loss consequence tracks with a subset rather than the full segment.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "buyer.loss.causation"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (buyer.loss.causation) without relying on prohibited substitutions? Statement: Use the result to determine whether late-loss consequence tracks with a subset rather than the full segment.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not infer causation from owner loss logs without buyer-stated reasons.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "buyer.loss.causation"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (buyer.loss.causation) without relying on prohibited substitutions? Statement: Do not infer causation from owner loss logs without buyer-stated reasons.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not average P-12 late-loss evidence with P-11/P-13 absence into a single numeric score.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "buyer.loss.causation",
+                "absence.counterevidence.boundary"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (buyer.loss.causation, absence.counterevidence.boundary) without relying on prohibited substitutions? Statement: Do not average P-12 late-loss evidence with P-11/P-13 absence into a single numeric score.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not convert credible mixed evidence into fail when one owner has buyer-stated late losses.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "buyer.loss.causation"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (buyer.loss.causation) without relying on prohibited substitutions? Statement: Do not convert credible mixed evidence into fail when one owner has buyer-stated late losses.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            }
+          ]
+        },
+        {
+          "requirementId": "REQ-5",
+          "statements": [
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Collect expense or staff-allocation records from further independent in-segment owners.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "commitment.resource.records"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (commitment.resource.records) without relying on prohibited substitutions? Statement: Collect expense or staff-allocation records from further independent in-segment owners.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Treat measured proposal volume as optional contextual research, not required REQ-5 verification; if collected, align it to the commitment period and classify it as non-contributing to status.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "proposal.weekly.buckets",
+                "commitment.resource.records"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (proposal.weekly.buckets, commitment.resource.records) without relying on prohibited substitutions? Statement: Treat measured proposal volume as optional contextual research, not required REQ-5 verification; if collected, align it to the commitment period and classify it as non-contributing to status.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Use any observed commitment-volume association only to motivate a narrower later hypothesis; do not use it to prove commitment, imply causation, create a segment-wide conclusion, or change the finding without qualifying commitment evidence.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "commitment.resource.records"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (commitment.resource.records) without relying on prohibited substitutions? Statement: Use any observed commitment-volume association only to motivate a narrower later hypothesis; do not use it to prove commitment, imply causation, create a segment-wide conclusion, or change the finding without qualifying commitment evidence.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not substitute willingness to pay for the proposed product.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "commitment.resource.records",
+                "claim.replacement.open07"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (commitment.resource.records, claim.replacement.open07) without relying on prohibited substitutions? Statement: Do not substitute willingness to pay for the proposed product.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not use demand for a proposed product as evidence of existing-problem commitment.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "commitment.resource.records"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (commitment.resource.records) without relying on prohibited substitutions? Statement: Do not use demand for a proposed product as evidence of existing-problem commitment.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not ignore withdrawn or declined commitment records.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "commitment.resource.records",
+                "commitment.withdrawn.declined"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (commitment.resource.records, commitment.withdrawn.declined) without relying on prohibited substitutions? Statement: Do not ignore withdrawn or declined commitment records.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "fixture": "missing-evidence.json",
+      "requirements": [
+        {
+          "requirementId": "REQ-1",
+          "statements": [
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Define headcount, geography, contract type or service line, and proposal-author role.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "segment.definition.boundary"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (segment.definition.boundary) without relying on prohibited substitutions? Statement: Define headcount, geography, contract type or service line, and proposal-author role.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Apply the definition to actual companies and record which boundary excludes each one.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "segment.definition.boundary"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (segment.definition.boundary) without relying on prohibited substitutions? Statement: Apply the definition to actual companies and record which boundary excludes each one.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Remove the problem itself from the membership definition.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "segment.definition.boundary"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (segment.definition.boundary) without relying on prohibited substitutions? Statement: Remove the problem itself from the membership definition.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not ask for more evidence against a self-sealing segment definition before rewriting it.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "segment.definition.boundary"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (segment.definition.boundary) without relying on prohibited substitutions? Statement: Do not ask for more evidence against a self-sealing segment definition before rewriting it.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not treat adjectives like small or struggling as decidable boundaries.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "segment.definition.boundary"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (segment.definition.boundary) without relying on prohibited substitutions? Statement: Do not treat adjectives like small or struggling as decidable boundaries.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            }
+          ]
+        },
+        {
+          "requirementId": "REQ-2",
+          "statements": [
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Require a duration threshold the team can be wrong about.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "instance.behavior.threshold"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (instance.behavior.threshold) without relying on prohibited substitutions? Statement: Require a duration threshold the team can be wrong about.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Observe or measure one in-segment owner completing the walkthrough-to-proposal cycle with timestamps.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "instance.behavior.threshold"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (instance.behavior.threshold) without relying on prohibited substitutions? Statement: Observe or measure one in-segment owner completing the walkthrough-to-proposal cycle with timestamps.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Avoid prompting or assisting during the observation.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "segment.definition.boundary"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (segment.definition.boundary) without relying on prohibited substitutions? Statement: Avoid prompting or assisting during the observation.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not treat vague claims like way too long as testable.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "segment.definition.boundary"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (segment.definition.boundary) without relying on prohibited substitutions? Statement: Do not treat vague claims like way too long as testable.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not use internal assertions, vendor claims, or unanchored self-report as records of occurrence.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "instance.behavior.threshold"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (instance.behavior.threshold) without relying on prohibited substitutions? Statement: Do not use internal assertions, vendor claims, or unanchored self-report as records of occurrence.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not treat missing occurrence evidence as contradiction.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "instance.behavior.threshold",
+                "absence.counterevidence.boundary"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (instance.behavior.threshold, absence.counterevidence.boundary) without relying on prohibited substitutions? Statement: Do not treat missing occurrence evidence as contradiction.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            }
+          ]
+        },
+        {
+          "requirementId": "REQ-3",
+          "statements": [
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Collect continuous ninety-day calendar, CRM, or proposal-event exports from two independent in-segment owners who pass rewritten screening.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "segment.definition.boundary"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (segment.definition.boundary) without relying on prohibited substitutions? Statement: Collect continuous ninety-day calendar, CRM, or proposal-event exports from two independent in-segment owners who pass rewritten screening.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Count dated proposal-sent events in the applicable weekly buckets rather than asking owners for a generalized rate.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "proposal.weekly.buckets"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (proposal.weekly.buckets) without relying on prohibited substitutions? Statement: Count dated proposal-sent events in the applicable weekly buckets rather than asking owners for a generalized rate.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Define the applicable evaluation period before counting. For one source, support requires at least two sent proposals in every week of an applicable eight-consecutive-week window; source-level counterevidence requires a complete export covering the claimed period with no qualifying eight-week window. Finding-level fail requires the configured independent-source minimum and no credible same-scope above-threshold support within this packet; period-free estimates remain visible but are neither support nor contradiction.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "instance.behavior.threshold",
+                "proposal.weekly.buckets",
+                "absence.counterevidence.boundary"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (instance.behavior.threshold, proposal.weekly.buckets, absence.counterevidence.boundary) without relying on prohibited substitutions? Statement: Define the applicable evaluation period before counting. For one source, support requires at least two sent proposals in every week of an applicable eight-consecutive-week window; source-level counterevidence requires a complete export covering the claimed period with no qualifying eight-week window. Finding-level fail requires the configured independent-source minimum and no credible same-scope above-threshold support within this packet; period-free estimates remain visible but are neither support nor contradiction.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not ask owners how often it happens as a substitute for dated event records.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "segment.definition.boundary"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (segment.definition.boundary) without relying on prohibited substitutions? Statement: Do not ask owners how often it happens as a substitute for dated event records.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not use out-of-segment frequency data to support or contradict the stated segment.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "proposal.weekly.buckets",
+                "partial.segment.fit"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (proposal.weekly.buckets, partial.segment.fit) without relying on prohibited substitutions? Statement: Do not use out-of-segment frequency data to support or contradict the stated segment.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not treat missing or incomplete records as counterevidence; absence remains missing evidence.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "absence.counterevidence.boundary"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (absence.counterevidence.boundary) without relying on prohibited substitutions? Statement: Do not treat missing or incomplete records as counterevidence; absence remains missing evidence.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not ignore zero or insufficient events in a complete qualifying export, because those can falsify the recurrence claim.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "proposal.weekly.buckets"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (proposal.weekly.buckets) without relying on prohibited substitutions? Statement: Do not ignore zero or insufficient events in a complete qualifying export, because those can falsify the recurrence claim.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            }
+          ]
+        },
+        {
+          "requirementId": "REQ-4",
+          "statements": [
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Use twelve months of bid-history evidence from two independent in-segment owners who pass rewritten screening.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "buyer.loss.causation"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (buyer.loss.causation) without relying on prohibited substitutions? Statement: Use twelve months of bid-history evidence from two independent in-segment owners who pass rewritten screening.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Request the buyer's written loss reason for each loss.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "buyer.loss.causation"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (buyer.loss.causation) without relying on prohibited substitutions? Statement: Request the buyer's written loss reason for each loss.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Buyer-stated lateness or incompleteness supports the consequence; buyer-stated price reasons paired with on-time proposals move the finding toward fail.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "buyer.loss.causation",
+                "absence.counterevidence.boundary"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (buyer.loss.causation, absence.counterevidence.boundary) without relying on prohibited substitutions? Statement: Buyer-stated lateness or incompleteness supports the consequence; buyer-stated price reasons paired with on-time proposals move the finding toward fail.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not infer consequence from secondary-source claims or team estimates.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "buyer.loss.causation"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (buyer.loss.causation) without relying on prohibited substitutions? Statement: Do not infer consequence from secondary-source claims or team estimates.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not infer buyer causation from dates alone.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "buyer.loss.causation"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (buyer.loss.causation) without relying on prohibited substitutions? Statement: Do not infer buyer causation from dates alone.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not treat no consequence records as counterevidence.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "buyer.loss.causation",
+                "absence.counterevidence.boundary"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (buyer.loss.causation, absence.counterevidence.boundary) without relying on prohibited substitutions? Statement: Do not treat no consequence records as counterevidence.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            }
+          ]
+        },
+        {
+          "requirementId": "REQ-5",
+          "statements": [
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Replace CL-005 with a claim about resources already committed to the existing problem.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "claim.replacement.open07"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (claim.replacement.open07) without relying on prohibited substitutions? Statement: Replace CL-005 with a claim about resources already committed to the existing problem.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "For three in-segment owners, define and collect documented qualifying money or staff-hour commitment sustained for at least three months.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "commitment.resource.records"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (commitment.resource.records) without relying on prohibited substitutions? Statement: For three in-segment owners, define and collect documented qualifying money or staff-hour commitment sustained for at least three months.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Pass requires the configured minimum of independent in-segment sources documenting qualifying money or staff-hour commitment to the existing problem. Counterevidence requires documented evaluation followed by decline or abandonment because the problem did not justify expenditure; non-purchase, missing records, unrelated budget constraints, and rejection of the proposed product do not qualify. Fail requires the configured counterevidence-source minimum and no comparably credible qualifying commitment within this packet; credible evidence on both sides yields partial.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "commitment.resource.records",
+                "absence.counterevidence.boundary"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (commitment.resource.records, absence.counterevidence.boundary) without relying on prohibited substitutions? Statement: Pass requires the configured minimum of independent in-segment sources documenting qualifying money or staff-hour commitment to the existing problem. Counterevidence requires documented evaluation followed by decline or abandonment because the problem did not justify expenditure; non-purchase, missing records, unrelated budget constraints, and rejection of the proposed product do not qualify. Fail requires the configured counterevidence-source minimum and no comparably credible qualifying commitment within this packet; credible evidence on both sides yields partial.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not evaluate willingness to pay for the proposed product.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "commitment.resource.records",
+                "claim.replacement.open07"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (commitment.resource.records, claim.replacement.open07) without relying on prohibited substitutions? Statement: Do not evaluate willingness to pay for the proposed product.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not treat stated intent or product interest as existing-problem commitment.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "commitment.resource.records",
+                "claim.replacement.open07"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (commitment.resource.records, claim.replacement.open07) without relying on prohibited substitutions? Statement: Do not treat stated intent or product interest as existing-problem commitment.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not set policyGap for deterministic claim/requirement mismatch.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "claim.replacement.open07"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (claim.replacement.open07) without relying on prohibited substitutions? Statement: Do not set policyGap for deterministic claim/requirement mismatch.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "fixture": "strong-evidence.json",
+      "requirements": [
+        {
+          "requirementId": "REQ-1",
+          "statements": [
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Have an independent second rater who did not write the definition apply it to twelve real companies, including four borderline cases.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "segment.definition.boundary"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (segment.definition.boundary) without relying on prohibited substitutions? Statement: Have an independent second rater who did not write the definition apply it to twelve real companies, including four borderline cases.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Treat any material classification disagreement with team sorting as evidence of an underspecified boundary that changes the result from pass to partial.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "segment.definition.boundary"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (segment.definition.boundary) without relying on prohibited substitutions? Statement: Treat any material classification disagreement with team sorting as evidence of an underspecified boundary that changes the result from pass to partial.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not recommend product demand validation as REQ-1 verification.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "commitment.resource.records",
+                "claim.replacement.open07"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (commitment.resource.records, claim.replacement.open07) without relying on prohibited substitutions? Statement: Do not recommend product demand validation as REQ-1 verification.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not treat pass as proof that the segment is market-valid.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "segment.definition.boundary"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (segment.definition.boundary) without relying on prohibited substitutions? Statement: Do not treat pass as proof that the segment is market-valid.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            }
+          ]
+        },
+        {
+          "requirementId": "REQ-2",
+          "statements": [
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Recheck provenance and measurement boundaries of existing above-threshold instances.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "instance.behavior.threshold"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (instance.behavior.threshold) without relying on prohibited substitutions? Statement: Recheck provenance and measurement boundaries of existing above-threshold instances.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Instrument one full cycle including work outside the document.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "segment.definition.boundary"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (segment.definition.boundary) without relying on prohibited substitutions? Statement: Instrument one full cycle including work outside the document.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Preserve the instance-scoped rule that pass remains only while at least one qualifying above-threshold occurrence is credible, in-segment, and unsuperseded.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "instance.behavior.threshold"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (instance.behavior.threshold) without relying on prohibited substitutions? Statement: Preserve the instance-scoped rule that pass remains only while at least one qualifying above-threshold occurrence is credible, in-segment, and unsuperseded.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Preserve OPEN-04: chronology, instrumentation quality, or source identity alone must not establish supersession; every applicable supersession condition must be satisfied.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "supersession.open04"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (supersession.open04) without relying on prohibited substitutions? Statement: Preserve OPEN-04: chronology, instrumentation quality, or source identity alone must not establish supersession; every applicable supersession condition must be satisfied.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not require recurrence or prevalence for REQ-2 pass.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "proposal.weekly.buckets"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (proposal.weekly.buckets) without relying on prohibited substitutions? Statement: Do not require recurrence or prevalence for REQ-2 pass.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not treat a separate at-or-below-threshold instance as contradicting existence of another qualifying instance.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "instance.behavior.threshold"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (instance.behavior.threshold) without relying on prohibited substitutions? Statement: Do not treat a separate at-or-below-threshold instance as contradicting existence of another qualifying instance.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not count leading-question evidence as independent support.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "segment.definition.boundary"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (segment.definition.boundary) without relying on prohibited substitutions? Statement: Do not count leading-question evidence as independent support.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            }
+          ]
+        },
+        {
+          "requirementId": "REQ-3",
+          "statements": [
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Define eight consecutive calendar-week windows before inspecting events.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "proposal.weekly.buckets"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (proposal.weekly.buckets) without relying on prohibited substitutions? Statement: Define eight consecutive calendar-week windows before inspecting events.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Count sent proposals separately in every week.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "segment.definition.boundary"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (segment.definition.boundary) without relying on prohibited substitutions? Statement: Count sent proposals separately in every week.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Apply the claim's weekly threshold only inside a predefined applicable eight-consecutive-week window, or require a complete claimed period with no qualifying eight-week window; a zero-proposal week outside an otherwise qualifying window does not falsify the owner-level claim, and finding-level fail still requires the configured independent-source minimum with no credible same-scope support within this packet.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "instance.behavior.threshold",
+                "proposal.weekly.buckets"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (instance.behavior.threshold, proposal.weekly.buckets) without relying on prohibited substitutions? Statement: Apply the claim's weekly threshold only inside a predefined applicable eight-consecutive-week window, or require a complete claimed period with no qualifying eight-week window; a zero-proposal week outside an otherwise qualifying window does not falsify the owner-level claim, and finding-level fail still requires the configured independent-source minimum with no credible same-scope support within this packet.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not use period-wide mean proposals per week as sufficient for a weekly-cadence claim.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "proposal.weekly.buckets"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (proposal.weekly.buckets) without relying on prohibited substitutions? Statement: Do not use period-wide mean proposals per week as sufficient for a weekly-cadence claim.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not classify event summaries without exact dates or predefined week buckets as direct support.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "segment.definition.boundary"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (segment.definition.boundary) without relying on prohibited substitutions? Statement: Do not classify event summaries without exact dates or predefined week buckets as direct support.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not convert one counterevidence source below the recurrence minimum into fail.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "proposal.weekly.buckets",
+                "absence.counterevidence.boundary"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (proposal.weekly.buckets, absence.counterevidence.boundary) without relying on prohibited substitutions? Statement: Do not convert one counterevidence source below the recurrence minimum into fail.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            }
+          ]
+        },
+        {
+          "requirementId": "REQ-4",
+          "statements": [
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Use a twelve-month measurement period across three independent in-segment owners.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "segment.definition.boundary"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (segment.definition.boundary) without relying on prohibited substitutions? Statement: Use a twelve-month measurement period across three independent in-segment owners.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Request buyer-written lateness or incompleteness reasons behind late rows in the bid log.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "buyer.loss.causation",
+                "absence.counterevidence.boundary"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (buyer.loss.causation, absence.counterevidence.boundary) without relying on prohibited substitutions? Statement: Request buyer-written lateness or incompleteness reasons behind late rows in the bid log.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Evidence from at least two owners occurring at least quarterly moves the finding to pass.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "segment.definition.boundary"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (segment.definition.boundary) without relying on prohibited substitutions? Statement: Evidence from at least two owners occurring at least quarterly moves the finding to pass.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not infer consequence from co-occurrence alone.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "instance.behavior.threshold",
+                "buyer.loss.causation"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (instance.behavior.threshold, buyer.loss.causation) without relying on prohibited substitutions? Statement: Do not infer consequence from co-occurrence alone.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not allow partial-fit evidence to independently pass a full-segment claim.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "partial.segment.fit"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (partial.segment.fit) without relying on prohibited substitutions? Statement: Do not allow partial-fit evidence to independently pass a full-segment claim.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not ignore OPEN-06 material partial fit requiring human decision.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "partial.segment.fit"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (partial.segment.fit) without relying on prohibited substitutions? Statement: Do not ignore OPEN-06 material partial fit requiring human decision.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            }
+          ]
+        },
+        {
+          "requirementId": "REQ-5",
+          "statements": [
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Collect proposal-related expense or staff-allocation records from three additional independent in-segment owners.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "commitment.resource.records"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (commitment.resource.records) without relying on prohibited substitutions? Statement: Collect proposal-related expense or staff-allocation records from three additional independent in-segment owners.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Separate proposal assembly from adjacent pricing or administrative work where needed.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "segment.definition.boundary"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (segment.definition.boundary) without relying on prohibited substitutions? Statement: Separate proposal assembly from adjacent pricing or administrative work where needed.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "requiredVerificationBehavior",
+              "statement": "Documented declined or abandoned qualifying commitment weakens support; mere absence of qualifying records remains missing evidence and does not itself falsify the claim.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "commitment.resource.records",
+                "commitment.withdrawn.declined",
+                "absence.counterevidence.boundary"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (commitment.resource.records, commitment.withdrawn.declined, absence.counterevidence.boundary) without relying on prohibited substitutions? Statement: Documented declined or abandoned qualifying commitment weakens support; mere absence of qualifying records remains missing evidence and does not itself falsify the claim.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not treat proposed-product demand as REQ-5 evidence.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "commitment.resource.records",
+                "claim.replacement.open07"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (commitment.resource.records, claim.replacement.open07) without relying on prohibited substitutions? Statement: Do not treat proposed-product demand as REQ-5 evidence.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not use stated intent as resource commitment.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "commitment.resource.records",
+                "claim.replacement.open07"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (commitment.resource.records, claim.replacement.open07) without relying on prohibited substitutions? Statement: Do not use stated intent as resource commitment.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            },
+            {
+              "statementType": "prohibitedSubstitution",
+              "statement": "Do not treat pass as evidence of product willingness to pay.",
+              "classification": "not-yet-automated",
+              "ruleIds": [],
+              "semanticCriteriaIds": [
+                "commitment.resource.records",
+                "claim.replacement.open07"
+              ],
+              "humanReviewRequired": true,
+              "humanReviewQuestion": "Does the generated attempt evidence satisfy the approved policy statement through the mapped criteria (commitment.resource.records, claim.replacement.open07) without relying on prohibited substitutions? Statement: Do not treat pass as evidence of product willingness to pay.",
+              "automationBoundary": "Temporarily not automated. This statement has not yet been assessed for deterministic automation eligibility; human-only is reserved for statements later judged permanently ineligible."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "authorityCanonicalization": {
+    "authorityMode": "external-detached-manifest-required",
+    "diagnosticAlgorithm": "json.dumps-sort-keys-compact-sha256",
+    "diagnosticEncoding": "utf-8",
+    "diagnosticSerialization": "digest = sha256(json.dumps(selectedStructure, sort_keys=True, separators=(',', ':'), ensure_ascii=True).encode('utf-8')).hexdigest(), lowercase hexadecimal",
+    "diagnosticHashesAreNotAuthority": "Every digest in diagnosticHashes is a reproducible integrity aid computed with json.dumps-sort-keys-compact-sha256. None of them is an approval authority hash, and none of them is RFC 8785 canonicalized. RFC 8785 applies only to the future detached manifest named in futureAuthorityAlgorithm and is not enforced anywhere in this gate.",
+    "futureAuthorityAlgorithm": "RFC8785-json-canonicalization-sha256-required-not-yet-enforced",
+    "externalManifestRequirement": "Future approval authority requires a detached signed payload that is stored outside this artifact and binds: complete policy artifact hashes, schema hashes, source commit/tree, reviewer identity, decision timestamp, signer/key identity, trust source, signature algorithm, and signature bytes. The manifest signs the policy, schema, and source hashes; this artifact never contains, references, or hashes that manifest, so no circular hashing is possible. Fields inside this artifact, including reviewStatus, humanReviewed, reviewedBy, and reviewedDate, cannot authenticate approval and are pinned to unapproved values by schema.",
+    "manifestExclusion": "externalAuthorityManifest is permanently null in Gate 1 drafts and is listed in omittedJsonPointers for every diagnostic hash recipe defined over this artifact, so a manifest can never be inlined into a hashed payload. The future detached authority artifact is out of scope for this gate.",
+    "diagnosticHashes": [
+      {
+        "hashId": "coverage-statement-body",
+        "description": "SHA-256 over the complete 87-statement coverage body and its declared counts. Any edit to any statement, classification, ruleIds entry, semantic criteria reference, or declared count changes this digest.",
+        "sourcePaths": [
+          "auditors/problem-evidence/eval-policy/phase1-behavior-coverage.json"
+        ],
+        "selectedStructure": "JSON object with exactly two keys: statementCounts (from /statementCounts) and mappings (from /mappings, the complete three-fixture, fifteen-requirement, eighty-seven-statement body).",
+        "orderingRule": "Object keys are emitted sorted by json.dumps(sort_keys=True). The mappings array and every nested requirements and statements array retain artifact order. JSON Pointer per RFC 6901; the token '*' denotes every array index at that position.",
+        "omittedJsonPointers": [
+          "/coverageId",
+          "/schemaVersion",
+          "/reviewStatus",
+          "/humanReviewed",
+          "/reviewedBy",
+          "/reviewedDate",
+          "/externalAuthorityRequired",
+          "/externalAuthorityManifest",
+          "/sourcePolicyId",
+          "/sourcePolicySchemaVersion",
+          "/authorityCanonicalization"
+        ],
+        "canonicalization": "json.dumps-sort-keys-compact-sha256",
+        "encoding": "utf-8",
+        "serialization": "digest = sha256(json.dumps(selectedStructure, sort_keys=True, separators=(',', ':'), ensure_ascii=True).encode('utf-8')).hexdigest(), lowercase hexadecimal",
+        "digest": "3bd8fe36a05e82c892980da4e099b1364940bdc2823916aa49fd4c7fa9ef9854"
+      }
+    ]
+  }
+}

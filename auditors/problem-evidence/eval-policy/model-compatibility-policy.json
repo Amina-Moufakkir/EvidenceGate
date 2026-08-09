@@ -1,0 +1,68 @@
+{
+  "policyId": "problem-evidence-phase1-model-compatibility-policy",
+  "schemaVersion": "1.0.0-draft",
+  "reviewStatus": "human-review-required",
+  "humanReviewed": false,
+  "reviewedBy": null,
+  "reviewedDate": null,
+  "externalAuthorityRequired": true,
+  "externalAuthorityManifest": null,
+  "acceptanceBlocked": true,
+  "inferenceSettings": {
+    "sdkMaxRetries": 0,
+    "parallelToolCalls": false,
+    "maxOutputTokens": 8000,
+    "store": false,
+    "temperature": 0,
+    "topP": 1,
+    "reasoning": {
+      "effort": "medium",
+      "summary": "none"
+    },
+    "notes": "Acceptance runs must disable SDK retries and use these controlled inference settings exactly; compatibility remains unresolved offline until separately approved without relying on a live call in this gate.",
+    "modelReasoningCompatibility": {
+      "status": "unresolved-offline",
+      "reason": "Frozen v15 requires temperature=0 and top_p=1. Compatibility with gpt-5.6-sol at reasoning effort medium is unresolved offline; no live call was made and acceptance remains blocked."
+    }
+  },
+  "compatibilityRules": [
+    {
+      "requestedModel": "gpt-5.6-sol",
+      "matchType": "exact",
+      "allowedReturnedModels": [
+        "gpt-5.6-sol"
+      ],
+      "approvedSnapshots": [],
+      "notes": "Exact-only draft. No dated snapshots are pre-approved."
+    }
+  ],
+  "authorityCanonicalization": {
+    "authorityMode": "external-detached-manifest-required",
+    "diagnosticAlgorithm": "json.dumps-sort-keys-compact-sha256",
+    "diagnosticEncoding": "utf-8",
+    "diagnosticSerialization": "digest = sha256(json.dumps(selectedStructure, sort_keys=True, separators=(',', ':'), ensure_ascii=True).encode('utf-8')).hexdigest(), lowercase hexadecimal",
+    "diagnosticHashesAreNotAuthority": "Every digest in diagnosticHashes is a reproducible integrity aid computed with json.dumps-sort-keys-compact-sha256. None of them is an approval authority hash, and none of them is RFC 8785 canonicalized. RFC 8785 applies only to the future detached manifest named in futureAuthorityAlgorithm and is not enforced anywhere in this gate.",
+    "futureAuthorityAlgorithm": "RFC8785-json-canonicalization-sha256-required-not-yet-enforced",
+    "externalManifestRequirement": "Future approval authority requires a detached signed payload that is stored outside this artifact and binds: complete policy artifact hashes, schema hashes, source commit/tree, reviewer identity, decision timestamp, signer/key identity, trust source, signature algorithm, and signature bytes. The manifest signs the policy, schema, and source hashes; this artifact never contains, references, or hashes that manifest, so no circular hashing is possible. Fields inside this artifact, including reviewStatus, humanReviewed, reviewedBy, and reviewedDate, cannot authenticate approval and are pinned to unapproved values by schema.",
+    "manifestExclusion": "externalAuthorityManifest is permanently null in Gate 1 drafts and is listed in omittedJsonPointers for every diagnostic hash recipe defined over this artifact, so a manifest can never be inlined into a hashed payload. The future detached authority artifact is out of scope for this gate.",
+    "diagnosticHashes": [
+      {
+        "hashId": "model-compatibility-policy",
+        "description": "SHA-256 over the complete model compatibility policy with only the digest-bearing region and the permanently null manifest slot removed. Self-reference and manifest circularity are both structurally impossible.",
+        "sourcePaths": [
+          "auditors/problem-evidence/eval-policy/model-compatibility-policy.json"
+        ],
+        "selectedStructure": "The complete artifact with the omittedJsonPointers locations removed. All remaining content, including inferenceSettings, compatibilityRules, and the non-digest authorityCanonicalization fields, is included verbatim.",
+        "orderingRule": "Object keys are emitted sorted recursively by json.dumps(sort_keys=True). compatibilityRules and allowedReturnedModels retain artifact order. JSON Pointer per RFC 6901; the token '*' denotes every array index at that position.",
+        "omittedJsonPointers": [
+          "/authorityCanonicalization/diagnosticHashes",
+          "/externalAuthorityManifest"
+        ],
+        "canonicalization": "json.dumps-sort-keys-compact-sha256",
+        "encoding": "utf-8",
+        "serialization": "digest = sha256(json.dumps(selectedStructure, sort_keys=True, separators=(',', ':'), ensure_ascii=True).encode('utf-8')).hexdigest(), lowercase hexadecimal",
+        "digest": "b7621661c1493c042641d1296d49d4dfe7ba12781cf1a374633400d0a409f65f"
+      }
+    ]
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "recordId": "gate2a-p-design-review-pending",
+  "contractVersion": "0.15.0-draft",
+  "recordKind": "design-review",
+  "recordRole": "illustrative-example",
+  "reviewedArtifactPath": "auditors/problem-evidence/gate2a/manifest.json",
+  "reviewedArtifactVersion": "0.3.0-draft",
+  "reviewedArtifactDigest": "442c433a36991f5c2e62a646f4b9f0eccf198ef268fae485daa114f8fe833646",
+  "digestAlgorithm": "json.dumps-sort-keys-compact-sha256",
+  "reviewStatus": "pending-owner-review",
+  "humanReviewOccurred": false,
+  "designApproved": false,
+  "reviewerRepresentation": null,
+  "reviewTimestamp": null,
+  "scopeOfDecision": "Illustrative example of the external review-record shape. No review has occurred. The record references the package manifest and its digest and is excluded from that digest, so updating the record never mutates the reviewed content.",
+  "doesNotEstablish": [
+    "Formal Phase 1 acceptance",
+    "Gate 2C model-compatibility approval",
+    "Bridge authority",
+    "Classification authority",
+    "Runtime enforcement",
+    "Operational comparator use",
+    "Production readiness"
+  ],
+  "nonAuthorizations": {
+    "grantsFormalPhase1Acceptance": false,
+    "grantsGate2CModelCompatibility": false,
+    "grantsBridgeAuthority": false,
+    "grantsClassificationAuthority": false,
+    "enablesRuntimeEnforcement": false,
+    "permitsOperationalComparatorUse": false,
+    "impliesProductionReadiness": false
+  }
+}

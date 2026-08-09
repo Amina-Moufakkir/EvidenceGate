@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://evidencegate.local/auditors/problem-evidence/gate2a/schema/source-statement-record.schema.json",
+  "title": "Gate 2A-P Source Statement Record",
+  "description": "Immutable identity record for one frozen v15 boundary statement. Contains no approval or lifecycle field: review state lives in a separate digest-bound record.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "packageId": {
+      "const": "gate2a-p-source-statement-records"
+    },
+    "contractVersion": {
+      "const": "0.15.0-draft"
+    },
+    "sourcePolicyPath": {
+      "const": "auditors/problem-evidence/eval-policy/phase1-benchmark-policy.json"
+    },
+    "sourcePolicySchemaVersion": {
+      "const": "1.0.0"
+    },
+    "statementDigestAlgorithm": {
+      "const": "json.dumps-sort-keys-compact-sha256"
+    },
+    "scope": {
+      "enum": [
+        "pilot-subset",
+        "expansion-in-progress",
+        "full-set-87"
+      ]
+    },
+    "records": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "sourceStatementId": {
+            "type": "string",
+            "pattern": "^SS-[0-9]{3}$"
+          },
+          "v15Index": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 87
+          },
+          "fixture": {
+            "type": "string",
+            "minLength": 1
+          },
+          "requirementId": {
+            "type": "string",
+            "pattern": "^REQ-[1-5]$"
+          },
+          "statementType": {
+            "enum": [
+              "requiredVerificationBehavior",
+              "prohibitedSubstitution"
+            ]
+          },
+          "statementText": {
+            "type": "string",
+            "minLength": 1
+          },
+          "statementDigest": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "statementClassification": {
+            "enum": [
+              "deterministic",
+              "model-assisted",
+              "human-required",
+              "composite",
+              "unresolved"
+            ]
+          },
+          "decompositionStatus": {
+            "enum": [
+              "fully_decomposed",
+              "partially_decomposed",
+              "unresolved"
+            ]
+          },
+          "pilotSelectionRationale": {
+            "type": "string",
+            "minLength": 1
+          },
+          "decompositionAssurance": {
+            "const": "unconfirmed-pending-owner-review"
+          },
+          "unrepresentedObligations": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "required": [
+          "sourceStatementId",
+          "v15Index",
+          "fixture",
+          "requirementId",
+          "statementType",
+          "statementText",
+          "statementDigest",
+          "statementClassification",
+          "decompositionStatus",
+          "pilotSelectionRationale",
+          "decompositionAssurance",
+          "unrepresentedObligations"
+        ]
+      }
+    }
+  },
+  "required": [
+    "packageId",
+    "contractVersion",
+    "sourcePolicyPath",
+    "sourcePolicySchemaVersion",
+    "statementDigestAlgorithm",
+    "scope",
+    "records"
+  ]
+}

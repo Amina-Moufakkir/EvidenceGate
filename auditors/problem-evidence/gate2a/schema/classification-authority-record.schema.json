@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://evidencegate.local/auditors/problem-evidence/gate2a/schema/classification-authority-record.schema.json",
+  "title": "Gate 2A-P Classification Authority Record",
+  "description": "External, digest-bound record of whether an approved classification authority exists. Never embedded in an obligation part.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "recordId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "contractVersion": {
+      "const": "0.15.0-draft"
+    },
+    "recordKind": {
+      "const": "classification-authority"
+    },
+    "governedArtifactPath": {
+      "type": "string",
+      "minLength": 1
+    },
+    "governedArtifactDigest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "digestAlgorithm": {
+      "const": "json.dumps-sort-keys-compact-sha256"
+    },
+    "authorityStatus": {
+      "const": "not-approved"
+    },
+    "approvedBy": {
+      "type": "null"
+    },
+    "approvedTimestamp": {
+      "type": "null"
+    },
+    "approvedForObligationPartIds": {
+      "type": "array",
+      "maxItems": 0,
+      "items": false
+    },
+    "scopeOfDecision": {
+      "type": "string",
+      "minLength": 1
+    },
+    "doesNotEstablish": {
+      "type": "array",
+      "minItems": 7,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "required": [
+    "recordId",
+    "contractVersion",
+    "recordKind",
+    "governedArtifactPath",
+    "governedArtifactDigest",
+    "digestAlgorithm",
+    "authorityStatus",
+    "approvedBy",
+    "approvedTimestamp",
+    "approvedForObligationPartIds",
+    "scopeOfDecision",
+    "doesNotEstablish"
+  ]
+}

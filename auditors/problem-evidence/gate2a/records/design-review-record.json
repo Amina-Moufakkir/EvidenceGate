@@ -1,0 +1,49 @@
+{
+  "recordId": "gate2a-p-design-review",
+  "contractVersion": "0.15.0-draft",
+  "recordKind": "design-review",
+  "recordRole": "authoritative",
+  "reviewedArtifactPath": "auditors/problem-evidence/gate2a/manifest.json",
+  "reviewedArtifactVersion": "0.3.0-draft",
+  "reviewedArtifactDigest": "442c433a36991f5c2e62a646f4b9f0eccf198ef268fae485daa114f8fe833646",
+  "digestAlgorithm": "json.dumps-sort-keys-compact-sha256",
+  "reviewStatus": "design-approved",
+  "humanReviewOccurred": true,
+  "designApproved": true,
+  "reviewerRepresentation": "Repository owner \u2014 represented in this record; authorization evidenced separately by a private approval artifact SHA-256.",
+  "reviewTimestamp": "2026-08-09T03:08:24Z",
+  "scopeOfDecision": "Owner approval of the Gate 2A semantic design for the bound package digest. Invariant X-8 received owner review. Findings F-6 through F-9 remain deferred. This decision grants no authority beyond the approved semantic design.",
+  "doesNotEstablish": [
+    "Formal Phase 1 acceptance",
+    "Gate 2C model-compatibility approval",
+    "Bridge authority",
+    "Classification authority",
+    "Runtime enforcement",
+    "Operational comparator use",
+    "Production readiness"
+  ],
+  "nonAuthorizations": {
+    "grantsFormalPhase1Acceptance": false,
+    "grantsGate2CModelCompatibility": false,
+    "grantsBridgeAuthority": false,
+    "grantsClassificationAuthority": false,
+    "enablesRuntimeEnforcement": false,
+    "permitsOperationalComparatorUse": false,
+    "impliesProductionReadiness": false
+  },
+  "approvalScope": "gate2a-semantic-design",
+  "invariantsReviewed": [
+    "X-8"
+  ],
+  "deferredFindings": [
+    "F-6",
+    "F-7",
+    "F-8",
+    "F-9"
+  ],
+  "authorizationEvidence": {
+    "evidenceKind": "private-approval-artifact-sha256",
+    "artifactSha256": "92af4c29fbaa604d8baa9a5605133521e1acc005902ff11d8908696ec1d55da3",
+    "statement": "The repository owner approved the exact bound Gate 2A semantic-design package digest. Authorization evidence is the SHA-256 of a separately preserved private approval artifact."
+  }
+}

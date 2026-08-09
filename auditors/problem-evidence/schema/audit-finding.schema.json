@@ -30,7 +30,7 @@
     }
   ],
   "properties": {
-    "schemaVersion": { "type": "string", "const": "1.0.0" },
+    "schemaVersion": { "type": "string", "const": "2.0.0" },
     "fixture": {
       "type": "string",
       "description": "Filename of the packet these findings correspond to."
@@ -63,13 +63,14 @@
     "auditFinding": {
       "type": "object",
       "additionalProperties": false,
-      "description": "The core fields match the agreed AuditFinding interface. Additive Phase 0 extensions are: claimIds, subAssessments, offSegmentSignal, blockingReasons, policyGap, reviewNote.",
+      "description": "The core fields match the agreed AuditFinding interface. Phase 0 and semantic-audit extensions are: claimIds, nonContributingEvidence, subAssessments, offSegmentSignal, blockingReasons, policyGap, reviewNote.",
       "required": [
         "requirementId",
         "requirement",
         "status",
         "evidenceIds",
         "contradictoryEvidenceIds",
+        "nonContributingEvidence",
         "missingEvidence",
         "severity",
         "rationale",
@@ -96,6 +97,53 @@
           "type": "array",
           "description": "Records that CONFLICT with the claim. Never merged with evidenceIds and never netted off against them.",
           "items": { "type": "string", "pattern": "^EV-[0-9]{3}$" }
+        },
+        "nonContributingEvidence": {
+          "type": "array",
+          "description": "Supplied records that remain visible but count as neither support nor contradiction. Every evidenceId must exist in the packet and be absent from evidenceIds and contradictoryEvidenceIds.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "evidenceId",
+              "qualification",
+              "relationshipStatus",
+              "reasonCodes",
+              "rationale"
+            ],
+            "properties": {
+              "evidenceId": { "type": "string", "pattern": "^EV-[0-9]{3}$" },
+              "qualification": {
+                "type": "string",
+                "enum": ["unsuitable", "non-qualifying"]
+              },
+              "relationshipStatus": {
+                "type": "string",
+                "enum": ["unresolved", "not-applicable"]
+              },
+              "reasonCodes": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "below-defined-threshold",
+                    "explicitly-superseded",
+                    "generalized-self-report",
+                    "internal-assertion",
+                    "missing-applicable-timeframe",
+                    "missing-required-measurement",
+                    "requirement-fit-none",
+                    "secondary-source",
+                    "segment-attribution-unavailable",
+                    "stated-intent"
+                  ]
+                }
+              },
+              "rationale": { "type": "string", "minLength": 1 }
+            }
+          }
         },
         "missingEvidence": {
           "type": "array",

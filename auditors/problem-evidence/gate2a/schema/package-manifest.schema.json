@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://evidencegate.local/auditors/problem-evidence/gate2a/schema/package-manifest.schema.json",
+  "title": "Gate 2A-P Package Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "packageId": {
+      "const": "gate2a-p-package-manifest"
+    },
+    "contractVersion": {
+      "const": "0.15.0-draft"
+    },
+    "packageVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "digestAlgorithm": {
+      "const": "json.dumps-sort-keys-compact-sha256"
+    },
+    "fileDigestRule": {
+      "type": "string",
+      "minLength": 1
+    },
+    "packageDigestRule": {
+      "type": "string",
+      "minLength": 1
+    },
+    "orderingRule": {
+      "type": "string",
+      "minLength": 1
+    },
+    "pathNormalization": {
+      "type": "string",
+      "minLength": 1
+    },
+    "includedFiles": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[a-f0-9]{64}$"
+      },
+      "propertyNames": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "exclusions": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "path",
+          "reason"
+        ]
+      }
+    },
+    "documentationInclusionNote": {
+      "type": "string",
+      "minLength": 1
+    },
+    "packageDigest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  },
+  "required": [
+    "packageId",
+    "contractVersion",
+    "packageVersion",
+    "digestAlgorithm",
+    "fileDigestRule",
+    "packageDigestRule",
+    "orderingRule",
+    "pathNormalization",
+    "includedFiles",
+    "exclusions",
+    "documentationInclusionNote",
+    "packageDigest"
+  ]
+}

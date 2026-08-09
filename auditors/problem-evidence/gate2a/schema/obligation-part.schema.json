@@ -1,0 +1,273 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://evidencegate.local/auditors/problem-evidence/gate2a/schema/obligation-part.schema.json",
+  "title": "Gate 2A-P Obligation Part Inventory",
+  "description": "One normative obligation per record, produced before any atomic rule. derivationBasis separates what the frozen source requires, what the evaluator needs as input, and what the repository merely makes observable.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "packageId": {
+      "const": "gate2a-p-obligation-parts"
+    },
+    "contractVersion": {
+      "const": "0.15.0-draft"
+    },
+    "scope": {
+      "enum": [
+        "pilot-subset",
+        "expansion-in-progress",
+        "full-set-87"
+      ]
+    },
+    "derivationBasisNote": {
+      "type": "string",
+      "minLength": 1
+    },
+    "parts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "obligationPartId": {
+            "type": "string",
+            "pattern": "^OP-[0-9]{3}-[a-z]$"
+          },
+          "sourceStatementId": {
+            "type": "string",
+            "pattern": "^SS-[0-9]{3}$"
+          },
+          "normativeObligation": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sourceClauseReference": {
+            "type": "string",
+            "minLength": 1
+          },
+          "derivationBasis": {
+            "enum": [
+              "source_obligation",
+              "evaluation_precondition",
+              "evaluation_proxy"
+            ]
+          },
+          "proxiedSourceObligation": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 1
+          },
+          "proxyLimitation": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 1
+          },
+          "applicabilityConditions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "requiredEvidence": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "observableInvariant": {
+            "type": "string",
+            "minLength": 1
+          },
+          "evaluatorResponsibility": {
+            "enum": [
+              "deterministic",
+              "model-assisted",
+              "human",
+              "none"
+            ]
+          },
+          "independentlyTestable": {
+            "type": "boolean"
+          },
+          "independenceJustification": {
+            "type": "string",
+            "minLength": 1
+          },
+          "dependsOn": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^OP-[0-9]{3}-[a-z]$"
+            }
+          },
+          "coverageState": {
+            "enum": [
+              "rule-covered",
+              "human-review-obligation",
+              "unresolved"
+            ]
+          },
+          "humanJudgmentRequired": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 1
+          },
+          "whyAutomationInsufficient": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 1
+          },
+          "unresolvedTerm": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 1
+          },
+          "missingAuthorityOrDependency": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 1
+          },
+          "whyRepositoryCannotResolve": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 1
+          },
+          "requiredOwnerDecisionOrEvidence": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 1
+          },
+          "possibleLaterClassifications": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "knownLimitations": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "evidenceContract": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "completeInventoryRequired": {
+                "type": "boolean"
+              },
+              "inventoryScope": {
+                "type": "string",
+                "minLength": 1
+              },
+              "trustedClassificationRequired": {
+                "type": "boolean"
+              },
+              "resultWhenInventoryIncomplete": {
+                "const": "indeterminate"
+              },
+              "resultWhenClassificationMissingOrUntrusted": {
+                "const": "indeterminate"
+              },
+              "remainsSourceDerivedOnlyIf": {
+                "type": "string",
+                "minLength": 1
+              },
+              "currentStatus": {
+                "type": "string",
+                "minLength": 1
+              },
+              "classificationAuthorityRecordRef": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "completeInventoryRequired",
+              "inventoryScope",
+              "trustedClassificationRequired",
+              "resultWhenInventoryIncomplete",
+              "resultWhenClassificationMissingOrUntrusted",
+              "remainsSourceDerivedOnlyIf",
+              "currentStatus",
+              "classificationAuthorityRecordRef"
+            ]
+          },
+          "qualifyingPredicates": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "humanInputRequired": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 1
+          }
+        },
+        "required": [
+          "obligationPartId",
+          "sourceStatementId",
+          "normativeObligation",
+          "sourceClauseReference",
+          "derivationBasis",
+          "proxiedSourceObligation",
+          "proxyLimitation",
+          "applicabilityConditions",
+          "requiredEvidence",
+          "observableInvariant",
+          "evaluatorResponsibility",
+          "independentlyTestable",
+          "independenceJustification",
+          "dependsOn",
+          "coverageState",
+          "humanJudgmentRequired",
+          "whyAutomationInsufficient",
+          "unresolvedTerm",
+          "missingAuthorityOrDependency",
+          "whyRepositoryCannotResolve",
+          "requiredOwnerDecisionOrEvidence",
+          "possibleLaterClassifications",
+          "knownLimitations",
+          "evidenceContract",
+          "qualifyingPredicates",
+          "humanInputRequired"
+        ]
+      }
+    }
+  },
+  "required": [
+    "packageId",
+    "contractVersion",
+    "scope",
+    "derivationBasisNote",
+    "parts"
+  ]
+}

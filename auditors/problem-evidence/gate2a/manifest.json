@@ -1,0 +1,67 @@
+{
+  "packageId": "gate2a-p-package-manifest",
+  "contractVersion": "0.15.0-draft",
+  "packageVersion": "0.3.0-draft",
+  "digestAlgorithm": "json.dumps-sort-keys-compact-sha256",
+  "fileDigestRule": "sha256 over raw file bytes",
+  "packageDigestRule": "sha256 over json.dumps(files, sort_keys=True, separators=(',',':')) encoded utf-8",
+  "orderingRule": "keys sorted lexicographically by repo-relative POSIX path",
+  "pathNormalization": "repository-relative POSIX paths",
+  "includedFiles": {
+    "auditors/problem-evidence/gate2a/PROVENANCE-QUESTIONS.md": "90930dac33e2b0955487effde63df0c197e3be621ca4a99d7d49ee0d130809d8",
+    "auditors/problem-evidence/gate2a/README.md": "0fba39c2fb6b440286fe4066d78ede2cdb272f8a8e552e6f4a7245387d92272c",
+    "auditors/problem-evidence/gate2a/contracts/lifecycle-state.json": "5337053f8cdc000acbc6390c5f2ca8dd11809814fd73de821e96dec8593262fc",
+    "auditors/problem-evidence/gate2a/contracts/operator-set.json": "10147a42b927d23db0985144e76ab0aa7d354ae3f2a2961be1931bdd0c7827ce",
+    "auditors/problem-evidence/gate2a/contracts/outcome-taxonomy.json": "321889742db433aede339d0c69d48ec2b35434a49634f3de057af0f496315b6e",
+    "auditors/problem-evidence/gate2a/schema/atomic-behavior-rule.schema.json": "09ade1ceb21a21803909eb001e87d07ac69beb79c53114dcf80a8c39f16104f5",
+    "auditors/problem-evidence/gate2a/schema/bridge-authority-record.schema.json": "f4076b1e902e7f45f1aa16962e25f33bb8430ae63945bacadf5dbf717b2e3106",
+    "auditors/problem-evidence/gate2a/schema/classification-authority-record.schema.json": "c7afbbfdb1db0f2b006cc1e09c3d5bf36f7d74dcd20a6e25524f342280439370",
+    "auditors/problem-evidence/gate2a/schema/coverage-report.schema.json": "185b2b65c7e16847223e14481002a930818f89f325d44aadc13f982814195e66",
+    "auditors/problem-evidence/gate2a/schema/design-review-record.schema.json": "d70381a9af6f0ef24a49a35d578a31789175b737d0861fc4ee95dd97129b7a25",
+    "auditors/problem-evidence/gate2a/schema/lifecycle-state-record.schema.json": "0a7b1ef5f6ed1fddda00aec5cd9aa2cc5c8ce58612199495e34343d89fe65baf",
+    "auditors/problem-evidence/gate2a/schema/lifecycle-state.schema.json": "d3057967e426c03e2ddb4d42ba91726b92e128f823b062b938119ece2026105b",
+    "auditors/problem-evidence/gate2a/schema/obligation-part.schema.json": "48e66d436d370b0dc5246be817e28966c47f663c476aa5733e7fee9e5a951121",
+    "auditors/problem-evidence/gate2a/schema/operator-set.schema.json": "680e993e887f6dcf892f37c1b6d51d92afba7cf035818d73e2274755a4b994d7",
+    "auditors/problem-evidence/gate2a/schema/outcome-taxonomy.schema.json": "5cbe3aed70bff3ca6419844577819a3ee1367e6a605f39d54c82c0b2cfb50f26",
+    "auditors/problem-evidence/gate2a/schema/package-manifest.schema.json": "a1f5d7fde0d6b93bfaf9aad31aeb094127d9b244b61a4397ff3f311792587b11",
+    "auditors/problem-evidence/gate2a/schema/source-statement-record.schema.json": "95228287a1efe5fa5e7dafa47c24a79fabeb1c58bb193f036f631ef3aad765eb",
+    "auditors/problem-evidence/gate2a/schema/traceability-map.schema.json": "d8e1d0582888de71dc8d1e551509c75b71968d14dba84479c46db673d18ab09a",
+    "auditors/problem-evidence/gate2a/statements/atomic-behavior-rules.json": "08c56005ed2eb9cf4acd02bc2406d69bc72361383f77483c69fe1c9c6cb07cdc",
+    "auditors/problem-evidence/gate2a/statements/coverage-report.json": "ef8205ce2d61b4d9322bc8dea8a0c559349656adcf04eb2dd94f0f5a0bdd935e",
+    "auditors/problem-evidence/gate2a/statements/obligation-parts.json": "60243fc70927c0bd6e69c4c3b4bc55dc186232a3299ad24fccb7e6ba70605b46",
+    "auditors/problem-evidence/gate2a/statements/source-statement-records.json": "27d5f23536d8f6dd540f48e2ef9f6004fd9c46351de1cdc676b18f49aaef6e05",
+    "auditors/problem-evidence/gate2a/statements/traceability-map.json": "88e335e4afdd6577766d5021e98810d8397823f0a939306d62d958d82a26740e"
+  },
+  "exclusions": [
+    {
+      "path": "auditors/problem-evidence/gate2a/manifest.json",
+      "reason": "A manifest cannot include its own digest without circular self-reference."
+    },
+    {
+      "path": "auditors/problem-evidence/gate2a/records/design-review-record.json",
+      "reason": "The authorizing decision must live outside the reviewed content so that granting or updating it never mutates the artifact it reviews, and so the digest a decision binds is stable across the decision."
+    },
+    {
+      "path": "auditors/problem-evidence/gate2a/records/lifecycle-state-record.json",
+      "reason": "Current lifecycle state is mutable. Holding it in digest-bound content would make every transition change the digest that the decision authorizing it was bound to."
+    },
+    {
+      "path": "auditors/problem-evidence/gate2a/records/design-review-record.example.json",
+      "reason": "Review state must live outside the reviewed content so a review can be updated without mutating what it reviewed."
+    },
+    {
+      "path": "auditors/problem-evidence/gate2a/records/bridge-authority-record.example.json",
+      "reason": "Bridge-authority state must live outside the reviewed content for the same reason; embedding it would make an authority grant mutate the artifact it governs."
+    },
+    {
+      "path": "auditors/problem-evidence/gate2a/records/classification-authority-record.example.json",
+      "reason": "Classification-authority state must live outside the reviewed content, like the other authority records."
+    },
+    {
+      "path": "tests/gate2a/test_gate2a_contracts.py",
+      "reason": "Validation code is outside the design package and is reviewed as code, not as contract."
+    }
+  ],
+  "documentationInclusionNote": "README.md and PROVENANCE-QUESTIONS.md are included in the digest. PROVENANCE-QUESTIONS.md records the F-6 provenance analysis and the justification for OP-070-c; README.md states package-level contract claims. Both are substantive and must not be editable without invalidating the review. Exclusion from the digest is not exclusion from validation: every excluded record is schema-validated and subject to cross-record integrity checks.",
+  "packageDigest": "442c433a36991f5c2e62a646f4b9f0eccf198ef268fae485daa114f8fe833646"
+}

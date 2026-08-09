@@ -1,0 +1,504 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://evidencegate.local/auditors/problem-evidence/gate2a/schema/coverage-report.schema.json",
+  "title": "Gate 2A-P Coverage Report",
+  "description": "Three-level accounting. Evaluator design, implementation and execution are reported separately, and intended evidence-packet association is never reported as fixture coverage.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "packageId": {
+      "const": "gate2a-p-coverage-report"
+    },
+    "contractVersion": {
+      "const": "0.15.0-draft"
+    },
+    "scope": {
+      "enum": [
+        "pilot-subset",
+        "expansion-in-progress",
+        "full-set-87"
+      ]
+    },
+    "fullSetAtomicRuleTotal": {
+      "const": "unknown"
+    },
+    "extrapolationPermitted": {
+      "const": false
+    },
+    "statementTotals": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "selected": {
+          "type": "integer",
+          "minimum": 7,
+          "maximum": 87
+        },
+        "recordsCreated": {
+          "type": "integer",
+          "minimum": 7,
+          "maximum": 87
+        },
+        "fullyDecomposed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "partiallyDecomposed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "statementsRemaining": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 80
+        }
+      },
+      "required": [
+        "selected",
+        "recordsCreated",
+        "statementsRemaining",
+        "fullyDecomposed",
+        "partiallyDecomposed"
+      ]
+    },
+    "statementClassification": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "deterministic": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "modelAssisted": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "humanRequired": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "composite": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "unresolved": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "deterministic",
+        "modelAssisted",
+        "humanRequired",
+        "composite",
+        "unresolved"
+      ]
+    },
+    "obligationTotals": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "identified": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sourceObligation": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "evaluationPrecondition": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "evaluationProxy": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "ruleCovered": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "humanReviewObligation": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "unresolved": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "independentlyTestable": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "identified",
+        "sourceObligation",
+        "evaluationPrecondition",
+        "evaluationProxy",
+        "ruleCovered",
+        "humanReviewObligation",
+        "unresolved",
+        "independentlyTestable"
+      ]
+    },
+    "ruleTotals": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "proposed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "deterministicDesign": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "modelAssistedDesign": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sourceDerivedExecutableRuleCoverage": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "preconditionRules": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "proxyRules": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "rulesPermittedToEmitNormativeOutcomes": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "proposed",
+        "deterministicDesign",
+        "modelAssistedDesign",
+        "sourceDerivedExecutableRuleCoverage",
+        "preconditionRules",
+        "proxyRules",
+        "rulesPermittedToEmitNormativeOutcomes"
+      ]
+    },
+    "evaluatorMaturity": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mechanismDefined": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "evaluatorImplemented": {
+          "const": 0
+        },
+        "behaviourExecutedInTests": {
+          "const": 0
+        },
+        "liveModelEvaluationPerformed": {
+          "const": 0
+        },
+        "reliabilityEvidenceEstablished": {
+          "const": 0
+        }
+      },
+      "required": [
+        "mechanismDefined",
+        "evaluatorImplemented",
+        "behaviourExecutedInTests",
+        "liveModelEvaluationPerformed",
+        "reliabilityEvidenceEstablished"
+      ]
+    },
+    "fixtureEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "actualRuleFixtures": {
+          "const": 0
+        },
+        "rulesWithIntendedEvidencePacketAssociation": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "actualRuleFixtures",
+        "rulesWithIntendedEvidencePacketAssociation",
+        "note"
+      ]
+    },
+    "axisSeparation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "humanRequiredSourceObligations": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "ruleDesignsGovernedByReviewPolicy": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "ruleDesignsCapableOfProducingFindings": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "humanRequiredSourceObligations",
+        "ruleDesignsGovernedByReviewPolicy",
+        "ruleDesignsCapableOfProducingFindings",
+        "note"
+      ]
+    },
+    "claimBoundaries": {
+      "type": "array",
+      "minItems": 7,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "sourceObligationCoverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sourceObligationParts": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "representedByRules": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "humanRequiredDispositions": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "unresolvedDispositions": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "sourceObligationParts",
+        "representedByRules",
+        "humanRequiredDispositions",
+        "unresolvedDispositions",
+        "note"
+      ]
+    },
+    "findingPolicyAccounting": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "totalRuleDesigns": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "normativeRuleDesignsCapableOfProductFindings": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "diagnosticOnlyRuleDesigns": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "diagnosticProxyRules": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "diagnosticPreconditionRules": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "reviewPolicyGovernsRuleDefinitions": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "outputsQualifyingAsFindings": {
+          "type": "string",
+          "minLength": 1
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1
+        },
+        "currentlyImplementedEvaluators": {
+          "const": 0
+        },
+        "actualGeneratedFindings": {
+          "const": 0
+        }
+      },
+      "required": [
+        "totalRuleDesigns",
+        "normativeRuleDesignsCapableOfProductFindings",
+        "diagnosticOnlyRuleDesigns",
+        "diagnosticProxyRules",
+        "diagnosticPreconditionRules",
+        "reviewPolicyGovernsRuleDefinitions",
+        "outputsQualifyingAsFindings",
+        "note",
+        "currentlyImplementedEvaluators",
+        "actualGeneratedFindings"
+      ]
+    },
+    "deferredRemediation": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "mismatch": {
+            "type": "string",
+            "minLength": 1
+          },
+          "affectedArtifact": {
+            "type": "string",
+            "minLength": 1
+          },
+          "modifiedInThisPass": {
+            "const": false
+          },
+          "resolution": {
+            "type": "string",
+            "minLength": 1
+          },
+          "deferredTo": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "id",
+          "mismatch",
+          "affectedArtifact",
+          "modifiedInThisPass",
+          "resolution",
+          "deferredTo"
+        ]
+      }
+    },
+    "statementDecompositionVsCoverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "note": {
+          "type": "string",
+          "minLength": 1
+        },
+        "statementsFullyDecomposed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "statementsPartiallyDecomposed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "statementsWithUnrepresentedObligations": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "statementsContainingUnresolvedParts": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "unresolvedPartsTotal": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "decompositionAssurance": {
+          "const": "unconfirmed-pending-owner-review"
+        }
+      },
+      "required": [
+        "note",
+        "statementsFullyDecomposed",
+        "statementsPartiallyDecomposed",
+        "statementsWithUnrepresentedObligations",
+        "statementsContainingUnresolvedParts",
+        "unresolvedPartsTotal",
+        "decompositionAssurance"
+      ]
+    },
+    "humanRequiredBreakdown": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "humanRequiredParts": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "asSourceObligations": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "asEvaluationPreconditions": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "partIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "humanRequiredParts",
+        "asSourceObligations",
+        "asEvaluationPreconditions",
+        "partIds",
+        "note"
+      ]
+    }
+  },
+  "required": [
+    "packageId",
+    "contractVersion",
+    "scope",
+    "fullSetAtomicRuleTotal",
+    "extrapolationPermitted",
+    "statementTotals",
+    "statementClassification",
+    "obligationTotals",
+    "ruleTotals",
+    "evaluatorMaturity",
+    "fixtureEvidence",
+    "axisSeparation",
+    "claimBoundaries",
+    "sourceObligationCoverage",
+    "findingPolicyAccounting",
+    "deferredRemediation",
+    "statementDecompositionVsCoverage",
+    "humanRequiredBreakdown"
+  ]
+}

@@ -1,0 +1,569 @@
+{
+  "packageId": "gate2a-p-traceability-map",
+  "contractVersion": "0.15.0-draft",
+  "traceabilityKey": "sourceStatementId",
+  "semanticCriteriaIdsAuthoritative": false,
+  "sourceDerivedCoverageNote": "Only edges whose derivationBasis is source_obligation count as source-derived coverage. Preconditions and proxies never do.",
+  "edges": [
+    {
+      "sourceStatementId": "SS-006",
+      "obligationPartId": "OP-006-a",
+      "ruleId": "BR-006-provenance-validated",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "evaluation_proxy"
+    },
+    {
+      "sourceStatementId": "SS-006",
+      "obligationPartId": "OP-006-b",
+      "ruleId": "BR-006-measurement-boundaries-validated",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "evaluation_proxy"
+    },
+    {
+      "sourceStatementId": "SS-006",
+      "obligationPartId": "OP-006-c",
+      "ruleId": "BR-006-segment-fit-validated",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "evaluation_proxy"
+    },
+    {
+      "sourceStatementId": "SS-006",
+      "obligationPartId": "OP-006-d",
+      "ruleId": "BR-006-threshold-validated",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "evaluation_proxy"
+    },
+    {
+      "sourceStatementId": "SS-006",
+      "obligationPartId": "OP-006-e",
+      "ruleId": "BR-006-supersession-validated",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "evaluation_proxy"
+    },
+    {
+      "sourceStatementId": "SS-006",
+      "obligationPartId": "OP-006-f",
+      "ruleId": "BR-006-validation-precedes-conclusion",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "evaluation_proxy"
+    },
+    {
+      "sourceStatementId": "SS-006",
+      "obligationPartId": "OP-006-g",
+      "ruleId": null,
+      "role": "no-rule",
+      "disposition": "human-review-obligation",
+      "derivationBasis": "evaluation_precondition"
+    },
+    {
+      "sourceStatementId": "SS-006",
+      "obligationPartId": "OP-006-h",
+      "ruleId": null,
+      "role": "no-rule",
+      "disposition": "unresolved",
+      "derivationBasis": "source_obligation"
+    },
+    {
+      "sourceStatementId": "SS-006",
+      "obligationPartId": "OP-006-i",
+      "ruleId": null,
+      "role": "no-rule",
+      "disposition": "unresolved",
+      "derivationBasis": "source_obligation"
+    },
+    {
+      "sourceStatementId": "SS-006",
+      "obligationPartId": "OP-006-j",
+      "ruleId": null,
+      "role": "no-rule",
+      "disposition": "unresolved",
+      "derivationBasis": "source_obligation"
+    },
+    {
+      "sourceStatementId": "SS-006",
+      "obligationPartId": "OP-006-k",
+      "ruleId": null,
+      "role": "no-rule",
+      "disposition": "unresolved",
+      "derivationBasis": "source_obligation"
+    },
+    {
+      "sourceStatementId": "SS-006",
+      "obligationPartId": "OP-006-l",
+      "ruleId": null,
+      "role": "no-rule",
+      "disposition": "unresolved",
+      "derivationBasis": "source_obligation"
+    },
+    {
+      "sourceStatementId": "SS-006",
+      "obligationPartId": "OP-006-m",
+      "ruleId": null,
+      "role": "no-rule",
+      "disposition": "unresolved",
+      "derivationBasis": "source_obligation"
+    },
+    {
+      "sourceStatementId": "SS-006",
+      "obligationPartId": "OP-006-n",
+      "ruleId": "BR-006-credible-establishes-existence",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "source_obligation"
+    },
+    {
+      "sourceStatementId": "SS-026",
+      "obligationPartId": "OP-026-a",
+      "ruleId": "BR-026-no-wtp-substitution",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "source_obligation"
+    },
+    {
+      "sourceStatementId": "SS-026",
+      "obligationPartId": "OP-026-b",
+      "ruleId": "BR-026-wtp-classification-available",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "evaluation_precondition"
+    },
+    {
+      "sourceStatementId": "SS-033",
+      "obligationPartId": "OP-033-a",
+      "ruleId": "BR-033-boundary-terms-available",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "evaluation_precondition"
+    },
+    {
+      "sourceStatementId": "SS-033",
+      "obligationPartId": "OP-033-b",
+      "ruleId": "BR-033-no-adjectival-boundary",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "source_obligation"
+    },
+    {
+      "sourceStatementId": "SS-034",
+      "obligationPartId": "OP-034-a",
+      "ruleId": "BR-034-duration-threshold-declared",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "source_obligation"
+    },
+    {
+      "sourceStatementId": "SS-034",
+      "obligationPartId": "OP-034-b",
+      "ruleId": null,
+      "role": "no-rule",
+      "disposition": "unresolved",
+      "derivationBasis": "source_obligation"
+    },
+    {
+      "sourceStatementId": "SS-055",
+      "obligationPartId": "OP-055-a",
+      "ruleId": "BR-055-pass-criterion",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "source_obligation"
+    },
+    {
+      "sourceStatementId": "SS-055",
+      "obligationPartId": "OP-055-b",
+      "ruleId": "BR-055-counterevidence-structure",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "source_obligation"
+    },
+    {
+      "sourceStatementId": "SS-055",
+      "obligationPartId": "OP-055-c",
+      "ruleId": "BR-055-counterevidence-reason",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "source_obligation"
+    },
+    {
+      "sourceStatementId": "SS-055",
+      "obligationPartId": "OP-055-d",
+      "ruleId": "BR-055-counterevidence-exclusions",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "source_obligation"
+    },
+    {
+      "sourceStatementId": "SS-055",
+      "obligationPartId": "OP-055-e",
+      "ruleId": "BR-055-fail-criterion",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "source_obligation"
+    },
+    {
+      "sourceStatementId": "SS-055",
+      "obligationPartId": "OP-055-f",
+      "ruleId": null,
+      "role": "no-rule",
+      "disposition": "human-review-obligation",
+      "derivationBasis": "evaluation_precondition"
+    },
+    {
+      "sourceStatementId": "SS-055",
+      "obligationPartId": "OP-055-g",
+      "ruleId": "BR-055-partial-on-two-sided-credible",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "source_obligation"
+    },
+    {
+      "sourceStatementId": "SS-055",
+      "obligationPartId": "OP-055-m",
+      "ruleId": null,
+      "role": "no-rule",
+      "disposition": "human-review-obligation",
+      "derivationBasis": "evaluation_precondition"
+    },
+    {
+      "sourceStatementId": "SS-060",
+      "obligationPartId": "OP-060-a",
+      "ruleId": null,
+      "role": "no-rule",
+      "disposition": "human-review-obligation",
+      "derivationBasis": "evaluation_precondition"
+    },
+    {
+      "sourceStatementId": "SS-060",
+      "obligationPartId": "OP-060-c",
+      "ruleId": "BR-060-underspecified-boundary-recorded",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "source_obligation"
+    },
+    {
+      "sourceStatementId": "SS-060",
+      "obligationPartId": "OP-060-b",
+      "ruleId": "BR-060-material-disagreement-downgrades",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "source_obligation"
+    },
+    {
+      "sourceStatementId": "SS-070",
+      "obligationPartId": "OP-070-a",
+      "ruleId": "BR-070-window-step-declared",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "evaluation_proxy"
+    },
+    {
+      "sourceStatementId": "SS-070",
+      "obligationPartId": "OP-070-b",
+      "ruleId": "BR-070-window-declared-before-measure",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "evaluation_proxy"
+    },
+    {
+      "sourceStatementId": "SS-070",
+      "obligationPartId": "OP-070-c",
+      "ruleId": null,
+      "role": "no-rule",
+      "disposition": "unresolved",
+      "derivationBasis": "source_obligation"
+    },
+    {
+      "sourceStatementId": "SS-070",
+      "obligationPartId": "OP-070-d",
+      "ruleId": null,
+      "role": "no-rule",
+      "disposition": "unresolved",
+      "derivationBasis": "source_obligation"
+    },
+    {
+      "sourceStatementId": "SS-006",
+      "obligationPartId": "OP-006-a",
+      "ruleId": "BR-006-validation-precedes-conclusion",
+      "role": "supporting",
+      "disposition": "rule-covered",
+      "derivationBasis": "evaluation_proxy"
+    },
+    {
+      "sourceStatementId": "SS-006",
+      "obligationPartId": "OP-006-b",
+      "ruleId": "BR-006-validation-precedes-conclusion",
+      "role": "supporting",
+      "disposition": "rule-covered",
+      "derivationBasis": "evaluation_proxy"
+    },
+    {
+      "sourceStatementId": "SS-006",
+      "obligationPartId": "OP-006-c",
+      "ruleId": "BR-006-validation-precedes-conclusion",
+      "role": "supporting",
+      "disposition": "rule-covered",
+      "derivationBasis": "evaluation_proxy"
+    },
+    {
+      "sourceStatementId": "SS-006",
+      "obligationPartId": "OP-006-d",
+      "ruleId": "BR-006-validation-precedes-conclusion",
+      "role": "supporting",
+      "disposition": "rule-covered",
+      "derivationBasis": "evaluation_proxy"
+    },
+    {
+      "sourceStatementId": "SS-006",
+      "obligationPartId": "OP-006-e",
+      "ruleId": "BR-006-validation-precedes-conclusion",
+      "role": "supporting",
+      "disposition": "rule-covered",
+      "derivationBasis": "evaluation_proxy"
+    },
+    {
+      "sourceStatementId": "SS-006",
+      "obligationPartId": "OP-006-g",
+      "ruleId": "BR-006-credible-establishes-existence",
+      "role": "supporting",
+      "disposition": "human-review-obligation",
+      "derivationBasis": "evaluation_precondition"
+    },
+    {
+      "sourceStatementId": "SS-006",
+      "obligationPartId": "OP-006-h",
+      "ruleId": "BR-006-credible-establishes-existence",
+      "role": "supporting",
+      "disposition": "unresolved",
+      "derivationBasis": "source_obligation"
+    },
+    {
+      "sourceStatementId": "SS-006",
+      "obligationPartId": "OP-006-i",
+      "ruleId": "BR-006-credible-establishes-existence",
+      "role": "supporting",
+      "disposition": "unresolved",
+      "derivationBasis": "source_obligation"
+    },
+    {
+      "sourceStatementId": "SS-006",
+      "obligationPartId": "OP-006-j",
+      "ruleId": "BR-006-credible-establishes-existence",
+      "role": "supporting",
+      "disposition": "unresolved",
+      "derivationBasis": "source_obligation"
+    },
+    {
+      "sourceStatementId": "SS-006",
+      "obligationPartId": "OP-006-k",
+      "ruleId": "BR-006-credible-establishes-existence",
+      "role": "supporting",
+      "disposition": "unresolved",
+      "derivationBasis": "source_obligation"
+    },
+    {
+      "sourceStatementId": "SS-006",
+      "obligationPartId": "OP-006-l",
+      "ruleId": "BR-006-credible-establishes-existence",
+      "role": "supporting",
+      "disposition": "unresolved",
+      "derivationBasis": "source_obligation"
+    },
+    {
+      "sourceStatementId": "SS-006",
+      "obligationPartId": "OP-006-m",
+      "ruleId": "BR-006-credible-establishes-existence",
+      "role": "supporting",
+      "disposition": "unresolved",
+      "derivationBasis": "source_obligation"
+    },
+    {
+      "sourceStatementId": "SS-026",
+      "obligationPartId": "OP-026-b",
+      "ruleId": "BR-026-no-wtp-substitution",
+      "role": "supporting",
+      "disposition": "rule-covered",
+      "derivationBasis": "evaluation_precondition"
+    },
+    {
+      "sourceStatementId": "SS-033",
+      "obligationPartId": "OP-033-a",
+      "ruleId": "BR-033-no-adjectival-boundary",
+      "role": "supporting",
+      "disposition": "rule-covered",
+      "derivationBasis": "evaluation_precondition"
+    },
+    {
+      "sourceStatementId": "SS-055",
+      "obligationPartId": "OP-055-b",
+      "ruleId": "BR-055-counterevidence-reason",
+      "role": "supporting",
+      "disposition": "rule-covered",
+      "derivationBasis": "source_obligation"
+    },
+    {
+      "sourceStatementId": "SS-055",
+      "obligationPartId": "OP-055-f",
+      "ruleId": "BR-055-fail-criterion",
+      "role": "supporting",
+      "disposition": "human-review-obligation",
+      "derivationBasis": "evaluation_precondition"
+    },
+    {
+      "sourceStatementId": "SS-055",
+      "obligationPartId": "OP-055-m",
+      "ruleId": "BR-055-partial-on-two-sided-credible",
+      "role": "supporting",
+      "disposition": "human-review-obligation",
+      "derivationBasis": "evaluation_precondition"
+    },
+    {
+      "sourceStatementId": "SS-060",
+      "obligationPartId": "OP-060-a",
+      "ruleId": "BR-060-material-disagreement-downgrades",
+      "role": "supporting",
+      "disposition": "human-review-obligation",
+      "derivationBasis": "evaluation_precondition"
+    },
+    {
+      "sourceStatementId": "SS-070",
+      "obligationPartId": "OP-070-a",
+      "ruleId": "BR-070-window-declared-before-measure",
+      "role": "supporting",
+      "disposition": "rule-covered",
+      "derivationBasis": "evaluation_proxy"
+    },
+    {
+      "sourceStatementId": "SS-004",
+      "obligationPartId": "OP-004-a",
+      "ruleId": "BR-004-no-screening-sheet-as-market-proof",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "source_obligation"
+    },
+    {
+      "sourceStatementId": "SS-004",
+      "obligationPartId": "OP-004-b",
+      "ruleId": "BR-004-screening-sheet-classification-available",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "evaluation_precondition"
+    },
+    {
+      "sourceStatementId": "SS-009",
+      "obligationPartId": "OP-009-a",
+      "ruleId": "BR-009-no-automatic-supersession",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "source_obligation"
+    },
+    {
+      "sourceStatementId": "SS-009",
+      "obligationPartId": "OP-009-b",
+      "ruleId": "BR-009-supersession-justification-classification-available",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "evaluation_precondition"
+    },
+    {
+      "sourceStatementId": "SS-010",
+      "obligationPartId": "OP-010-a",
+      "ruleId": "BR-010-no-out-of-segment-ev-015-use",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "source_obligation"
+    },
+    {
+      "sourceStatementId": "SS-027",
+      "obligationPartId": "OP-027-a",
+      "ruleId": "BR-027-no-proposed-product-demand-as-commitment",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "source_obligation"
+    },
+    {
+      "sourceStatementId": "SS-027",
+      "obligationPartId": "OP-027-b",
+      "ruleId": "BR-027-proposed-product-demand-classification-available",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "evaluation_precondition"
+    },
+    {
+      "sourceStatementId": "SS-028",
+      "obligationPartId": "OP-028-a",
+      "ruleId": "BR-028-no-omission-of-withdrawn-or-declined",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "source_obligation"
+    },
+    {
+      "sourceStatementId": "SS-028",
+      "obligationPartId": "OP-028-b",
+      "ruleId": "BR-028-withdrawn-or-declined-classification-available",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "evaluation_precondition"
+    },
+    {
+      "sourceStatementId": "SS-039",
+      "obligationPartId": "OP-039-a",
+      "ruleId": "BR-039-absence-is-not-contradiction",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "source_obligation"
+    },
+    {
+      "sourceStatementId": "SS-039",
+      "obligationPartId": "OP-039-b",
+      "ruleId": "BR-039-absence-basis-classification-available",
+      "role": "primary",
+      "disposition": "rule-covered",
+      "derivationBasis": "evaluation_precondition"
+    },
+    {
+      "sourceStatementId": "SS-004",
+      "obligationPartId": "OP-004-b",
+      "ruleId": "BR-004-no-screening-sheet-as-market-proof",
+      "role": "supporting",
+      "disposition": "rule-covered",
+      "derivationBasis": "evaluation_precondition"
+    },
+    {
+      "sourceStatementId": "SS-009",
+      "obligationPartId": "OP-009-b",
+      "ruleId": "BR-009-no-automatic-supersession",
+      "role": "supporting",
+      "disposition": "rule-covered",
+      "derivationBasis": "evaluation_precondition"
+    },
+    {
+      "sourceStatementId": "SS-027",
+      "obligationPartId": "OP-027-b",
+      "ruleId": "BR-027-no-proposed-product-demand-as-commitment",
+      "role": "supporting",
+      "disposition": "rule-covered",
+      "derivationBasis": "evaluation_precondition"
+    },
+    {
+      "sourceStatementId": "SS-028",
+      "obligationPartId": "OP-028-b",
+      "ruleId": "BR-028-no-omission-of-withdrawn-or-declined",
+      "role": "supporting",
+      "disposition": "rule-covered",
+      "derivationBasis": "evaluation_precondition"
+    },
+    {
+      "sourceStatementId": "SS-039",
+      "obligationPartId": "OP-039-b",
+      "ruleId": "BR-039-absence-is-not-contradiction",
+      "role": "supporting",
+      "disposition": "rule-covered",
+      "derivationBasis": "evaluation_precondition"
+    }
+  ]
+}

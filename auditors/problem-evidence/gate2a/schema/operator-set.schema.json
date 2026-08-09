@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://evidencegate.local/auditors/problem-evidence/gate2a/schema/operator-set.schema.json",
+  "title": "Gate 2A-P Operator Set",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "packageId": {
+      "const": "gate2a-p-operator-set"
+    },
+    "contractVersion": {
+      "const": "0.15.0-draft"
+    },
+    "operators": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "operator": {
+            "type": "string",
+            "minLength": 1
+          },
+          "supportStatus": {
+            "enum": [
+              "usable-in-design",
+              "unsupported"
+            ]
+          },
+          "inputs": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "proves": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "cannotProve": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "evaluator": {
+            "enum": [
+              "deterministic",
+              "human",
+              "external-then-deterministic"
+            ]
+          },
+          "trustEstablishment": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "stage": {
+                "const": "external-human-or-authority"
+              },
+              "mustPin": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "establishedInRepository": {
+                "const": false
+              }
+            },
+            "required": [
+              "stage",
+              "mustPin",
+              "establishedInRepository"
+            ]
+          },
+          "degradedEvidenceOutcome": {
+            "enum": [
+              "indeterminate",
+              "not-applicable",
+              "violation"
+            ]
+          }
+        },
+        "required": [
+          "operator",
+          "supportStatus",
+          "inputs",
+          "proves",
+          "cannotProve",
+          "evaluator",
+          "trustEstablishment",
+          "degradedEvidenceOutcome"
+        ]
+      }
+    }
+  },
+  "required": [
+    "packageId",
+    "contractVersion",
+    "operators"
+  ]
+}

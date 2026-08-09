@@ -1,0 +1,172 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://evidencegate.local/auditors/problem-evidence/gate2a/schema/lifecycle-state.schema.json",
+  "title": "Gate 2A-P Lifecycle Dimensions",
+  "description": "Independent dimensions and their allowed states. Current state is deliberately absent: it is mutable and lives in the detached lifecycle-state record so that a transition never mutates digest-bound content. Formal acceptance is deliberately absent as a repository state.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "packageId": {
+      "const": "gate2a-p-lifecycle-state"
+    },
+    "contractVersion": {
+      "const": "0.15.0-draft"
+    },
+    "stateRecordPath": {
+      "const": "auditors/problem-evidence/gate2a/records/lifecycle-state-record.json"
+    },
+    "designReview": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "allowedStates": {
+          "const": [
+            "pending-owner-review",
+            "design-approved"
+          ]
+        },
+        "stateHeldExternally": {
+          "const": true
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "allowedStates",
+        "stateHeldExternally",
+        "note"
+      ]
+    },
+    "operationalComparatorUse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "allowedStates": {
+          "const": [
+            "prohibited",
+            "permitted"
+          ]
+        },
+        "changeableByGate2AP": {
+          "const": false
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "allowedStates",
+        "changeableByGate2AP",
+        "note"
+      ]
+    },
+    "runtimeEnforcement": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "allowedStates": {
+          "const": [
+            "disabled",
+            "enabled"
+          ]
+        },
+        "changeableByGate2AP": {
+          "const": false
+        },
+        "authorizingGate": {
+          "const": "Gate 2B"
+        }
+      },
+      "required": [
+        "allowedStates",
+        "changeableByGate2AP",
+        "authorizingGate"
+      ]
+    },
+    "modelCompatibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "changeableByGate2AP": {
+          "const": false
+        },
+        "authorizingGate": {
+          "const": "Gate 2C"
+        }
+      },
+      "required": [
+        "changeableByGate2AP",
+        "authorizingGate"
+      ]
+    },
+    "formalPhase1Acceptance": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "representedAsRepositoryState": {
+          "const": false
+        },
+        "requires": {
+          "const": "detached external authority"
+        },
+        "cannotBeConferredBy": {
+          "type": "array",
+          "minItems": 6,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "representedAsRepositoryState",
+        "requires",
+        "cannotBeConferredBy"
+      ]
+    },
+    "crossDimensionalInvariants": {
+      "type": "array",
+      "minItems": 6,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^X-[0-9]+$"
+          },
+          "invariant": {
+            "type": "string",
+            "minLength": 1
+          },
+          "enforcedBy": {
+            "enum": [
+              "json-schema",
+              "deterministic-cross-document",
+              "human-review"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "invariant",
+          "enforcedBy"
+        ]
+      }
+    }
+  },
+  "required": [
+    "packageId",
+    "contractVersion",
+    "stateRecordPath",
+    "designReview",
+    "operationalComparatorUse",
+    "runtimeEnforcement",
+    "modelCompatibility",
+    "formalPhase1Acceptance",
+    "crossDimensionalInvariants"
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "packageId": "gate2a-p-operator-set",
+  "contractVersion": "0.15.0-draft",
+  "operators": [
+    {
+      "operator": "declaredStepPrecedes",
+      "supportStatus": "usable-in-design",
+      "inputs": [
+        "/behaviorPlan/steps[].ordinal",
+        "step selector for the earlier step",
+        "step selector for the later step"
+      ],
+      "proves": [
+        "The submitted structured output represents the earlier step before the later step."
+      ],
+      "cannotProve": [
+        "That any event occurred in that order in the real world.",
+        "That the author intended the declared order.",
+        "That execution would follow the declared order."
+      ],
+      "evaluator": "deterministic",
+      "trustEstablishment": null,
+      "degradedEvidenceOutcome": "indeterminate"
+    },
+    {
+      "operator": "observedEventPrecedes",
+      "supportStatus": "unsupported",
+      "inputs": [
+        "two event references carrying independently produced event times",
+        "an approved and pinned event-source configuration"
+      ],
+      "proves": [
+        "Ordering within an approved evidence model, once and only once the event source and its configuration have been externally approved and pinned."
+      ],
+      "cannotProve": [
+        "That the event really occurred.",
+        "That the timestamp was honestly generated.",
+        "That the source was uncompromised.",
+        "That the clock was correct.",
+        "That no relevant event was omitted."
+      ],
+      "evaluator": "external-then-deterministic",
+      "trustEstablishment": {
+        "stage": "external-human-or-authority",
+        "mustPin": [
+          "approved event source",
+          "producing system or actor",
+          "capture semantics",
+          "clock assumptions",
+          "mutability or append-only behaviour",
+          "evidence identity",
+          "integrity controls",
+          "configuration identity",
+          "known tampering risks",
+          "approved scope of use"
+        ],
+        "establishedInRepository": false
+      },
+      "degradedEvidenceOutcome": "indeterminate"
+    }
+  ]
+}

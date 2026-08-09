@@ -1,0 +1,184 @@
+{
+  "packageId": "gate2a-p-outcome-taxonomy",
+  "contractVersion": "0.15.0-draft",
+  "resultClassByDerivation": {
+    "source_obligation": "normative",
+    "evaluation_proxy": "proxy",
+    "evaluation_precondition": "precondition",
+    "note": "Normative conclusions are obligation_satisfied and obligation_violation. condition_not_met is a diagnostic activation result emitted BY a normative conditional rule; it is not itself a normative conclusion and never counts toward compliance."
+  },
+  "normativeOutcomes": [
+    {
+      "outcome": "obligation_satisfied",
+      "definition": "The rule applied, required input and evidence were available, the evaluator executed successfully, and the normative invariant held.",
+      "preconditions": [
+        "derivationBasis is source_obligation",
+        "rule applicable",
+        "required input and evidence present",
+        "evaluator executed successfully",
+        "invariant satisfied"
+      ],
+      "isPass": true,
+      "isProductFinding": true,
+      "countsAsObligationCompliance": true
+    },
+    {
+      "outcome": "obligation_violation",
+      "definition": "As above, but the normative invariant was not satisfied.",
+      "preconditions": [
+        "derivationBasis is source_obligation",
+        "rule applicable",
+        "required input and evidence present",
+        "evaluator executed successfully",
+        "invariant not satisfied"
+      ],
+      "isPass": false,
+      "isProductFinding": true,
+      "countsAsObligationCompliance": false
+    },
+    {
+      "outcome": "indeterminate",
+      "definition": "No reliable compliance conclusion can be drawn. Never a pass and never a violation.",
+      "preconditions": [
+        "evidence missing, conflicting, insufficient, or untrusted",
+        "or required provenance not approved",
+        "or applicability cannot be safely determined"
+      ],
+      "isPass": false,
+      "isProductFinding": false,
+      "countsAsObligationCompliance": false
+    },
+    {
+      "outcome": "evaluator_error",
+      "definition": "The evaluator could not execute correctly because of a programming, configuration, schema, dependency, or runtime problem. A defect in the evaluator, not a finding about the audited product.",
+      "preconditions": [
+        "evaluator raised or failed to execute"
+      ],
+      "isPass": false,
+      "isProductFinding": false,
+      "countsAsObligationCompliance": false
+    },
+    {
+      "outcome": "not_applicable",
+      "definition": "An approved applicability predicate establishes that the obligation does not apply.",
+      "preconditions": [
+        "approved applicability predicate evaluated false"
+      ],
+      "isPass": false,
+      "isProductFinding": false,
+      "countsAsObligationCompliance": false
+    }
+  ],
+  "proxyResults": [
+    {
+      "outcome": "proxy_condition_met",
+      "definition": "The proxy condition held. This says nothing about whether the source obligation it stands in for was satisfied.",
+      "preconditions": [
+        "derivationBasis is evaluation_proxy",
+        "proxy condition evaluable",
+        "condition held"
+      ],
+      "isPass": false,
+      "isProductFinding": false,
+      "countsAsObligationCompliance": false
+    },
+    {
+      "outcome": "proxy_condition_not_met",
+      "definition": "The proxy condition did not hold. This is not a product finding and is not an obligation violation.",
+      "preconditions": [
+        "derivationBasis is evaluation_proxy",
+        "proxy condition evaluable",
+        "condition did not hold"
+      ],
+      "isPass": false,
+      "isProductFinding": false,
+      "countsAsObligationCompliance": false
+    },
+    {
+      "outcome": "indeterminate",
+      "definition": "The proxy condition could not be evaluated.",
+      "preconditions": [
+        "required declared content absent or conflicting"
+      ],
+      "isPass": false,
+      "isProductFinding": false,
+      "countsAsObligationCompliance": false
+    },
+    {
+      "outcome": "evaluator_error",
+      "definition": "The proxy evaluator could not execute correctly.",
+      "preconditions": [
+        "evaluator raised or failed to execute"
+      ],
+      "isPass": false,
+      "isProductFinding": false,
+      "countsAsObligationCompliance": false
+    }
+  ],
+  "preconditionResults": [
+    {
+      "outcome": "precondition_available",
+      "definition": "The evaluator input was obtained. This is not an obligation outcome.",
+      "preconditions": [
+        "derivationBasis is evaluation_precondition",
+        "input obtained"
+      ],
+      "isPass": false,
+      "isProductFinding": false,
+      "countsAsObligationCompliance": false
+    },
+    {
+      "outcome": "precondition_unavailable",
+      "definition": "The evaluator input was not obtained. This is an input problem, never a product finding.",
+      "preconditions": [
+        "derivationBasis is evaluation_precondition",
+        "input not obtained"
+      ],
+      "isPass": false,
+      "isProductFinding": false,
+      "countsAsObligationCompliance": false
+    },
+    {
+      "outcome": "evaluator_error",
+      "definition": "The precondition evaluator could not execute correctly.",
+      "preconditions": [
+        "evaluator raised or failed to execute"
+      ],
+      "isPass": false,
+      "isProductFinding": false,
+      "countsAsObligationCompliance": false
+    }
+  ],
+  "notApplicableReachability": "not_applicable is currently unreachable by every pilot rule. It may be assigned only when an approved applicability predicate evaluates false, and every pilot rule carries applicability.predicateApproved = false. It is retained so that evidence absence can never be routed to it; absence yields indeterminate.",
+  "prohibitedConflations": [
+    "Missing evidence must never be reported as obligation_violation.",
+    "Evaluator failure must never be reported as a product finding or obligation_violation.",
+    "not_applicable must never be inferred from absence of evidence; only an approved applicability predicate may establish it.",
+    "indeterminate must never be counted as a passing rule.",
+    "obligation_satisfied must never be assigned when any required input, evidence, or provenance approval is missing; that case is indeterminate.",
+    "A proxy result must never be reported as satisfying or violating the source obligation it stands in for.",
+    "proxy_condition_met must never be converted into obligation_satisfied without separately approved bridge authority.",
+    "proxy_condition_not_met must never be converted into obligation_violation without separately approved bridge authority.",
+    "A precondition result must never be reported as an obligation outcome; an evaluator input is not a normative obligation.",
+    "Proxy and precondition results must never count as source-derived coverage.",
+    "A false antecedent must never be reported as obligation_satisfied; that would imply the consequence was fulfilled when it was never activated.",
+    "condition_not_met must never be counted toward normative compliance totals.",
+    "condition_not_met must never be conflated with indeterminate: the first means the condition was evaluated and did not hold, the second means it could not be evaluated."
+  ],
+  "vacuousSatisfactionPolicy": "Vacuous satisfaction is not used. When a conditional rule's antecedent is false the result is condition_not_met, a diagnostic activation result rather than a normative conclusion. It carries countsAsObligationCompliance false, so it can never inflate compliance totals, and it is distinct from indeterminate, which means the antecedent could not be evaluated at all.",
+  "diagnosticActivationResults": [
+    {
+      "outcome": "condition_not_met",
+      "definition": "Emitted by a normative conditional rule when its antecedent was evaluated on trusted evidence and did not hold, so the conditional consequence was never activated. This is a diagnostic activation result, not a normative conclusion: it asserts nothing about whether the obligation was fulfilled.",
+      "preconditions": [
+        "derivationBasis is source_obligation",
+        "the rule declares an antecedent",
+        "the antecedent was evaluated on trusted evidence",
+        "the antecedent did not hold"
+      ],
+      "isPass": false,
+      "isProductFinding": false,
+      "countsAsObligationCompliance": false
+    }
+  ]
+}

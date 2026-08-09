@@ -1,0 +1,146 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://evidencegate.local/auditors/problem-evidence/gate2a/schema/lifecycle-state-record.schema.json",
+  "title": "Gate 2A-P Lifecycle State Record",
+  "description": "Detached, digest-bound projection of current lifecycle state. Derived from the single authoritative design-review record and never an independent source of truth. Excluded from the package digest so that a transition never mutates reviewed content. Not authenticated identity, not detached authority.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "recordId": {
+      "const": "gate2a-p-lifecycle-state-record"
+    },
+    "contractVersion": {
+      "const": "0.15.0-draft"
+    },
+    "recordKind": {
+      "const": "lifecycle-state"
+    },
+    "governedArtifactPath": {
+      "const": "auditors/problem-evidence/gate2a/manifest.json"
+    },
+    "governedArtifactVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "governedArtifactDigest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "digestAlgorithm": {
+      "const": "json.dumps-sort-keys-compact-sha256"
+    },
+    "designReview": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "allowedStates": {
+          "const": [
+            "pending-owner-review",
+            "design-approved"
+          ]
+        },
+        "currentState": {
+          "enum": [
+            "pending-owner-review",
+            "design-approved"
+          ]
+        },
+        "derivedFromRecordPath": {
+          "const": "auditors/problem-evidence/gate2a/records/design-review-record.json"
+        },
+        "derivedFromRecordId": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "allowedStates",
+        "currentState",
+        "derivedFromRecordPath",
+        "derivedFromRecordId"
+      ]
+    },
+    "operationalComparatorUse": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "currentState": {
+          "const": "prohibited"
+        },
+        "changeableByGate2AP": {
+          "const": false
+        }
+      },
+      "required": [
+        "currentState",
+        "changeableByGate2AP"
+      ]
+    },
+    "runtimeEnforcement": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "currentState": {
+          "const": "disabled"
+        },
+        "changeableByGate2AP": {
+          "const": false
+        },
+        "authorizingGate": {
+          "const": "Gate 2B"
+        }
+      },
+      "required": [
+        "currentState",
+        "changeableByGate2AP",
+        "authorizingGate"
+      ]
+    },
+    "modelCompatibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "currentState": {
+          "const": "unresolved-offline"
+        },
+        "changeableByGate2AP": {
+          "const": false
+        },
+        "authorizingGate": {
+          "const": "Gate 2C"
+        }
+      },
+      "required": [
+        "currentState",
+        "changeableByGate2AP",
+        "authorizingGate"
+      ]
+    },
+    "formalPhase1Acceptance": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "representedAsRepositoryState": {
+          "const": false
+        }
+      },
+      "required": [
+        "representedAsRepositoryState"
+      ]
+    }
+  },
+  "required": [
+    "recordId",
+    "contractVersion",
+    "recordKind",
+    "governedArtifactPath",
+    "governedArtifactVersion",
+    "governedArtifactDigest",
+    "digestAlgorithm",
+    "designReview",
+    "operationalComparatorUse",
+    "runtimeEnforcement",
+    "modelCompatibility",
+    "formalPhase1Acceptance"
+  ]
+}

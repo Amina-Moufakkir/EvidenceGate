@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "2.0.0",
   "fixture": "missing-evidence.json",
   "packetId": "ccpa-missing-001",
   "packetPurpose": "fixture",
@@ -18,6 +18,7 @@
       "status": "not-testable",
       "evidenceIds": [],
       "contradictoryEvidenceIds": [],
+      "nonContributingEvidence": [],
       "missingEvidence": [
         "A written segment definition committing to an organization-size bound, a geography, a service line, and who in the company produces the proposal.",
         "A screening record showing the definition applied to named companies, with the boundary that decided each exclusion."
@@ -65,6 +66,29 @@
       "status": "not-testable",
       "evidenceIds": [],
       "contradictoryEvidenceIds": [],
+      "nonContributingEvidence": [
+        {
+          "evidenceId": "EV-001",
+          "qualification": "unsuitable",
+          "relationshipStatus": "not-applicable",
+          "reasonCodes": ["internal-assertion", "missing-required-measurement"],
+          "rationale": "EV-001 is the team's own unsupported duration assertion, not a record of an occurrence or a qualifying measurement."
+        },
+        {
+          "evidenceId": "EV-004",
+          "qualification": "unsuitable",
+          "relationshipStatus": "unresolved",
+          "reasonCodes": ["generalized-self-report", "missing-required-measurement", "segment-attribution-unavailable"],
+          "rationale": "EV-004 gives no duration or specific occurrence and lacks the company attributes needed to determine whether the source is in segment."
+        },
+        {
+          "evidenceId": "EV-006",
+          "qualification": "unsuitable",
+          "relationshipStatus": "not-applicable",
+          "reasonCodes": ["secondary-source", "requirement-fit-none", "segment-attribution-unavailable"],
+          "rationale": "EV-006 is a vendor marketing claim about undefined paperwork with no methodology, segment, or measurement of the claimed proposal-assembly behavior."
+        }
+      ],
       "missingEvidence": [
         "A stated duration in CL-002 in place of 'way too long', so that a measurement could fall on either side of it.",
         "One directly observed or instrumented record of an in-segment owner assembling a proposal — document version history, a screen recording, or a timed observation session.",
@@ -74,7 +98,7 @@
       "rationale": "The status is gated by a definition failure. CL-002 claims owners spend 'way too long', which names no duration; no observation could confirm or falsify it, so the evidence cannot be weighed against it. The evidence assessment is preserved below rather than discarded, and it is independently weak: the packet contains no record of the behavior occurring for any in-segment source. EV-001 is the team's own written assumption, EV-006 is a vendor's marketing claim with unpublished methodology about undefined 'paperwork', and EV-004 is a generalized account from a source whose company attributes were never recorded and who explicitly declined to give a duration. None of these is a record of an occurrence. Missing evidence is the whole of the finding here — nothing in this packet contradicts the claim.",
       "impact": "The team currently has no record that the behavior it intends to automate happens the way it believes, for anyone it can identify as a customer. Building against EV-001's five-hour figure would mean building against a number the team wrote down itself.",
       "recommendation": "Rewrite CL-002 with a duration the team is willing to be wrong about, then sit with one owner who meets the rewritten segment definition and record the full walkthrough-to-proposal cycle with timestamps, without prompting or assisting.",
-      "verificationTest": "Obtain document version history for the last five proposals from two owners who pass the rewritten screening. Compare measured active assembly time against the stated threshold: measurements above it support the claim, measurements at or below it falsify it. Either outcome moves this finding off not-testable.",
+      "verificationTest": "After defining the active-assembly measure and threshold, obtain document version history or direct observation for owners who pass the rewritten screening. One credible in-segment occurrence above the threshold supports this instance-scoped claim. An at-or-below measurement is non-qualifying and does not negate a separate qualifying occurrence; it contributes to fail only when it directly falsifies the claim at its predefined source, instance, period, and threshold and no comparably credible qualifying occurrence remains within this packet. Otherwise use partial for credible same-scope conflict or not-testable for missing or unsuitable evidence.",
       "requiresHumanDecision": false,
       "claimIds": ["CL-002"],
       "subAssessments": {
@@ -107,6 +131,7 @@
       "status": "not-testable",
       "evidenceIds": [],
       "contradictoryEvidenceIds": [],
+      "nonContributingEvidence": [],
       "missingEvidence": [
         "A continuous proposal count over at least eight consecutive weeks for any owner — calendar entries, CRM opportunity records, or proposal-tool exports with dates.",
         "Any dated record of a proposal being produced by an identified in-segment owner."
@@ -148,6 +173,7 @@
       "status": "not-testable",
       "evidenceIds": [],
       "contradictoryEvidenceIds": [],
+      "nonContributingEvidence": [],
       "missingEvidence": [
         "Buyer correspondence for bids recorded as lost, stating in the buyer's own words whether the proposal arrived after the decision.",
         "A bid log from any in-segment owner recording proposal send dates against buyer deadlines and outcomes.",
@@ -190,6 +216,7 @@
       "status": "not-testable",
       "evidenceIds": [],
       "contradictoryEvidenceIds": [],
+      "nonContributingEvidence": [],
       "missingEvidence": [
         "A claim about resources already committed to the existing problem, in place of CL-005's claim about willingness to pay for the proposed product.",
         "Expense records, contractor invoices, subscription histories or payroll allocations from in-segment owners, filtered to proposal and bid work.",
